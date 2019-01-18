@@ -1,5 +1,6 @@
 name = 'GROMACS'
 version = '2018.4'
+versionsuffix = '-double'
 
 homepage = 'http://www.gromacs.org'
 description = """
