@@ -1,0 +1,25 @@
+name = 'GROMACS'
+version = '2018.4'
+versionsuffix = '-double'
+
+homepage = 'http://www.gromacs.org'
+description = """
+GROMACS is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+
+This is a CPU only build, containing both MPI and threadMPI builds.
+"""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+toolchainopts = {'openmp': True, 'usempi': True}
+
+source_urls = ['ftp://ftp.gromacs.org/pub/gromacs/']
+sources = [SOURCELOWER_TAR_GZ]
+patches = ['GROMACS-2018_dont_do_gpu_tests_on_cpu_build.patch']
+builddependencies = [
+    ('CMake', '3.11.4'),
+]
+
+configopts = '-DGMX_DOUBLE=on'
+
+moduleclass = 'bio'

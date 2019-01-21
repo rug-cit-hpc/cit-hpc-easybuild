@@ -1,0 +1,27 @@
+name = 'GROMACS'
+version = '2018.4'
+
+homepage = 'http://www.gromacs.org'
+description = """
+GROMACS is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+
+This is a GPU enabled build, containing both MPI and threadMPI binaries.
+"""
+
+toolchain = {'name': 'fosscuda', 'version': '2018a'}
+toolchainopts = {'openmp': True, 'usempi': True}
+
+source_urls = ['ftp://ftp.gromacs.org/pub/gromacs/']
+sources = [SOURCELOWER_TAR_GZ]
+"""
+patches = [
+    'GROMACS-2018_fix_search_for_nvml_include.patch',
+    'GROMACS-2018_amend_search_for_nvml_lib.patch',
+]
+"""
+builddependencies = [
+    ('CMake', '3.11.4'),
+]
+
+moduleclass = 'bio'
