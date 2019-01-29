@@ -19,7 +19,8 @@ builddependencies = [
 dependencies = [
     ('Python', '3.6.4'),
     ('wheel', '0.31.0', versionsuffix),
-    ('h5py', '2.7.1', versionsuffix),
+    ('h5py', '2.7.1', versionsuffix,('foss','2018a')),
+    ('cuDNN', '7.0.5.15'),
 ]
 
 use_pip = True
