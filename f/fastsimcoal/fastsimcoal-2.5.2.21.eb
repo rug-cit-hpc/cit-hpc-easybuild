@@ -1,0 +1,30 @@
+# This file is an EasyBuild reciPY as per https://github.com/hpcugent/easybuild
+
+name = 'fastsimcoal'
+version = '2.5.2.21'
+
+easyblock = 'PackedBinary'
+
+homepage = 'http://cmpg.unibe.ch/software/fastsimcoal2/'
+description = """While preserving all the simulation flexibility of simcoal2,
+fastsimcoal is now implemented under a faster continous-time sequential 
+Markovian coalescent approximation, allowing it to efficiently generate 
+genetic diversity for different types of markers along large genomic regions, 
+for both present or ancient samples. It includes a parameter sampler allowing 
+its integration into Bayesian or likelihood parameter estimation procedure."""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+source_urls = [('http://cmpg.unibe.ch/software/fastsimcoal2/downloads/')]
+sources = ['fsc_linux64.zip']
+checksums = [('md5', 'f07ed6b8c012cd634f3b287f8b957883')]
+
+postinstallcmds = ['chmod a+rx %(installdir)s/fsc25221']
+
+sanity_check_paths = {
+    'files': ['fastsimcoal25.pdf','fsc25221'],
+    'dirs': ['example files'],
+}
+
+moduleclass = 'bio'
+
