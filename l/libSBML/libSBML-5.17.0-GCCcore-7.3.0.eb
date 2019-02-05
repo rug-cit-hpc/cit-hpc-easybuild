@@ -1,0 +1,25 @@
+easyblock = 'CMakeMake'
+
+name = 'libSBML'
+version = '5.17.0'
+
+homepage = 'https://sourceforge.net/projects/sbml/files/libsbml/5.17.0/stable/'
+description = """A file format for exchanging computational models in systems biology."""
+
+toolchain = {'name': 'GCCcore', 'version': '7.3.0'}
+
+source_urls = ['https://sourceforge.net/projects/sbml/files/libsbml/5.17.0/stable/']
+sources = ['libSBML-5.17.0-core-src.tar.gz']
+
+#configopts = '‐DENABLE_LAYOUT=1'
+separate_build_dir = True
+builddependencies = [('CMake', '3.11.4'), ('libxml2', '2.9.8'), ('binutils', '2.30')]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib64'],
+}
+
+parallel = 1
+
+moduleclass = 'bio'

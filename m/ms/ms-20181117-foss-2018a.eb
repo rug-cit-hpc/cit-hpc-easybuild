@@ -1,0 +1,27 @@
+easyblock = 'CmdCp'
+
+name = 'ms'
+version = '20181117'
+
+homepage = 'http://home.uchicago.edu/rhudson1/source/mksamples.html'
+description = """ms - a program for generating samples under neutral models."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+#Manual download from:
+#source_urls = ['https://uchicago.app.box.com/s/l3e5uf13tikfjm7e1il1eujitlsjdx13']
+
+sources = ['%(name)s.tar.gz']
+
+start_dir = 'msdir'
+
+cmds_map = [('.*', "$CC $CFLAGS %(name)s.c streec.c rand1.c -lm -o %(name)s")]
+
+files_to_copy = [(['ms'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/ms'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
