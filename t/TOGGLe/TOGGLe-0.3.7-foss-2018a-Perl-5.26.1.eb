@@ -1,0 +1,69 @@
+easyblock = 'Tarball'
+
+name = 'TOGGLe'
+version = '0.3.7'
+versionsuffix = '-Perl-%(perlver)s'
+
+homepage = 'http://toggle.southgreen.fr/home/'
+description = """ TOGGLE (TOolbox for Generic nGs anaLysEs) is a suite of 19 packages and more than 110 modules able to manage a large set of NGS software and utilities to easily design pipelines able to handle hundreds of samples. """
+
+toolchain = {'name' : 'foss', 'version' : '2018a'}
+
+source_urls = ['https://github.com/SouthGreenPlatform/TOGGLE/archive/']
+sources = ['%(version)s.tar.gz']
+
+dependencies = [
+	('Perl','5.26.1'),
+	('Java','1.8','',True),
+	('BWA','0.7.17'),
+	('SAMtools','1.9'),
+	('FastQC','0.11.7','-Java-1.8',True),
+	('picard','2.18.17','-Java-1.8',True),
+	('GATK','4.1.0.0','-Java-1.8'),
+]
+
+exts_defaultclass = 'PerlModule'
+exts_filter = ("perldoc -lm %(ext_name)s ", "")
+
+exts_list = [
+	# Dependencies, in the order they're listed on TOGGLe's installation page
+	('Capture::Tiny','0.48', {
+		'source_tmpl' : 'Capture-Tiny-%(version)s.tar.gz',
+		'source_urls' : ['https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/'],
+	}),
+	('Data::Translate','0.3', {
+		'source_tmpl' : 'Data_Translate-%(version)s.tar.gz',
+		'source_urls' : ['https://cpan.metacpan.org/authors/id/D/DA/DAVIEIRA/'],
+	}),
+	('Data::Dumper','2.173', {
+		'source_tmpl' : 'Data-Dumper-%(version)s.tar.gz',
+		'source_urls' : ['https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/'],
+	}),
+	('Getopt::ArgParse','1.0.6', {
+		'source_tmpl' : 'Getopt-ArgParse-%(version)s.tar.gz',
+		'source_urls' : ['https://cpan.metacpan.org/authors/id/M/MY/MYTRAM'],
+	}),
+	('List::Compare','0.53', {
+		'source_tmpl' : 'List-Compare-%(version)s.tar.gz',
+		'source_urls' : ['https://cpan.metacpan.org/authors/id/J/JK/JKEENAN/'],
+	}),
+	('Switch','2.17', {
+		'source_tmpl' : 'Switch-%(version)s.tar.gz',
+		'source_urls' : ['https://cpan.metacpan.org/authors/id/C/CH/CHORNY/'],
+	}),
+	('Test::More','1.001014', {
+		'source_tmpl' : 'Test-Simple-%(version)s.tar.gz',
+		'source_urls' : ['https://cpan.metacpan.org/authors/id/E/EX/EXODIST/'],
+	}),
+	('Test::Deep','0.119', {
+		'source_tmpl' : 'Test-Deep-%(version)s.tar.gz',
+		'source_urls' : ['https://cpan.metacpan.org/authors/id/R/RJ/RJBS/'],
+	}),
+]
+
+modextrapaths = {
+	'PERL5LIB':'lib/perl5/site_perl/%(perlver)s/',
+}
+
+moduleclass = 'bio'
+
