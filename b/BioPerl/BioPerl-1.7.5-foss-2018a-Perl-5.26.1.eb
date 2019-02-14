@@ -30,7 +30,7 @@ exts_list = [
 	}),
 	(name,version, {
 		'modulename' : 'Bio::Perl',
-		'source_tmpl': 'BioPerl-v%(version)s.tar.gz' % version,
+		'source_tmpl': 'BioPerl-v%(version)s.tar.gz',
 		'source_urls': ['https://github.com/bioperl/bioperl-live/archive/'],
 	}),
 ]
