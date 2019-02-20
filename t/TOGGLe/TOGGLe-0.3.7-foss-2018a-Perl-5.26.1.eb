@@ -20,6 +20,12 @@ dependencies = [
 	('FastQC','0.11.7','-Java-1.8',True),
 	('picard','2.18.17','-Java-1.8',True),
 	('GATK','4.1.0.0','-Java-1.8'),
+	('Trimmomatic','0.38','-Java-1.8','True'),
+	('Bowtie','1.2.2'),
+	('Bowtie2','2.3.4.3'),
+	('snpEff','4.3t','-Java-1.8','True'),
+	('BEDTools','2.27.1'),
+	('angsd','0.925'),
 ]
 
 exts_defaultclass = 'PerlModule'

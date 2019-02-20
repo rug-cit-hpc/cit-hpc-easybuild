@@ -1,7 +1,7 @@
-easyblock = 'Bundle'
+easyblock = 'PerlModule'
 
 name = 'BioPerl'
-version = '1.7.5'
+version = '1.7.2'
 versionsuffix = '-Perl-%(perlver)s'
 
 homepage = 'http://www.bioperl.org/'
@@ -10,13 +10,17 @@ description = """Bioperl is the product of a community effort to produce Perl co
 
 toolchain = {'name': 'foss', 'version': '2018a'}
 
-exts_defaultclass = 'PerlModule'
-exts_filter = ("perldoc -lm %(ext_name)s ","")
+source_urls = ['https://cpan.metacpan.org/authors/id/C/CD/CDRAUG/']
+sources = ['BioPerl-%s.tar.gz' % version.replace('.','-')]
+options = {'modulename': 'Bio::Perl'}
 
 dependencies = [
     ('Perl', '5.26.1'),
-    #('XML-LibXML', '2.0132', versionsuffix),
+    ('XML-LibXML', '2.0132', versionsuffix),
 ]
+
+exts_defaultclass = 'PerlModule'
+exts_filter = ("perldoc -lm %(ext_name)s ","")
 
 exts_list = [
 	('CGI', '4.28', {
@@ -28,11 +32,6 @@ exts_list = [
 		'source_tmpl': 'BioPerl-Run-1.007003.tar.gz',
 		'source_urls': [' https://cpan.metacpan.org/authors/id/C/CJ/CJFIELDS/'],
 	}),
-	(name,version, {
-		'modulename' : 'Bio::Perl',
-		'source_tmpl': 'BioPerl-v%(version)s.tar.gz',
-		'source_urls': ['https://github.com/bioperl/bioperl-live/archive/'],
-	}),
 ]
 
 modextrapaths = {
@@ -40,3 +39,11 @@ modextrapaths = {
 }
 
 moduleclass = 'bio'
+
+""" Putting this here in case I need it back
+	(name,version, {
+		'modulename' : 'Bio::Perl',
+		'source_tmpl': 'BioPerl-%(version)s.tar.gz',
+		'source_urls': ['https://cpan.metacpan.org/authors/id/C/CD/CDRAUG/'],
+	}),
+"""

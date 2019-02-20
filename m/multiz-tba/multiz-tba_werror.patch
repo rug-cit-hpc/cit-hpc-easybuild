@@ -1,0 +1,9 @@
+--- Makefile.orig	2017-06-13 11:58:44.000000000 +0200
++++ Makefile	2017-06-13 11:58:25.000000000 +0200
+@@ -1,5 +1,5 @@
+ CC = gcc
+-CFLAGS = -Wall -Wextra -Werror
++CFLAGS = -Wall -Wextra
+ CFLAGS += -O0
+ #CFLAGS += -ggdb3
+ #CFLAGS += -pg
