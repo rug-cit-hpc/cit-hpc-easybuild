@@ -1,0 +1,17 @@
+name = 'OpenJDK'
+version = '11.0.2'
+
+homepage = 'http://jdk.java.net'
+description = """OpenJDK is the open-source reference implementation of version 
+11 of the Java SE 11 Platform as specified by by JSR 384 in the Java 
+Community Process."""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+source_urls = ['https://download.java.net/java/GA/jdk11/9/GPL/']
+#https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
+
+sources = ['openjdk-%s_linux-x64_bin.tar.gz' % version]
+checksums = ['99be79935354f5c0df1ad293620ea36d13f48ec3ea870c838f20c504c9668b57']
+
+moduleclass = 'lang'

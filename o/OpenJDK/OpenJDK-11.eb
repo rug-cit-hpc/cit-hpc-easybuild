@@ -1,0 +1,15 @@
+easyblock = 'ModuleRC'
+
+name = 'OpenJDK'
+version = '11'
+
+homepage = 'http://jdk.java.net'
+description = """OpenJDK is the open-source reference implementation of version
+11 of the Java SE 11 Platform as specified by by JSR 384 in the Java
+Community Process."""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+dependencies = [('OpenJDK', '%(version)s.0.2')]
+
+moduleclass = 'lang'
