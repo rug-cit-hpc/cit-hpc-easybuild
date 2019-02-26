@@ -10,17 +10,12 @@ toolchainopts = {'optarch': True}
 
 source_urls = ['https://github.com/trinityrnaseq/trinityrnaseq/archive/']
 sources = ['%(name)s-v%(version)s.tar.gz']
-checksums = [
-    # chrysalis_commandline_noconsts_2012-10-05.patch
-    '3442803c357576557de843c80b73436e59e9a99027d60f5f63bb3368eceb4a5c',
-]
 
-patches = [
-    'chrysalis_commandline_noconsts_2012-10-05.patch',
-]
+#patches = ['chrysalis_commandline_noconsts_2012-10-05.patch']
 
 builddependencies = [
     ('Autotools', '20170619'),
+    ('CMake','3.11.4'),
 ]
 
 dependencies = [
@@ -28,7 +23,7 @@ dependencies = [
     ('ant', '1.10.1', '-Java-%(javaver)s', True),
     ('Bowtie', '1.2.2'),
     ('Bowtie2', '2.3.4.3'),
-    ('ncurses', '6.0'),
+    ('ncurses', '6.0','', True),
     ('zlib', '1.2.11'),
     ('Perl', '5.26.1'),
 ]
