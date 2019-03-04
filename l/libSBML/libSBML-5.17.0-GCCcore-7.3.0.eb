@@ -9,9 +9,9 @@ description = """A file format for exchanging computational models in systems bi
 toolchain = {'name': 'GCCcore', 'version': '7.3.0'}
 
 source_urls = ['https://sourceforge.net/projects/sbml/files/libsbml/5.17.0/stable/']
-sources = ['libSBML-5.17.0-core-src.tar.gz']
+sources = ['libSBML-5.17.0-core-plus-packages-src.tar.gz']
 
-#configopts = '‐DENABLE_LAYOUT=1'
+configopts = '-DENABLE_FBC:BOOL=ON -DENABLE_COMP:BOOL=ON -DENABLE_GROUPS:BOOL=ON -DENABLE_LAYOUT:BOOL=ON -DENABLE_MULTI:BOOL=ON -DENABLE_QUAL:BOOL=ON -DENABLE_RENDER:BOOL=ON'
 separate_build_dir = True
 builddependencies = [('CMake', '3.11.4'), ('libxml2', '2.9.8'), ('binutils', '2.30')]
 
