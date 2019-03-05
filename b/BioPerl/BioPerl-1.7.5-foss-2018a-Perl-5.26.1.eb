@@ -1,7 +1,7 @@
 easyblock = 'PerlModule'
 
 name = 'BioPerl'
-version = '1.7.2'
+version = '1.7.5'
 versionsuffix = '-Perl-%(perlver)s'
 
 homepage = 'http://www.bioperl.org/'
@@ -11,7 +11,7 @@ description = """Bioperl is the product of a community effort to produce Perl co
 toolchain = {'name': 'foss', 'version': '2018a'}
 
 source_urls = ['https://cpan.metacpan.org/authors/id/C/CD/CDRAUG/']
-sources = ['BioPerl-%s.tar.gz' % version.replace('.','-')]
+sources = ['BioPerl-%s.tar.gz' % version]
 options = {'modulename': 'Bio::Perl'}
 
 dependencies = [

@@ -27,7 +27,7 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('CUDA', '8.0.61', '', True),
+    ('CUDA', '10.0.130', '', True),
 ]
 
 patches = [
