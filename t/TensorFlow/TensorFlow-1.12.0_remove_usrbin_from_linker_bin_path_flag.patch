@@ -1,4 +1,4 @@
-# Remove -B/usr/bin from link_bin_path_flag, as it causes a possibly
+# Remove -B/usr/bin from linker_bin_path_flag, as it causes a possibly
 # incompatible linker from the system to be used.
 #
 # Fokke Dijkstra, 20190228
