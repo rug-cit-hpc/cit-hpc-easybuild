@@ -11,21 +11,35 @@ toolchain = {'name' : 'foss', 'version' : '2018a'}
 
 source_urls = ['https://github.com/SouthGreenPlatform/TOGGLE/archive/']
 sources = ['%(version)s.tar.gz']
+patches = ['TOGGLe_localConfig.patch']
+
+javaver = '-Java-1.8'
+pyver   = '-Python-2.7.14'
 
 dependencies = [
 	('Perl','5.26.1'),
 	('Java','1.8','',True),
 	('BWA','0.7.17'),
 	('SAMtools','1.9'),
-	('FastQC','0.11.7','-Java-1.8',True),
-	('picard','2.18.17','-Java-1.8',True),
-	('GATK','4.1.0.0','-Java-1.8'),
-	('Trimmomatic','0.38','-Java-1.8','True'),
+	('FastQC','0.11.7',javaver,True),
+	('picard','2.18.17',javaver,True),
+	('GATK','4.1.0.0',javaver,True),
+	('Trimmomatic','0.38',javaver,True),
 	('Bowtie','1.2.2'),
 	('Bowtie2','2.3.4.3'),
-	('snpEff','4.3t','-Java-1.8','True'),
+	('snpEff','4.1g',javaver,True),
 	('BEDTools','2.27.1'),
 	('angsd','0.925'),
+	('cutadapt','1.18',pyver),
+	('Stacks','2.3b'),
+	('ea-utils','27a4809'),
+	#('FASTX-Toolkit','0.0.14'), # Not ready yet
+	('TopHat','2.1.2'),
+	('Trinity','2.8.4'),
+	('ABySS','2.0.2'),
+	('ngsutils','0.5.9',pyver),
+	('snpEff','4.1g',javaver,True),
+	('hisat2','2.0.4',pyver),
 ]
 
 exts_defaultclass = 'PerlModule'
@@ -65,10 +79,27 @@ exts_list = [
 		'source_tmpl' : 'Test-Deep-%(version)s.tar.gz',
 		'source_urls' : ['https://cpan.metacpan.org/authors/id/R/RJ/RJBS/'],
 	}),
+	('Sub::Quote','2.006003', {
+		'source_tmpl' : 'Sub-Quote-%(version)s.tar.gz',
+		'source_urls' : ['https://cpan.metacpan.org/authors/id/H/HA/HAARG/'],
+	}),
+	('Switch','2.17', {
+		'source_tmpl' : 'Switch-%(version)s.tar.gz',
+		'source_urls' : ['https://cpan.metacpan.org/authors/id/C/CH/CHORNY/'],
+	}),
 ]
 
+sanity_check_paths = {
+	'files' : ['toggleGenerator.pl'],
+	'dirs'  : [],
+}
+
 modextrapaths = {
-	'PERL5LIB':'lib/perl5/site_perl/%(perlver)s/',
+	'PERL5LIB':[
+		'lib/perl5/site_perl/%(perlver)s/',
+		'modules/',
+	],
+	'PATH': [''],
 }
 
 moduleclass = 'bio'
