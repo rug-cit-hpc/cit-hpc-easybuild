@@ -13,7 +13,7 @@ source_urls = ['http://cole-trapnell-lab.github.io/%(namelower)s/assets/download
 sources = [SOURCELOWER_TAR_GZ]
 patches = [
     '%(name)s-%(version)s_fix-boost-inc.patch',
-    '%(name)s-%(version)s_fix-gcc7.patch', # not using gcc7 so maybe we don't need this patch
+    '%(name)s-%(version)s_fix-gcc7.patch',
     '%(name)s-%(version)s_fix-liblemon.patch',
 ]
 checksums = [
@@ -25,16 +25,15 @@ checksums = [
 
 builddependencies = [
     ('Eigen', '3.3.4', '', True),
-    ('SAMtools', '1.9'),
-    ('HTSlib','1.9'),
+    ('SAMtools', '0.1.20'),
 ]
 dependencies = [
     ('Boost', '1.66.0'),
     ('zlib', '1.2.11'),
 ]
 
-preconfigopts = ['env CPPFLAGS=-I$EBROOTEIGEN/include']
-configopts = '--with-boost=$EBROOTBOOST --with-bam-libdir=${EBROOTSAMTOOLS}/lib' # original: --with-bam-libdir
+preconfigopts = 'env CPPFLAGS=-I$EBROOTEIGEN/include'
+configopts = '--with-boost=$EBROOTBOOST --with-bam-libdir=${EBROOTSAMTOOLS}/lib'
 
 sanity_check_paths = {
     'files': ['bin/%(namelower)s'],
