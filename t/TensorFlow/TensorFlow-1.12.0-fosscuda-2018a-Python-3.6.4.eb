@@ -19,7 +19,7 @@ builddependencies = [
 dependencies = [
     ('Python', '3.6.4'),
     ('wheel', '0.31.0', versionsuffix),
-    ('h5py', '2.7.1', versionsuffix,('foss','2018a')),
+    ('h5py', '2.7.1', versionsuffix),
     ('cuDNN', '7.0.5.15'),
     ('NCCL', '2.3.7'),
 ]
