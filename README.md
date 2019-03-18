@@ -1,2 +1,2 @@
-# cit-hpc-easyconfigs
-EasyBuild easyconfig files, which are used on our local facilities
+# cit-hpc-easybuild
+EasyBuild files files, which are used on our local facilities.
