@@ -8,7 +8,7 @@ version = '7.1.4.18'
 homepage = 'https://developer.nvidia.com/cudnn'
 description = """The NVIDIA CUDA Deep Neural Network library (cuDNN) is a GPU-accelerated library of primitives for deep neural networks."""
 
-# fosscuda 2018b uses CUDA 9.2
+# fosscuda 2018a uses CUDA 9.1
 toolchain = {'name': 'fosscuda', 'version': '2018a'}
 
 # Nvidia developer registration required.
@@ -17,8 +17,8 @@ toolchain = {'name': 'fosscuda', 'version': '2018a'}
 # Then rename as:
 # v=`strings -a cuda/lib64/libcudnn_static.a | grep cudnn_version_ | cut -d_ -f3-6 | tr _ .`
 # mv cudnn-9.2-linux-x64-v7.1.tgz cudnn-9.2-linux-x64-v$v.tgz
-sources = ['%(namelower)s-9.2-linux-x64-v%(version)s.tgz']
-checksums = ['f875340f812b942408098e4c9807cb4f8bdaea0db7c48613acece10c7c827101']
+sources = ['%(namelower)s-9.0-linux-x64-v%(version)s.tgz']
+checksums = ['60b581d0f05324c33323024a264aa3fb185c533e2f67dae7fda847b926bb7e57']
 
 sanity_check_paths = {
     'files': ['include/cudnn.h', 'lib64/libcudnn_static.a'],
