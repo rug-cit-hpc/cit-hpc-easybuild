@@ -1,0 +1,32 @@
+easyblock = 'Tarball'
+
+name = 'DuplicationDetector'
+version = '1.1'
+versionsuffix = '-Perl-%(perlver)s'
+
+homepage = 'https://github.com/SouthGreenPlatform/duplicationDetector'
+description = """ duplicationDetector is an accurate and very fast tool to easily and successfully detect duplicated genes or regions in any autogamous species. It relies on the abnormal number of heterozygous in a given interval for an autogamous (and thus highly homozygous) species. In addition, it does not need another large computational time as it will use classical output of NGS SNP analysis, the VCF file. """
+
+toolchain = {'name':'foss', 'version':'2018a'} # putting this on a toolchain because the Perl dependency is on a toolchain as well
+
+source_urls = ['https://github.com/SouthGreenPlatform/duplicationDetector/archive/']
+sources = ['%(version)s.tar.gz']
+
+dependencies = [
+	('Perl','5.26.1'),
+	('BEDTools','2.27.1'),
+]
+
+sanity_check_paths = {
+	'files': ['duplicationDetector.pl'],
+	'dirs' : [],
+}
+
+modextrapaths = {
+        'PERL5LIB':[
+                'lib/perl5/site_perl/%(perlver)s/',
+        ],
+        'PATH': [''],
+}
+
+moduleclass = 'bio'

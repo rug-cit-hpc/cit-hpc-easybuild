@@ -1,0 +1,22 @@
+easyblock = 'CMakeMake'
+
+name = 'BreakDancer'
+version = '1.4.5'
+
+homepage = 'http://breakdancer.sourceforge.net'
+description = """ BreakDancer-1.1, released under GPLv3, is a Perl/Cpp package that provides genome-wide detection of structural variants from next generation paired-end sequencing reads. It includes two complementary programs."""
+
+toolchain = {'name' : 'foss', 'version':'2018a'}
+
+source_urls = ['https://github.com/genome/breakdancer/archive/']
+sources = ['v%(version)s.tar.gz']
+
+builddependencies = [
+	('CMake','3.11.4'),
+]
+
+configopts = [
+	'-DCMAKE_BUILD_TYPE=release',
+]
+
+moduleclass = 'bio'
