@@ -7,12 +7,17 @@ homepage = 'http://crac.gforge.inria.fr'
 description = """CRAC is the only RNA-Seq mapping software that include the discovery of transcriptomic and genomic variants like splice junction, chimeric junction, SNVs, Indels in a single analysis step using a built-in error detection method enabling high precison and sensitivity."""
 
 toolchain = {'name' : 'foss', 'version':'2018a'}
+toolchainopts = {'pic':True}
 
 source_urls = ['https://gforge.inria.fr/frs/download.php/file/35495/']
 sources = [SOURCELOWER_TAR_GZ]
+patches = [
+	'crac-2.5.0_math-patch.patch',
+]
 
 dependencies = [
-	('HTSlib','1.9','-2.28') # Zlib 1.2.11 already a dependency of this so we don't have to load it here as well
+	('zlib','1.2.11'),
+	('HTSlib','1.9'), # Zlib 1.2.11 already a dependency of this so we don't have to load it here as well
 ]
 
 moduleclass = 'bio'

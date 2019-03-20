@@ -33,20 +33,24 @@ dependencies = [
 	('cutadapt','1.18',pyver),
 	('Stacks','2.3b'),
 	('ea-utils','27a4809'),
-	#('FASTX-Toolkit','0.0.14'), # Not ready yet
+	('FASTX-Toolkit','0.0.14'),
 	('TopHat','2.1.2'),
 	('Trinity','2.8.4'),
 	('ABySS','2.0.2'),
 	('ngsutils','0.5.9',pyver),
 	('snpEff','4.1g',javaver,True),
 	('hisat2','2.0.4',pyver),
+	('Cufflinks','2.2.1'),
+	('Graphviz','2.40.1'),
+	('DuplicationDetector','1.1',versionsuffix),
+	('crac','2.5.0'),
+	('TGICL','2.1',versionsuffix),
 ]
 
 exts_defaultclass = 'PerlModule'
 exts_filter = ("perldoc -lm %(ext_name)s ", "")
 
 exts_list = [
-	# Dependencies, in the order they're listed on TOGGLe's installation page
 	('Capture::Tiny','0.48', {
 		'source_tmpl' : 'Capture-Tiny-%(version)s.tar.gz',
 		'source_urls' : ['https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/'],

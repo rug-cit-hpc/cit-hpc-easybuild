@@ -1,0 +1,24 @@
+easyblock = 'Tarball'
+
+name = 'TGICL'
+version = '2.1'
+versionsuffix = '-Perl-%(perlver)s'
+
+homepage = 'https://omictools.com/tgicl-tool'
+description = """ Analyses large Expressed Sequence Tags (EST) and mRNA databases in which the sequences are clustered based on pairwise sequence similarity. TGICL then assembles them by individual clusters (optionally with quality values) to produce longer, more complete consensus sequences. The system can run on multi-CPU architectures including SMP (Symmetric multiprocessing) and PVM (Parallel Virtual Machine). """
+
+toolchain = {'name' : 'foss','version' : '2018a'}
+
+source_urls = ['https://sourceforge.net/projects/tgicl/files/tgicl%20v2.1/']
+sources = ['TGICL-%(version)s.tar.gz']
+patches = ['TGICL_shebang.patch']
+
+dependencies = [
+	('Perl','5.26.1'),
+]
+
+modextrapaths = {
+	'PERL5LIB' : ['bin/'],
+}
+
+moduleclass = 'bio'

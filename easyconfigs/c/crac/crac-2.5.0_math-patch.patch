@@ -1,0 +1,11 @@
+diff -ur crac-2.5.0.orig/src/Support.cpp crac-2.5.0/src/Support.cpp
+--- crac-2.5.0.orig/src/Support.cpp	2019-03-19 11:39:40.000000000 +0100
++++ crac-2.5.0/src/Support.cpp	2019-03-19 11:40:05.000000000 +0100
+@@ -53,6 +53,7 @@
+ #include <utility>
+ #include <vector>
+ #include <algorithm>
++#include <cmath>
+ #include "Support.h"
+ #include "BreakList.h"
+ #include "utils.h"
