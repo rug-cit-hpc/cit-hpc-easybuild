@@ -14,7 +14,7 @@ toolchain = {'name': 'foss', 'version': '2018a'}
 # Download all tarballs from https://github.com/BioPP/
 #source_urls = ['https://github.com/BioPP/']
 source_urls = ['https://github.com/BioPP/']
-sources = ['%s/archive/v2.4.1.tar.gz' % x for x in ['bpp-core', 'bpp-seq', 'bpp-seq-omics', 'bpp-phyl', 'bpp-phyl-omics', 'bpp-popgen']]
+sources = ['%s/archive/v2.4.1.tar.gz' % x for x in ['bpp-core', 'bpp-seq', 'bpp-seq-omics', 'bpp-phyl', 'bpp-phyl-omics', 'bpp-popgen', 'bppsuite']]
 
 builddependencies = [
     ('CMake', '3.11.4'),
@@ -27,6 +27,7 @@ preconfigopts = [
     'cd %(builddir)s/bpp-phyl-%(version)s &&',
     'cd %(builddir)s/bpp-phyl-omics-%(version)s &&',
     'cd %(builddir)s/bpp-popgen-%(version)s &&',
+    'cd %(builddir)s/bppsuite-%(version)s &&',
 ]
 
 prebuildopts = preconfigopts
