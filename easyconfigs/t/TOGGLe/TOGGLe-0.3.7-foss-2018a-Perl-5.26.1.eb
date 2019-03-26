@@ -23,7 +23,7 @@ dependencies = [
 	('SAMtools','1.9'),
 	('FastQC','0.11.7',javaver,True),
 	('picard','2.18.17',javaver,True),
-	('GATK','3.8.0',javaver,True),
+	('GATK','3.8-0',javaver,True),
 	('Trimmomatic','0.38',javaver,True),
 	('Bowtie','1.2.2'),
 	('Bowtie2','2.3.4.3'),
