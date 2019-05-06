@@ -1,0 +1,24 @@
+easyblock = 'Binary'
+
+name = 'Mplus'
+version = '8.2'
+#versionsuffix = '-linux-x86_64'
+
+homepage = 'https://www.statmodel.com/'
+description = """Mplus is a statistical modeling program that provides researchers with a flexible tool to analyze 
+                 their data. Mplus offers researchers a wide choice of models, estimators, and algorithms in a program 
+                 that has an easy-to-use interface and graphical displays of data and analysis results."""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+#source_urls = ['http://platanus.bio.titech.ac.jp/Platanus_release/20130901010201']
+sources = ['ComboLinux64_v82.bin']
+install_cmd = 'export IATEMPDIR=/local/tmp && ./ComboLinux64_v82.bin -i silent -DUSER_INSTALL_DIR=%(installdir)s -DCHOOSE_FEATURE_LIST=Application,Examples -DCHOOSE_INSTALL_FEATURE_LIST=Application,Examples -DCHOOSE_INSTALL_SET=Typical'
+#checksums = ['02cf92847ec704d010a54df293b9c60a']
+
+sanity_check_paths = {
+    'files': ['mplus'],
+    'dirs': [],
+}
+
+moduleclass = 'math'
