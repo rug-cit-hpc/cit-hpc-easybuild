@@ -1,0 +1,31 @@
+easyblock = 'ConfigureMake'
+
+name = 'AdmixTools'
+version = '2017_06_29'
+
+homepage = 'https://github.com/DReichLab/AdmixTools'
+description = 'Tools test whether admixture occurred and more'
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+
+source_urls = ['https://github.com/DReichLab/AdmixTools/archive/']
+sources = ['master.tar.gz']
+
+start_dir = 'src'
+
+dependencies = [
+		('GSL', '2.1'),
+		('Boost', '1.61.0'),
+		]
+
+skipsteps = ['configure']
+prebuildopts = 'cd ../src && make clobber && '
+installopts = ' && cp -r ../bin/ %(installdir)s/'
+#files_to_copy = [(['convertf'], 'bin')]
+
+sanity_check_paths = {
+			'files': ['bin/convertf'],
+			'dirs':  ['bin']
+		     }
+
+moduleclass = 'bio'

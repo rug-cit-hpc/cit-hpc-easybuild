@@ -1,0 +1,23 @@
+easyblock = 'MakeCp'
+
+name = 'ChartDirector'
+version = '6.0'
+
+homepage = 'http://www.advsofteng.net/'
+description = """Universal chart and graph component and control library for .NET (C#/VB), Java, C++, ASP, COM, PHP, Perl, Python, Ruby, ColdFusion. """
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+source_urls = ['http://www.advsofteng.net/']
+sources = ['chartdir_cpp_linux_64.tar.gz']
+
+files_to_copy = ['include', 'lib']
+
+skipsteps = ['configure', 'build']
+
+sanity_check_paths = {
+    'files': ['include/bchartdir.h',  'include/chartdir.h', 'include/FinanceChart.h',  'include/memblock.h', ],
+    'dirs': ['include', 'lib']
+}
+
+moduleclass = 'lib'

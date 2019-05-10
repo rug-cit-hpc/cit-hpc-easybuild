@@ -1,0 +1,27 @@
+easyblock = 'PackedBinary'
+
+name = 'icmake'
+version = '9.02.07'
+
+homepage = 'http://icmake.sourceforge.net/'
+description = """Icmake is a hybrid between a 'make' utility and a 'shell script' language. Originally, it was written to
+ provide a useful tool for automatic program maintenance and system administrative tasks on old MS-DOS platforms."""
+
+toolchain = {'name': 'GCC', 'version': '7.3.0-2.30'}
+toolchainopts = {'optarch': True, 'pic': True}
+
+source_urls = ['https://github.com/fbb-git/%(name)s/archive/']
+sources = ['%(version)s.tar.gz']
+
+install_cmd = 'cd %(name)s-%(version)s/%(name)s && ./icm_prepare %(installdir)s && ./icm_bootstrap x && ./icm_install strip all /'
+
+modextrapaths = {'PATH': 'usr/bin'}
+
+sanity_check_paths = {
+                      'files': ['usr/bin/icmake', 'usr/bin/icmbuild', 'usr/bin/icmstart',
+                                'usr/lib/icmake/icm-comp', 'usr/lib/icmake/icm-exec', 'usr/lib/icmake/icm-pp',
+                                'etc/icmake/icmstart.rc'],
+                      'dirs': []
+                     }
+
+moduleclass = 'devel'

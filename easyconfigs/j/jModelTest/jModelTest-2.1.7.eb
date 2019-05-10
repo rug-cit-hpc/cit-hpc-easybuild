@@ -1,0 +1,35 @@
+# This file is an EasyBuild reciPY as per https://github.com/hpcugent/easybuild
+# Author: Fokke Dijkstra
+# University of Groningen
+# Groningen - Netherlands
+
+easyblock = "Tarball"
+
+name = 'jModelTest'
+version = '2.1.7'
+
+homepage = 'https://code.google.com/p/jmodeltest2/' 
+description = """
+jModelTest is a tool to carry out statistical selection of best-fit models of nucleotide substitution. It implements five different model selection strategies: hierarchical and dynamical likelihood ratio tests (hLRT and dLRT), Akaike and Bayesian information criteria (AIC and BIC), and a decision theory method (DT).
+"""
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+# Download manually, as the download is on Google Drive
+source_urls = ['https://code.google.com/p/jmodeltest2/']
+sources = [SOURCELOWER_TAR_GZ]
+
+postinstallcmds=[
+'cat >%(installdir)s/jmodeltest << EOF\n#!/bin/bash\njava -jar $EBROOTJMODELTEST/jModelTest.jar $*\nEOF',
+'chmod +x %(installdir)s/jmodeltest'
+]
+
+modextrapaths = {'PATH': ''}
+
+sanity_check_paths = { 
+    'files': ["runjmodeltest-gui.sh"],
+    'dirs': []
+}
+
+osdependencies = ['java-1.7.0-openjdk-devel']
+
+moduleclass = 'bio'

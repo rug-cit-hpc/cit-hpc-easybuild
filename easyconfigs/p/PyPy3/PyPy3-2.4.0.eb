@@ -1,0 +1,27 @@
+# This file is an EasyBuild reciPY as per https://github.com/hpcugent/easybuild
+# Author: Fokke Dijkstra
+# University of Groningen
+# Groningen - Netherlands
+
+easyblock = "Tarball"
+
+name = 'PyPy3'
+version = '2.4.0'
+
+homepage = 'http://pypy.org' 
+description = """'
+PyPy is a fast, compliant alternative implementation of the Python language (2.7.8 and 3.2.5).
+"""
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+# Download portable builds from bitbucket, instead of the main
+# pypy site.
+source_urls = ['https://bitbucket.org/squeaky/portable-pypy/downloads/']
+sources = ['pypy3-2.4-linux_x86_64-portable.tar.bz2']
+
+sanity_check_paths = { 
+    'files': ["bin/%s" % binfile for binfile in ['pypy','pypy3','pypy3.2','virtualenv-pypy']],
+    'dirs': ['bin','lib','site-packages']
+}
+
+moduleclass = 'lang'

@@ -1,0 +1,29 @@
+easyblock = 'MakeCp'
+
+name = 'RepeatScout'
+version = '1.0.5'
+versionsuffix = '-Perl-%(perlver)s'
+
+homepage = 'http://www.repeatmasker.org/'
+description = """RepeatScout is a tool to discover repetitive substrings in DNA."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['https://bix.ucsd.edu/repeatscout/']
+sources = ['%(name)s-%(version)s.tar.gz']
+
+files_to_copy = ['RepeatScout', 'README', 'build_lmer_table', 'filter-stage-1.prl', \
+                 'filter-stage-2.prl', 'merge-lmer-tables.prl', 'compare-out-to-gff.prl']
+
+dependencies = [
+    ('Perl', '5.26.1'),
+]
+
+skipsteps = ['configure']
+
+sanity_check_paths = {
+    'files': ['RepeatScout', 'README', 'build_lmer_table', 'filter-stage-1.prl', 'filter-stage-2.prl', 'merge-lmer-tables.prl', 'compare-out-to-gff.prl'],
+    'dirs': []
+}
+
+moduleclass = 'bio'

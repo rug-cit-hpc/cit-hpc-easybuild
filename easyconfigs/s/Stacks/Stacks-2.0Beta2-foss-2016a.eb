@@ -1,0 +1,36 @@
+easyblock = 'ConfigureMake'
+
+name = 'Stacks'
+version = '2.0Beta2'
+
+homepage = 'http://creskolab.uoregon.edu/stacks/'
+description = """Stacks is a software pipeline for building loci from short-read sequences, such as those generated on
+ the Illumina platform. Stacks was developed to work with restriction enzyme-based data, such as RAD-seq,
+ for the purpose of building genetic maps and conducting population genomics and phylogeography.
+"""
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+
+source_urls = ['http://catchenlab.life.illinois.edu/stacks/source/']
+#sources = [SOURCELOWER_TAR_GZ] # for non beta version
+
+namelower = name.lower()
+
+sources = ['%(namelower)s-%(version)s.tar.gz']
+
+dependencies = [
+    ('zlib', '1.2.8'),
+    ('SAMtools', '1.3.1'),
+    ('sparsehash', '2.0.2'),
+]
+
+sanity_check_paths = {
+    'files': [
+        'bin/%s' % binfile for binfile in [
+            'clone_filter','count_fixed_catalog_snps.py','cstacks','denovo_map.pl','exec_velvet.pl','export_sql.pl','genotypes','gstacks','index_radtags.pl','integrate_alignments.py','kmer_filter','load_radtags.pl','load_sequences.pl','phasedstacks','populations','process_radtags','process_shortreads','pstacks','ref_map.pl','sort_read_pairs.pl','sstacks','stacks_export_notify.pl','tsv2bam','ustacks'
+        ]
+    ],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

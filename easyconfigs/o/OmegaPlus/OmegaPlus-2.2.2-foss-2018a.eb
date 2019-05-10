@@ -1,0 +1,46 @@
+easyblock = 'MakeCp'
+
+name = 'OmegaPlus'
+version = '2.2.2'
+
+homepage = 'https://sco.h-its.org/exelixis/web/software/omegaplus/'
+description = """OmegaPlus Population Genetics code
+A parallel tool for rapid and scalable detection of selective sweeps in whole-genome datasets."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['https://sco.h-its.org/exelixis/resource/download/software/']
+sources = ['%(name)s_v%(version)s_Linux.tar.gz']
+
+buildopts = [
+    '-f Makefile.gcc',
+    '-f Makefile.PTHREADS.COARSE.gcc',
+    '-f Makefile.PTHREADS.FINE.gcc',
+    '-f Makefile.PTHREADS.MULTI.gcc'
+]
+
+# Dirty hack to remove redundant files that have been copied due to the wildcard.
+# Unfortunately it does not seem to be possible to specify a file_to_copy per build...
+postinstallcmds = ['rm %(installdir)s/bin/OmegaPlus.*', 'rm %(installdir)s/bin/OmegaPlus_*']
+
+files_to_copy = [
+    (['OmegaPlus*'], 'bin'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/OmegaPlus', 'bin/OmegaPlus-C', 'bin/OmegaPlus-F', 'bin/OmegaPlus-M'],
+    'dirs': [''],
+}
+
+modloadmsg = """This module contains four executables:
+
+OmegaPlus:   sequential version
+OmegaPlus-C: course-grained parallel version
+OmegaPlus-F: fine-grained parallel version
+OmegaPlus-M: multi-grained parallel version
+
+Please refer to the manual to find out more about the differences.
+
+"""
+
+moduleclass = 'bio'

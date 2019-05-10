@@ -1,0 +1,29 @@
+easyblock = 'PythonPackage'
+
+name = 'rpy2'
+version = '2.9.4'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'http://rpy.sourceforge.net/'
+
+description = """rpy2 is a redesign and rewrite of rpy. It is providing a low-level 
+interface to R from Python, a proposed high-level interface, including wrappers to 
+graphical libraries, as well as R-like structures and functions. """
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['be57f741d0c284b5d8785ab03dff0e829303e5ac30e548d5ceb46e05b168812e']
+
+dependencies = [
+    ('Python', '3.6.4'),
+    ('R', '3.4.4', '-X11-20180131'),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+moduleclass = 'lib'

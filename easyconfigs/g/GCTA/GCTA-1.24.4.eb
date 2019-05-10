@@ -1,0 +1,29 @@
+# This file is an EasyBuild reciPY as per https://github.com/hpcugent/easybuild
+# Author: Fokke Dijkstra
+# University of Groningen
+# Groningen - Netherlands
+
+easyblock = "BinariesTarball"
+
+name = 'GCTA'
+version = '1.24.4'
+
+homepage = 'http://www.complextraitgenomics.com/software/gcta/' 
+description = """
+GCTA (Genome-wide Complex Trait Analysis) was originally designed to estimate the proportion of phenotypic variance explained by genome- or chromosome-wide SNPs for complex traits (the GREML method), and has subsequently extended for many other analyses to better understand the genetic architecture of complex traits.
+"""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+source_urls = ['http://www.complextraitgenomics.com/software/gcta/']
+sources = ['gcta_%(version)s.zip']
+
+sanity_check_paths = { 
+    'files': ["bin/gcta64" ],
+    'dirs': []
+}
+
+osdependencies = ['java-1.7.0-openjdk-devel']
+
+moduleclass = 'bio'
+

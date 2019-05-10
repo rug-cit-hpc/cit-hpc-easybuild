@@ -1,0 +1,44 @@
+easyblock = 'CMakeMake'
+
+name = 'MafFilter'
+version = '1.2.1'
+git_hash = '5a2d68b'
+
+homepage = 'http://biopp.univ-montp2.fr/forge/maffilter'
+description = """MafFilter is a program to process genome alignment in the Multiple Alignment Format."""
+
+#toolchain = {'name': 'foss', 'version': '2016a'}
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+#source_urls = ['http://biopp.univ-montp2.fr/repos/exe/lin64/maffilter/']
+#sources = ['%(namelower)s-x86_64-bin-static-%(version)s.tar.gz']
+#sources = ['maffilter-git.tar.gz']
+
+skipsteps = ['fetch', 'source']
+
+preconfigopts = 'module load foss/2017a && git clone http://biopp.univ-montp2.fr/git/maffilter && cd maffilter && git checkout %s && ' % git_hash
+
+dependencies = [
+    ('zlib', '1.2.8', '', True),
+    ('ICU4C', '60.2'),
+    ('Bio++', '2.3.1', '' , ('foss', '2017a')),
+    ('bzip2', '1.0.6'),
+    ('Boost', '1.66.0'),
+]
+
+builddependencies = [
+    ('git', '2.16.1', '', ('foss', '2018a')),
+    ('CMake', '3.10.2', '', ('GCCcore', '6.4.0')),
+]
+
+configopts = "-DCMAKE_LIBRARY_PATH=$EBROOTBIOPLUSPLUS/lib64 -DCMAKE_INCLUDE_PATH=$EBROOTBIOPLUSPLUS/include -DBUILD_TESTING=FALSE -DCMAKE_PREFIX_PATH=$EBROOTBIOPLUSPLUS -DBoost_NO_BOOST_CMAKE=ON -DBOOST_ROOT=$EBROOTBOOST -Dbz2_INCLUDE_DIR=$EBROOTBZIP2/include -Dbz2_LIBRARY=$EBROOTBZIP2/lib"
+
+prebuildopts = 'cd maffilter && module load foss/2017a && '
+preinstallopts = 'cd maffilter && module load foss/2017a && '
+
+sanity_check_paths = {
+    'files': ['bin/maffilter'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

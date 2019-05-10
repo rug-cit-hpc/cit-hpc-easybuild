@@ -1,0 +1,31 @@
+easyblock = 'ConfigureMake'
+
+name = 'KAT'
+version = '2.3.4'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'http://www.earlham.ac.uk/kat-tools'
+description = """KAT is a suite of tools that generate, analyse 
+ and compare k-mer spectra produced from sequence files."""
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+
+source_urls = ['https://github.com/TGAC/KAT/releases/download/Release-%(version)s/']
+sources = [SOURCE_TAR_GZ]
+
+dependencies = [
+    ('Python', '3.5.1'),
+    ('Boost', '1.61.0', versionsuffix),
+    ('Sphinx', '1.4.8', versionsuffix),
+    ('matplotlib', '1.5.1', versionsuffix),
+]
+
+configopts = '--with-boost=$EBROOTBOOST'
+
+sanity_check_paths = {
+    'files': ['bin/kat','bin/kat_jellyfish','bin/kat_plot_density.py',
+              'lib/libkat.a','lib/libkat.so','lib/libkat_jellyfish.a'],
+    'dirs': ['include', 'share']
+}
+
+moduleclass = 'bio'

@@ -1,0 +1,29 @@
+easyblock = 'Tarball'
+
+name = 'CellRanger'
+version = '2.1.1'
+
+homepage = 'https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest'
+description = """Cell Ranger is a set of analysis pipelines that process Chromium single-cell RNA-seq output to align
+reads, generate gene-cell matrices and perform clustering and gene expression analysis. Cell Ranger includes four
+pipelines relevant to single-cell gene expression experiments."""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+# Manual download required, due to license.
+# source_urls = ['https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest/']
+sources = ['%(namelower)s-%(version)s.tar.gz']
+
+patches = [('slurm.template', 'martian-cs/2.3.2/jobmanagers')]
+
+keepsymlinks = True
+
+#modextrapaths = { 'PATH': ['cellranger-cs/2.1.0/bin'] }
+modextrapaths = { 'PATH': [''] }
+
+sanity_check_paths = {
+    'files': ["cellranger"],
+    'dirs': ["cellranger-cs"],
+} 
+
+moduleclass = 'bio'

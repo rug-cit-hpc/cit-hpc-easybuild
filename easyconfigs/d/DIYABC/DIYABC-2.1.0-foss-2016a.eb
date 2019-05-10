@@ -1,0 +1,28 @@
+easyblock = 'MakeCp'
+
+name = 'DIYABC'
+version = '2.1.0'
+
+homepage = 'http://www1.montpellier.inra.fr/CBGP/diyabc/'
+description = """A user-friendly approach to Approximate Bayesian Computation
+for inference on population history using molecular markers"""
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+
+source_urls = ['http://www1.montpellier.inra.fr/CBGP/diyabc/viewtopic.php?f=26&t=13986']
+sources = ['%(namelower)s-%(version)s-sources.zip']
+
+checksums = ['b9840f244c250ec57e8d9d40aeafac05']
+
+prebuildopts = 'MYFLAGS="-static"'
+
+executables = ['src-JMC-C++/general', 'src-JMC-C++/initRNGproject']
+files_to_copy = [(executables, 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/general', 'bin/initRNGproject'],
+    'dirs': []
+}
+
+moduleclass = 'bio'
+

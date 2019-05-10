@@ -1,0 +1,29 @@
+easyblock = 'MakeCp'
+
+name = 'RECON'
+version = '1.08'
+versionsuffix = '-Perl-%(perlver)s'
+
+homepage = 'http://www.repeatmasker.org/'
+description = """RECON: a package for automated de novo identification of repeat families from genomic sequences"""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['http://www.repeatmasker.org/RepeatModeler']
+sources = ['%(name)s-%(version)s.tar.gz']
+
+start_dir = 'src'
+files_to_copy = ['imagespread', 'eledef', 'eleredef', 'edgeredef', 'famdef']
+
+dependencies = [
+    ('Perl', '5.26.1'),
+]
+
+skipsteps = ['configure']
+
+sanity_check_paths = {
+    'files': ['imagespread', 'eledef', 'eleredef', 'edgeredef', 'famdef'],
+    'dirs': []
+}
+
+moduleclass = 'bio'

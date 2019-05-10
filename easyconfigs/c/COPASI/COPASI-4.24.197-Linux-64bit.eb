@@ -1,0 +1,27 @@
+easyblock = 'Binary'
+
+name = 'COPASI'
+version = '4.24.197'
+versionsuffix = '-Linux-64bit'
+
+homepage = 'http://copasi.org/'
+description = """COPASI is a software application for simulation and analysis of biochemical networks and their dynamics."""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+# Results for some functionals (e.g. mgga_c_tpss) deviate with too aggressive optimization settings.
+
+source_urls = ['https://github.com/copasi/COPASI/releases/download/Build-197/']
+sources = ['COPASI-%(version)s%(versionsuffix)s.tar.gz']
+#checksums = ['836692f2ab60ec3aca0cca105ed5d0baa7d182be07cc9d0daa7b80ee1362caf7']
+
+extract_sources = True
+prepend_to_path = ['bin/']
+
+sanity_check_paths = {
+    'files': ['bin/CopasiSE', 'bin/CopasiUI'],
+    'dirs': ['bin', 'share'],
+}
+
+parallel = 1
+
+moduleclass = 'chem'

@@ -1,0 +1,38 @@
+easyblock = 'ConfigureMake'
+
+name = 'RECON'
+version = '1.08'
+versionsuffix = '-Perl-%(perlver)s'
+
+homepage = 'http://www.repeatmasker.org/'
+description = """RECON: a package for automated de novo identification of repeat families from genomic sequences"""
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+
+source_urls = ['http://www.repeatmasker.org/RepeatModeler']
+sources = ['%(name)s-%(version)s.tar.gz']
+
+start_dir = 'src'
+files_to_copy = ['imagespread', 'eledef', 'eleredef', 'edgeredef', 'famdef']
+
+dependencies = [
+    ('Perl', '5.22.1'),
+]
+
+skipsteps = ['configure']
+
+postinstallcmds = [
+	"cp -r %(builddir)s/%(name)s-%(version)s/bin/  %(installdir)s/bin/",
+	"cp -r %(builddir)s/%(name)s-%(version)s/scripts/  %(installdir)s/scripts/",
+	"cp /home/f115417/Support/Software/recon.pl %(installdir)s/scripts/",
+	"cp -r %(builddir)s/%(name)s-%(version)s/Demos/ %(installdir)s/Demos/"
+]
+
+prepend_to_path = ['%(installdir)s']
+
+sanity_check_paths = {
+    'files': ['bin/imagespread', 'bin/eledef', 'bin/eleredef', 'bin/edgeredef', 'bin/famdef'],
+    'dirs': ['bin']
+}
+
+moduleclass = 'bio'

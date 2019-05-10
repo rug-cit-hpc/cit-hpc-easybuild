@@ -1,0 +1,30 @@
+easyblock = 'Tarball'
+
+name = 'Spark'
+version = '2.2.0'
+versionsuffix = '-Hadoop-2.7-Java-%(javaver)s'
+
+homepage = 'http://spark.apache.org'
+description = """Spark is Hadoop MapReduce done in memory"""
+
+toolchain = {'name': 'dummy', 'version': ''}
+
+sources = ['%(namelower)s-%(version)s-bin-hadoop2.7.tgz']
+source_urls = [
+    'http://apache.belnet.be/%(namelower)s/%(namelower)s-%(version)s/',
+    'http://www.eu.apache.org/dist/%(namelower)s/%(namelower)s-%(version)s/',
+    'http://www.us.apache.org/dist/%(namelower)s/%(namelower)s-%(version)s/',
+]
+checksums = ['97fd2cc58e08975d9c4e4ffa8d7f8012c0ac2792bcd9945ce2a561cf937aebcc']
+
+dependencies = [('Java', '1.8.0_152')]
+
+sanity_check_paths = {
+    'files': ['bin/spark-shell'],
+    'dirs': ['python']
+}
+
+modextrapaths = {'PYTHONPATH': 'python'}
+
+moduleclass = 'devel'
+

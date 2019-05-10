@@ -1,0 +1,25 @@
+easyblock = 'MakeCp'
+
+name = 'FR-HIT'
+version = '0.7.1'
+versionsuffix = '-2013-02-20'
+
+homepage = "http://weizhong-lab.ucsd.edu/frhit/"
+description = """FR-HIT is an efficient fragment recruitment program for next generation sequences against microbial
+ reference genomes. It produces similar sensitivity of BLASTN, but runs at a 100 times higher speed. """
+
+#toolchain = {'name': 'goolfc', 'version': '2.7.11'}
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+builddependencies = [('goolfc', '2.7.11')]
+
+source_urls = ['http://weizhong-lab.ucsd.edu/frhit/']
+sources = ['%(namelower)s-v%(version)s%(versionsuffix)s.tar.gz']
+
+files_to_copy = [(['fr-hit', 'frhit2pairend.pl', 'psl2sam.pl'],'bin'), 'LICENSE', 'README']
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['fr-hit', 'frhit2pairend.pl', 'psl2sam.pl']],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

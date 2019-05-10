@@ -1,0 +1,29 @@
+# This file is an EasyBuild reciPY as per https://github.com/hpcugent/easybuild
+
+name = 'ABCtoolbox'
+version = '1.0'
+
+easyblock = 'PackedBinary'
+
+homepage = 'http://www.philnat.unibe.ch/d_dbio/b_ioekev/abt_pg/content/services/computer_programs/abctoolbox/index_eng.html'
+description = """ABCtoolbox was designed to perform Approximate Bayesian Computation (ABC) 
+estimations using various recently published algorithms including MCMC 
+without likelihood and Population Monte Carlo. Due to its potential to 
+interact with almost any command line simulation software, 
+ABCtoolbox can be used to study problems in different areas 
+including genomics or population genetics."""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+source_urls = [('http://cmpg.unibe.ch/software/ABCtoolbox/')]
+sources = ['ABCtoolbox.zip']
+checksums = [('md5', '4bc532b72ee206af7fd31832c9b28f5a')]
+
+sanity_check_paths = {
+    'files': ['binaries/linux/ABCestimator', 'binaries/linux/ABCsampler'],
+    'dirs': ['binaries', 'example', 'manual', 'scripts', 'source'],
+}
+
+modextrapaths = {'PATH':['binaries/linux','scripts']}
+moduleclass = 'bio'
+

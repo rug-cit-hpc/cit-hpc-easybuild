@@ -1,0 +1,123 @@
+easyblock = 'MakeCp'
+
+name = 'LAMMPS'
+version = '11Aug17'
+versionsuffix = '-CUDA-9.1.85'
+
+homepage = 'http://lammps.sandia.gov/'
+description = """LAMMPS is a classical molecular dynamics code, 
+and an acronym for Large-scale Atomic/Molecular Massively Parallel Simulator."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['http://lammps.sandia.gov/tars/']
+sources = ['%(namelower)s-%(version)s.tar.gz']
+checksums = ['33431329fc735fb12d22ed33399235ef9506ba759a281a24028de538822af104']
+
+patches = [
+    ('Makefile.CUDA', 'src/MAKE'),
+    'LAMMPS-11Aug17_fix_CUDA.patch',
+]
+
+dependencies = [('CUDA', '9.1.85', '', True)]
+builddependencies = [('Python', '2.7.14')]
+
+# TODO: move this to an easyblock and allow the easyconfig
+# to enable/disable extensions/packages.
+prebuildopts = '''
+cd lib/gpu && 
+make CUDA_HOME=$EBROOTCUDA CUDA_LIB="-L$EBROOTCUDA/lib64 -L$EBROOTCUDA/lib64/stubs -L/usr/lib64/nvidia" CUDA_ARCH="-arch=sm_35" CUDR_CPP=mpicxx CUDR_OPTS="-O2" -f Makefile.linux && 
+cd ../../src &&
+
+make clean-all &&
+
+# Build internal dependencies for system packages
+make lib-reax args="-m mpi" &&
+make lib-poems args="-m mpi" &&
+#make lib-mscg args="-b -m mpi" &&
+make lib-meam args="-m mpi" &&
+make lib-voronoi args="-b" &&
+
+# Enable system packages
+make yes-gpu &&
+make yes-asphere &&
+make yes-body &&
+make yes-class2 &&
+make yes-colloid &&
+make yes-compress &&
+make yes-coreshell &&
+make yes-dipole &&
+make yes-granular &&
+#make yes-kim &&
+#make yes-kokkos &&
+make yes-kspace &&
+make yes-manybody &&
+make yes-mc &&
+make yes-meam &&
+make yes-misc &&
+make yes-molecule &&
+make yes-mpiio &&
+#make yes-mscg &&
+make yes-opt &&
+make yes-peri &&
+make yes-poems &&
+make yes-python &&
+make yes-qeq &&
+make yes-reax &&
+make yes-replica &&
+make yes-rigid &&
+make yes-shock &&
+make yes-snap &&
+make yes-srd &&
+make yes-voronoi &&
+
+# Build internal dependencies for user packages
+make lib-colvars args="-m mpi" &&
+#make lib-awpmd args="-m mpi" &&
+#make lib-atc args="-m mpi" &&
+
+# Enable user packages
+#make yes-user-atc &&
+#make yes-user-awpmd &&
+make yes-user-cgdna &&
+make yes-user-cgsdk &&
+make yes-user-colvars &&
+make yes-user-diffraction &&
+make yes-user-dpd &&
+make yes-user-drude &&
+make yes-user-eff &&
+make yes-user-fep &&
+#make yes-user-h5md &&
+make yes-user-intel &&
+make yes-user-lb &&
+make yes-user-manifold &&
+make yes-user-meamc &&
+make yes-user-mgpt &&
+make yes-user-misc &&
+#make yes-user-molfile &&
+#make yes-user-netcdf &&
+make yes-user-omp &&
+make yes-user-phonon &&
+#make yes-user-qmmm &&
+make yes-user-qtb &&
+#make yes-user-quip &&
+make yes-user-reaxc &&
+#make yes-user-smd &&
+make yes-user-smtbq &&
+make yes-user-sph &&
+make yes-user-tally &&
+#make yes-user-vtk &&
+'''
+
+buildopts = 'CUDA'
+
+files_to_copy = [
+    (['src/lmp_CUDA'], 'bin'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/lmp_CUDA'],
+    'dirs': [], 
+}
+
+moduleclass = 'chem'

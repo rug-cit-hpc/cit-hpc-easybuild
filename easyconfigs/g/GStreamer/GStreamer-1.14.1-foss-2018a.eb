@@ -1,0 +1,37 @@
+easyblock = 'ConfigureMake'
+
+name = 'GStreamer'
+version = '1.14.1'
+
+homepage = 'http://gstreamer.freedesktop.org/'
+description = """GStreamer is a library for constructing graphs of media-handling
+ components. The applications it supports range from simple
+ Ogg/Vorbis playback, audio/video streaming to complex audio
+ (mixing) and video (non-linear editing) processing."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['http://gstreamer.freedesktop.org/src/gstreamer']
+sources = [SOURCELOWER_TAR_XZ]
+
+dependencies = [
+    ('GObject-Introspection', '1.54.1', '-Python-2.7.14'),
+    ('GLib', '2.54.3'),
+    ('zlib', '1.2.11'),
+]
+
+builddependencies = [
+    ('Bison', '3.0.4'),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['include', 'share', 'libexec'],
+}
+
+modextrapaths = {
+    'GI_TYPELIB_PATH': 'share',
+    'XDG_DATA_DIRS': 'share',
+}
+
+moduleclass = 'vis'

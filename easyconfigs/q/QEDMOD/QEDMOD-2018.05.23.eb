@@ -1,0 +1,49 @@
+easyblock = 'MakeCp'
+
+name = 'QEDMOD'
+version = '2018.05.23'
+
+homepage = 'https://www.sciencedirect.com/science/article/pii/S0010465517303478'
+description = """
+ Fortran package QEDMOD for computing the model QED operator that can be used to account for the 
+ Lamb shift in accurate atomic-structure calculations. The package routines calculate the matrix 
+ elements of with the user-specified one-electron wave functions. The operator can be used to 
+ calculate Lamb shift in many-electron atomic systems with a typical accuracy of few percent, 
+ either by evaluating the matrix element of with the many-electron wave function, 
+ or by adding to the Dirac–Coulomb–Breit Hamiltonian.
+"""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+# source was obtained from Hallo Aberly 
+#source_urls = ['']
+sources = ['HFD_QED.tar']
+checksums = ['ecd5788a46d54df4b8440cf4112f862a31f99a32739620e0c77acbbcd9d78553']
+
+start_dir = 'hfd_qed'
+tmpdir = 'qedmod/src/potuse/'
+
+# make command in 3 directories.
+prebuildopts = ' make && cp ./hfd_gfortran.exe ../' + tmpdir + ' && '
+prebuildopts += ' cd ../qedmod/src/potgen && '
+prebuildopts += ' make && cp ./potgen_gfortran.exe ../potuse && '
+prebuildopts += ' cd ../potuse && '
+
+
+
+files = [
+    tmpdir + 'potgen_gfortran.exe',
+    tmpdir + 'potuse_gfortran.exe',
+    tmpdir + 'hfd_gfortran.exe',
+]
+
+files_to_copy = [
+    (files, 'bin')
+]
+
+sanity_check_paths = {
+    'files': [ 'bin/potgen_gfortran.exe', 'bin/potuse_gfortran.exe', 'bin/hfd_gfortran.exe', ],
+    'dirs': ['bin'],
+}
+
+moduleclass = 'bio'

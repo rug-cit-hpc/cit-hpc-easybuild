@@ -1,0 +1,21 @@
+name = 'Libint'
+version = '2.1.0'
+
+homepage = 'https://sourceforge.net/p/libint/'
+description = """Libint library is used to evaluate the traditional (electron repulsion) and certain novel two-body
+ matrix elements (integrals) over Cartesian Gaussian functions used in modern atomic and molecular theory."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+toolchainopts = {'pic': True}
+
+sources = ['libint-%(version)s-stable.tgz']
+source_urls = ['https://github.com/evaleev/libint/releases/download/v%(version)s']
+
+builddependencies = [
+    ('GMP', '6.1.2'),
+    ('Boost', '1.66.0', '-Python-2.7.14'),
+    ('Eigen', '3.3.4', '', True),
+    ('Python', '2.7.14'),
+]
+
+moduleclass = 'chem'

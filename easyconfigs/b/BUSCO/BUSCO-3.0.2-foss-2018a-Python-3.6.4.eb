@@ -1,0 +1,31 @@
+easyblock = 'PythonPackage'
+
+name = 'BUSCO'
+version = '3.0.2'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'http://busco.ezlab.org/'
+description = "BUSCO: assessing genome assembly and annotation completeness with single-copy orthologs"
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['https://gitlab.com/ezlab/%(namelower)s/-/archive/%(version)s/']
+sources = ['%(namelower)s-%(version)s.tar.bz2']
+
+dependencies = [
+    ('Python', '3.6.4'),
+    ('BLAST+', '2.7.1'),
+    ('HMMER', '3.1b2'),
+    ('AUGUSTUS', '3.3.1'),
+    ('EMBOSS', '6.6.0'),
+]
+
+# What should be installed?
+sanity_check_paths = {
+    'files': [], #'scripts/generate_plot.py', 'scripts/run_BUSCO.py'], #BuscoAnalysis.py', 'GeneSetAnalysis.py', 'GenomeAnalysis.py', 'TranscriptomeAnalysis.py'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+modextrapaths = {'PATH': 'lib/python%(pyshortver)s/site-packages/busco/'}
+
+moduleclass = 'bio'

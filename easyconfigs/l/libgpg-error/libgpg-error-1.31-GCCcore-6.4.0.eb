@@ -1,0 +1,22 @@
+easyblock = 'ConfigureMake'
+
+name = 'libgpg-error'
+version = '1.31'
+
+homepage = 'https://gnupg.org/related_software/libgpg-error/index.html'
+description = """Libgpg-error is a small library that defines common error values for all GnuPG components."""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+sources = [SOURCE_TAR_BZ2]
+source_urls = ['https://gnupg.org/ftp/gcrypt/%(name)s/']
+
+# use same binutils version that was used when building GCC toolchain
+builddependencies = [('binutils', '2.28', '', True)]
+
+sanity_check_paths = {
+    'files': ['bin/gpg-error-config', 'include/gpg-error.h', 'lib/libgpg-error.%s' % SHLIB_EXT],
+    'dirs': ['share']
+}
+
+moduleclass = 'system'

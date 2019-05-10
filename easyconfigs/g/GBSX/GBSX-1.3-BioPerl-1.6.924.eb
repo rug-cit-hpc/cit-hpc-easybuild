@@ -1,0 +1,33 @@
+easyblock = 'Binary'
+
+name = 'GBSX'
+version = '1.3'
+versionsuffix = '-BioPerl-1.6.924'
+
+homepage = 'https://github.com/GenomicsCoreLeuven/GBSX'
+description = """GBSX: a toolkit for experimental design and demultiplexing genotyping by sequencing experiments."""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+source_urls = ['https://github.com/GenomicsCoreLeuven/GBSX/releases/download/v%(version)s/']
+sources = ['%(name)s_digest_v1.1.pl', '%(name)s_v%(version)s.jar']
+checksums = ['ed640fec5efd20cc20d411936df49ea13b716975ce485c11bb22fbcc9c01b17f', '3a466426d99011b085138f5e9ebb3ef55d79ce47259beb4ecc2695b1069d2ced']
+
+dependencies = [
+    ('BioPerl', '1.6.924', '-Perl-5.22.1', ('foss', '2016a')),
+    ('Java', '1.8.0_162'),
+]
+
+sanity_check_paths = {
+    'files': ['%(name)s_digest_v1.1.pl', '%(name)s_v%(version)s.jar'],
+    'dirs': [],
+}
+
+modloadmsg = '''To use %(name)s, run:
+java -jar $EBROOTGBSX/%(name)s_v%(version)s.jar
+or:
+%(name)s_digest_v1.1.pl
+
+'''
+
+moduleclass = 'bio'

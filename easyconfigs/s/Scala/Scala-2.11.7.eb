@@ -1,0 +1,42 @@
+##
+# This file is an EasyBuild reciPY as per https://github.com/hpcugent/easybuild
+#
+# Copyright:: Copyright 2012-2014 NTUA
+# Authors::   Fotis Georgatos <fotis@cern.ch>
+# License::   MIT/GPL
+# $Id$
+#
+# This work implements a part of the HPCBIOS project and is a component of the policy:
+# http://hpcbios.readthedocs.org/en/latest/
+##
+
+easyblock = 'Tarball'
+
+name = 'Scala'
+version = '2.11.7'
+
+description = "Scala is a multi-paradigm programming language"
+
+# Don't include Java dependency for now. Looks like you can dynamically pick
+# an appropriate Java module yourself.
+#java = 'Java'
+#javaver = '1.8.0_31'
+#versionsuffix = '-%s-%s' % (java, javaver)
+#dependencies = [(java, javaver)]
+
+sources = [SOURCELOWER_TGZ]
+source_urls = ['http://downloads.typesafe.com/scala/%s/' % version]
+
+homepage = 'http://www.scala-lang.org/'
+
+#toolchain = {'name': 'goolf', 'version': '1.4.10'}
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+sanity_check_paths = {
+    'files': ['bin/scala', 'bin/scalac', 'bin/scalap'],
+    'dirs': ['bin', 'lib', 'doc', 'man'],
+}
+
+moduleclass = 'lang'
+modextravars = {'SCALA_HOME': '%(installdir)s'}
+

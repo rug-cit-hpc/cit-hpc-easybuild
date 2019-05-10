@@ -1,0 +1,31 @@
+easyblock = 'ConfigureMake'
+
+name = 'libXcomposite'
+version = '0.4.4'
+
+homepage = "http://www.freedesktop.org/wiki/Software/xlibs"
+description = """X11 Composite extension library"""
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+
+sources = [SOURCE_TAR_GZ]
+source_urls = [XORG_LIB_SOURCE]
+
+builddependencies = [
+    ('compositeproto','0.4.2'),
+    ('fixesproto', '5.0'),
+    ('xorg-macros', '1.19.0'),
+    ('xextproto', '7.3.0'),
+    ('xproto', '7.0.28'),
+]
+
+dependencies = [
+    ('libX11', '1.6.3'),
+]
+
+sanity_check_paths = {
+    'files': ['include/X11/extensions/Xcomposite.h', 'lib/libXcomposite.%s' % SHLIB_EXT, 'lib/libXcomposite.a'],
+    'dirs': [],
+}
+
+moduleclass = 'vis'

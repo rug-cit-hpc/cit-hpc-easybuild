@@ -1,0 +1,42 @@
+easyblock = 'MakeCp'
+
+name = 'RepeatScout'
+version = '1.0.5'
+versionsuffix = '-Perl-%(perlver)s'
+
+homepage = 'http://www.repeatmasker.org/'
+description = """RepeatScout is a tool to discover repetitive substrings in DNA."""
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+
+source_urls = ['https://bix.ucsd.edu/repeatscout/']
+sources = ['%(name)s-%(version)s.tar.gz']
+
+files_to_copy = ['RepeatScout', 'build_lmer_table', 'filter-stage-1.prl', \
+                 'filter-stage-2.prl', 'merge-lmer-tables.prl', 'compare-out-to-gff.prl']
+
+dependencies = [
+    ('Perl', '5.22.1'),
+]
+
+modextrapaths = {'PATH': 'bin'}
+
+skipsteps = ['configure']
+
+postinstallcmds = [
+	"mkdir %(installdir)s/bin", 
+        "cp %(builddir)s/%(name)s-1/RepeatScout  %(installdir)s/bin/",
+        "cp %(builddir)s/%(name)s-1/build_lmer_table  %(installdir)s/bin/",
+        "cp %(builddir)s/%(name)s-1/filter-stage-1.prl  %(installdir)s/bin/",
+        "cp %(builddir)s/%(name)s-1/filter-stage-2.prl  %(installdir)s/bin/",
+        "cp %(builddir)s/%(name)s-1/merge-lmer-tables.prl  %(installdir)s/bin/",
+        "cp %(builddir)s/%(name)s-1/compare-out-to-gff.prl  %(installdir)s/bin/",
+]
+
+sanity_check_paths = {
+    'files': ['bin/RepeatScout', 'bin/build_lmer_table', 'bin/filter-stage-1.prl',
+              'bin/filter-stage-2.prl', 'bin/merge-lmer-tables.prl', 'bin/compare-out-to-gff.prl'],
+    'dirs': ['bin']
+}
+
+moduleclass = 'bio'

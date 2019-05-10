@@ -1,0 +1,24 @@
+name = 'Gurobi'
+version = '8.0.1'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'http://www.gurobi.com'
+description = """The Gurobi Optimizer is a state-of-the-art solver for mathematical programming.
+The solvers in the Gurobi Optimizer were designed from the ground up to exploit modern 
+architectures and multi-core processors, using the most advanced implementations of the 
+latest algorithms."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+# registration is required
+# source_urls = ['http://www.gurobi.com/downloads/user/gurobi-optimizer']
+sources = ['%(namelower)s%(version)s_linux64.tar.gz']
+checksums = ['28c028b8708869c27a93edc2769b645db4906dc7c80a4d283ed6db672b587478']
+
+dependencies = [
+    ('Python', '3.6.4'),
+]
+
+license_file = HOME + '/licenses/%(name)s/%(namelower)s.lic'
+
+moduleclass = 'math'

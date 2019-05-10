@@ -1,0 +1,26 @@
+easyblock = 'ConfigureMake'
+
+name = 'libwebp'
+version = '1.0.0'
+
+homepage = 'https://developers.google.com/speed/webp/'
+description = """
+ WebP is a modern image format that provides superior lossless and lossy compression for images 
+ on the web. Using WebP, webmasters and web developers can create smaller, richer images that
+ make the web faster.
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+sources = ['%(name)s-%(version)s.tar.gz']
+source_urls = ['https://storage.googleapis.com/downloads.webmproject.org/releases/webp/']
+
+# use same binutils version that was used when building GCC toolchain
+builddependencies = [('binutils', '2.28', '', True)]
+
+sanity_check_paths = {
+    'files': ['lib/libwebp.%s' % SHLIB_EXT],
+    'dirs': ['lib']
+}
+
+moduleclass = 'system'

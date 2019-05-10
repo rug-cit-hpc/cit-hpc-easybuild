@@ -1,0 +1,21 @@
+easyblock = 'ConfigureMake'
+
+name = 'protobuf'
+version = '3.0.0-beta-2'
+
+homepage = 'https://github.com/google/protobuf/'
+description = """Google Protocol Buffers"""
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+
+source_urls = ['https://github.com/google/protobuf/archive']
+sources = ['v%(version)s.tar.gz']
+
+preconfigopts = "./autogen.sh &&"
+
+sanity_check_paths = {
+    'files': ['bin/protoc'],
+    'dirs': [],
+}
+
+moduleclass = 'devel'

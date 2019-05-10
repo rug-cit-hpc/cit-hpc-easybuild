@@ -1,0 +1,25 @@
+easyblock = 'PythonPackage'
+
+name = 'cupy'
+version = '1.0.0.1'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://github.com/cupy/cupy' # Site does not exist yet.
+description = "NumPy-like API accelerated with CUDA"
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+
+source_urls = [PYPI_LOWER_SOURCE]
+sources = [SOURCELOWER_TAR_GZ]
+
+dependencies = [
+    ('Python', '3.5.2'),
+    ('cuDNN', '6.0', '-CUDA-8.0.61', True),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+moduleclass = 'data'

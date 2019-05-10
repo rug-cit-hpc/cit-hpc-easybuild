@@ -1,0 +1,29 @@
+# This file is an EasyBuild reciPY as per https://github.com/hpcugent/easybuild
+# Author: Fokke Dijkstra
+# Center for Information Technology
+# University of Groningen
+
+easyblock = "Tarball"
+
+name = 'Gradle'
+version = '2.6'
+
+homepage = 'https://gradle.org/' 
+description = """ 
+From command line to IDE to continuous integration, only one Enterprise build automation system to rule them all. Declare and execute all tasks necessary to compile, test, package and ship multi-language multi-platform multi-project and multi-channel software, SaaS and Mobile Apps.
+"""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+source_urls = ['https://services.gradle.org/distributions/']
+sources = ['%(namelower)s-%(version)s-all.zip']
+
+#modextrapaths = {'PATH': ''}
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': ['docs','samples','lib']
+}
+
+moduleclass = 'devel'
+

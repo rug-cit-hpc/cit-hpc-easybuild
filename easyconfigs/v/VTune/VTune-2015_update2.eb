@@ -1,0 +1,24 @@
+name = 'VTune'
+version = '2015_update2'
+
+homepage = 'http://software.intel.com/en-us/intel-vtune-amplifier-xe'
+description = "Intel VTune Amplifier XE is the premier performance profiler for C, C++, C#, Fortran, Assembly and Java."
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+sources = ['vtune_amplifier_xe_%(version)s.tar.gz']
+
+dontcreateinstalldir = 'True'
+
+# license file
+import os
+license_file = os.path.join("/software/licenses", "intel", "PARALLEL_STUDIO.lic")
+
+sanity_check_paths = {
+    'files': ["bin64/amplxe-runss", "bin64/amplxe-cl"],
+    'dirs': [],
+}
+
+postinstallcmds=['ln -s %(installdir)s/vtune_amplifier_xe/* %(installdir)s']
+
+moduleclass = 'tools'

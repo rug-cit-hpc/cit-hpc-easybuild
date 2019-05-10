@@ -1,0 +1,28 @@
+# EasyBuild recipy for QIIME2
+# Author: Caspar van Leeuwen
+# SURFsara - The Netherlands
+
+easyblock = 'Conda'
+
+name = 'QIIME2'
+version = '2017.12'
+
+homepage = 'http://qiime2.org/'
+description = """QIIME is an open-source bioinformatics pipeline for performing microbiome analysis
+ from raw DNA sequencing data."""
+
+toolchain = {'name': 'dummy', 'version': ''}
+
+preinstallopts  = "wget -O %(builddir)s/%(namelower)s-%(version)s-conda-linux-64.txt https://data.qiime2.org/distro/core/%(namelower)s-%(version)s-conda-linux-64.txt && "
+preinstallopts += "sed -i 's/zeromq-4.2.3-0/zeromq-4.2.3-2/' %(builddir)s/%(namelower)s-%(version)s-conda-linux-64.txt && "
+
+requirements = "%(namelower)s-%(version)s "
+#requirements += "--file https://data.qiime2.org/distro/core/%(namelower)s-%(version)s-conda-linux-64.txt"
+#requirements += "--file /home/bob/%(namelower)s-%(version)s-conda-linux-64.txt"
+requirements += "--file %(builddir)s/%(namelower)s-%(version)s-conda-linux-64.txt"
+
+builddependencies = [('Miniconda2', '4.3.21')]
+
+sanity_check_commands = ['qiime info']
+
+moduleclass = 'bio'

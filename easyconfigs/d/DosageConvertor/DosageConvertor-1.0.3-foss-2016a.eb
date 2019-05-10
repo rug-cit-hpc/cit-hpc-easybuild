@@ -1,0 +1,18 @@
+
+easyblock = "MakeCp"
+files_to_copy = [(["bin/DosageConvertor"], "bin")]
+
+name = "DosageConvertor"
+version = "1.0.3"
+
+homepage = "http://genome.sph.umich.edu/wiki/DosageConvertor"
+description = "C++ tool to convert dosage files (in VCF format) from Minimac3 to ther formats such as MaCH or PLINK"
+
+source_urls = ['ftp://share.sph.umich.edu/minimac3/DosageConvertor/']
+sources = ['DosageConvertor.v1.0.3.tar.gz']
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+#builddependencies = [("CMake", "3.6.1")]
+
+sanity_check_paths = {'files': ["bin/DosageConvertor"], 'dirs': []}
+moduleclass = "bio"

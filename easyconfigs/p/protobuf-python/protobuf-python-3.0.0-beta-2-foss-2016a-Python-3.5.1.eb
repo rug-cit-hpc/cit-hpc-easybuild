@@ -1,0 +1,31 @@
+easyblock = 'PythonPackage'
+
+name = 'protobuf-python'
+version = '3.0.0-beta-2'
+versionsuffix= '-Python-%(version)s'
+
+homepage = 'https://github.com/google/protobuf/'
+description = """Google Protocol Buffers"""
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+
+source_urls = ['https://github.com/google/protobuf/archive/']
+sources = ['v%(version)s.tar.gz']
+
+versionsuffix = '-Python-%(pyver)s'
+
+dependencies = [
+    ('Python', '3.5.1'),
+    ('protobuf', '3.0.0-beta-2')
+]
+
+start_dir = 'python'
+
+sanity_check_paths = {
+    'files': ['lib/python%(pyshortver)s/site-packages/protobuf-3.0.0b2-py%(pyshortver)s.egg'],
+    'dirs': ['bin'],
+}
+
+options = {'modulename': 'google.protobuf' }
+
+moduleclass = 'math'

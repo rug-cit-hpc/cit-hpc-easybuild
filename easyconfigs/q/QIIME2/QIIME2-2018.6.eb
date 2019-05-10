@@ -1,0 +1,26 @@
+# EasyBuild recipy for QIIME2
+# Author: Caspar van Leeuwen
+# SURFsara - The Netherlands
+
+easyblock = 'Conda'
+
+name = 'QIIME2'
+version = '2018.6'
+
+homepage = 'http://qiime2.org/'
+description = """QIIME is an open-source bioinformatics pipeline for performing microbiome analysis
+ from raw DNA sequencing data."""
+
+source_urls = ['https://data.qiime2.org/distro/core/']
+sources = ['qiime2-%(version)s-py35-linux-conda.yml']
+checksums = ['0160e0a768c68c464cb24d5de7e822d3e8d09f9d231a6c224f09e23585b9906a']
+
+toolchain = {'name': 'dummy', 'version': ''}
+
+builddependencies = [('Miniconda3', '4.4.10')]
+
+environment_file = 'qiime2-%(version)s-py35-linux-conda.yml'
+
+sanity_check_commands = ['qiime info']
+
+moduleclass = 'bio'

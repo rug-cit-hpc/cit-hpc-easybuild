@@ -1,0 +1,21 @@
+easyblock = 'Tarball'
+
+name = "STUBL"
+version = '0.0.9'
+
+homepage = 'https://github.com/ubccr/stubl'
+description = "STUBL is a collection of supplemental tools and utilitiy scripts for SLURM."
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+sources = ['v%(version)s.tar.gz']
+source_urls = ['https://github.com/ubccr/stubl/archive/']
+
+sanity_check_paths = {
+    'files': ['bin/pbs2slurm', 'bin/sgetscr', 'bin/sjeff', 'bin/yasqr'],
+    'dirs': ['bin', 'conf'],
+}
+
+modextravars = {'STUBL_HOME': '$root'}
+
+moduleclass = 'tools'

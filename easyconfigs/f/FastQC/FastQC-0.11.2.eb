@@ -1,0 +1,36 @@
+# This file is an EasyBuild reciPY as per https://github.com/hpcugent/easybuild
+# Author: Fokke Dijkstra
+# University of Groningen
+# Groningen - Netherlands
+
+easyblock = "Tarball"
+
+name = 'FastQC'
+version = '0.11.2'
+
+homepage = 'http://www.bioinformatics.babraham.ac.uk/projects/fastqc/'
+description = """FastQC aims to provide a simple way to do some quality control 
+checks on raw sequence data coming from high throughput sequencing pipelines. 
+It provides a modular set of analyses which you can use to give a quick impression 
+of whether your data has any problems of which you should be aware before doing any 
+further analysis. """
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+source_urls = ['http://www.bioinformatics.babraham.ac.uk/projects/fastqc/']
+sources = ['fastqc_v%(version)s.zip']
+
+postinstallcmds=['chmod +x %(installdir)s/fastqc']
+#postinstallcmds=['/bin/echo Fokke']
+
+sanity_check_paths = { 
+    'files': ["fastqc" ],
+    'dirs': []
+}
+
+modextrapaths = {'PATH': ''}
+
+osdependencies = ['java-1.7.0-openjdk-devel']
+
+moduleclass = 'bio'
+

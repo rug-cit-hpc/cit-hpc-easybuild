@@ -1,0 +1,34 @@
+easyblock = 'ConfigureMake'
+
+name = 'fineRADstructure'
+version = '0.3'
+commit = 'c49cceb'
+
+homepage = 'http://cichlid.gurdon.cam.ac.uk/fineRADstructure.html'
+description = """RADpainter, a program designed specifically to infer the co-ancestry matrix from 
+RAD-seq data, taking full advantage of its unique features. We package this new program together 
+with the fineSTRUCTURE MCMC clustering algorithm into fineRADstructure - a complete, easy to use,
+ and fast population inference package for RAD-seq data. """
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+
+source_urls = [
+    'https://github.com/millanek/fineRADstructure/archive/',
+]
+
+sources = [
+    '%s.tar.gz' % commit, 
+]
+
+
+dependencies = [
+    ('GSL', '2.1'),
+    ('zlib', '1.2.8'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/RADpainter','bin/finestructure'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

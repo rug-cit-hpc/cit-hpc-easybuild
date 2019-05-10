@@ -1,0 +1,51 @@
+name = 'NWChem'
+version = '6.6.revision27746'
+verdate = '2015-10-20'
+pyver = '2.7.11'
+versionsuffix = '-%s-Python-%s' % (verdate, pyver)
+
+homepage = 'http://www.nwchem-sw.org'
+description = """NWChem aims to provide its users with computational chemistry tools that are scalable both in
+ their ability to treat large scientific computational chemistry problems efficiently, and in their use of available
+ parallel computing resources from high-performance parallel supercomputers to conventional workstation clusters.
+ NWChem software can handle: biomolecules, nanostructures, and solid-state; from quantum to classical, and all
+ combinations; Gaussian basis functions or plane-waves; scaling from one to thousands of processors; properties
+ and relativity."""
+
+toolchain = {'name': 'intel', 'version': '2016a'}
+toolchainopts = {'i8': True}
+
+source_urls = ['http://www.nwchem-sw.org/download.php?f=']
+sources = ['Nwchem-%s-src.%s.tar.bz2' % (version, verdate)]
+
+dependencies = [('Python', pyver)]
+
+patches = [
+    'Config_libs66.patch',
+    'Cosmo_dftprint.patch',
+    'Cosmo_meminit.patch',
+    'Dplot_tolrho.patch',
+    'Driver_smalleig.patch',
+    'Ga_argv.patch',
+    'Ga_defs.patch',
+    'Gcc6_macs_optfix.patch',
+    'Gcc6_optfix.patch',
+    'Notdir_fc.patch',
+    'Raman_displ.patch',
+    'Sym_abelian.patch',
+    'Tddft_mxvec20.patch',
+    'Tools_lib64.patch',
+    'Txs_gcc6.patch',
+    'Util_getppn.patch',
+    'Util_gnumakefile.patch',
+    'Xatom_vdw.patch',
+    'Xccvs98.patch',
+    'Zgesvd.patch',
+    'NWChem_fix-date.patch',
+]
+
+modules = 'all python'
+# voor himem node
+# lib_defines = '-DDFLT_TOT_MEM=699614720'
+
+moduleclass = 'chem'
