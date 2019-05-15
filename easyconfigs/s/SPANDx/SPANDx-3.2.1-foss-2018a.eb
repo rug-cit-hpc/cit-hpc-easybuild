@@ -1,0 +1,43 @@
+easyblock = 'Tarball'
+
+name = 'SPANDx'
+version = '3.2.1'
+
+homepage = 'https://sourceforge.net/projects/spandx/'
+description = """SPANDx (Synergised Pipeline for Analysis of NGS Data in Linux)
+is a genomics pipeline for comparative analysis of haploid whole genome re-sequencing datasets."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['https://github.com/dsarov/%(name)s/archive/']
+sources = ['v%(version)s.tar.gz']
+
+patches = [
+    ('SPANDx.config', '.'),
+    ('scheduler.config', '.'),
+]
+
+dependencies = [
+    ('Java', '1.8', '', ('dummy', '')),
+    ('GATK', '4.1.0.0', '-Java-%(javaver)s', ('dummy', '')),
+#    ('picard', '2.18.17', '-Java-%(javaver)s', ('dummy', '')),
+    ('BWA', '0.7.17'),
+    ('SAMtools', '1.2'),
+    ('HTSlib', '1.9'),
+    ('BEDTools', '2.27.1'),
+    ('VCFtools', '0.1.15', '-Perl-5.26.1'),
+]
+
+postinstallcmds = ['cd %(installdir)s && chmod +x *.sh']
+
+sanity_check_paths = {
+    'files': ['SPANDx.config', 'SPANDx.sh'],
+    'dirs': ['perl', 'snpEff'],
+}
+
+modextrapaths = {
+    'PATH': '',
+    'PERL5LIB': 'perl',
+}
+
+moduleclass = 'bio'
