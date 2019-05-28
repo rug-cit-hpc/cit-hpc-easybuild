@@ -1,6 +1,5 @@
 name = 'Geant4'
-version = '10.4'
-versionsuffix = 'p02'
+version = '10.4.p02'
 
 homepage = 'http://geant4.cern.ch/'
 description = """Geant4 is a toolkit for the simulation of the passage of particles through matter.
@@ -10,7 +9,7 @@ description = """Geant4 is a toolkit for the simulation of the passage of partic
 toolchain = {'name': 'foss', 'version': '2018a'}
 
 source_urls = ['http://geant4.cern.ch/support/source']
-sources = ['%(namelower)s.%(version_major)s.0%(version_minor)s.%(versionsuffix)s.tar.gz']
+sources = ['%(namelower)s.%(version_major)s.0%(version_minor)s.p02.tar.gz']
 checksums = ['2cac09e799f2eb609a7f1e4082d3d9d3d4d9e1930a8c4f9ecdad72aad35cdf10']
 
 builddependencies = [('CMake', '3.11.4')]
