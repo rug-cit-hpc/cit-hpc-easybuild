@@ -20,7 +20,7 @@ patches = [
 
 dependencies = [
     ('Java', '1.8', '', ('dummy', '')),
-    ('GATK', '4.1.0.0', '-Java-%(javaver)s', ('dummy', '')),
+#    ('GATK', '4.1.0.0', '-Java-%(javaver)s', ('dummy', '')),
 #    ('picard', '2.18.17', '-Java-%(javaver)s', ('dummy', '')),
     ('BWA', '0.7.17'),
     ('SAMtools', '1.2'),
