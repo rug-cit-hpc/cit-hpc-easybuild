@@ -31,9 +31,11 @@ dependencies = [
 
 postinstallcmds = [
     'cd %(installdir)s && chmod +x *.sh',
-    'sed -i "s/sbatch\(.*\)Header.pbs/sbatch\1Header.slurm/" SPANDx.sh',
-    'sed -i "s/export=command/export=ALL,command/" SPANDx.sh',
-    'sed -i "s/--job-name=index --mail-type=/--job-name=index --mem=8GB --mail-type=/" SPANDx.sh',
+    'sed -i "s/sbatch\\(.*\\)Header.pbs/sbatch\\1Header.slurm/" %(installdir)s/SPANDx.sh',
+    'sed -i "s/--export=/--export=ALL,/" %(installdir)s/SPANDx.sh',
+    'sed -i "s/--job-name=index --mail-type=/--job-name=index --mem=8GB --mail-type=/" %(installdir)s/SPANDx.sh',
+    'sed -i "s/--job-name=aln_sequences/--job-name=aln_\$sequences/" %(installdir)s/SPANDx.sh',
+    'sed -i "s/sbatch --job-name=aln_\\(.*\\) --mem\\(.*\\)Align_SNP_indel.sh/sbatch --output=logs\/Alignment_\\1.txt --job-name=aln_\\1 --mem\\2Align_SNP_indel.sh/" %(installdir)s/SPANDx.sh',
 ]
 
 sanity_check_paths = {
