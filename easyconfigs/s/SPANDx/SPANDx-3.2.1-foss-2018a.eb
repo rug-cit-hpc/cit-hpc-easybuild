@@ -15,6 +15,7 @@ sources = ['v%(version)s.tar.gz']
 patches = [
     ('SPANDx.config', '.'),
     ('scheduler.config', '.'),
+    ('Header.slurm', '.'),
 ]
 
 dependencies = [
@@ -28,7 +29,12 @@ dependencies = [
     ('VCFtools', '0.1.15', '-Perl-5.26.1'),
 ]
 
-postinstallcmds = ['cd %(installdir)s && chmod +x *.sh']
+postinstallcmds = [
+    'cd %(installdir)s && chmod +x *.sh',
+    'sed -i "s/sbatch\(.*\)Header.pbs/sbatch\1Header.slurm/" SPANDx.sh',
+    'sed -i "s/export=command/export=ALL,command/" SPANDx.sh',
+    'sed -i "s/--job-name=index --mail-type=/--job-name=index --mem=8GB --mail-type=/" SPANDx.sh',
+]
 
 sanity_check_paths = {
     'files': ['SPANDx.config', 'SPANDx.sh'],
