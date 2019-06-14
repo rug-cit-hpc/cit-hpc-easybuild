@@ -24,6 +24,8 @@ builddependencies = [('Python', '2.7.14')]
 
 # TODO: move this to an easyblock and allow the easyconfig
 # to enable/disable extensions/packages.
+# For K40, use: -arch=sm_35
+# For V100:     -arch=sm_70
 prebuildopts = '''
 cd lib/gpu && 
 make CUDA_HOME=$EBROOTCUDA CUDA_LIB="-L$EBROOTCUDA/lib64 -L$EBROOTCUDA/lib64/stubs -L/usr/lib64/nvidia" CUDA_ARCH="-arch=sm_35" CUDR_CPP=mpicxx CUDR_OPTS="-O2" -f Makefile.linux && 
