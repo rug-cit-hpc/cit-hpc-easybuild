@@ -1,0 +1,24 @@
+easyblock = 'Binary'
+
+name = 'AIMMS'
+version = '4.67.5.0'
+
+homepage = 'https://www.aimms.com/english/developers/resources/manuals/optimization-modeling/'
+description = """AIMMS"""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+source_urls = ['https://download.aimms.com/aimms/download/data/4.67/5.0/']
+sources = ['Aimms-%(version)s-installer.run']
+install_cmd = './Aimms-%(version)s-installer.run --noexec --target %(installdir)s'
+patches = [
+	('aimms.patch', 2)
+]
+postinstallcmds = ['%(installdir)s/Bin/NodelockTool --network 129.125.67.225 --aimms-root-path %(installdir)s']
+
+sanity_check_paths = {
+    'files': ['aimms'],
+    'dirs': [],
+}
+
+moduleclass = 'math'
