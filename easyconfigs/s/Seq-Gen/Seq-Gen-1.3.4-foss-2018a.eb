@@ -7,7 +7,7 @@ homepage = 'http://tree.bio.ed.ac.uk/software/Seq-Gen'
 description = """Seq-Gen is a program that will simulate the evolution of nucleotide or amino acid sequences
  along a phylogeny, using common models of the substitution process."""
 
-toolchain = {'name': 'foss', 'version': '2018b'}
+toolchain = {'name': 'foss', 'version': '2018a'}
 
 source_urls = ['https://github.com/rambaut/Seq-Gen/archive/']
 sources = ['%(version)s.tar.gz']
