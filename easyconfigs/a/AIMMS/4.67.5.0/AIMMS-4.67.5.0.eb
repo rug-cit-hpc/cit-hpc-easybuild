@@ -11,10 +11,10 @@ toolchain = {'name': 'dummy', 'version': 'dummy'}
 source_urls = ['https://download.aimms.com/aimms/download/data/4.67/5.0/']
 sources = ['Aimms-%(version)s-installer.run']
 install_cmd = './Aimms-%(version)s-installer.run --noexec --target %(installdir)s'
-patches = [
-	('aimms.patch', 2)
+postinstallcmds = [
+        'sed -i "s|\${HOME}/.Aimms|%(installdir)s|g" %(installdir)s/aimms', 
+        '%(installdir)s/Bin/NodelockTool --network 129.125.67.225 --aimms-root-path %(installdir)s'
 ]
-postinstallcmds = ['%(installdir)s/Bin/NodelockTool --network 129.125.67.225 --aimms-root-path %(installdir)s']
 
 sanity_check_paths = {
     'files': ['aimms'],
