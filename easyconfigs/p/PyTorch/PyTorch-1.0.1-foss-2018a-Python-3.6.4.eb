@@ -8,7 +8,7 @@ homepage = 'http://pytorch.org/'
 description = """Tensors and Dynamic neural networks in Python with strong GPU acceleration.
 PyTorch is a deep learning framework that puts Python first."""
 
-toolchain = {'name': 'foss', 'version': '2018b'}
+toolchain = {'name': 'foss', 'version': '2018a'}
 
 pytorchdir = 'pytorch-%(version)s'
 extract_cmd_pattern = 'tar -C %s/%s --strip-components=1 -xf %%s'
@@ -206,8 +206,8 @@ checksums = [
 builddependencies = [('CMake', '3.12.1')]
 
 dependencies = [
-    ('Python', '3.6.6'),
-    ('PyYAML', '3.13', versionsuffix),
+    ('Python', '3.6.4'),
+    ('PyYAML', '3.12', versionsuffix),
     ('hypothesis', '4.5.0', versionsuffix),
     ('Ninja', '1.8.2'),
 ]

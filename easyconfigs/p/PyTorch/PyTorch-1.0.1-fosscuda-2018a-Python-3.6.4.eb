@@ -8,7 +8,7 @@ homepage = 'http://pytorch.org/'
 description = """Tensors and Dynamic neural networks in Python with strong GPU acceleration.
 PyTorch is a deep learning framework that puts Python first."""
 
-toolchain = {'name': 'fosscuda', 'version': '2018b'}
+toolchain = {'name': 'fosscuda', 'version': '2018a'}
 
 pytorchdir = 'pytorch-%(version)s'
 extract_cmd_pattern = 'tar -C %s/%s --strip-components=1 -xf %%s'
