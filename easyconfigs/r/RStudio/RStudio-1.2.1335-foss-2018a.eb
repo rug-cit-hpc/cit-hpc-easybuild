@@ -25,9 +25,10 @@ dependencies = [
 ]
 
 separate_build_dir = True
+print('%(builddir)s')
 
+preconfigopts = "%(builddir)s/rstudio-1.2.1335/dependencies/common/install-dictionaries && "
 configopts = "-DRSTUDIO_TARGET=Desktop -DCMAKE_BUILD_TYPE=Release -DRSTUDIO_PACKAGE_BUILD=1 -DQT_QMAKE_EXECUTABLE=$EBROOTQT5/bin/qmake"
-configure_cmd_prefix = "%(installdir)s/dependencies/common/install-dictionaries && "
 
 sanity_check_paths = {
     'files': ['rstudio'],
