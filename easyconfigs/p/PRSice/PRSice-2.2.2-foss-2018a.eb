@@ -1,0 +1,32 @@
+easyblock = 'CMakeMake'
+
+name = 'PRSice'
+version = '2.2.2'
+
+homepage = "https://choishingwan.github.io/PRSice/" 
+description = """PRSice (pronounced 'precise') is a Polygenic Risk Score software for calculating, applying, 
+                 evaluating and plotting the results of polygenic risk scores (PRS) analyses."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['https://github.com/choishingwan/PRSice/archive/']
+sources=['%(version)s.tar.gz']
+
+builddependencies = [
+    ('CMake', '3.11.4')
+]
+
+dependencies = [
+    ('CMake', '3.11.4')
+]
+
+skipsteps = ['install']
+buildopts = ' && mkdir -p %(installdir)s && cp -r %(builddir)s/PRSice-2.2.2/bin %(installdir)s && cp -r %(builddir)s/PRSice-2.2.2/inc %(installdir)s && cp -r %(builddir)s/PRSice-2.2.2/lib %(installdir)s && cp %(builddir)s/PRSice-2.2.2/PRSice.R %(installdir)s/bin/'
+
+separate_build_dir = True
+sanity_check_paths = {
+    'files': ['bin/PRSice'],
+    'dirs': ['bin'],
+}
+
+moduleclass = 'bio'

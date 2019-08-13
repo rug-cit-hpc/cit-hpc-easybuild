@@ -1,0 +1,21 @@
+easyblock = 'ConfigureMake'
+
+name = 'recode'
+version = '3.7'
+
+homepage = 'https://github.com/rrthomas/recode'
+description = """Charset converter tool and library"""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+source_urls = ['https://github.com/rrthomas/recode/releases/download/v%(version)s/']
+sources = ['%(name)s-%(version)s.tar.gz']
+
+builddependencies = [('binutils', '2.28')]
+
+sanity_check_paths = {
+    'files': ['bin/recode'],
+    'dirs': ['bin']
+}
+
+moduleclass = 'data'
