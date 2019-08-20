@@ -205,12 +205,12 @@ checksums = [
 builddependencies = [('CMake', '3.12.1')]
 
 dependencies = [
-    ('Python', '3.6.6'),
-    ('PyYAML', '3.13', versionsuffix),
-    ('hypothesis', '4.5.0', versionsuffix),
+    ('Python', '3.6.4'),
+    ('PyYAML', '3.12',"-foss-2018a-Python-3.6.4",True),
+    ('hypothesis', '4.5.0',"-foss-2018a-Python-3.6.4",True),
     ('cuDNN', '7.1.4.18'),
-    ('Ninja', '1.8.2'),
-    ('magma', '2.5.0'),
+    ('Ninja', '1.8.2',"-foss-2018a",True),
+    ('magma', '2.3.0',"-foss-2018a-CUDA-9.1.85",True),
 ]
 
 download_dep_fail = True
