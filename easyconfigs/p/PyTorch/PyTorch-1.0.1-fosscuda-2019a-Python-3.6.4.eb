@@ -206,11 +206,11 @@ builddependencies = [('CMake', '3.12.1')]
 
 dependencies = [
     ('Python', '3.6.4'),
-    ('PyYAML', '3.12',"-foss-2018a-Python-3.6.4",True),
-    ('hypothesis', '4.5.0',"-foss-2018a-Python-3.6.4",True),
+    ('PyYAML', '3.12',"-foss-2019a-Python-3.6.4",True),
+    ('hypothesis', '4.5.0',"-foss-2019a-Python-3.6.4",True),
     ('cuDNN', '7.1.4.18'),
-    ('Ninja', '1.8.2',"-foss-2018a",True),
-    ('magma', '2.3.0',"-foss-2018a-CUDA-9.1.85",True),
+    ('Ninja', '1.8.2',"-foss-2019a",True),
+    ('magma', '2.3.0'),
 ]
 
 download_dep_fail = True
