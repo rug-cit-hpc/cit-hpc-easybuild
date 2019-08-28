@@ -205,7 +205,7 @@ checksums = [
 builddependencies = [('CMake', '3.12.1','',True)]
 
 dependencies = [
-    ('Python', '3.6.4'),
+    ('Python', '3.6.4','-foss-2019a',True),
     ('PyYAML', '3.12',"-foss-2019a-Python-3.6.4",True),
     ('hypothesis', '4.5.0',"-foss-2019a-Python-3.6.4",True),
     ('cuDNN', '7.1.4.18'),
