@@ -202,7 +202,7 @@ checksums = [
     '569333e194d6a1d716972e17ad2ca1cd72e92a8845cee2f02ab2d5f541f013e9',  # PyTorch-1.0.1-fix-for-intel.patch
 ]
 
-builddependencies = [('CMake', '3.12.1')]
+builddependencies = [('CMake', '3.12.1','',True)]
 
 dependencies = [
     ('Python', '3.6.4'),
