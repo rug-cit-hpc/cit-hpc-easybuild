@@ -1,0 +1,48 @@
+name = 'DOLFIN'
+version = '2019.1.0.post0'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://bitbucket.org/fenics-project/dolfin'
+description = """DOLFIN is the C++/Python interface of FEniCS, providing a consistent PSE
+  (Problem Solving Environment) for ordinary and partial differential equations."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+toolchainopts = {'usempi': True, 'pic': True, 'packed-linker-options': True, 'openmp': True}
+
+source_urls = ['https://bitbucket.org/fenics-project/dolfin/downloads/']
+sources = [SOURCELOWER_TAR_GZ]
+
+builddependencies = [
+    ('CMake', '3.12.1'),
+    ('pkg-config', '0.29.2'),
+    ('patchelf', '0.9'),
+    ('pybind11', '2.2.4', versionsuffix),
+]
+dependencies = [
+    ('Python', '3.6.4'),
+    ('Boost.Python', '1.67.0', versionsuffix),
+    ('FFC', '2019.1.0.post0', versionsuffix),
+    ('FIAT', '2019.1.0', versionsuffix),
+    ('UFL', '2019.1.0', versionsuffix),
+    #('SCOTCH', '6.0.6'),
+    #('SuiteSparse', '5.1.2', '-METIS-5.1.0'),
+    #('ParMETIS', '4.0.3'),
+    ('CGAL', '4.11.1', versionsuffix),
+    ('PETSc', '3.11.3', '-downloaded-deps'),
+    ('SLEPc', '3.11.2'),
+    ('HDF5', '1.10.1'),
+    #('Trilinos', '12.12.1', versionsuffix),
+    ('zlib', '1.2.11'),
+    ('libxml2', '2.9.7'),
+    ('Eigen', '3.3.4', '', True),
+    ('PLY', '3.11', versionsuffix),
+    ('VTK', '8.1.0', versionsuffix),
+    ('petsc4py', '3.11.0', versionsuffix),
+    ('slepc4py', '3.11.0', versionsuffix),
+    ('SUNDIALS', '3.2.1'),
+]
+
+# demos run as tests fail with 'bad X server connection', skipping for now
+runtest = False
+
+moduleclass = 'math'
