@@ -15,6 +15,10 @@ description = """MUMmer is a system for rapidly aligning entire genomes,
 toolchain = {'name': 'foss', 'version': '2018a'}
 toolchainopts = {'openmp': True}
 
+dependencies = [
+    ('gnuplot', '5.2.4'),
+]
+
 source_urls = ['https://github.com/gmarcais/mummer/releases/download/v%(version)s/']
 sources = ['%(namelower)s-%(version)s.tar.gz']
 
