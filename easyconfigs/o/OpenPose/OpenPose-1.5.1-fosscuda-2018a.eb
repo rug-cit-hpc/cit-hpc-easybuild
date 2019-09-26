@@ -19,7 +19,10 @@ builddependencies = [
 
 dependencies = [
     ('cuDNN', '7.1.4.18'),
-#    ('Python', '2.7.11'),
+    ('OpenCV', '3.4.4', '-Python-2.7.14'),
+    ('Python', '2.7.14'),
+    ('glog', '0.3.5'),
+    ('gflags', '2.2.1'),
 #    ('zlib', '1.2.8'),
 #    ('FFmpeg', '3.0.2'),
 #    ('libjpeg-turbo', '1.4.2', '-NASM-2.12.01'),
@@ -34,7 +37,7 @@ dependencies = [
 #    ('GST-plugins-base', '1.6.4'),
 ]
 
-configopts = '-DCMAKE_BUILD_TYPE=RELEASE '
+configopts = '-DCMAKE_BUILD_TYPE=RELEASE -DBUILD_CAFFE=OFF '
 #configopts += '-DBUILD_PYTHON_SUPPORT=ON '
 #configopts += '-DPYTHON_PACKAGES_PATH=%(installdir)s/lib/python%(pyshortver)s/site-packages '
 #configopts += '-DBUILD_NEW_PYTHON_SUPPORT=ON '
