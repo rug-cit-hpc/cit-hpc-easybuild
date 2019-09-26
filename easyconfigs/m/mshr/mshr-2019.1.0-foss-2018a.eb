@@ -1,0 +1,32 @@
+easyblock = 'CMakeMake'
+
+name = 'mshr'
+version = '2019.1.0'
+
+homepage = 'https://bitbucket.org/fenics-project/mshr/'
+description = "mshr is the mesh generation component of FEniCS."
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['https://bitbucket.org/fenics-project/mshr/downloads/']
+sources = [SOURCELOWER_TAR_GZ]
+
+builddependencies = [
+    ('CMake', '3.12.1'),
+    ('pkg-config', '0.29.2'),
+]
+
+dependencies = [
+    ('DOLFIN', '2019.1.0.post0', '-Python-3.6.4'),
+]
+
+separate_build_dir = True
+
+configopts = "-DGMP_INCLUDE_DIR=$EBROOTGMP/include -DGMP_LIBRARIES:FILEPATH=$EBROOTGMP/lib/libgmp.so -DMPFR_INCLUDE_DIR=$EBROOTMPFR/include -DMPFR_LIBRARIES:FILEPATH=$EBROOTMPFR/lib/libmpfr.so -DEIGEN3_INCLUDE_DIR=$EBROOTEIGEN/include"
+
+sanity_check_paths = {
+    'files': ['include/mshr.h', 'lib/libmshr.so'],
+    'dirs': [],
+}
+
+moduleclass = 'math'
