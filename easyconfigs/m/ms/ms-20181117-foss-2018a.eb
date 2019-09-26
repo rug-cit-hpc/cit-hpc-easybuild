@@ -15,9 +15,15 @@ sources = ['%(name)s.tar.gz']
 
 start_dir = 'msdir'
 
-cmds_map = [('.*', "$CC $CFLAGS %(name)s.c streec.c rand1.c -lm -o %(name)s")]
+cmds_map = [
+    (".*", "$CC $CFLAGS %(name)s.c streec.c rand1.c -lm -o %(name)s && \
+            $CC $CFLAGS -o sample_stats sample_stats.c tajd.c -lm && \
+            $CC $CFLAGS -o stats stats.c && \
+            $CC $CFLAGS -o microsat microsat.c rand1.c -lm && \
+            $CC $CFLAGS -o dist3 dist3.c"),
+]
 
-files_to_copy = [(['ms'], 'bin')]
+files_to_copy = [(['ms', 'sample_stats', 'stats', 'microsat', 'dist3'], 'bin')]
 
 sanity_check_paths = {
     'files': ['bin/ms'],
