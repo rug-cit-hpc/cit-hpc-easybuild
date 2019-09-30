@@ -1,0 +1,38 @@
+easyblock = 'PackedBinary'
+
+name = 'SearchGUI'
+version = '3.3.16'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://github.com/compomics/searchgui'
+description = """SearchGUI is a user-friendly open-source graphical user interface for configuring and
+ running proteomics identification search engines and de novo sequencing algorithms,
+ currently supporting X! Tandem, MS-GF+, MS Amanda, MyriMatch, Comet, Tide, Andromeda, OMSSA,
+ Novor and DirecTag."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['http://genesis.ugent.be/maven2/eu/isas/searchgui/SearchGUI/%(version)s/']
+sources = ['SearchGUI-%(version)s-mac_and_linux.tar.gz']
+checksums = ['dd113816b23301763e46abc937e5ee814b67f2165b736629d40baef00f5d8396']
+
+dependencies = [
+    ('Java', '1.8', '', ('dummy', '')),
+    ('Mono', '5.16.0.179')
+]
+
+sanity_check_paths = {
+    'files': ['SearchGUI-%(version)s.jar'],
+    'dirs': ['lib', 'resources'],
+}
+
+# aliases for CLI; see https://compomics.github.io/projects/searchgui/wiki/searchcli.html
+modaliases = {
+    'SearchCLI': 'java -cp $EBROOTSEARCHGUI/SearchGUI-%(version)s.jar eu.isas.searchgui.cmd.SearchCLI',
+    'PathSettingsCLI': 'java -cp $EBROOTSEARCHGUI/SearchGUI-%(version)s.jar eu.isas.searchgui.cmd.PathSettingsCLI',
+    'FastaCLI': 'java -cp $EBROOTSEARCHGUI/SearchGUI-%(version)s.jar eu.isas.searchgui.cmd.FastaCLI',
+    'IdentificationParametersCLI':
+    'java -cp $EBROOTSEARCHGUI/SearchGUI-%(version)s.jar eu.isas.searchgui.cmd.IdentificationParametersCLI'
+}
+
+moduleclass = 'bio'
