@@ -1,3 +1,7 @@
+# IMPORTANT !!
+# For a quick fix, I've manually replaced $EBROOTTOGGLE/modules/scp.pm with a custom file you can find in the same directory as this eb file.
+# DO NOT REMOVE THIS MESSAGE BEFORE FIXING PROPERLY!!!
+
 easyblock = 'Tarball'
 
 name = 'TOGGLe'
