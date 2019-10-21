@@ -1,0 +1,24 @@
+name = 'TINKER'
+version = '6.3.3'
+versionsuffix='-OpenMolcas'
+
+homepage = 'http://dasher.wustl.edu/tinker'
+description = """The TINKER molecular modeling software is a complete and general package for molecular mechanics
+ and dynamics, with some special features for biopolymers."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['https://dasher.wustl.edu/tinker/downloads/']
+sources = [SOURCELOWER_TAR_GZ]
+patches = ['tinker-6.3.3-openmolcas.patch']
+
+checksums = ['1f429d0914aedcd0f152d2da2dd6e9521260c3f360adfa3a23aa5204475324dd',
+             '3a6d680eb76a6a11995ebc20c1a9046daa85b75e2bb4d1a768b599b10a1f9710']
+
+#dependencies = [
+#    ('FFTW', '3.3.7'),
+#]
+
+runtest = True
+
+moduleclass = 'chem'

@@ -1,0 +1,35 @@
+easyblock = 'ConfigureMake'
+
+name = 'MIRA'
+version = 'V5rc2'
+
+homepage = 'http://sourceforge.net/p/mira-assembler/wiki/Home/'
+description = """MIRA is a whole genome shotgun and EST sequence assembler for Sanger, 454, Solexa (Illumina),
+    IonTorrent data and PacBio (the later at the moment only CCS and error-corrected CLR reads)."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+sources = ['%(namelower)s-%(version)s.tar.bz2']
+source_urls = ['https://github.com/bachev/mira/releases/download/%(version)s/']
+
+# don't use PAX, it might break.
+# tar_config_opts = True
+
+builddependencies = [
+    ('flex', '2.6.4'),
+    ('Vim', '8.1.1209', '-Python-3.6.4'),
+]
+dependencies = [
+    ('Boost', '1.67.0'),
+    ('expat', '2.2.5'),
+    ('zlib', '1.2.11'),
+]
+
+configopts = '--with-boost-libdir=$EBROOTBOOST/lib --with-expat=$EBROOTEXPAT'
+
+sanity_check_paths = {
+    'files': ["bin/mira"],
+    'dirs': ["bin", "share"],
+}
+
+moduleclass = 'bio'
