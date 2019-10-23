@@ -12,7 +12,7 @@ toolchain = {'name': 'foss', 'version': '2018a'}
 sources = ['v%(version)s.tar.gz']
 source_urls = ['https://github.com/stevemussmann/BayesAss3-SNPs/archive/']
 dependencies = [
-    ('GSL','2.5', '', ('GCC', '8.2.0-2.31.1'))
+    ('GSL','2.4', '', ('GCCcore', '6.4.0'))
 ]
 
 builddependencies = [
