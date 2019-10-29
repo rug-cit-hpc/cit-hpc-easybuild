@@ -18,6 +18,10 @@ sources = [{
 }]
 checksums = ['e001d2f79b2692dd7c836d721a1b7c612f40cd3b98439a26081dd9679b152e62']
 
+builddependencies = [
+    ('binutils', '2.28'),
+]
+
 dependencies = [
     ('Perl', '5.26.1'),
     ('libgd', '2.2.5'),
