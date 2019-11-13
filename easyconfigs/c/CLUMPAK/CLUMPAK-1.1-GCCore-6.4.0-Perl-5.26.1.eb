@@ -1,0 +1,109 @@
+easyblock = 'Tarball'
+
+name = 'CLUMPAK'
+version = '1.1'
+versionsuffix = '-Perl-%(perlver)s'
+
+homepage = 'http://clumpak.tau.ac.il'
+description = """CLUMPAK - Clustering Markov Packager Across K - was developed in order to aid users analyse
+the results of STRUCTURE-like programs. The software offers a few alternative modes of action,
+please go to the Help section for detailed about these modes."""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+source_urls = ['http://clumpak.tau.ac.il/download/']
+sources = [{
+    'filename': '%(name)s.zip',
+    'extract_cmd': 'unzip %s && cd %(name)s && unzip 26_03_2015_%(name)s.zip',
+}]
+checksums = ['e001d2f79b2692dd7c836d721a1b7c612f40cd3b98439a26081dd9679b152e62']
+
+builddependencies = [
+    ('binutils', '2.28'),
+]
+
+dependencies = [
+    ('Perl', '5.26.1'),
+    ('libgd', '2.2.5'),
+    ('MCL', '14.137', versionsuffix),
+]
+
+start_dir = '26_03_2015_%(name)s/%(name)s'
+
+postinstallcmds = [
+    # Make executables actually executable
+    'chmod +x %(installdir)s/*.pl',
+    'chmod +x %(installdir)s/CLUMPP/CLUMPP',
+    'chmod +x %(installdir)s/distruct/distruct1.1',
+#    'chmod +x %(installdir)s/mcl/bin/*',
+#    'mv %(installdir)s/mcl %(installdir)s/mcl_bak && ln -s $EBROOTMCL %(installdir)s/mcl',
+    # Fix relative paths to executables
+    'sed -i "s|mcl/bin|${EBROOTMCL}/bin|g" %(installdir)s/MCLAccessor*',
+    'sed -i "s|CLUMPP/CLUMPP|%(installdir)s/CLUMPP/CLUMPP|g" %(installdir)s/ClumppAccessor.pm',
+    'sed -i "s|CLUMPP/paramfile|%(installdir)s/CLUMPP/paramfile|g" %(installdir)s/ClumppAccessor.pm',
+    'sed -i "s|distruct/|%(installdir)s/distruct/|g" %(installdir)s/ClusterAccessor.pm',
+]
+
+fix_perl_shebang_for = ['*.pl']
+
+exts_defaultclass = 'PerlModule'
+
+exts_list = [
+    ('ExtUtils::PkgConfig', '1.16', {
+        'source_tmpl': 'ExtUtils-PkgConfig-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/X/XA/XAOC/'],
+        'checksums': ['bbeaced995d7d8d10cfc51a3a5a66da41ceb2bc04fedcab50e10e6300e801c6e'],
+    }),
+    ('List::Util', '1.50', {
+        'source_tmpl': 'Scalar-List-Utils-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/P/PE/PEVANS/'],
+        'checksums': ['06aab9c693380190e53be09be7daed20c5d6278f71956989c24cca7782013675'],
+    }),
+    ('List::Permutor', '0.022', {
+        'source_tmpl': 'List-Permutor-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/P/PH/PHOENIX/'],
+        'checksums': ['d9089629c6a6f09000623c26877273bf053cddc600b1884a2ac67333084bbc4d'],
+    }),
+    ('PDF::Table', '0.11.0', {
+        'source_tmpl': 'PDF-Table-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/O/OM/OMEGA/'],
+        'checksums': ['914b5c4671da400ace15aec32244a0bd1596e22b34e4b341a7f28b25ecb4bd98'],
+    }),
+    ('Statistics::Distributions', '1.02', {
+        'source_tmpl': 'Statistics-Distributions-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/M/MI/MIKEK/'],
+        'checksums': ['f99f396abf84ca37aa2cea31ad45d73aaee48752c999136c4b91389428d733c8'],
+    }),
+    ('Data::PowerSet', '0.05', {
+        'source_tmpl': 'Data-PowerSet-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/D/DL/DLAND/'],
+        'checksums': ['d133ad294dba525b1d55e6da9aea6ddfe5939213051e05c0d0cca612ece8262b'],
+    }),
+    ('Archive::Zip', '1.67', {
+        'source_tmpl': 'Archive-Zip-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/P/PH/PHRED/'],
+        'checksums': ['be2274344c7659bf9189838dc6b9a59ec6f957c74ddfd35ff2780d56f4592774'],
+    }),
+    ('GD', '2.71', {
+        'source_tmpl': 'GD-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/R/RU/RURBAN/'],
+        'checksums': ['451be4873b2ad7261cc5679698cd9d2e84dbdde4309971869fc7734b569b7ac7'],
+    }),
+    ('GD::Text::Align', '0.86', {
+        'source_tmpl': 'GDTextUtil-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/M/MV/MVERB/'],
+        'checksums': ['886ecbf85cfe94f4135ee5689c4847a9ae783ecb99e6759e12c734f2dd6116bc'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['CLUMPAK.pl'],
+    'dirs': ['CLUMPP', 'distruct', 'mcl']
+}
+
+modextrapaths = {
+    'PATH': "",  # add installation dir to PATH
+    'PERL5LIB': ['', 'lib/perl5/site_perl/%(perlver)s/']
+}
+
+moduleclass = 'bio'

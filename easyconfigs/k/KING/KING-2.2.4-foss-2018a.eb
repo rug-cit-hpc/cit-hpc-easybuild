@@ -1,0 +1,33 @@
+easyblock = 'CmdCp'
+
+homepage = 'http://people.virginia.edu/~wc9c/KING/'
+description = """
+	KING is a toolset that makes use of high-throughput SNP data 	
+	typically seen in a genome-wide association study (GWAS) 
+	or a sequencing project. Applications of KING include family 
+	relationship inference and pedigree error checking, quality control, 
+	population substructure identification, forensics, gene mapping, etc.
+"""
+name = 'KING'
+version = '2.2.4'
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['http://people.virginia.edu/~wc9c/KING/']
+sources = ['KINGcode.tar.gz']
+
+#skipsteps = 'configure'
+#buildopts = '-lm -lz -O2 -fopenmp'
+
+cmds_map = [('KINGcode.tar.gz', 'mkdir KINGcode && tar -xzvf %(source)s -C KINGcode && cd KINGcode && g++ -lm -lz -O2 -fopenmp -o king *.cpp')]
+
+files_to_copy = [
+	(['KINGcode/king'], '%(installdir)s/bin')
+]
+
+sanity_check_paths = {
+    'files': ['bin/king'],
+    'dirs': ['bin'],
+}
+
+moduleclass = 'bio'

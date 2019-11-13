@@ -1,0 +1,33 @@
+easyblock = 'ConfigureMake'
+
+name = 'PortAudio'
+version = '19.6.0'
+
+homepage = 'http://www.portaudio.com/'
+
+description = """PortAudio is a free, cross-platform, open-source, audio I/O library.
+It lets you write simple audio programs in 'C' or C++ that will compile and run on many
+platforms including Windows, Macintosh OS X, and Unix (OSS/ALSA). It is intended to
+promote the exchange of audio software between developers on different platforms.
+Many applications use PortAudio for Audio I/O."""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+source_urls = ['http://www.portaudio.com/archives/']
+sources = ['pa_stable_v190600_20161030.tgz']
+checksums = ['f5a21d7dcd6ee84397446fa1fa1a0675bb2e8a4a6dceb4305a8404698d8d1513']
+
+builddependencies = [
+    ('binutils', '2.28'),
+]
+
+dependencies = [
+    ('alsa-lib', '1.1.9'),
+]
+
+sanity_check_paths = {
+    'files': ["include/portaudio.h", "lib/libportaudio.so"],
+    'dirs': ["include", "lib"],
+}
+
+moduleclass = 'lib'
