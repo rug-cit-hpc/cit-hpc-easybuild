@@ -19,17 +19,24 @@ patches = [('hosts.conf', 'config'), ('scipion.conf', 'config'), ('protocols.con
 
 dependencies = [
 #    ('RELION', '2.0.3', '-CUDA-7.5.18'),
-#    ('git', '2.8.0'),
     ('GSL', '2.4'),
-    ('Java', '1.8.0_192', '', ('dummy', 'dummy')),
-
+    ('Java', '1.8.0_162', '', ('dummy', 'dummy')), # not latest because OpenCV
+    ('libreadline', '7.0'),
+    ('libxml2','2.9.4'), # Not latest version because OpenCV loads a different one
+    ('libxslt','1.1.32'),
+    ('freetype','2.9'), # remove if it turns out not to be necessary
+    ('Python', '2.7.14'),
+    ('SCons','3.0.1','-Python-2.7.14'), # since SCons is a software bulding lib should it be in build dependencies?A
+    ('OpenCV','3.4.1','-Python-2.7.14'),
 ]
 
 builddependencies = [
     ('CMake', '3.12.1'),
-#    ('Python', '2.7.11'),
 ]
 
+"""
+# Commented out because I'm not sure we'll need this this time around
+# remove once its confirmed I don't need it
 postinstallcmds = [
     'wget -O %(installdir)s/software/tmp/tcl8.6.7-src.tgz https://prdownloads.sourceforge.net/tcl/tcl8.6.7-src.tar.gz',
     'wget -O %(installdir)s/software/tmp/tk8.6.7-src.tgz https://prdownloads.sourceforge.net/tcl/tk8.6.7-src.tar.gz',
@@ -65,6 +72,7 @@ postinstallcmds = [
     # Bugfix:
     'sed -i "s/imgh.convert(tuple(\[frame-1, movieName\]), frameName)/imgh.convert((frame, movieName), frameName)/" %(installdir)s/pyworkflow/em/packages/xmipp3/protocol_extract_particles_movies.py',
 ]
+"""
 
 sanity_check_paths = {
     'files': ['scipion'],
