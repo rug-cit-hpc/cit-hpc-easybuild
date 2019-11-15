@@ -1,0 +1,23 @@
+easyblock = 'ConfigureMake'
+
+name = 'libiodbc'
+version = '3.52.12'
+
+description = """Independent Open DataBase Connectivity for Linux, MacOS X and Unix systems"""
+
+source_urls = ['http://sourceforge.net/projects/iodbc/files', 'download']
+sources = [SOURCE_TAR_GZ]
+checksums = ['51c5ff3a7d9a54202486cb77a3514e0e379a135beefcd5d12b96d1901f9dfb62']
+
+homepage = 'http://www.iodbc.org'
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+builddependencies = [('binutils', '2.28')]
+
+sanity_check_paths = {
+    'files': ['bin/iodbc-config', 'bin/iodbctest'],
+    'dirs': [],
+}
+
+moduleclass = 'lib'
