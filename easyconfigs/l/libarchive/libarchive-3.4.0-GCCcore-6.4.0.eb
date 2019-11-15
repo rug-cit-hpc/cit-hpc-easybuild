@@ -1,0 +1,29 @@
+easyblock = 'ConfigureMake'
+
+name = 'libarchive'
+version = '3.4.0'
+
+homepage = 'http://www.libarchive.org/'
+description = """Multi-format archive and compression library."""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+source_urls = ['http://www.libarchive.org/downloads/']
+sources = ['libarchive-%(version)s.tar.gz']
+
+builddependencies = [
+    ('binutils', '2.28'),
+]
+
+dependencies = [
+    ('zlib', '1.2.11'),
+    ('bzip2', '1.0.6'),
+    ('libxml2', '2.9.7'),
+]
+
+sanity_check_paths = {
+    'files': ['lib/libarchive.%s' % SHLIB_EXT],
+    'dirs': ['include'],
+}
+
+moduleclass = 'lib'
