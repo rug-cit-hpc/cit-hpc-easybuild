@@ -11,7 +11,7 @@ toolchain = SYSTEM
 requirements = "%(name)s=%(version)s"
 channels = ['bioconda', 'conda-forge', 'defaults']
 
-builddependencies = [('Miniconda3', '4.7.10')]
+dependencies = [('Miniconda3', '4.7.10')]
 
 sanity_check_paths = {
     'files': ['bin/%s' % x for x in ['pipits_funits', 'pipits_process', 
