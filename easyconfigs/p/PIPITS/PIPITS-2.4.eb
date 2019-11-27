@@ -1,0 +1,23 @@
+easyblock = 'Conda'
+
+name = "PIPITS"
+version = "2.4"
+
+homepage = 'https://github.com/hsgweon/pipits' 
+description = "Automated pipeline for analyses of fungal ITS from the Illumina" 
+
+toolchain = SYSTEM
+
+requirements = "%(name)s=%(version)s"
+channels = ['bioconda', 'conda-forge', 'defaults']
+
+builddependencies = [('Miniconda3', '4.7.10')]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['pipits_funits', 'pipits_process', 
+                                     'pispino_createreadpairslist',
+                                     'pispino_seqprep']],
+    'dirs': []
+}
+
+moduleclass = 'bio'
