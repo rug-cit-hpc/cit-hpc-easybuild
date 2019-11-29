@@ -1,0 +1,51 @@
+easyblock = 'PythonPackage'
+
+name = 'PCAngsd'
+version = '0.98'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'http://www.popgen.dk/software/index.php/PCAngsd'
+description = """PCAngsd, which estimates the covariance matrix for low depth 
+NGS data in an iterative procedure based on genotype likelihoods and is able 
+to perform multiple population genetic analyses in heterogeneous populations."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['https://github.com/Rosemeis/pcangsd/archive/v%(version)s/']
+sources = [SOURCE_TAR_GZ]
+
+dependencies = [
+    ('Python', '3.6.4'),
+]
+
+# Use pip to install all dependencies (dirty, but there are just too many...)
+use_pip=True
+use_pip_for_deps = True
+
+exts_defaultclass = 'PythonPackage'
+
+exts_list = [
+    ('pandas-plink', '1.2.31', {
+        'source_urls': ['https://pypi.python.org/packages/source/p/pandas_plink'],
+        'source_tmpl': 'pandas_plink-1.2.31-cp36-cp36m-manylinux1_x86_64.whl',
+        'unpack_sources': False,
+    }),
+]
+
+# Copy the Python script, make the main one executable, and add a shebang.
+postinstallcmds = ['cp %(builddir)s/%(namelower)s-%(version)s/*.py %(installdir)s/bin/ && chmod +x %(installdir)s/bin/pcangsd.py && sed -i "1 i #!/usr/bin/env python" %(installdir)s/bin/pcangsd.py']
+
+sanity_check_paths = {
+    'files': ['bin/pcangsd.py'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+# PCAngsd itself is not a module: try loading one of the compiled libraries ("shared") instead.
+options = {'modulename': 'shared'}
+
+modextrapaths = {
+    'PATH': ['bin'],
+    'PYTHONPATH': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+moduleclass = 'bio'
