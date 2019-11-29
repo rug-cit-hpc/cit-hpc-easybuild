@@ -1,0 +1,38 @@
+easyblock = 'MakeCp'
+
+name = 'NgsRelate'
+version = '84bd60e' # no releases, just using the commit hash as version
+
+homepage = "https://github.com/ANGSD/NgsRelate"
+
+description = """NgsRelate can be used to infer relatedness, inbreeding coefficients and many other summary statistics for pairs of individuals from low coverage Next Generation Sequencing (NGS) data by using genotype likelihoods instead of called genotypes."""
+
+toolchain = {'name':'foss','version':'2018a'}
+
+source_urls = ['https://github.com/ANGSD/NgsRelate/archive/']
+sources = ['%(version)s.tar.gz']
+
+dependencies = [
+    ('HTSlib','1.9','-GCC-6.4.0-2.28',True), # this should in turn have the rest of the dependencies
+]
+
+files_to_copy = [
+    'filereaders.d',
+    'filereaders.o',
+    'ngsRelate.d',
+    'ngsRelate.o',
+    'vcf.d',
+    'vcf.o',
+    'ngsRelate',
+]
+
+sanity_check_paths = {
+    'files': ['ngsRelate'],
+    'dirs': [],
+}
+
+modextrapaths = {
+    'PATH': ['.'],
+}
+
+moduleclass = 'bio'
