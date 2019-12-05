@@ -1,0 +1,32 @@
+easyblock = 'PackedBinary'
+
+name = 'ant'
+version = '1.10.7'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'http://ant.apache.org/'
+description = """Apache Ant is a Java library and command-line tool whose mission is to drive processes described in
+ build files as targets and extension points dependent upon each other. The main known usage of Ant is the build of
+ Java applications."""
+
+toolchain = SYSTEM
+
+source_urls = ['http://mirror.serverion.com/apache//ant/binaries/']
+sources = ['apache-%(name)s-%(version)s-bin.tar.gz']
+checksums = ['681161859acfdb055fb128f2c8a29a3f']
+#source_urls = ['http://archive.apache.org/dist/%(name)s/source/']
+#sources = ['apache-%(name)s-%(version)s-src.tar.gz']
+#checksums = ['e734d57871bb6bfa99dfc88570ae28a1']
+
+dependencies = [('Java', '11')]
+
+#builddependencies = [('JUnit', '4.12', versionsuffix)]
+
+sanity_check_paths = {
+    'files': ['bin/ant', 'lib/ant.jar'],
+    'dirs': [],
+}
+
+modextravars = {'ANT_HOME': '%(installdir)s'}
+
+moduleclass = 'devel'
