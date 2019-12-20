@@ -1,0 +1,84 @@
+easyblock = 'Tarball'
+
+name = 'Annocript'
+version = '2.0.1'
+versionsuffix = '-Perl-%(perlver)s'
+local_commit = '84fd67b'
+
+homepage = 'http://www.golang.org'
+description = """Go is an open source programming language that makes it easy to build
+ simple, reliable, and efficient software."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+sources = ['%s.tar.gz' % local_commit]
+source_urls = ['https://github.com/frankMusacchia/Annocript/archive/']
+
+dependencies = [
+    ('Perl', '5.26.1'),
+    ('BioPerl', '1.6.924', versionsuffix),
+    ('MariaDB', '10.3.10'),
+    ('Python', '2.7.14'),
+    ('R', '3.6.1'),
+    ('zlib', '1.2.11'),
+    ('BLAST+', '2.7.1'),
+]
+
+# this is a bundle of Perl modules
+exts_classmap = {'Biopython': 'PythonPackage'}
+exts_defaultclass = 'PerlModule'
+exts_filter = ("perldoc -lm %(ext_name)s ", "")
+
+exts_list = [
+    ('DBD::mysql', '4.050', {
+        'source_tmpl': 'DBD-mysql-4.050.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/D/DV/DVEEDEN/'],
+    }),
+    ('Parallel::ForkManager', '2.02', {
+        'source_tmpl': 'Parallel-ForkManager-2.02.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/Y/YA/YANICK/'],
+    }),
+    ('Biopython', '1.71', {
+        'source_tmpl': SOURCELOWER_TAR_GZ,
+        'source_urls': ['http://biopython.org/DIST'],
+        'exts_filter': ("python -c 'import Bio'", ''),
+    }),
+]
+
+fix_perl_shebang_for = ['annocript.pl']
+fix_python_shebang_for = ['dna2pep-1.1/*.py']
+
+postinstallcmds = [
+    'chmod +x %(installdir)s/annocript.pl',
+    'cd %(installdir)s && tar xzf DL_PROGRAMS/CPC2-beta.tar.gz && cd CPC2-beta/libs/libsvm && tar xzf libsvm-3.18.tar.gz && cd libsvm-3.18 && make',
+    'cd %(installdir)s && tar xzf DL_PROGRAMS/dna2pep-1.1.tar.gz',
+    'chmod +x %(installdir)s/dna2pep-1.1',
+    'ln -s $EBROOTBLASTPLUS %(installdir)s/blast+-2.7.1',
+]
+
+
+sanity_check_paths = {
+    'files': ['annocript.pl'],
+    'dirs': ['CONFIGURATION', 'lib', 'LIB'],
+}
+
+modextrapaths = {
+    'PATH': ['.', 'CPC2-beta/bin', 'dna2pep-1.1'],
+    'PERL5LIB': ['.', 'lib/perl5/site_perl/%(perlver)s/'],
+    'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages/',
+}
+
+modextravars = {
+    'CPC_HOME': '%(installdir)s/CPC2-beta'
+}
+
+modloadmsg = '''
+	##############################PROGRAM LINKS #################################
+	Please use the following links for the programs into the configuration file:
+	blastPath = %(installdir)s/blast+-2.7.1/bin/
+	lncRNAPredProgPath = %(installdir)s/CPC2-beta/bin/CPC2.py
+	dna2pepPath = %(installdir)s/dna2pep-1.1/dna2pep.py
+	##############################PROGRAM LINKS #################################
+'''
+
+moduleclass = 'bio'
