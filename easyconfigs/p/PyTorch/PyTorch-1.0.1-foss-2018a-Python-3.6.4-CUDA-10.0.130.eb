@@ -2,13 +2,14 @@ easyblock = 'PythonPackage'
 
 name = 'PyTorch'
 version = '1.0.1'
-versionsuffix = '-Python-%(pyver)s'
+local_CUDA_VERSION = '10.0.130'
+versionsuffix = '-Python-3.6.4-CUDA-10.0.130' # manually input this because its giving me issues
 
 homepage = 'http://pytorch.org/'
 description = """Tensors and Dynamic neural networks in Python with strong GPU acceleration.
 PyTorch is a deep learning framework that puts Python first."""
 
-toolchain = {'name': 'fosscuda', 'version': '2019a'}
+toolchain = {'name': 'foss', 'version': '2018a'}
 
 pytorchdir = 'pytorch-%(version)s'
 extract_cmd_pattern = 'tar -C %s/%s --strip-components=1 -xf %%s'
@@ -202,15 +203,16 @@ checksums = [
     '569333e194d6a1d716972e17ad2ca1cd72e92a8845cee2f02ab2d5f541f013e9',  # PyTorch-1.0.1-fix-for-intel.patch
 ]
 
-builddependencies = [('CMake', '3.12.1','',True)]
+builddependencies = [('CMake', '3.12.1')]
 
 dependencies = [
-    ('Python', '3.6.4','-foss-2019a',True),
-    ('PyYAML', '3.12',"-foss-2019a-Python-3.6.4",True),
-    ('hypothesis', '4.5.0',"-foss-2019a-Python-3.6.4",True),
-    ('cuDNN', '7.1.4.18'),
-    ('Ninja', '1.8.2',"-foss-2019a",True),
-    ('magma', '2.3.0'),
+    ('Python', '3.6.4'),
+    ('PyYAML', '3.12',"-foss-2018a-Python-3.6.4",True),
+    ('hypothesis', '4.5.0',"-foss-2018a-Python-3.6.4",True),
+    ('CUDA','10.0.130','',True),
+    ('cuDNN', '7.4.2.24','-CUDA-10.0.130', True),
+    ('Ninja', '1.8.2'),
+    ('magma', '2.3.0',"-foss-2018a-CUDA-10.0.130",True),
 ]
 
 download_dep_fail = True
@@ -225,11 +227,11 @@ preinstallopts += 'CUDNN_LIB_DIR=$EBROOTCUDNN/lib CUDNN_INCLUDE_DIR=$EBROOTCUDNN
 # by default it does autodetect of the GPU on the local machine
 # https://en.wikipedia.org/wiki/CUDA#GPUs_supported
 # register error with 5.2, 5.3, 6.2
-prebuildopts += ' TORCH_CUDA_ARCH_LIST="3.0 3.2 3.5 3.7 5.0 6.0 6.1 7.0 7.2"'
+prebuildopts += ' TORCH_CUDA_ARCH_LIST="3.0 3.2 3.5 3.7 5.0 6.0 6.1 7.0 7.2 7.4"'
 
 runtest = 'export PYTHONPATH=%(builddir)s/%(namelower)s-%(version)s/build/lib.linux-x86_64-%(pyshortver)s:$PYTHONPATH '
 # skip test subsuites that include hanging/failing tests for now
-#runtest += '&& python test/run_test.py --exclude autograd cpp_extensions c10d torch --verbose'
+runtest += '&& python test/run_test.py --exclude autograd cpp_extensions c10d torch --verbose'
 
 options = {'modulename': 'torch'}
 

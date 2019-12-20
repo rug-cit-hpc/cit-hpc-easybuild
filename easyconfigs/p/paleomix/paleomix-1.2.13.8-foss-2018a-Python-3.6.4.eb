@@ -1,0 +1,25 @@
+easyblock = 'PythonBundle'
+
+name = 'paleomix'
+version = '1.2.13.8'
+
+homepage = 'https://github.com/MikkelSchubert/paleomix'
+description = "The PALEOMIX pipelines are a set of pipelines and tools designed to aid the rapid processing of High-Throughput Sequencing (HTS) data."
+
+toolchain = {'name' : 'foss', 'version' : '2018a'}
+
+dependencies = [
+    ("Python","3.6.4"),
+]
+
+use_pip = True
+
+exts_default_options = {'source_urls': [PYPI_SOURCE]}
+
+exts_list = [
+    ('setproctitle','1.1.10'),
+    ('pysam','0.15.3'),
+    (name, version),
+]
+
+moduleclass = 'bio'
