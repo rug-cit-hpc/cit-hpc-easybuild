@@ -15,7 +15,12 @@ start_dir = '2.0/build_dynamic'
 
 dependencies = [('zlib', '1.2.11')]
 
-buildopts = ' NO_AVX2=1 NO_LAPACK= BLASFLAGS="-lopenblas -L$EBROOTZLIB/lib"'
+avx2=('avx2' in open('/proc/cpuinfo').read())
+if avx2:
+    buildopts = ' NO_AVX2=0 NO_LAPACK= BLASFLAGS="-lopenblas -L$EBROOTZLIB/lib"'
+else:
+    buildopts = ' NO_AVX2=1 NO_LAPACK= BLASFLAGS="-lopenblas -L$EBROOTZLIB/lib"'
+
 
 files_to_copy = [
     (["plink2", "pgen_compress"], 'bin'),
