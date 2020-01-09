@@ -1,7 +1,7 @@
 easyblock = 'MakeCp'
 
 name = 'PLINK'
-version = '2.00-alpha2'
+version = '2.00-alpha2.1'
 
 homepage = 'https://www.cog-genomics.org/plink/2.0/'
 description = 'Whole-genome association analysis toolset'
@@ -9,7 +9,7 @@ description = 'Whole-genome association analysis toolset'
 toolchain = {'name': 'foss', 'version': '2018a'}
 
 source_urls = ['https://github.com/chrchang/plink-ng/archive/']
-sources = ['2019.tar.gz']
+sources = ['v2.00a2.1.tar.gz']
 
 start_dir = '2.0/build_dynamic'
 
