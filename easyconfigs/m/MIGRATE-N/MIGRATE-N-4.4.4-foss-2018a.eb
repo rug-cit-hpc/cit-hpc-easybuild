@@ -1,0 +1,46 @@
+easyblock = 'ConfigureMake'
+
+name = 'MIGRATE-N'
+version = '4.4.4'
+
+homepage = 'http://popgen.sc.fsu.edu/Migrate/Migrate-n.html'
+description = """
+Migrate estimates population parameters, effective population sizes
+and migration rates of n populations, using genetic data.  It 
+uses a coalescent theory approach taking into account history of 
+mutations and uncertainty of the genealogy. 
+"""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = [
+    'https://peterbeerli.com/migrate-html5/download_version%(version_major)s/',
+]
+sources = ['migrate-%(version)s.src.tar.gz']
+patches = [
+    'migrate-4.2.14_install.patch',
+]
+checksums = [
+    'e30f2e9ce8aa7ec987019eca5cad16d1e51c68f7c56711899bf61c3031115d66',  # migrate-4.4.4.src.tar.gz
+    'b84eea6c8e76af3ef2a71aa566962cf6e49c3ec9c808993d85dc74e86e530c94',  # migrate-4.2.14_install.patch
+]
+
+dependencies = [
+    ('zlib', '1.2.11'),
+]
+
+# Fix call to showgit.sh script
+preconfigopts = 'sed -i "s/shell . showgit.sh/shell sh showgit.sh/" Makefile.in && '
+# Fix that enables the installation of the migrate-n-mpi executable with "make install"
+preconfigopts += 'sed -i "s/#\$(INSTALL)/\$(INSTALL)/" Makefile.in && '
+configopts = '--enable-A4 "CC=$CC" STDCPLUS=-lstdc++ '
+prebuildopts = 'make mpis && make clean && '
+
+start_dir = 'src'
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['migrate-n', 'migrate-n-mpi']],
+    'dirs': ['man'],
+}
+
+moduleclass = 'bio'
