@@ -1,0 +1,41 @@
+easyblock = 'MakeCp'
+
+name = 'ROHan'
+version = '1.0'
+
+homepage = 'https://github.com/grenaud/ROHan'
+description = """Joint inference of heterozygosity rates and runs of homozygosity"""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+source_urls = ['https://github.com/grenaud/ROHan/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['88aeba2106701baa7ab5e6524c09d7bf921e38c33298064dc1583e2a0b4cb324']
+
+builddependencies = [
+    ('Autotools', '20170619'),
+    ('git', '2.14.1'),
+    ('CMake', '3.11.4'),
+]
+
+
+dependencies = [
+    ('libpng', '1.6.34'),
+    ('bzip2', '1.0.6'),
+    ('GSL', '2.4'),
+]
+
+parallel = 1
+
+files_to_copy = [
+    (['src/estimateDamage.pl', 'src/rohan', 'src/refPlusSegToGeno', 'src/sitesPlusGeno'],
+     'bin'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/rohan'],
+    'dirs': [],
+}
+
+
+moduleclass = 'bio'

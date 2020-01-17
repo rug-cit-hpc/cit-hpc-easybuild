@@ -1,0 +1,34 @@
+BootStrap: docker
+From: centos:7
+
+%post
+    yum install -y epel-release
+    yum update -y
+    yum upgrade -y
+    yum install -y Lmod
+    yum install -y gcc gcc-c++ gcc-gfortran gdb patch git flex
+    yum install -y python python-setuptools python-pip
+    pip install pep8
+    yum install -y which make libtool automake autoconf file bzip2 gzip
+    yum install -y openssl openssl-devel openssh-clients strace wget curl
+    yum install -y mlnx-ofa_kernel-devel libmlx4-41mlnx1 libibmad librdmacm-devel
+    yum install -y vim-common unzip zip
+# For Easybuild Python installation
+    yum install -y xz-devel gdbm-devel tk-devel tcl-devel
+    yum install -y asciidoc xmlto
+    yum install -y glibc-static glib2-devel tcsh
+    yum install -y slurm-devel pmix libevent-devel
+    localedef -c -i nl_NL -f UTF-8 nl_NL.UTF-8
+
+
+%files
+    repo_mellanox_hpc.repo /etc/yum.repos.d
+    repo_hpc.repo /etc/yum.repos.d
+    z00_ModPath.csh /etc/profile.d
+    z00_ModPath.sh /etc/profile.d
+
+%environment
+    source /etc/profile.d/*.sh
+
+%runscript
+    /bin/bash

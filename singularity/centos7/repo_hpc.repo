@@ -1,0 +1,5 @@
+[HPC-repo]
+name=Local repository
+enabled=1
+baseurl=http://spacewalk02.hpc.rug.nl/peregrine-centos7
+gpgcheck=0
