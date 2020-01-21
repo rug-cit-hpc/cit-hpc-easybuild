@@ -1,0 +1,38 @@
+easyblock = 'ConfigureMake'
+
+name = 'BAGEL'
+version = '1.2.2'
+versionsuffix = '-intel-2018a'
+
+homepage = "http://www.nubakery.org"
+description = """BAGEL (Brilliantly Advanced General Electronic-structure Library)
+is a parallel electronic-structure program."""
+
+# Note:
+# A compiler bug(?) in template deduction prevents newer versions of icpc to compile this software.
+# The developer recommends to compile with GCC and Intel MKL + MPI.
+# https://github.com/nubakery/bagel/issues/182
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+source_urls = ['https://github.com/nubakery/bagel/archive/']
+sources = ['v%(version)s.tar.gz']
+
+builddependencies = [
+    ('Autotools', '20170619'),
+]
+
+dependencies = [
+    ('Boost', '1.67.0', '', ('intel', '2018a')),
+    ('libxc', '4.3.4'),
+]
+
+preconfigopts = './autogen.sh && '
+preconfigopts += 'CC=gcc CXX=g++ MPICC="mpicc -cc=gcc" MPICXX="mpicxx -cxx=g++" MPICXXFLAGS="$CXXFLAGS -DNDEBUG" '
+configopts = ' --with-boost=$BOOST_ROOT --with-mpi=intel --enable-mkl --with-libxc '
+
+sanity_check_paths = {
+    'files': ['bin/BAGEL', 'lib/libbagel.%s' % SHLIB_EXT],
+    'dirs': []
+}
+
+moduleclass = 'phys'
