@@ -1,0 +1,34 @@
+Fix a weird issue with the pipeline getting stuck after executing a mysql query.
+The fix enables the AutoCommit feature and leaves the RaiseError option to its default value.
+--- Annocript-84fd67b30b7edb0eedc4eafd0a3fad3a117055d9/LIB/db_creator.pm.orig	2018-10-23 15:45:08.000000000 +0200
++++ Annocript-84fd67b30b7edb0eedc4eafd0a3fad3a117055d9/LIB/db_creator.pm	2020-01-24 11:21:04.859825682 +0100
+@@ -1930,20 +1930,22 @@
+ 	my $dsnToLoadSafely = "dbi:$platform:$database:$host:$port;mysql_local_infile=1";
+   my $retVal = 1;
+   # PERL DBI CONNECT AND CREATE TABLE
+-	$dbh = DBI->connect($dsnToLoadSafely, $mySqlUser, $mySqlPass, { RaiseError => 0, AutoCommit => 0 }) 
++	#$dbh = DBI->connect($dsnToLoadSafely, $mySqlUser, $mySqlPass, { RaiseError => 0, AutoCommit => 0 }) 
++	$dbh = DBI->connect($dsnToLoadSafely, $mySqlUser, $mySqlPass) 
+     or die $DBI::errstr;
+ 
+   my $select_handle;
+   #print "Executing query: $query\n";
+   
+   #prepares query to the database
+-  $select_handle = $dbh->prepare ($query);
+-  die "ERROR [$?]: can't prepare queries; aborting: ?\n" unless defined $select_handle;
+-  unless (defined $select_handle->execute()){
+-    $retVal = 0;
+-  }
++  #$select_handle = $dbh->prepare ($query);
++  #die "ERROR [$?]: can't prepare queries; aborting: ?\n" unless defined $select_handle;
++  #unless (defined $select_handle->execute()){
++  #  $retVal = 0;
++  #}
++  $dbh->do($query);
+    
+-  $dbh->commit();
++  #$dbh->commit();
+   $dbh->disconnect(); 
+   return $retVal;
+ }
