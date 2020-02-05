@@ -14,7 +14,7 @@ of phenotypic variance explained by all genome-wide SNPs for complex traits (i.e
 It has been subsequently extended for many other analyses to better understand the genetic architecture of
 complex traits."""
 
-toolchain = {'name': 'system', 'version': 'system'}
+toolchain = SYSTEM
 
 source_urls = ['https://cnsgenomics.com/software/gcta/pre_gcta/']
 sources = ['gcta_%(version)s.zip']
