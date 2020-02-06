@@ -1,0 +1,30 @@
+easyblock = 'CMakeMake'
+
+name = 'dlib'
+version = '19.13'
+
+homepage = 'http://dlib.net'
+description = """Dlib is a modern C++ toolkit containing machine learning algorithms and tools 
+                 for creating complex software in C++ to solve real world problems. 
+                 It is used in both industry and academia in a wide range of domains including robotics, 
+                 embedded devices, mobile phones, and large high performance computing environments. """
+
+toolchain = {'name': 'foss', 'version': '2019a'}
+
+source_urls = ['http://dlib.net/files/']
+sources = ['dlib-%(version)s.tar.bz2']
+#checksums = ['3cf2a5b7a40fd61834dcb86c57638f38']
+
+dependencies = [
+#  ('Python', '3.7.2'),
+  ('CMake', '3.13.3')
+]
+
+configopts = '-DCMAKE_BUILD_TYPE=RELEASE '
+
+sanity_check_paths = {
+    'files': ['include/dlib/config.h', 'include/dlib/revision.h', 'lib64/libdlib.a'],
+    'dirs': ['lib64'],
+}
+
+moduleclass = 'tools'

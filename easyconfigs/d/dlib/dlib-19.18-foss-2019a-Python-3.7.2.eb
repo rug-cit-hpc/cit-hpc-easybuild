@@ -1,0 +1,31 @@
+easyblock = 'PythonPackage'
+
+name = 'dlib'
+version = '19.18'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://github.com/indigo-dc/udocker'
+description = """A basic user tool to execute simple docker containers in batch
+ or interactive systems without root privileges."""
+
+toolchain = {'name': 'foss', 'version': '2019a'}
+
+source_urls = ['https://github.com/davisking/dlib/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['3cf2a5b7a40fd61834dcb86c57638f38']
+
+dependencies = [
+  ('Python', '3.7.2'),
+  ('CMake', '3.13.3')
+]
+
+use_pip = True
+
+sanity_check_paths = {
+    'files': ['lib/python3.7/site-packages/dlib.cpython-37m-x86_64-linux-gnu.so'],
+    'dirs': ['lib'],
+}
+
+options = {'modulename': False}
+
+moduleclass = 'tools'
