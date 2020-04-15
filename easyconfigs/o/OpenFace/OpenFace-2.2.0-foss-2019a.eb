@@ -1,0 +1,62 @@
+easyblock = 'CMakeMake'
+
+name = 'OpenFace'
+version = '2.2.0'
+
+homepage = 'https://github.com/TadasBaltrusaitis/OpenFace'
+description = """
+	OpenFace: a state-of-the art tool intended for facial landmark detection, head pose estimation, facial action unit recognition, and eye-gaze estimation.
+"""
+
+toolchain = {'name': 'foss', 'version': '2019a'}
+
+source_urls = ['https://github.com/TadasBaltrusaitis/OpenFace/archive/']
+sources = ['OpenFace_%(version)s.tar.gz']
+
+builddependencies = [
+    ('CMake', '3.13.3'),
+#    ('dlib', '19.19'),
+    ('dlib', '19.19', '-Python-3.7.2'),
+#    ('protobuf', '3.6.1'),
+#    ('HDF5', '1.10.1'),
+#    ('OpenBLAS', '0.2.20'),
+]
+
+dependencies = [
+    ('Boost', '1.72.0'),
+#    ('dlib', '19.19'),
+    ('dlib', '19.19', '-Python-3.7.2'),
+#    ('cuDNN', '7.1.4.18'),
+    ('OpenCV', '4.0.1', '-Python-3.7.2'),
+#    ('Python', '2.7.14'),
+#    ('glog', '0.3.5'),
+#    ('gflags', '2.2.1'),
+    ('OpenBLAS', '0.3.5'),
+]
+
+
+
+configopts = '-DCMAKE_BUILD_TYPE=RELEASE '
+#configopts += '-DBUILD_PYTHON=ON '
+#configopts += '-DBUILD_CAFFE=OFF '
+#configopts += '-DOPENCV_DIR="${EBROOTOPENCV}" '
+configopts += '-DOpenBLAS_LIB="${EBROOTOPENBLAS}/lib" '
+configopts += '-DOpenBLAS_INCLUDE_DIR="${EBROOTOPENBLAS}/include" '
+#configopts += '-DCMAKE_PREFIX_PATH="${EBROOTDLIB}" '
+configopts += '-Ddlib_DIR="${EBROOTDLIB}/lib64/cmake/dlib" '
+#configopts += '-DCaffe_LIBS="${EBROOTCAFFE}"/lib64/libcaffe.so '
+#configopts += '-DBLAS=open '
+#configopts += '-DCUDA_ARCH=Manual '
+#configopts += '-DCUDA_ARCH_BIN="30 35 37 70" '
+
+#sanity_check_paths = {
+#    'files': ['lib/libopenpose_3d.so'],
+#    'dirs': ['include', 'lib']
+#}
+
+#modextrapaths = {
+#    'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages',
+#    'CLASSPATH': 'share/OpenCV/java',
+#}
+
+#moduleclass = 'vis'
