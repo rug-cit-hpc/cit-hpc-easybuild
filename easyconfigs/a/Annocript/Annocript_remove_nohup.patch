@@ -1,0 +1,11 @@
+--- Annocript-84fd67b30b7edb0eedc4eafd0a3fad3a117055d9/annocript.pl.orig	2020-04-17 15:18:28.859654485 +0200
++++ Annocript-84fd67b30b7edb0eedc4eafd0a3fad3a117055d9/annocript.pl	2020-04-17 15:18:59.747538668 +0200
+@@ -325,7 +325,7 @@
+ 	chdir $program_folder;
+ 	
+ 	#This perl script will be run in background
+-	my $runAnnocriptCmd = "nohup perl ".$configHash->{'ProgExecFolder'} ."/annocript_executor.pl $user_config $program_config $timesFile $configHashPath >> $log_file &";
++	my $runAnnocriptCmd = "perl ".$configHash->{'ProgExecFolder'} ."/annocript_executor.pl $user_config $program_config $timesFile $configHashPath >> $log_file";
+ 	( system($runAnnocriptCmd) ) == 0 
+ 	  or die("Unable to start annocript_executor!\n");
+ 	}
