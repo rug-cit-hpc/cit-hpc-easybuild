@@ -21,6 +21,7 @@ dependencies = [
     ('BLAST+', '2.7.1'),
     ('HMMER', '3.3'),
     ('Trinity', '2.8.4'),
+    ('TransDecoder', '5.5.0', '-Perl-%(perlver)s'),
 ]
 
 sanity_check_paths = {
