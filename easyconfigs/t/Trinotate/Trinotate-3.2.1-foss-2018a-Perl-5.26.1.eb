@@ -28,4 +28,5 @@ sanity_check_paths = {
     'dirs': ['PerlLib', 'sample_data', 'util'],
 }
 
+modextrapaths = {'TRINOTATE_HOME': '.'}
 moduleclass = 'bio'
