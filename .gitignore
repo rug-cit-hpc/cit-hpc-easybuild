@@ -1,4 +1,5 @@
 *.py[cod]
+config/config.cfg
 
 # Klemen's annoying vim swap files
 *.swp
