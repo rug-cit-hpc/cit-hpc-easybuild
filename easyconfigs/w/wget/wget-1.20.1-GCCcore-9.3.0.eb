@@ -15,11 +15,11 @@ sources = [SOURCE_TAR_GZ]
 checksums = ['b783b390cb571c837b392857945f5a1f00ec6b043177cc42abb8ee1b542ee1b3']
 
 builddependencies = [
-    ('binutils', '2.32'),
+    ('binutils', '2.34'),
     ('pkg-config', '0.29.2'),
 ]
 dependencies = [
-    ('PCRE', '10.34'),
+    ('PCRE', '8.44'),
     ('libidn', '1.35'),
     ('zlib', '1.2.11'),
     # OS dependency should be preferred if the os version is more recent then this version,
