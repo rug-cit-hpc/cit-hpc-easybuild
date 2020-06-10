@@ -36,6 +36,8 @@ sanity_check_paths = {
     'dirs': ['lib/Bio/Roary'],
 }
 
+modextrapaths = {'PERL5LIB': 'lib'}
+
 sanity_check_commands = [
     "perldoc -lm Bio::Roary",
     "roary -a",
