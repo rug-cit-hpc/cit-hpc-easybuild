@@ -15,7 +15,7 @@ toolchain = {'name': 'GCC', 'version': '9.3.0'}
 
 source_urls = ['https://github.com/CompEvol/beast2/releases/download/v%(version)s/']
 sources = ['BEAST.v%(version)s.Linux.tgz']
-checksums = ['2feb2281b4f7cf8f7de1a62de50f52a8678ed0767fc72f2322e77dde9b8cd45f']
+checksums = ['9b6882e7f825e16a4dd91548e43b71b10931a8b0c128a1c6ae90a185c7c6dca3']
 
 dependencies = [
     # this is not mandatory but beagle-lib is recommended by developers
