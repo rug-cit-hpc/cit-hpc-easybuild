@@ -37,7 +37,7 @@ dependencies = [
     ('Perl', '5.30.2'),
     # Jellyfish 1.x might not be required anymore in version 1.1.1,
     # see https://github.com/DerrickWood/kraken/issues/69
-    ('wget', '1.20.1'),
+    ('wget', '1.20.3'),
 ]
 
 install_cmd = 'cd %(builddir)s/%(namelower)s-%(version)s && '
