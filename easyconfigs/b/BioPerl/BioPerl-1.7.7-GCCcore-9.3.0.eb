@@ -14,7 +14,7 @@ builddependencies = [('binutils', '2.34')]
 dependencies = [
     ('Perl', '5.30.2'),
     ('XML-LibXML', '2.0205'),
-    ('DB_File','1.835'),
+    ('DB_File', '1.835'),
 ]
 
 exts_defaultclass = 'PerlModule'
@@ -36,7 +36,7 @@ exts_list = [
         'source_urls': ['https://cpan.metacpan.org/authors/id/C/CJ/CJFIELDS/'],
         'checksums': ['d2bd9cfbb091eee2d80ed6cf812ac3813b1c8a1aaca20671037f5f225d31d1da'],
     }),
-    ('BioPerl', version, { 
+    ('BioPerl', version, {
         'source_tmpl': '%(name)s-%(version)s.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/C/CJ/CJFIELDS/'],
         'checksums': ['730e2bd38b7550bf6bbd5bca50d019a70cca514559702c1389d770ff69cff1bb'],
