@@ -1,0 +1,12 @@
+# http://redmine.gromacs.org/issues/2927
+--- gromacs-2016.1/cmake/gmxDetectSimd.cmake.orig	2020-06-11 18:05:37.574684936 +0200
++++ gromacs-2016.1/cmake/gmxDetectSimd.cmake	2020-06-11 18:05:58.869768869 +0200
+@@ -72,7 +72,7 @@
+     message(STATUS "Detecting best SIMD instructions for this CPU")
+ 
+     # Get CPU SIMD properties information
+-    set(_compile_definitions "${GCC_INLINE_ASM_DEFINE} -I${CMAKE_SOURCE_DIR}/src -DGMX_CPUINFO_STANDALONE ${GMX_STDLIB_CXX_FLAGS}")
++    set(_compile_definitions ${GCC_INLINE_ASM_DEFINE} -I${CMAKE_SOURCE_DIR}/src -DGMX_CPUINFO_STANDALONE ${GMX_STDLIB_CXX_FLAGS})
+     if(GMX_TARGET_X86)
+         set(_compile_definitions "${_compile_definitions} -DGMX_TARGET_X86")
+     endif()
