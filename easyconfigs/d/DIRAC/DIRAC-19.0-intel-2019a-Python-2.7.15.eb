@@ -24,6 +24,6 @@ configopts = '-DMKL_FLAG=sequential -DENABLE_64BIT_INTEGERS=ON -DENABLE_PCMSOLVE
 
 parallel=12
 
-runtest = True
+runtest = False
 
 moduleclass = 'chem'
