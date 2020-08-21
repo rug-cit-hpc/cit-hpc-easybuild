@@ -1,0 +1,46 @@
+easyblock = 'PackedBinary'
+
+name = 'T-COFFEE'
+version = '13.41.0.28bdc39'
+
+homepage = 'http://tcoffee.crg.cat/'
+description = """T-Coffee is a multiple sequence alignment package. You can use T-Coffee
+to align sequences or to combine the output of your favorite alignment methods (Clustal, 
+Mafft, Probcons, Muscle...) into one unique alignment (M-Coffee).
+
+T-Coffee can align Protein, DNA and RNA sequences. It is also able to combine sequence 
+information with protein structural information (3D-Coffee/Expresso), profile information 
+(PSI-Coffee) or RNA secondary structures (R-Coffee)."""
+
+toolchain = {'name': 'foss', 'version': '2020a'}
+
+source_urls = [
+    'http://www.tcoffee.org/Packages/Stable/Latest/',
+    'http://www.tcoffee.org/Packages/Beta/Latest/',
+]
+sources = ['%(name)s_distribution_Version_%(version)s.tar.gz']
+
+dependencies = [
+    ('X11', '20200222'),
+    ('Perl', '5.30.2'),
+]
+
+install_cmd = 'cd %(builddir)s/%(name)s_distribution_Version_%(version)s && '
+install_cmd += './install all -tcdir=%(installdir)s -update -nobinaries'
+
+fix_perl_shebang_for = 'plugins/linux/*.pl'
+
+sanity_check_paths = {
+    'files': ['bin/linux/t_coffee'],
+    'dirs': ['bin', 'mcoffee', 'plugins'],
+}
+
+modextrapaths = {
+    'PATH': ['bin/linux', 'plugins/linux'],
+    'PLUGINS_4_TCOFFEE': 'plugins/linux',
+}
+
+modloadmsg = '''Please read the following wiki page for more information
+on using T-COFFEE:
+https://wiki.hpc.rug.nl/peregrine/examples/t-coffee'''
+moduleclass = 'bio'
