@@ -1,0 +1,47 @@
+easyblock = 'MesonNinja'
+
+name = 'RxDock'
+version = '20200714'
+local_commit = 'cccca11a'
+versionsuffix = '-%s' % local_commit
+
+homepage = 'https://www.rxdock.org/'
+description = """RxDock is a fast and versatile open-source docking program that can be used to dock small molecules
+against proteins and nucleic acids. It is designed for high-throughput virtual screening (HTVS) campaigns and 
+binding mode prediction studies."""
+
+toolchain = {'name': 'foss', 'version': '2020a'}
+
+source_urls = ['https://gitlab.com/%(namelower)s/%(namelower)s/-/archive/']
+sources = ['%s.tar.gz' % local_commit]
+checksums = ['2654d96f9574907bb65c1ca2049f849f804c9e071cf5a8b3f842948025a10776']
+
+builddependencies = [
+    ('Meson', '0.53.2', '-Python-3.8.2'),
+    ('Ninja', '1.10.0'),
+    ('CMake', '3.16.4'),
+    ('Eigen', '3.3.7'),
+]
+
+dependencies = [
+    ('Perl', '5.30.2'),
+#    ('Python', '3.8.2'),
+#    ('SciPy-bundle', '2020.03', '-Python-%(pyver)s'),
+#    OpenBabel - disabled for now. Only required for tethered docking.
+]
+
+postinstallcmds = [
+    'cp %%(builddir)s/%%(namelower)s-%s-*/bin/* %%(installdir)s/bin/' % local_commit,
+    'rm %(installdir)s/bin/to_unix',
+    'cp %%(builddir)s/%%(namelower)s-%s-*/lib/* %%(installdir)s/lib/' % local_commit,
+    'cp -r %%(builddir)s/%%(namelower)s-%s-*/data/ %%(installdir)s/' % local_commit,
+]
+
+sanity_check_paths = {
+    'files': ['bin/rbdock', 'bin/rbcavity'],
+    'dirs': ['bin', 'lib', 'share'],
+}
+
+modextrapaths = {'RBT_ROOT': ''}
+
+moduleclass = 'bio'
