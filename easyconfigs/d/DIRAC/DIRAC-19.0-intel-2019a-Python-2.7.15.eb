@@ -1,0 +1,29 @@
+name = 'DIRAC'
+version = '19.0'
+versionsuffix = '-Python-2.7.15'
+
+homepage = 'http://diracprogram.org/'
+description = """The DIRAC program computes molecular properties using relativistic quantum chemical methods."""
+
+toolchain = {'name': 'intel', 'version': '2019a'}
+toolchainopts = {'usempi': True}
+
+source_urls = ["https://zenodo.org/record/3572669/files/"]
+sources = ['%(name)s-%(version)s-Source.tar.gz']
+checksums = ['f0e3610bdd1fbcff90cdfb4cf3fd7582a4762f533af7d635c4bc4d114f402c32']
+
+dependencies = [
+    ('Python', '2.7.15'),
+    ('zlib', '1.2.11'),
+    ('Boost', '1.70.0'),
+    ('Eigen', '3.3.7','', True),
+]
+builddependencies = [('CMake', '3.13.3')]
+
+configopts = '-DMKL_FLAG=sequential -DENABLE_64BIT_INTEGERS=ON -DENABLE_PCMSOLVER=OFF -DENABLE_STIELTJES=OFF'
+
+parallel=12
+
+runtest = False
+
+moduleclass = 'chem'

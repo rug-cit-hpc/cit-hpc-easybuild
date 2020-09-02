@@ -2,7 +2,6 @@ easyblock = 'Tarball'
 
 name = 'Roary'
 version = '3.13.0'
-versionsuffix = '-Perl-%(perlver)s'
 
 homepage = 'https://github.com/sanger-pathogens/Roary'
 description = "Rapid large-scale prokaryote pan genome analysis"
@@ -20,7 +19,7 @@ checksums = [
 dependencies = [
     ('Perl', '5.30.2'),
     ('CD-HIT', '4.8.1'),
-    ('BLAST+', '2.10.0'),
+    ('BLAST+', '2.10.1'),
     ('MCL', '14.137'),
     ('BEDTools', '2.29.2'),
     ('PRANK', '170427'),
