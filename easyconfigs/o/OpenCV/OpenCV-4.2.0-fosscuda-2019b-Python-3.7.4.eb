@@ -54,6 +54,6 @@ dependencies = [
 #preconfigopts = "mkdir %(builddir)s/opencv_modules && "
 #preconfigopts += "cp -a %(builddir)s/opencv_contrib-4.2.0/modules/cudev/ %(builddir)s/opencv_modules/ && "
 
-configopts = "-DOPENCV_EXTRA_MODULES_PATH=%(builddir)s/opencv_contrib-4.2.0/modules/ -DBUILD_opencv_cudev=ON"
+configopts = "-DOPENCV_EXTRA_MODULES_PATH=%(builddir)s/opencv_contrib-4.2.0/modules/ -DBUILD_opencv_cudev=ON -DOPENCV_ENABLE_NONFREE=ON"
 
 moduleclass = 'vis'

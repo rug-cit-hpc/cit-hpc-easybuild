@@ -1,6 +1,6 @@
 name = 'DIRAC'
 version = '19.0'
-versionsuffix = '-Python-2.7.15'
+versionsuffix = '-patch_mxcont_40-Python-2.7.15'
 
 homepage = 'http://diracprogram.org/'
 description = """The DIRAC program computes molecular properties using relativistic quantum chemical methods."""
