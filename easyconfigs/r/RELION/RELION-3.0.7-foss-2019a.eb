@@ -50,7 +50,12 @@ dependencies = [
 configopts = "-DCMAKE_SHARED_LINKER_FLAGS='-lpthread' -DALTCPU=true "
 
 postinstallcmds = [
-    'cp relion_sbatch.sh %(installdir)s/bin',
+    #'pwd > /home/$USER/relion_current_dir.txt', # Debugging
+    #'ls -al >> /home$USER/relion_current_dir.txt', # Debugging
+    'cp /home/$USER/easybuild/cit-easybuild/easyconfigs/r/RELION/relion_sbatch.sh %(installdir)s/bin', # A disgusting and terrible fix, but I've tried just about everything else at this point
+    #'cp relion_sbatch.sh %(installdir)s/bin',
+    #'cp %(start_dir)s/relion_sbatch.sh %(installdir)s/bin', # Attempted fix when above doesn't work
+    #'cp {}/relion_sbatch.sh {}/bin'.format(start_dir,installdir), # See comment above.
     'chmod +x %(installdir)s/bin/relion_sbatch.sh',
 ]
 
