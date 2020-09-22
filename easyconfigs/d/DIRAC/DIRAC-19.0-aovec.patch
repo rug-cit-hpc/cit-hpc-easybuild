@@ -1,0 +1,9 @@
+diff -Nru DIRAC-19.0-Source.orig/src/include/aovec.h DIRAC-19.0-Source/src/include/aovec.h
+--- DIRAC-19.0-Source.orig/src/include/aovec.h	2020-07-21 10:17:34.000000000 +0200
++++ DIRAC-19.0-Source/src/include/aovec.h	2020-07-21 10:20:02.000000000 +0200
+@@ -10,4 +10,4 @@
+ !     then rebuild the program using the command "make".
+ !
+       INTEGER MXCONT, MXAOVC
+-      PARAMETER (MXCONT = 30, MXAOVC = MXCONT)
++      PARAMETER (MXCONT = 40, MXAOVC = MXCONT)

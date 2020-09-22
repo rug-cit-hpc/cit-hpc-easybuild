@@ -18,6 +18,7 @@ From: centos:7
     yum install -y asciidoc xmlto
     yum install -y glibc-static glib2-devel tcsh
     yum install -y slurm-devel pmix libevent-devel
+    yum install -y fuse3-devel
     localedef -c -i nl_NL -f UTF-8 nl_NL.UTF-8
 
 
@@ -26,6 +27,12 @@ From: centos:7
     repo_hpc.repo /etc/yum.repos.d
     z00_ModPath.csh /etc/profile.d
     z00_ModPath.sh /etc/profile.d
+# For overlayfs actions. This is useful for reinstalling software without
+# overwriting the current installation directly. The installed
+# software can then be copied from the overlay fs to the real location.
+# This is a compiled version of fuse-overlayfs 0.4.1.
+# Unfortunately newer versions of fuse-overlayfs won't work.
+    fuse-overlayfs /usr/bin/fuse-overlayfs
 
 %environment
     source /etc/profile.d/*.sh

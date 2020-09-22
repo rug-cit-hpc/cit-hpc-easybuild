@@ -1,0 +1,43 @@
+easyblock = 'PackedBinary'
+
+name = 'qctool'
+version = '1.4.0'
+commit = 'ac5b12b78f'
+# versionsuffix = '-beta-%s' % commit
+
+homepage = 'https://www.well.ox.ac.uk/~gav/qctool_v2/index.html'
+description = "QCTOOL is a command-line utility program for basic quality control of gwas datasets"
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['https://enkre.net/cgi-bin/code/qctool/tarball/ac5b12b78f/']
+sources = [{
+    'filename': '%s-%s.tar.gz' % (name, commit),
+    'download_filename': '%s.tar.gz' % commit
+}]
+#checksums = ['ac5b12b78f4e02147c7ec07d1f032934206c63324f2b3d544e9adfc03b91bf24']
+
+dependencies = [
+#    ('zlib', '1.2.11'),
+    ('Python', '2.7.14'),
+    ('Boost', '1.63.0', '-Python-2.7.14')
+]
+
+configure_and_build_cmd  = 'cd %s/%s/ && ' % ('%(builddir)s', commit)
+configure_and_build_cmd += 'chmod +x waf-1.5.18 && '
+configure_and_build_cmd += './waf-1.5.18 configure --prefix=%(installdir)s --static && '
+configure_and_build_cmd += './waf-1.5.18 && '
+configure_and_build_cmd += './waf-1.5.18 install && '
+configure_and_build_cmd += 'ln -s %(name)s_v%(version)s %(installdir)s/bin/%(name)s '
+
+#configure_and_build_cmd += 'mkdir %(installdir)s/bin/ && '
+#configure_and_build_cmd += 'cp  %(builddir)s/gavinband-qctool-ba5eaa44a62f/build/default/%(name)S_v%(version)s %(installdir)s/bin/%(name)s'
+
+install_cmd = '%s' % (configure_and_build_cmd)
+
+sanity_check_paths = {
+    'files': ['bin/qctool'],
+    'dirs': []
+}
+
+moduleclass = 'bio'
