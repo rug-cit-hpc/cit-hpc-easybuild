@@ -1,0 +1,41 @@
+# Author: Pavel Grochal (INUITS)
+# License: GPLv2
+
+easyblock = 'Tarball'
+
+name = 'ABRicate'
+version = '1.0.1'
+
+homepage = 'https://github.com/tseemann/abricate'
+description = "Mass screening of contigs for antimicrobial and virulence genes"
+
+toolchain = {'name': 'gompi', 'version': '2020a'}
+
+# https://github.com/tseemann/abricate
+github_account = 'tseemann'
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = ['v%(version)s.zip']
+checksums = ['0933b7d4c9246074db5029165dc76562e926593e0f28737a9d29585cd4f39827']
+
+dependencies = [
+    ('Perl', '5.30.2'),
+    ('any2fasta', '0.4.2'),
+    ('BioPerl', '1.7.7'),
+    ('BLAST+', '2.10.1'),
+]
+
+postinstallcmds = ['%(installdir)s/bin/abricate --setupdb']
+
+sanity_check_paths = {
+    'files': ['bin/abricate', 'bin/abricate-get_db'],
+    'dirs': ['db'],
+}
+
+sanity_check_commands = [
+    "abricate --help",
+    "abricate --list",
+]
+
+modloadmsg = "abricate databases are located in $EBROOTABRICATE/db\n"
+
+moduleclass = 'bio'
