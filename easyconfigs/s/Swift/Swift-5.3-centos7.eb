@@ -1,0 +1,22 @@
+easyblock = "Tarball"
+
+name = 'Swift'
+version = '5.3'
+versionsuffix='-centos7'
+
+homepage = 'https://swift.org/'
+description = """Swift is a general-purpose programming language built using a modern approach 
+to safety, performance, and software design patterns. """
+
+toolchain = {'name': 'dummy', 'version': '9.3.0'}
+
+source_urls = ['https://swift.org/builds/swift-%(version)s-release/centos7/swift-%(version)s-RELEASE/']
+sources = ['swift-%(version)s-RELEASE-centos7.tar.gz']
+checksums = ['98050473224e2cdf0bff6feb18cf4c8a2da684d80fa99442135e4b58f01a830d']
+
+sanity_check_paths = {
+    'files': ["bin/swift","bin/clang","lib/liblldb.so"],
+    'dirs': ["lib/swift","include"]
+}
+
+moduleclass = 'lang'
