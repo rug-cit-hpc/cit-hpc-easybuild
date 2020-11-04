@@ -1,0 +1,51 @@
+easyblock = 'MakeCp'
+
+name = 'libnoise'
+version = '1.0.0'
+
+homepage = 'http://libnoise.sourceforge.net/'
+description = """libnoise is a portable C++ library that is used to generate coherent noise, a type of 
+smoothly-changing noise. libnoise can generate Perlin noise, ridged multifractal
+noise, and other types of coherent-noise."""
+
+toolchain = {'name': 'GCCcore', 'version': '8.3.0'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://sourceforge.net/projects/libnoise/files/libnoise%20sources/1.0.0/']
+sources = ['libnoisesrc-1.0.0.zip']
+
+# patch taken from libnoise-1.0.0-5.fc14.src.rpm
+patches = ['libnoise-1.0.0_fix_Makefile.patch']
+
+checksums = [
+    '34ed402f43f30ce5e39812642c9533c11082cd2bc092341c65160f5c743be95b', # source zip file
+    'e8cc4a959d65a92bad60d1c8e9555ff4510c14365c568ee7d83f1ac49084eca6', # libnoise-1.0.0_fix_Makefile.patch
+]
+
+builddependencies = [
+    ('binutils', '2.32'),
+    ('CMake', '3.15.3'),
+]
+
+prebuildopts = "cd noise && "
+
+parallel = 1
+
+files_to_copy = [
+    (['noise/lib/libnoise.a','noise/lib/libnoise.so.0.3'], 'lib'),
+    (['noise/include/*.h','noise/include/model','noise/include/module'], 'include'),
+]
+
+postinstallcmds = [
+   'ln -s %(installdir)s/lib/libnoise.so.0.3 %(installdir)s/lib/libnoise.so.0',
+   'ln -s %(installdir)s/lib/libnoise.so.0.3 %(installdir)s/lib/libnoise.so'
+]
+
+sanity_check_paths = {
+    'files': ['lib/libnoise.%s' % SHLIB_EXT, 
+              'include/noise.h',
+             ],
+    'dirs':  ['lib','include','include/model','include/module'],
+}
+
+moduleclass = 'data'
