@@ -1,0 +1,58 @@
+easyblock = 'Tarball'
+
+name = 'gapseq'
+version = '1.1'
+
+homepage = 'https://github.com/jotech/gapseq'
+description = """Informed prediction and analysis of bacterial metabolic pathways and genome-scale
+networks. gapseq is designed to combine metabolic pathway analysis with metabolic
+network reconstruction and curation."""
+
+toolchain = {'name': 'foss', 'version': '2020a'}
+toolchainopts = {'pic': True}
+
+github_account = 'jotech'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['f8a52e81c8d60c67da6105c04d69b0a6ee4e7fa9f4fc13fe1300debfac3a6b92']
+
+dependencies = [
+    ('BLAST+', '2.10.1'),
+    ('Exonerate', '2.4.0'),
+    ('BEDTools','2.29.2'),
+    ('barrnap','0.9'),
+    ('R','4.0.0'),
+]
+
+exts_defaultclass = 'RPackage'
+
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib',
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+exts_list = [
+    ('sybil', '2.1.5', {
+        'checksums': ['5855500cf83cd7863b68f12080250dd7e9a298c155dc4f9f6beabc83180b3eae'],
+    }),
+    ('BiocManager', '1.30.10', {
+        'checksums': ['f3b7a412b42be0ab8df5fcd9bf981876ba9e5c55bc5faaca7af7ede3b6d0c90e'],
+    }),
+    ('glpkAPI', '1.3.2', {
+        'checksums': ['00c0ff9c8eb6b79b88a9d4c5a71b37f270fc7191af8b338da7d5ebd0d73698e3'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['gapseq'],
+    'dirs': ['src', 'dat'],
+}
+
+modextrapaths = {
+    'PATH': '',
+    'R_LIBS': '',
+}
+
+moduleclass = 'bio'
