@@ -1,0 +1,33 @@
+easyblock = 'Tarball'
+
+name = 'mlst'
+version = '2.19.0'
+
+homepage = 'https://github.com/tseemann/mlst'
+description = "Scan contig files against traditional PubMLST typing schemes"
+
+toolchain = {'name': 'gompi', 'version': '2020a'}
+
+# https://github.com/tseemann/mlst
+github_account = 'tseemann'
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = ['v%(version)s.zip']
+checksums = ['3038ab3ea699e34223aa1bd816855e9a6db598a459f5f93af383862c8945d36e']
+
+dependencies = [
+    ('Perl', '5.30.2'),
+    ('any2fasta', '0.4.2'),
+    ('BLAST+', '2.10.1'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/mlst'],
+    'dirs': ['db','perl5'],
+}
+
+sanity_check_commands = [
+    "mlst --help",
+    "mlst --list",
+]
+
+moduleclass = 'bio'
