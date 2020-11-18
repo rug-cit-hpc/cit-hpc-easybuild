@@ -1,0 +1,43 @@
+easyblock = 'CMakeMake'
+
+name = 'Open3D'
+version = '0.11.2'
+
+homepage = 'http://www.open3d.org/'
+description = """A Modern Library for 3D Data Processing
+
+Open3D is an open-source library that supports rapid development of software that deals with 3D data.
+The Open3D frontend exposes a set of carefully selected data structures and algorithms in both C++ and Python.
+The backend is highly optimized and is set up for parallelization.
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '9.3.0'}
+
+github_account = 'intel-isl'
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = ['v%(version)s.tar.gz']
+
+configopts = '-DUSE_SYSTEM_EIGEN3=ON -DUSE_SYSTEM_JPEG=ON -DUSE_SYSTEM_PNG=ON -DUSE_SYSTEM_PYBIND11=ON -DUSE_SYSTEM_QHULL=ON'
+builddependencies = [
+    ('binutils', '2.34'),
+    ('CMake', '3.16.4'),
+    ('Ninja', '1.10.0'),
+]
+
+dependencies = [
+    ('Python', '3.8.2'),
+    ('pybind11', '2.4.3', '-Python-%(pyver)s'),
+    ('Eigen', '3.3.7'),
+    ('tbb', '2020.1'),
+    ('Mesa', '20.0.2'),
+    ('libGLU', '9.0.1'),
+    ('libjpeg-turbo', '2.0.4'),
+    ('Qhull', '2020.2'),
+]
+
+sanity_check_paths = {
+#    'files': [''],
+#    'dirs': ['']
+}
+
+moduleclass = 'data'
