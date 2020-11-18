@@ -1,0 +1,21 @@
+name = 'MrBayes'
+version = '3.2.7'
+
+homepage = 'https://nbisweden.github.io/MrBayes/'
+description = """MrBayes is a program for Bayesian inference and model choice
+across a wide range of phylogenetic and evolutionary models."""
+
+toolchain = {'name': 'foss', 'version': '2020a'}
+toolchainopts = {'usempi': True}
+
+source_urls = ['https://github.com/NBISweden/%(name)s/releases/download/v%(version)s/']
+#source_urls = ['https://github.com/NBISweden/%(name)s/archive/']
+#sources = ['v%(version)s.tar.gz']
+sources = [SOURCELOWER_TAR_GZ]
+
+dependencies = [
+    ('beagle-lib', '3.1.2'),
+    ('libreadline', '8.0'),
+]
+
+moduleclass = 'bio'
