@@ -16,8 +16,10 @@ toolchain = {'name': 'GCCcore', 'version': '9.3.0'}
 github_account = 'intel-isl'
 source_urls = [GITHUB_LOWER_SOURCE]
 sources = ['v%(version)s.tar.gz']
+checksums = ['a0425c5ef63333c7a542c6061f47852fda21e7a245a9f041d51eb87cdedcee18']
 
 configopts = '-DUSE_SYSTEM_EIGEN3=ON -DUSE_SYSTEM_JPEG=ON -DUSE_SYSTEM_PNG=ON -DUSE_SYSTEM_PYBIND11=ON -DUSE_SYSTEM_QHULL=ON'
+
 builddependencies = [
     ('binutils', '2.34'),
     ('CMake', '3.16.4'),
