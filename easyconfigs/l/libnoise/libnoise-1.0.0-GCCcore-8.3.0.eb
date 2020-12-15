@@ -19,7 +19,7 @@ patches = ['libnoise-1.0.0_fix_Makefile.patch']
 
 checksums = [
     '34ed402f43f30ce5e39812642c9533c11082cd2bc092341c65160f5c743be95b', # source zip file
-    'e8cc4a959d65a92bad60d1c8e9555ff4510c14365c568ee7d83f1ac49084eca6', # libnoise-1.0.0_fix_Makefile.patch
+    '6ee64a75036c76f57dd9f43f9d8a19e9a8b3a8b3568598ca405e48582772112a', # libnoise-1.0.0_fix_Makefile.patch
 ]
 
 builddependencies = [
