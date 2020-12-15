@@ -1,0 +1,47 @@
+easyblock = 'MakeCp'
+
+name = 'CNVnator'
+version = '0.4.1'
+
+homepage = 'https://github.com/abyzovlab/CNVnator'
+description = """ a tool for CNV discovery and genotyping from depth-of-coverage by mapped reads
+"""
+
+toolchain = {'name': 'foss', 'version': '2020a'}
+
+sources = ['v%(version)s/%(name)s_v%(version)s.zip']
+source_urls = ['https://github.com/abyzovlab/CNVnator/releases/download']
+
+patches = [
+    'CNVnator-0.4.1_IO_hh.patch',
+    'CNVnator-0.4.1_Makefile-includes.patch',
+]
+
+checksums = [
+    'a2b3d85909ac5533ed079440000fdbf15aede7a56ec1ca555ae185a4162e8675', # source.zip
+    '3fb58c1a896ecdee8b4b6bbaa7e1d5129f1f36135bed8a4f7d7b9c3fadba6857', # CNVnator-0.4.1_IO_hh.patch
+    '857e9c902969a5f3a16b65414dc9835eb97fa9603b13723808efe3111f124f87', # CNVnator-0.4.1_Makefile-includes.patch
+]
+
+dependencies = [
+    ('Python', '3.8.2'),
+    ('matplotlib', '3.2.1', '-Python-%(pyver)s'),
+    ('ROOT', '6.22.06', '-Python-%(pyver)s'),
+    ('SAMtools', '1.10'),
+]
+
+prebuildopts = "cd src && "
+
+files_to_copy = [
+    (['src/cnvnator'], 'bin'), 
+    (['src/*.py'], 'bin'),
+    (['src/pytools'], 'bin'),
+]
+
+
+sanity_check_paths = {
+    'files': ['bin/cnvnator'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

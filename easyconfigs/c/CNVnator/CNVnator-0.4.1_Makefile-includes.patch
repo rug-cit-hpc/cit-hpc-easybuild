@@ -1,0 +1,66 @@
+Modified the Makefile and include statements to correctly work with
+a preinstalled SAMtools. Also added -lcrypto, which is required.
+
+diff -ru CNVnator_v0.4.1.org/src/AliParser.hh CNVnator_v0.4.1/src/AliParser.hh
+--- CNVnator_v0.4.1.org/src/AliParser.hh	2019-08-19 17:27:42.000000000 +0200
++++ CNVnator_v0.4.1/src/AliParser.hh	2020-12-15 11:51:44.000000000 +0100
+@@ -7,7 +7,7 @@
+ using namespace std; 
+ 
+ // Samtools includes
+-#include "sam.h"
++#include "bam/sam.h"
+ 
+ class AliParser
+ {
+diff -ru CNVnator_v0.4.1.org/src/Makefile CNVnator_v0.4.1/src/Makefile
+--- CNVnator_v0.4.1.org/src/Makefile	2019-08-19 17:27:42.000000000 +0200
++++ CNVnator_v0.4.1/src/Makefile	2020-12-15 11:51:19.000000000 +0100
+@@ -1,6 +1,6 @@
+ VERSION	       = v0.4.1
+ 
+-override LIBS += -lz -lbz2 -lcurl -llzma -lreadline
++override LIBS += -lz -lbz2 -lcurl -llzma -lreadline -lcrypto
+ 
+ ifneq ($(wildcard $(ROOTSYS)/lib/root),)
+         ROOTLIBS = -L$(ROOTSYS)/lib/root -lCore -lRIO -lHist -lGraf -lGpad -lTree -lMathCore
+@@ -9,18 +9,17 @@
+ endif
+ 
+ ifneq ($(wildcard $(ROOTSYS)/include/root),)
+-        INC = -I$(ROOTSYS)/include/root -I$(SAMDIR)
++        INC = -I$(ROOTSYS)/include/root -I$(SAMDIR)/include
+ else
+-        INC = -I$(ROOTSYS)/include      -I$(SAMDIR)
++        INC = -I$(ROOTSYS)/include      -I$(SAMDIR)/include
+ endif
+ 
+-SAMDIR = samtools
+-SAMLIB = $(SAMDIR)/libbam.a
+-HTSDIR = $(wildcard $(SAMDIR)/htslib-*)
+-HTSDIRI = $(HTSDIR)/htslib
++SAMDIR = $(EBROOTSAMTOOLS)
++SAMLIB = $(SAMDIR)/lib/libbam.a
++HTSDIR = $(SAMDIR)
+ ifneq ($(HTSDIR),)
+-        SAMLIB += $(HTSDIR)/libhts.a
+-        INC    += -I$(HTSDIR) -I$(HTSDIRI)
++        SAMLIB += $(HTSDIR)/lib/libhts.a
++        INC    += -I$(HTSDIR)
+ endif
+ 
+ ifeq ($(OMP),no)
+diff -ru CNVnator_v0.4.1.org/src/VcfParser.hh CNVnator_v0.4.1/src/VcfParser.hh
+--- CNVnator_v0.4.1.org/src/VcfParser.hh	2019-08-19 17:27:42.000000000 +0200
++++ CNVnator_v0.4.1/src/VcfParser.hh	2020-12-15 11:52:41.000000000 +0100
+@@ -5,8 +5,8 @@
+ #include <fstream>
+ #include <string>
+ #include <sstream>
+-#include "vcf.h"
+-#include "vcfutils.h"
++#include "htslib/vcf.h"
++#include "htslib/vcfutils.h"
+ 
+ using namespace std;
+ 

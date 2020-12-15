@@ -1,0 +1,14 @@
+A fix for bug https://github.com/abyzovlab/CNVnator/issues/215
+from upstream.
+
+diff -ru CNVnator_v0.4.1.org/src/IO.hh CNVnator_v0.4.1/src/IO.hh
+--- CNVnator_v0.4.1.org/src/IO.hh	2019-08-19 17:27:42.000000000 +0200
++++ CNVnator_v0.4.1/src/IO.hh	2020-12-15 11:52:10.000000000 +0100
+@@ -14,6 +14,7 @@
+ #include <string>
+ #include <vector>
+ #include <map>
++#include <set>
+ using namespace std;
+ 
+ // ROOT includes
