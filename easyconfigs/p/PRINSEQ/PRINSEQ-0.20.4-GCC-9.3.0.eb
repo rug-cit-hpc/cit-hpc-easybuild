@@ -7,7 +7,6 @@ easyblock = 'Tarball'
 
 name = 'PRINSEQ'
 version = '0.20.4'
-versionsuffix = '-Perl-%(perlver)s'
 
 homepage = 'http://prinseq.sourceforge.net'
 description = """A bioinformatics tool to PRe-process and show INformation of SEQuence data."""
