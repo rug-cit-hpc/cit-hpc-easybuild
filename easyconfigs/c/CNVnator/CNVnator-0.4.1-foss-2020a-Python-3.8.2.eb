@@ -2,6 +2,7 @@ easyblock = 'MakeCp'
 
 name = 'CNVnator'
 version = '0.4.1'
+versionsuffix = '-Python-%(pyver)s'
 
 homepage = 'https://github.com/abyzovlab/CNVnator'
 description = """ a tool for CNV discovery and genotyping from depth-of-coverage by mapped reads
