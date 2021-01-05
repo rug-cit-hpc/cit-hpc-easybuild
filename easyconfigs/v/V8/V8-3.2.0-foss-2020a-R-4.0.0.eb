@@ -1,0 +1,30 @@
+easyblock = 'RPackage'
+
+name = 'V8'
+version = '3.2.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://cran.r-project.org/web/packages/V8/'
+description = """R interface to Google's open source JavaScript engine"""
+
+toolchain = {'name': 'foss', 'version': '2020a'}
+
+source_urls = [
+    'https://cran.r-project.org/src/contrib/',
+    'https://cran.r-project.org/src/contrib/Archive/%(name)s']
+sources = ['%(name)s_%(version)s.tar.gz']
+checksums = ['1f56ab8d1044fcaa35d834038f17fa97']
+
+dependencies = [
+    ('R', '4.0.0'),
+    ('nodejs', '12.16.1'),
+]
+
+installopts = '--configure-vars="INCLUDE_DIR=$CPATH LIB_DIR=$LIBRARY_PATH"'
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': ['%(name)s'],
+}
+
+moduleclass = 'lang'
