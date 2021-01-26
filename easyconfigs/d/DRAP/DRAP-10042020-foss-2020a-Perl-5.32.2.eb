@@ -1,0 +1,60 @@
+easyblock = 'Tarball'
+
+name = 'DRAP'
+version = '10042020'  # Date of the used commit
+versionsuffix = '-Perl-%(perlver)s'
+
+homepage = 'http://www.sigenae.org/drap/index.html'
+description = """  """
+
+toolchain = {'name' : 'foss', 'version' : '2020a'}
+
+# A bit messy because it's a commit hash on GitLab that we're looking for
+source_urls = ['https://forgemia.inra.fr/cedric.cabau/drap/-/archive/d3eff205c0a29c7e6958c16fd5a3cf8f5c5af139/']
+sources = ['drap-d3eff205c0a29c7e6958c16fd5a3cf8f5c5af139.tar']
+
+dependencies = [
+    ('Perl','5.32.2'),
+    ('Python','2.7.18', versionsuffix),
+]
+
+# Non-standard Perl modules this requires
+exts_defaultclass = 'PerlModule'
+exts_filter = ("perldoc -lm %(ext_name)s ","")
+
+exts_classmap = {
+    'SciPy' : 'PythonPackage',
+    'Numpy' : 'PythonPackage',
+    'Bio' : 'PythonPackage'
+}
+
+exts_list = [
+    # The list of requirements on the Install page of the software is somewhat longer
+    # But they're all included under BioPerl for the most part if something goes wrong
+    # This is a good first point to check.
+    ('Bio::Search::Hit::GenericHit','1.7.7', {
+        'source_tmpl' : 'BioPerl-%(version)s.tar.gz',
+        'source_urls' : ['https://cpan.metacpan.org/authors/id/C/CJ/CJFIELDS/'],
+    }),
+    ('Bio::Tools::Run::StandAloneBlast','1.007003', {
+        'source_tmpl' : 'BioPerl-Run-%(version)s.tar.gz',
+        'source_urls' : ['https://cpan.metacpan.org/authors/id/C/CJ/CJFIELDS'],
+    }),
+    ('IPC::Run','20200505.0', {
+        'source_tmpl' : 'IPC-Run-%(version)s.tar.gz',
+        'source_urls' : ['https://cpan.metacpan.org/authors/id/T/TO/TODDR/'],
+    }),
+    ('JSON','4.02', {
+        'source_tmpl' : 'JSON-%(version)s.tar.gz',
+        'source_urls' : ['https://cpan.metacpan.org/authors/id/I/IS/ISHIGAKI/'],
+    }),
+    ('List::Util','1.55', {
+        'source_tmpl' : 'Scalar-List-Utils-%(version)s.tar.gz',
+        'source_urls' : ['https://cpan.metacpan.org/authors/id/P/PE/PEVANS/'],
+    }),
+    ('Term::ANSIColor','5.01', {
+        'source_tmpl' : 'Term-ANSIColor-%(version)s.tar.gz',
+        'source_urls' : ['https://cpan.metacpan.org/authors/id/R/RR/RRA/'],
+    }),
+]
+
