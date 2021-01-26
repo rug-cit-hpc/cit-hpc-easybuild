@@ -1,0 +1,46 @@
+# Although AMBiT uses scons, it does not support an install operation.
+# Manually running scons and using files_to_copy was the easiest fix.
+easyblock = 'MakeCp'
+name = 'AMBiT'
+version = '3.0.4'
+
+homepage = 'https://github.com/drjuls/AMBiT'
+description = """AMBiT is a high-precision atomic structure software package based on the
+ Configuration Interaction + Many-Body Perturbation Theory (CI+MBPT) method."""
+
+toolchain = {'name': 'foss', 'version': '2020a'}
+toolchainopts = {'openmp': True, 'usempi': True}
+
+source_urls = ['https://github.com/drjuls/AMBiT/archive/']
+sources = ['v%(version)s.tar.gz']
+patches = [ ('AMBiT-3.0.4_config.patch', 1)]
+checksums = [
+    '3f7092993b43ada84ce8ac56d3c83a3d922945fbc09adf0fe91a2095a2410936', # v3.0.4.tar.gz
+    'e4351bfdc1f8af73174ef1f421c44a08063ac29835a5daca88a5e97b4dfa5471', # AMBiT-3.0.4_config.patch
+]
+
+# Eigen and sparsehash only have include files
+builddependencies = [
+    ('SCons', '3.1.2'),
+    ('Eigen', '3.3.7'),
+    ('sparsehash', '2.0.4'),
+]
+
+dependencies = [
+    ('GSL', '2.6'),
+    ('Boost', '1.72.0'),
+]
+
+build_cmd = 'scons'
+
+files_to_copy = [
+   (['ambit'], 'bin'),
+]
+
+
+sanity_check_paths = {
+    'files': ['bin/ambit'],
+    'dirs': [],
+}
+
+moduleclass = 'chem'
