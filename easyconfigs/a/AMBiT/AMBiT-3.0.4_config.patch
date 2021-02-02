@@ -7,7 +7,7 @@
   2021-01-26 Fokke Dijkstra, University of Groninggen, NL
 diff -ru --new-file AMBiT-3.0.4.org/config.ini AMBiT-3.0.4/config.ini
 --- AMBiT-3.0.4.org/config.ini	1970-01-01 01:00:00.000000000 +0100
-+++ AMBiT-3.0.4/config.ini	2021-01-26 13:35:08.433284472 +0100
++++ AMBiT-3.0.4/config.ini	2021-01-27 17:05:30.820790525 +0100
 @@ -0,0 +1,40 @@
 +; Build configuration options for AMBiT:
 +; 
@@ -18,7 +18,7 @@ diff -ru --new-file AMBiT-3.0.4.org/config.ini AMBiT-3.0.4/config.ini
 +CXXFLAGS =  
 +F77 = 
 +LINK = 
-+LINKFLAGS = -fopenmp
++LINKFLAGS = -fopenmp 
 +
 +[HPC options]
 +; OpenMP compiler options can be automatically inferred (unless using MPI)
@@ -33,7 +33,7 @@ diff -ru --new-file AMBiT-3.0.4.org/config.ini AMBiT-3.0.4/config.ini
 +
 +[AMBiT options]
 +AMBiT path = 
-+Angular data =
++Angular data = ./AngularData 
 +
 +[Dependency paths]
 +Lib path = 
@@ -51,7 +51,7 @@ diff -ru --new-file AMBiT-3.0.4.org/config.ini AMBiT-3.0.4/config.ini
 +       boost_filesystem
 diff -ru --new-file AMBiT-3.0.4.org/SConstruct AMBiT-3.0.4/SConstruct
 --- AMBiT-3.0.4.org/SConstruct	2019-03-05 06:21:55.000000000 +0100
-+++ AMBiT-3.0.4/SConstruct	2021-01-26 13:41:00.479458329 +0100
++++ AMBiT-3.0.4/SConstruct	2021-01-27 17:29:10.738769466 +0100
 @@ -2,7 +2,7 @@
  import os # Required to get the current working dir
  import shutil # Required for copying files
@@ -145,6 +145,22 @@ diff -ru --new-file AMBiT-3.0.4.org/SConstruct AMBiT-3.0.4/SConstruct
          pass
  
      # Final step before configuring: check if either OpenMP or MPI have been requested
+@@ -229,12 +229,12 @@
+         use_mkl = False
+ 
+     if use_openmp:
+-        env.Append(CXXFLAGS = "-DAMBIT_USE_OPENMP")
++        env.Append(CXXFLAGS = " -DAMBIT_USE_OPENMP")
+         find_omp_flags(env) # Look for OpenMP flags/try to automagically infer them
+     if use_mpi:
+-        env.Append(CXXFLAGS = "-DAMBIT_USE_MPI")
++        env.Append(CXXFLAGS = " -DAMBIT_USE_MPI")
+     if use_mkl:
+-        env.Append(CXXFLAGS = "-DEIGEN_USE_MKL_ALL")
++        env.Append(CXXFLAGS = " -DEIGEN_USE_MKL_ALL")
+         # Also read and parse the MKL link flags. These can just be of the form: -l<whatever> -I<path>
+         try:
+             mkl_flags = conf.get("HPC options", "MKL flags")
 @@ -246,7 +246,7 @@
                  print("Error: MKL flags must be explicitly defined in config.ini to use MKL")
                  exit(-1)

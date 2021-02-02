@@ -16,7 +16,7 @@ sources = ['v%(version)s.tar.gz']
 patches = [ ('AMBiT-3.0.4_config.patch', 1)]
 checksums = [
     '3f7092993b43ada84ce8ac56d3c83a3d922945fbc09adf0fe91a2095a2410936', # v3.0.4.tar.gz
-    'e4351bfdc1f8af73174ef1f421c44a08063ac29835a5daca88a5e97b4dfa5471', # AMBiT-3.0.4_config.patch
+    '9b45f2b8740cd0c0bf87b81ecda9b5485c166f484372b90f73ef5c75c1916b78', # AMBiT-3.0.4_config.patch
 ]
 
 # Eigen and sparsehash only have include files
@@ -36,7 +36,6 @@ build_cmd = 'scons'
 files_to_copy = [
    (['ambit'], 'bin'),
 ]
-
 
 sanity_check_paths = {
     'files': ['bin/ambit'],
