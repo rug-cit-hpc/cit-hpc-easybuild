@@ -1,0 +1,87 @@
+name = 'MAKER'
+version = '3.01.03'
+versionsuffix = '-Perl-%(perlver)s'
+
+homepage = 'http://www.yandell-lab.org/'
+description = """MAKER is a portable and easily configurable genome annotation pipeline. Its purpose is to allow smaller
+ eukaryotic and prokaryotic genome projects to independently annotate their genomes and to create genome databases. MAKER
+ identifies repeats, aligns ESTs and proteins to a genome, produces ab-initio gene predictions and automatically synthesizes
+ these data into gene annotations having evidence-based quality values. MAKER is also easily trainable: outputs of preliminary
+ runs can be used to automatically retrain its gene prediction algorithm, producing higher quality gene-models on seusequent
+ runs. MAKER's inputs are minimal and its ouputs can be directly loaded into a GMOD database. They can also be viewed in the
+ Apollo genome browser; this feature of MAKER provides an easy means to annotate, view and edit individual contigs and   BACs
+ without the overhead of a database. MAKER should prove especially useful for emerging model organism projects with minimal
+ bioinformatics expertise and computer resources."""
+
+toolchain = {'name': 'gompi', 'version': '2020a'}
+
+# Register to download at http://www.yandell-lab.org/software/maker.html
+sources = ['maker-%(version)s.tgz']
+
+dependencies = [
+    ('Perl', '5.30.2'),
+    ('BioPerl', '1.7.7', '', ('GCCcore', '9.3.0')),
+    ('SNAP', '2013-11-29', '', ('GCC', '9.3.0')),
+    ('RepeatMasker', '4.0.9', versionsuffix),
+    ('OpenMPI', '4.0.3', '', ('GCC', '9.3.0')),
+]
+
+
+# Perl dependencies
+exts_classmap = {'MAKER' : 'PythonPackage'}
+exts_defaultclass = 'PerlModule'
+exts_filter = ("perldoc -lm %(ext_name)s ", "")
+
+#    ('local::lib', '2.000019', {
+#        'source_tmpl': 'local-lib-2.000019.tar.gz',
+#        'source_urls': ['https://cpan.metacpan.org/authors/id/H/HA/HAARG/'],
+#    }),
+exts_list = [
+    ('DBI', '1.643', {
+        'source_tmpl': 'DBI-1.643.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/T/TI/TIMB/'],
+    }),
+    ('File::Which', '1.09', {
+        'source_tmpl': 'File-Which-1.09.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/A/AD/ADAMK/'],
+    }),
+    ('Perl::Unsafe::Signals', '0.03', {
+        'source_tmpl': 'Perl-Unsafe-Signals-0.03.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/R/RG/RGARCIA/'],
+    }),
+    ('Bit::Vector', '7.4', {
+        'source_tmpl': 'Bit-Vector-7.4.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/S/ST/STBEY/'],
+    }),
+    ('Inline', '0.55_02', {
+        'source_tmpl': 'Inline-0.55_02.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/S/SI/SISYPHUS/'],
+    }),
+    ('Inline::C', '0.55_02', {
+        'source_tmpl': 'Inline-0.55_02.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/S/SI/SISYPHUS/'],
+    }),
+    ('forks', '0.36', {
+        'source_tmpl': 'forks-0.36.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/R/RY/RYBSKEJ/'],
+    }),
+    ('forks::shared', '0.36', {
+        'source_tmpl': 'forks-0.36.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/R/RY/RYBSKEJ/'],
+    }),
+    ('IO::All', '0.86', {
+        'source_tmpl': 'IO-All-0.86.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/I/IN/INGY/'],
+    }),
+    ('IO::Prompt', '0.997004', {
+        'source_tmpl': 'IO-Prompt-0.997004.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/'],
+    }),
+]
+
+modextrapaths = {
+    'PERL5LIB': 'lib/perl5/site_perl/%(perlver)s/'
+}
+
+moduleclass = 'bio'
+
