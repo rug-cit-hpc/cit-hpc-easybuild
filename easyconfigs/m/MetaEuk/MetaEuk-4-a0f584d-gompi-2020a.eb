@@ -1,0 +1,29 @@
+easyblock = 'CMakeMake'
+
+name = 'MetaEuk'
+version = '4-a0f584d'
+
+homepage = 'https://github.com/soedinglab/metaeuk'
+description = """MetaEuk - sensitive, high-throughput gene discovery and 
+ annotation for large-scale eukaryotic metagenomics."""
+
+toolchain = {'name': 'gompi', 'version': '2020a'}
+
+source_urls = ['https://github.com/soedinglab/metaeuk/archive/']
+sources = ['%(version)s.tar.gz']
+checksums = ['d64eea5244bd1c73a8c229949b2e833ba77e530ea321d5bb1bdea13b759e6efd']
+
+dependencies = [
+]
+builddependencies = [('CMake', '3.16.4')]
+
+separate_build_dir = True
+
+configopts = '-DCMAKE_BUILD_TYPE=Release -DHAVE_MPI=1'
+
+sanity_check_paths = {
+    'files': ['bin/metaeuk'],
+    'dirs': [''],
+}
+
+moduleclass = 'bio'
