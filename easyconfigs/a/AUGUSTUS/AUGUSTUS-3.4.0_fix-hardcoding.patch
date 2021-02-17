@@ -1,0 +1,118 @@
+diff -ru Augustus-3.4.0.org/auxprogs/bam2hints/Makefile Augustus-3.4.0/auxprogs/bam2hints/Makefile
+--- Augustus-3.4.0.org/auxprogs/bam2hints/Makefile	2020-12-11 16:40:21.000000000 +0100
++++ Augustus-3.4.0/auxprogs/bam2hints/Makefile	2021-02-11 12:06:57.414067460 +0100
+@@ -8,13 +8,13 @@
+ #	Last modified:  09-October-2015 by Katharina J. Hoff
+ 
+ # Variable definition
+-INCLUDES = -I/usr/include/bamtools
++INCLUDES = -I$(EBROOTBAMTOOLS)/include/bamtools
+ LIBS = -lbamtools -lz
+ SOURCES = bam2hints.cc 
+ OBJECTS = $(SOURCES:.cc=.o)
+ CXXFLAGS += -Wall -O2 # -g -p -g -ggdb 
+ 
+-LINK.cc ?= g++
++LINK.cc = $(CXX)
+ 
+ # Recipe(s)
+ # $@: full target name of current target. 
+diff -ru Augustus-3.4.0.org/auxprogs/bam2wig/Makefile Augustus-3.4.0/auxprogs/bam2wig/Makefile
+--- Augustus-3.4.0.org/auxprogs/bam2wig/Makefile	2020-12-11 16:40:21.000000000 +0100
++++ Augustus-3.4.0/auxprogs/bam2wig/Makefile	2021-02-15 09:31:35.071028791 +0100
+@@ -24,8 +24,8 @@
+ 	HTSLIBS=-L$(TOOLDIR)/htslib -Wl,-rpath,$(TOOLDIR)/htslib -lhts -lcurses -lm -lz -lpthread -lcurl -lssl -lcrypto -lbz2 -llzma
+ 	HTSERRHINT="Check if the installed HTSlib is of version 1.10 or higher - see README.txt"
+ else
+-	INCLUDES=-I/usr/include/htslib
+-	HTSLIBS=-lhts -lz -lpthread
++	INCLUDES=-I$(EBROOTHTSLIB)/include/htslib
++	HTSLIBS=-L$(EBROOTHTSLIB)/lib -lhts -lz -lpthread -lcurl -lssl -lcrypto -lbz2 -llzma
+ 	ifdef DEF_TOOLDIR
+ 		HTSERRHINT="There is no htslib folder in directory $(TOOLDIR) \n"
+ 	endif
+diff -ru Augustus-3.4.0.org/auxprogs/filterBam/src/Makefile Augustus-3.4.0/auxprogs/filterBam/src/Makefile
+--- Augustus-3.4.0.org/auxprogs/filterBam/src/Makefile	2020-12-11 16:40:21.000000000 +0100
++++ Augustus-3.4.0/auxprogs/filterBam/src/Makefile	2021-02-10 10:06:03.683328812 +0100
+@@ -8,12 +8,12 @@
+ 			printElapsedTime.cc sumMandIOperations.cc sumDandIOperations.cc PairednessCoverage.cc
+ PROGRAM = filterBam
+ OBJECTS = $(SOURCES:.cc=.o)
+-BAMTOOLS = /usr/include/bamtools
++BAMTOOLS = $(EBROOTBAMTOOLS)/include/bamtools
+ INCLUDES = -I$(BAMTOOLS) -Iheaders -I./bamtools
+ LIBS = -lbamtools -lz
+ CXXFLAGS := -std=c++0x ${CXXFLAGS}
+ VPATH = functions
+-LINK.cc ?= g++
++LINK.cc = $(CXX)
+ 
+ all : $(PROGRAM) $(OBJECTS) CHECKBAM BIN
+ 
+diff -ru Augustus-3.4.0.org/auxprogs/utrrnaseq/Debug/makefile Augustus-3.4.0/auxprogs/utrrnaseq/Debug/makefile
+--- Augustus-3.4.0.org/auxprogs/utrrnaseq/Debug/makefile	2020-12-11 16:40:21.000000000 +0100
++++ Augustus-3.4.0/auxprogs/utrrnaseq/Debug/makefile	2021-02-10 10:08:59.538963998 +0100
+@@ -46,7 +46,7 @@
+ utrrnaseq: $(OBJS) $(USER_OBJS)
+ 	@echo 'Building target: $@'
+ 	@echo 'Invoking: GCC C++ Linker'
+-	$(CXX)  -o "utrrnaseq" $(OBJS) $(USER_OBJS) $(LIBS)
++	$(CXX) $(CXXFLAGS) -o "utrrnaseq" $(OBJS) $(USER_OBJS) $(LIBS)
+ 	@echo 'Finished building target: $@'
+ 	@echo ' '
+ 
+diff -ru Augustus-3.4.0.org/auxprogs/utrrnaseq/Debug/src/subdir.mk Augustus-3.4.0/auxprogs/utrrnaseq/Debug/src/subdir.mk
+--- Augustus-3.4.0.org/auxprogs/utrrnaseq/Debug/src/subdir.mk	2020-12-11 16:40:21.000000000 +0100
++++ Augustus-3.4.0/auxprogs/utrrnaseq/Debug/src/subdir.mk	2021-02-10 10:11:25.221488627 +0100
+@@ -38,7 +38,7 @@
+ src/%.o: ../src/%.cpp
+ 	@echo 'Building file: $<'
+ 	@echo 'Invoking: GCC C++ Compiler'
+-	g++ -I/usr/include/boost -O0 -g3 -pedantic -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
++	$(CXX) $(CXXFLAGS) -I$(EBROOTBOOST)/include/boost -O0 -g3 -pedantic -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+ 	@echo 'Finished building: $<'
+ 	@echo ' '
+ 
+diff -ru Augustus-3.4.0.org/Makefile Augustus-3.4.0/Makefile
+--- Augustus-3.4.0.org/Makefile	2020-12-11 16:40:21.000000000 +0100
++++ Augustus-3.4.0/Makefile	2021-02-10 10:01:57.829437148 +0100
+@@ -19,12 +19,12 @@
+ install:
+ 	install -d $(INSTALLDIR)
+ 	cp -a config bin scripts $(INSTALLDIR)
+-	ln -sf $(INSTALLDIR)/bin/augustus /usr/local/bin/augustus
+-	ln -sf $(INSTALLDIR)/bin/etraining /usr/local/bin/etraining
+-	ln -sf $(INSTALLDIR)/bin/prepareAlign /usr/local/bin/prepareAlign
+-	ln -sf $(INSTALLDIR)/bin/fastBlockSearch /usr/local/bin/fastBlockSearch
+-	if [ -f $(INSTALLDIR)/bin/load2db ] ; then ln -sf $(INSTALLDIR)/bin/load2db /usr/local/bin/load2db ; fi	
+-	if [ -f $(INSTALLDIR)/bin/getSeq ] ; then ln -sf $(INSTALLDIR)/bin/getSeq /usr/local/bin/getSeq ; fi
++#	ln -sf $(INSTALLDIR)/bin/augustus /usr/local/bin/augustus
++#	ln -sf $(INSTALLDIR)/bin/etraining /usr/local/bin/etraining
++#	ln -sf $(INSTALLDIR)/bin/prepareAlign /usr/local/bin/prepareAlign
++#	ln -sf $(INSTALLDIR)/bin/fastBlockSearch /usr/local/bin/fastBlockSearch
++#	if [ -f $(INSTALLDIR)/bin/load2db ] ; then ln -sf $(INSTALLDIR)/bin/load2db /usr/local/bin/load2db ; fi	
++#	if [ -f $(INSTALLDIR)/bin/getSeq ] ; then ln -sf $(INSTALLDIR)/bin/getSeq /usr/local/bin/getSeq ; fi
+ 
+ # for internal purposes:
+ release:
+diff -ru Augustus-3.4.0.org/src/Makefile Augustus-3.4.0/src/Makefile
+--- Augustus-3.4.0.org/src/Makefile	2020-12-11 16:40:21.000000000 +0100
++++ Augustus-3.4.0/src/Makefile	2021-02-11 11:56:41.449375100 +0100
+@@ -21,7 +21,7 @@
+ 	LIBS    = -lboost_iostreams
+ endif
+ 
+-INCLS	= -I../include
++INCLS	= ${CPPFLAGS} -I../include
+ 
+ OBJS	= genbank.o properties.o pp_profile.o pp_hitseq.o pp_scoring.o statemodel.o namgene.o \
+  types.o gene.o evaluation.o motif.o geneticcode.o hints.o extrinsicinfo.o projectio.o \
+@@ -29,7 +29,7 @@
+  meaPath.o exoncand.o randseqaccess.o fasta.o ncmodel.o
+ ifeq (,$(findstring $(COMPGENEPRED),0 false False FALSE))  # if COMPGENEPRED is not defined or is something else than 0, false, False or FALSE
+ 	SQLITE   ?= true
+-	MYSQL    ?= true
++	MYSQL    ?= false
+ 	CPPFLAGS += -DCOMPGENEPRED
+ 	OBJS += parser/parse.o scanner/lex.o genomicMSA.o geneMSA.o contTimeMC.o codonevo.o compgenepred.o phylotree.o orthograph.o orthoexon.o alignment.o speciesgraph.o codonMSA.o train_logReg_param.o tokenizer.o
+ 	LIBS += -lgsl -lgslcblas # for matrix exponentiation that is required in comparative gene finding
