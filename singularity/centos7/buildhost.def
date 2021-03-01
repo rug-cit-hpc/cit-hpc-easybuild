@@ -7,8 +7,8 @@ From: centos:7
     yum upgrade -y
     yum install -y Lmod
     yum install -y gcc gcc-c++ gcc-gfortran gdb patch git flex
-    yum install -y python python-setuptools python-pip
-    pip install pep8
+    yum install -y python3 python3-setuptools python3-pip
+    pip3 install pep8
     yum install -y which make libtool automake autoconf file bzip2 gzip
     yum install -y openssl openssl-devel openssh-clients strace wget curl
     yum install -y mlnx-ofa_kernel-devel libmlx4-41mlnx1 libibmad librdmacm-devel
@@ -20,7 +20,9 @@ From: centos:7
     yum install -y slurm-devel pmix libevent-devel
     yum install -y fuse3-devel
     localedef -c -i nl_NL -f UTF-8 nl_NL.UTF-8
-
+# Easybuild GitHub integration
+    yum install -y python36-GitPython python36-keyring
+    pip3 install keyrings.alt
 
 %files
     repo_mellanox_hpc.repo /etc/yum.repos.d
@@ -36,6 +38,7 @@ From: centos:7
 
 %environment
     source /etc/profile.d/*.sh
+    export EB_PYTHON=python3
 
 %runscript
     /bin/bash
