@@ -22,7 +22,7 @@ toolchain = {'name': 'gompi', 'version': '2020a'}
 dependencies = [
     ('Perl', '5.30.2', '', ('GCCcore', '9.3.0')),
     ('BioPerl', '1.7.7', '', ('GCCcore', '9.3.0')),
-    ('SNAP', '2013-11-29', '', ('GCC', '9.3.0')),
+    ('SNAP-HMM', '20190603', '', ('GCC', '9.3.0')),
     ('RepeatMasker', '4.0.9-p2', '-HMMER'),
     ('OpenMPI', '4.0.3', '', ('GCC', '9.3.0')),
 ]
@@ -80,6 +80,7 @@ exts_list = [
     }),
     ('MAKER', '3.01.03', {
         'source_tmpl': 'maker-%(version)s.tgz',
+        'modulename': 'maker',
     }),
 ]
 
