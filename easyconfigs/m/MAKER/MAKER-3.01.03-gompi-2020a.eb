@@ -1,6 +1,7 @@
+easyblock = 'Bundle'
+
 name = 'MAKER'
 version = '3.01.03'
-versionsuffix = '-Perl-%(perlver)s'
 
 homepage = 'http://www.yandell-lab.org/'
 description = """MAKER is a portable and easily configurable genome annotation pipeline. Its purpose is to allow smaller
@@ -16,19 +17,19 @@ description = """MAKER is a portable and easily configurable genome annotation p
 toolchain = {'name': 'gompi', 'version': '2020a'}
 
 # Register to download at http://www.yandell-lab.org/software/maker.html
-sources = ['maker-%(version)s.tgz']
+#sources = ['maker-%(version)s.tgz']
 
 dependencies = [
-    ('Perl', '5.30.2'),
+    ('Perl', '5.30.2', '', ('GCCcore', '9.3.0')),
     ('BioPerl', '1.7.7', '', ('GCCcore', '9.3.0')),
     ('SNAP', '2013-11-29', '', ('GCC', '9.3.0')),
-    ('RepeatMasker', '4.0.9', versionsuffix),
+    ('RepeatMasker', '4.0.9-p2', '-HMMER'),
     ('OpenMPI', '4.0.3', '', ('GCC', '9.3.0')),
 ]
 
 
 # Perl dependencies
-exts_classmap = {'MAKER' : 'PythonPackage'}
+#exts_classmap = {'MAKER' : 'PythonPackage'}
 exts_defaultclass = 'PerlModule'
 exts_filter = ("perldoc -lm %(ext_name)s ", "")
 
@@ -76,6 +77,9 @@ exts_list = [
     ('IO::Prompt', '0.997004', {
         'source_tmpl': 'IO-Prompt-0.997004.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/'],
+    }),
+    ('MAKER', '3.01.03', {
+        'source_tmpl': 'maker-%(version)s.tgz',
     }),
 ]
 

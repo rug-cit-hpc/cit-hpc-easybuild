@@ -2,7 +2,7 @@ easyblock = 'PackedBinary'
 
 name = 'RepeatMasker'
 version = '4.0.9'
-versionsuffix = '-Perl-%(perlver)s'
+#versionsuffix = '-Perl-%(perlver)s'
 
 homepage = 'https://bitbucket.org/fenics-project/fiat'
 description = """RepeatMasker is a program that screens DNA sequences for interspersed repeats and low complexity DNA sequences.
@@ -21,7 +21,7 @@ sources = ['%%(name)s-open-%s.tar.gz' % '-'.join(version.split('.'))]
 dependencies = [
     ('Perl', '5.30.2'),
     ('TRF', '4.09', '-linux64',('dummy', '')),
-    ('HMMR', '3.3.1'),
+    ('HMMER', '3.3.1'),
 ]
 
 skipsteps = ['configure', 'test']
@@ -30,7 +30,7 @@ skipsteps = ['configure', 'test']
 # replace '2' with '4': 
 postinstallcmds = [
   "cd %(installdir)s && printf $(pwd) && \
-   printf '\n\n\n\n%s\n%s\n\n%s\n' '2' $EBROOTRMBLAST '5' > conf.in && \
+   printf '\n\n\n\n%s\n%s\n\n%s\n' '4' $EBROOTRMBLAST '5' > conf.in && \
    ./configure < conf.in && rm conf.in",
 ]
 
