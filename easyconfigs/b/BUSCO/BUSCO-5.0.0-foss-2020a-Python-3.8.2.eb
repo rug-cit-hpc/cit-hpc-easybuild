@@ -21,7 +21,7 @@ dependencies = [
     ('R', '4.0.0'),
     ('Biopython', '1.78', versionsuffix),
     ('BLAST+', '2.10.1'),
-    ('HMMER', '3.3.1'),
+    ('HMMER', '3.3.2'),
     ('prodigal', '2.6.3'),
     ('AUGUSTUS', '3.4.0'),
     ('SEPP', '4.4.0', versionsuffix),
