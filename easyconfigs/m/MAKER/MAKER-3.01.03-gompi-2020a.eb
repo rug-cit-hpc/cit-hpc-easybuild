@@ -35,6 +35,10 @@ exts_filter = ("perldoc -lm %(ext_name)s ", "")
 #        'source_urls': ['https://cpan.metacpan.org/authors/id/H/HA/HAARG/'],
 #    }),
 exts_list = [
+    ('DBD::Pg', '3.14.2', {
+        'source_tmpl': 'DBD-Pg-3.14.2.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/T/TU/TURNSTEP/'],
+    }),
     ('DBI', '1.643', {
         'source_tmpl': 'DBI-1.643.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/T/TI/TIMB/'],
