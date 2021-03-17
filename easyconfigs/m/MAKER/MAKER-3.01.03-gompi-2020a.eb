@@ -32,10 +32,6 @@ dependencies = [
 exts_defaultclass = 'PerlModule'
 exts_filter = ("perldoc -lm %(ext_name)s ", "")
 
-#    ('local::lib', '2.000019', {
-#        'source_tmpl': 'local-lib-2.000019.tar.gz',
-#        'source_urls': ['https://cpan.metacpan.org/authors/id/H/HA/HAARG/'],
-#    }),
 exts_list = [
     ('DBD::Pg', '3.14.2', {
         'source_tmpl': 'DBD-Pg-3.14.2.tar.gz',
