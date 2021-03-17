@@ -22,6 +22,8 @@ toolchain = {'name': 'gompi', 'version': '2020a'}
 dependencies = [
     ('Perl', '5.30.2'),
     ('BioPerl', '1.7.7'),
+    ('BLAST+', '2.10.1'),
+    ('Exonerate', '2.4.0'),
     ('SNAP-HMM', '20190603'),
     ('RepeatMasker', '4.0.9-p2', '-HMMER'),
 ]
@@ -92,6 +94,7 @@ exts_list = [
         'modulename': False,
         'start_dir': 'src',
         'preconfigopts': 'sed -i \'s|install_base => \"\$FindBin::RealBin\/..\/\",|install_base => \"%(installdir)s\",|\' Build.PL && ',
+        'configopts': '<<< y', #\n$EBROOTOPENMPI/bin\n$EBROOTOPENMPI/include',
         'installopts': ' && cp -r ../lib/* %(installdir)s/lib/',
 # Using the following would be cleaner, but they don't seem to be supported for extensions...
 #        'buildininstalldir': True,
