@@ -27,9 +27,7 @@ dependencies = [
     ('OpenMPI', '4.0.3', '', ('GCC', '9.3.0')),
 ]
 
-
 # Perl dependencies
-#exts_classmap = {'MAKER' : 'PythonPackage'}
 exts_defaultclass = 'PerlModule'
 exts_filter = ("perldoc -lm %(ext_name)s ", "")
 
@@ -78,15 +76,31 @@ exts_list = [
         'source_tmpl': 'IO-Prompt-0.997004.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/'],
     }),
+    ('Sys::SigAction', '0.23', {
+        'source_tmpl': 'Sys-SigAction-0.23.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/L/LB/LBAXTER/'],
+    }),
+    ('Acme::Damn', '0.08', {
+        'source_tmpl': 'Acme-Damn-0.08.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/I/IB/IBB/'],
+    }),
     ('MAKER', '3.01.03', {
         'source_tmpl': 'maker-%(version)s.tgz',
-        'modulename': 'maker',
+        'modulename': False,
+        'start_dir': 'src',
+        'preconfigopts': 'sed -i \'s|install_base => \"\$FindBin::RealBin\/..\/\",|install_base => \"%(installdir)s\",|\' Build.PL && ',
+        'installopts': ' && cp -r ../lib/* %(installdir)s/lib/',
+# Using the following would be cleaner, but they don't seem to be supported for extensions...
+#        'buildininstalldir': True,
+#        'postinstallcmds': ['cp -r %(builddir)s/lib/* %(installdir)s/lib/'],
     }),
 ]
 
 modextrapaths = {
     'PERL5LIB': 'lib/perl5/site_perl/%(perlver)s/'
 }
+
+sanity_check_commands = ['maker -version']
 
 moduleclass = 'bio'
 
