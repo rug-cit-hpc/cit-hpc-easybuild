@@ -20,11 +20,10 @@ toolchain = {'name': 'gompi', 'version': '2020a'}
 #sources = ['maker-%(version)s.tgz']
 
 dependencies = [
-    ('Perl', '5.30.2', '', ('GCCcore', '9.3.0')),
-    ('BioPerl', '1.7.7', '', ('GCCcore', '9.3.0')),
-    ('SNAP-HMM', '20190603', '', ('GCC', '9.3.0')),
+    ('Perl', '5.30.2'),
+    ('BioPerl', '1.7.7'),
+    ('SNAP-HMM', '20190603'),
     ('RepeatMasker', '4.0.9-p2', '-HMMER'),
-    ('OpenMPI', '4.0.3', '', ('GCC', '9.3.0')),
 ]
 
 # Perl dependencies
