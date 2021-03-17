@@ -1,23 +1,21 @@
-easyblock = 'Bundle'
+easyblock = 'Tarball'
 
 name = 'MAKER'
 version = '3.01.03'
 
-homepage = 'http://www.yandell-lab.org/'
+homepage = 'https://www.yandell-lab.org/software/maker.html'
 description = """MAKER is a portable and easily configurable genome annotation pipeline. Its purpose is to allow smaller
  eukaryotic and prokaryotic genome projects to independently annotate their genomes and to create genome databases. MAKER
  identifies repeats, aligns ESTs and proteins to a genome, produces ab-initio gene predictions and automatically synthesizes
- these data into gene annotations having evidence-based quality values. MAKER is also easily trainable: outputs of preliminary
- runs can be used to automatically retrain its gene prediction algorithm, producing higher quality gene-models on seusequent
- runs. MAKER's inputs are minimal and its ouputs can be directly loaded into a GMOD database. They can also be viewed in the
- Apollo genome browser; this feature of MAKER provides an easy means to annotate, view and edit individual contigs and   BACs
- without the overhead of a database. MAKER should prove especially useful for emerging model organism projects with minimal
- bioinformatics expertise and computer resources."""
+ these data into gene annotations having evidence-based quality values."""
 
 toolchain = {'name': 'gompi', 'version': '2020a'}
+toolchainopts = {'pic': True}
 
-# Register to download at http://www.yandell-lab.org/software/maker.html
-#sources = ['maker-%(version)s.tgz']
+#Needs registration for downloading
+#source_urls = ['http://yandell.topaz.genetics.utah.edu/cgi-bin/maker_license.cgi']
+sources = [SOURCELOWER_TGZ]
+checksums = ['0798f45f28defdf506b5f770d5b224879653ccbab6a413e53ab4163ab93aed6c']
 
 dependencies = [
     ('Perl', '5.30.2'),
@@ -26,83 +24,99 @@ dependencies = [
     ('Exonerate', '2.4.0'),
     ('SNAP-HMM', '20190603'),
     ('RepeatMasker', '4.0.9-p2', '-HMMER'),
+    ('PostgreSQL', '12.4'),
 ]
 
-# Perl dependencies
-exts_defaultclass = 'PerlModule'
-exts_filter = ("perldoc -lm %(ext_name)s ", "")
+postinstallcmds = [
+    "export PERL5LIB=$PERL5LIB:%(installdir)s/lib/perl5/site_perl/%(perlver)s/:%(installdir)s/lib/perl5/site_perl/%(perlver)s/x86_64-linux-thread-multi \
+     && cd %(installdir)s/src \
+     && printf 'y\n\n' | perl Build.PL \
+     && ./Build install",
+]
 
+exts_defaultclass = 'PerlModule'
 exts_list = [
     ('DBD::Pg', '3.14.2', {
         'source_tmpl': 'DBD-Pg-3.14.2.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/T/TU/TURNSTEP/'],
+        'checksums': ['c973e98458960a78ec54032a71b3840f178418dd7e69d063e462a0f10ec68e4d'],
     }),
-    ('DBI', '1.643', {
-        'source_tmpl': 'DBI-1.643.tar.gz',
-        'source_urls': ['https://cpan.metacpan.org/authors/id/T/TI/TIMB/'],
+    ('Devel::Symdump', '2.18', {
+        'source_tmpl': 'Devel-Symdump-2.18.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/A/AN/ANDK/'],
+        'checksums': ['826f81a107f5592a2516766ed43beb47e10cc83edc9ea48090b02a36040776c0'],
     }),
-    ('File::Which', '1.09', {
-        'source_tmpl': 'File-Which-1.09.tar.gz',
-        'source_urls': ['https://cpan.metacpan.org/authors/id/A/AD/ADAMK/'],
+    ('forks', '0.36', {
+        'source_tmpl': 'forks-0.36.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/R/RY/RYBSKEJ'],
+        'checksums': ['61be24e44f4c6fea230e8354678beb5b7adcfefd909a47db8f0a251b0ab65993'],
+    }),
+    ('IO::Prompt', '0.997004', {
+        'source_tmpl': 'IO-Prompt-0.997004.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/D/DC/DCONWAY'],
+        'checksums': ['f17bb305ee6ac8b5b203e6d826eb940c4f3f6d6f4bfe719c3b3a225f46f58615'],
     }),
     ('Perl::Unsafe::Signals', '0.03', {
         'source_tmpl': 'Perl-Unsafe-Signals-0.03.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/R/RG/RGARCIA/'],
+        'checksums': ['d311ae7d73e8d0c2346dfacb82aa952322e70cd928b09d502d739e60e35f829d'],
     }),
     ('Bit::Vector', '7.4', {
         'source_tmpl': 'Bit-Vector-7.4.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/S/ST/STBEY/'],
+        'checksums': ['3c6daa671fecfbc35f92a9385b563d65f50dfc6bdc8b4805f9ef46c0d035a926'],
     }),
-    ('Inline', '0.55_02', {
-        'source_tmpl': 'Inline-0.55_02.tar.gz',
-        'source_urls': ['https://cpan.metacpan.org/authors/id/S/SI/SISYPHUS/'],
+    ('IO::All', '0.87', {
+        'source_tmpl': 'IO-All-0.87.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/F/FR/FREW/'],
+        'checksums': ['54e21d250c0229127e30b77a3461e10077854ec244f26fb670f1b445ed4c4d5b'],
     }),
-    ('Inline::C', '0.55_02', {
-        'source_tmpl': 'Inline-0.55_02.tar.gz',
-        'source_urls': ['https://cpan.metacpan.org/authors/id/S/SI/SISYPHUS/'],
-    }),
-    ('forks', '0.36', {
-        'source_tmpl': 'forks-0.36.tar.gz',
-        'source_urls': ['https://cpan.metacpan.org/authors/id/R/RY/RYBSKEJ/'],
-    }),
-    ('forks::shared', '0.36', {
-        'source_tmpl': 'forks-0.36.tar.gz',
-        'source_urls': ['https://cpan.metacpan.org/authors/id/R/RY/RYBSKEJ/'],
-    }),
-    ('IO::All', '0.86', {
-        'source_tmpl': 'IO-All-0.86.tar.gz',
+    ('Inline', '0.86', {
+        'source_tmpl': 'Inline-0.86.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/I/IN/INGY/'],
+        'checksums': ['510a7de2d011b0db80b0874e8c0f7390010991000ae135cff7474df1e6d51e3a'],
     }),
-    ('IO::Prompt', '0.997004', {
-        'source_tmpl': 'IO-Prompt-0.997004.tar.gz',
-        'source_urls': ['https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/'],
+    ('Pegex', '0.75', {
+        'source_tmpl': 'Pegex-0.75.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/I/IN/INGY/'],
+        'checksums': ['4dc8d335de80b25247cdb3f946f0d10d9ba0b3c34b0ed7d00316fd068fd05edc'],
+    }),
+    ('YAML::XS', '0.82', {
+        'source_tmpl': 'YAML-LibYAML-0.82.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/T/TI/TINITA/'],
+        'checksums': ['02b4c7a3965c6cce173658f31217b9a3884edcc52ce058a8f58c69a56687fe48'],
+    }),
+    ('Inline::C', '0.81', {
+        'source_tmpl': 'Inline-C-0.81.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/T/TI/TINITA/'],
+        'checksums': ['f185258d9050d7f79b4f00f12625cc469c2f700ff62d3e831cb18d80d2c87aac'],
+    }),
+    ('YAML::PP', '0.026', {
+        'source_tmpl': 'YAML-PP-0.026.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/T/TI/TINITA'],
+        'checksums': ['4b858e671cf3e966ecc54408e8031740c2f28f87c294ee9679fb02e02d5a45eb'],
     }),
     ('Sys::SigAction', '0.23', {
         'source_tmpl': 'Sys-SigAction-0.23.tar.gz',
-        'source_urls': ['https://cpan.metacpan.org/authors/id/L/LB/LBAXTER/'],
+        'source_urls': ['https://cpan.metacpan.org/authors/id/L/LB/LBAXTER'],
+        'checksums': ['c4ef6c9345534031fcbbe2adc347fc7194d47afc945e7a44fac7e9563095d353'],
     }),
     ('Acme::Damn', '0.08', {
         'source_tmpl': 'Acme-Damn-0.08.tar.gz',
-        'source_urls': ['https://cpan.metacpan.org/authors/id/I/IB/IBB/'],
-    }),
-    ('MAKER', '3.01.03', {
-        'source_tmpl': 'maker-%(version)s.tgz',
-        'modulename': False,
-        'start_dir': 'src',
-        'preconfigopts': 'sed -i \'s|install_base => \"\$FindBin::RealBin\/..\/\",|install_base => \"%(installdir)s\",|\' Build.PL && ',
-        'configopts': '<<< y', #\n$EBROOTOPENMPI/bin\n$EBROOTOPENMPI/include',
-        'installopts': ' && cp -r ../lib/* %(installdir)s/lib/',
-# Using the following would be cleaner, but they don't seem to be supported for extensions...
-#        'buildininstalldir': True,
-#        'postinstallcmds': ['cp -r %(builddir)s/lib/* %(installdir)s/lib/'],
+        'source_urls': ['https://cpan.metacpan.org/authors/id/I/IB/IBB'],
+        'checksums': ['310d2d03ff912dcd42e4d946174099f41fe3a2dd57a497d6bd65baf1759b7e0e'],
     }),
 ]
 
-modextrapaths = {
-    'PERL5LIB': 'lib/perl5/site_perl/%(perlver)s/'
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': ['bin'],
 }
 
 sanity_check_commands = ['maker -version']
 
-moduleclass = 'bio'
+modextrapaths = {
+    'PERL5LIB': ['lib', 'lib/perl5/site_perl/%(perlver)s', 'lib/perl5/site_perl/%(perlver)s/x86_64-linux-thread-multi'],
+}
 
+moduleclass = 'bio'
