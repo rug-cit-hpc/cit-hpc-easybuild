@@ -6,8 +6,7 @@ easyblock = 'ConfigureMake'
 name = 'AUGUSTUS'
 version = '3.4.0'
 
-# HTTPS doesn't work
-homepage = 'http://bioinf.uni-greifswald.de/augustus/'
+homepage = 'https://bioinf.uni-greifswald.de/augustus/'
 description = "AUGUSTUS is a program that predicts genes in eukaryotic genomic sequences"
 
 toolchain = {'name': 'foss', 'version': '2020a'}
@@ -16,12 +15,10 @@ toolchain = {'name': 'foss', 'version': '2020a'}
 github_account = 'Gaius-Augustus'
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
-patches = [
-    '%(name)s-%(version)s_fix-hardcoding.patch',
-]
+patches = ['AUGUSTUS-%(version)s_fix-hardcoding.patch']
 checksums = [
     '2c06cf5953da5afdce1478fa10fcd3c280a3b050f1b2367bf3e731d7374d9bb8',  # v3.4.0.tar.gz
-    '438cc6e6159fb7af004bef75234f7b2228916c7cf7bf680fcf2848a94468e4bb',  # AUGUSTUS-3.4.0_fix-hardcoding.patch
+    'e74023f28ee3e76590f4534d195c313b88b66a92ec779da184d30d056fc8e052',  # AUGUSTUS-3.4.0_fix-hardcoding.patch
 ]
 
 builddependencies = [
@@ -46,12 +43,12 @@ skipsteps = ['configure']
 # run "make clean" to avoid using binaries included with the source tarball
 prebuildopts = "make clean && "
 
-buildopts = 'COMPGENEPRED=true SQLITE=true ZIPINPUT=true CXX="$CXX" LINK.cc="$CXX" '
+buildopts = 'COMPGENEPRED=true SQLITE=true ZIPINPUT=true MYSQL=false CXX="$CXX" LINK.cc="$CXX" '
 installopts = 'INSTALLDIR=%(installdir)s '
 
 sanity_check_paths = {
-    'files': ['bin/augustus', 'bin/bam2hints', 'bin/etraining',
-              'bin/fastBlockSearch', 'bin/filterBam', 'bin/getSeq', 'bin/homGeneMapping', 'bin/joingenes',
+    'files': ['bin/augustus', 'bin/bam2hints', 'bin/etraining', 'bin/fastBlockSearch',
+              'bin/filterBam', 'bin/getSeq', 'bin/homGeneMapping', 'bin/joingenes',
               'bin/load2sqlitedb', 'bin/prepareAlign'],
     'dirs': ['config', 'scripts'],
 }
