@@ -1,0 +1,35 @@
+easyblock = 'CmdCp'
+
+name = 'fpc'
+version = '3.2.2'
+
+homepage = 'https://www.freepascal.org/'
+description = """Free Pascal is a 32, 64 and 16 bit professional Pascal compiler."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://sourceforge.net/projects/freepascal/files/Linux/%(version)s/']
+sources = [SOURCELOWER_TAR]
+sources = ['%(namelower)s-%(version)s.x86_64-linux.tar']
+
+# TODO: fix this, as it probably will not clean old installation when reinstalling this
+skipsteps = ['install']
+
+cmds_map = [
+    ('', 'echo %(installdir)s > answers.txt && ' +
+         'echo Y >> answers.txt && ' +
+         'echo Y >> answers.txt && ' +
+         'echo %(installdir)s/share/doc/fpc-3.2.2/examples >> answers.txt && ' +
+         'echo Y >> answers.txt && ' +
+         './install.sh < answers.txt'
+    ),
+]
+
+files_to_copy = []
+
+sanity_check_paths = {
+    'files': ['bin/fpc'],
+    'dirs': [],
+}
+
+moduleclass = 'lang'
