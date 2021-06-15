@@ -27,9 +27,12 @@ cmds_map = [
 
 files_to_copy = []
 
+postinstallcmds = ['%(installdir)s/lib/fpc/%(version)s/samplecfg %(installdir)s/lib/fpc/%(version)s %(installdir)s/etc']
+
 sanity_check_paths = {
     'files': ['bin/fpc'],
     'dirs': [],
 }
 
+modextrapaths = {'PPC_CONFIG_PATH': 'etc'}
 moduleclass = 'lang'
