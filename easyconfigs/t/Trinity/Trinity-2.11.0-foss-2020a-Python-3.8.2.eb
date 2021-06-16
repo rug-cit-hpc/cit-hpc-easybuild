@@ -43,8 +43,25 @@ dependencies = [
     ('Salmon', '1.3.0'),
     ('SAMtools', '1.10'),
     ('zlib', '1.2.11'),
+    ('R', '4.0.0'),
+    ('R-bundle-Bioconductor', '3.11', 'R-4.0.0'),
 ]
 
 withsampledata = True
+
+exts_defaultclass = 'RPackage'
+
+exts_list = [
+    ('ROTS', '1.16.0', {
+        'checksums': ['33f94de39bb7f2a342fbb2bd4e5afcfec08798eac39672ee18042ac0b349e4f3'],
+    }),
+    ('GOplot', '1.0.2', {
+        'checksums': ['33f94de39bb7f2a342fbb2bd4e5afcfec08798eac39672ee18042ac0b349e4f3'],
+    }),
+    ('tximportData', '1.16.0', {
+        'checksums': ['33f94de39bb7f2a342fbb2bd4e5afcfec08798eac39672ee18042ac0b349e4f3'],
+    }),
+
+]
 
 moduleclass = 'bio'
