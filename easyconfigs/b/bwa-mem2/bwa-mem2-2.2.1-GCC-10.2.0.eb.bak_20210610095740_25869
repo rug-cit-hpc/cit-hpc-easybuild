@@ -1,0 +1,32 @@
+# Author: Klemen Voncina
+# Date: 9.6.2021
+easyblock = 'EB_BWA'
+name = 'bwa-mem2'
+version = '2.2.1'
+
+homepage = 'http://bio-bwa.sourceforge.net/'
+description = """Burrows-Wheeler Aligner (BWA) is an efficient program that aligns
+ relatively short nucleotide sequences against a long reference sequence such as the human genome."""
+
+toolchain = {'name': 'GCC', 'version': '10.2.0'}
+toolchainopts = {'pic': True}
+
+# Alternatively, set it to download the 'Source_code_including_submodules.tar.gz'
+sources = [{
+     'filename': '%(name)s-%(version)s.tar.gz',
+     'git_config': {
+         'url': 'https://github.com/%(name)s',
+         'repo_name': '%(name)s',
+         'tag': 'v%(version)s',
+         'recursive': True,
+     },
+ }]
+
+dependencies = [
+    ('Perl', '5.32.0'),
+    #('zlib', '1.2.11'),     # Already in GCC
+]
+
+prebuildopts = 'export CFLAGS="$CFLAGS -fcommon" && '
+
+moduleclass = 'bio'
