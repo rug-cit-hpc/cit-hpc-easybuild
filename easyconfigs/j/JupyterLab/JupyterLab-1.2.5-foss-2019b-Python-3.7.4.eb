@@ -31,7 +31,7 @@ exts_list = [
         'checksums': ['d0977527bfce6f47c782cb6bf79d2c949ebe3f22ac695fa000b730c671445dad'],
     }),
     ('jupyterlmod', '2.0.2', {
-        'checksums': ['dad11d43cdd2597e7a81360eea4804e4'],
+        'checksums': ['06c73c7793edad696f36b4a380b6cb730eb6be50c0ce69fbeb94bb7e1962f75f'],
     }),
     (name, version, {
         'patches': ['%(name)s-%(version)s_set-app-path-for-easybuild.patch'],
