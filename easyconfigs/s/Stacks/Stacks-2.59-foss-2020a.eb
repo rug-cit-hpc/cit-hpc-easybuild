@@ -1,0 +1,29 @@
+easyblock = 'ConfigureMake'
+
+name = 'Stacks'
+version = '2.59'
+
+homepage = 'https://catchenlab.life.illinois.edu/stacks/'
+description = """Stacks is a software pipeline for building loci from short-read sequences, such as those generated on
+ the Illumina platform. Stacks was developed to work with restriction enzyme-based data, such as RAD-seq,
+ for the purpose of building genetic maps and conducting population genomics and phylogeography.
+"""
+
+toolchain = {'name': 'foss', 'version': '2020a'}
+
+source_urls = ['https://catchenlab.life.illinois.edu/stacks/source/']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['a551706f810f6daf702fd90318dda08bb69e1feb0f8431bf5cbc87c6a1b8cdde']
+
+dependencies = [
+    ('zlib', '1.2.11'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/clone_filter', 'bin/cstacks', 'bin/gstacks', 'bin/kmer_filter', 'bin/phasedstacks',
+              'bin/populations', 'bin/process_radtags', 'bin/process_shortreads', 'bin/sstacks',
+              'bin/tsv2bam', 'bin/ustacks'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
