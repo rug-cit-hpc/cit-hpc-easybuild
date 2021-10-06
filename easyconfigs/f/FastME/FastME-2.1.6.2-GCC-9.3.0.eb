@@ -1,0 +1,20 @@
+easyblock = 'ConfigureMake'
+
+name = 'FastME'
+version = '2.1.6.2'
+
+homepage = 'http://www.atgc-montpellier.fr/fastme/'
+description = """FastME: a comprehensive, accurate and fast distance-based phylogeny inference program."""
+
+toolchain = {'name': 'GCC', 'version': '9.3.0'}
+
+source_urls = ['https://gite.lirmm.fr/atgc/FastME/raw/master/tarball/']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['422190f3893e3603fd8e07c3fcdd4adc3dab1a057536ee9e58a48e9464816134']
+
+sanity_check_paths = {
+    'files': ['bin/fastme'],
+    'dirs': []
+}
+
+moduleclass = 'bio'
