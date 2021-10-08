@@ -1,0 +1,31 @@
+easyblock = 'CMakeMake'
+
+name = 'muParser'
+version = '2.2.6.1'
+
+homepage = 'https://beltoforion.de/article.php?a=muparser'
+
+description = """
+ muParser is an extensible high performance math expression parser library
+ written in C++. It works by transforming a mathematical expression into
+ bytecode and precalculating constant parts of the expression.
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '8.3.0'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://github.com/beltoforion/muparser/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['d2562853d972b6ddb07af47ce8a1cdeeb8bb3fa9e8da308746de391db67897b3']
+
+builddependencies = [
+    ('binutils', '2.32'),
+    ('CMake', '3.15.3'),
+]
+
+sanity_check_paths = {
+    'files': ['include/muParser.h', 'lib/libmuparser.%s' % SHLIB_EXT],
+    'dirs': [],
+}
+
+moduleclass = 'math'
