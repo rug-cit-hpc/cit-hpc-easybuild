@@ -1,0 +1,39 @@
+easyblock = 'CMakeMake'
+
+name = 'SymEngine'
+version = '0.7.0'
+
+homepage = 'https://github.com/symengine/symengine'
+description = "SymEngine is a standalone fast C++ symbolic manipulation library"
+
+toolchain = {'name': 'GCC', 'version': '8.3.0'}
+toolchainopts = {'cstd': 'c++17', 'vectorize': True}
+
+source_urls = ['https://github.com/symengine/symengine/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+
+builddependencies = [
+    ('CMake', '3.15.3'),
+]
+
+dependencies = [
+    ('GMP', '6.1.2'),
+    ('MPFR', '4.0.2'),
+    ('MPC', '1.1.0'),
+    ('LLVM', '9.0.0'),
+    ('FLINT', '2.5.2'),
+    ('gperftools', '2.7.90'),
+]
+
+local_opts = '-DWITH_OPENMP=ON -DWITH_SYMENGINE_RCP=ON -DWITH_COTIRE=OFF '
+local_opts += '-DWITH_MPFR=ON -DWITH_MPC=ON -DWITH_LLVM=ON -DWITH_BFD=ON -DWITH_TCMALLOC=ON -DWITH_FLINT=ON '
+configopts = [local_opts + '-DBUILD_SHARED_LIBS=OFF', local_opts + '-DBUILD_SHARED_LIBS=ON']
+
+runtest = 'test'
+
+sanity_check_paths = {
+    'files': ['lib64/libsymengine.a', 'lib64/libsymengine.%s' % SHLIB_EXT],
+    'dirs': ['include/symengine/']
+}
+
+moduleclass = 'lib'
