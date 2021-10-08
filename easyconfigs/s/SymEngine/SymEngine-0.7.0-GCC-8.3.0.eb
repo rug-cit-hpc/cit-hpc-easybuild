@@ -11,6 +11,7 @@ toolchainopts = {'cstd': 'c++17', 'vectorize': True}
 
 source_urls = ['https://github.com/symengine/symengine/archive/refs/tags/']
 sources = ['v%(version)s.tar.gz']
+checksums = ['8b865bb72b71539d9cd2488a0468c6c3ea90cc606062a7880c3ff5af6abd74b1']
 
 builddependencies = [
     ('CMake', '3.15.3'),
