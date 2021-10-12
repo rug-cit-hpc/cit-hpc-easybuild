@@ -1,0 +1,37 @@
+easyblock = 'CMakeMake'
+
+name = 'OCE'
+version = '0.18.3'
+
+homepage = 'https://github.com/tpaviot/oce'
+description = """oce (Open Cascade community Edition) is a fork of the
+Open Cascade 3D c++ modeling library. This project aims at gathering 
+patches/changes/improvements from the OCC community. Official OCCT 
+documentation and sources are available at http://dev.opencascade.org/"""
+
+toolchain = {'name': 'foss', 'version': '2019b'}
+toolchainopts = {'usempi': True}
+
+source_urls = ['https://github.com/tpaviot/oce/archive/refs/tags/']
+sources = [SOURCE_TAR_GZ]
+
+builddependencies = [
+    ('CMake', '3.15.3'),
+]
+
+dependencies = []
+
+separate_build_dir = True
+
+configopts = "-DOCE_INSTALL_PREFIX=%(installdir)s "
+#configopts += "-DOCE_WITH_FREEIMAGE=ON "
+configopts += "-DOCE_VISUALISATION=OFF "
+configopts += "-DOCE_DISABLE_X11=ON "
+
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['include/oce', 'lib'],
+}
+
+moduleclass = 'cae'
