@@ -1,0 +1,29 @@
+easyblock = 'CMakeNinja'
+
+name = 'Ginkgo'
+version = '1.4.0'
+
+homepage = 'https://ginkgo-project.github.io'
+description = """Ginkgo is a high-performance linear algebra library for manycore systems, with a focus on
+ sparse solution of linear systems."""
+
+toolchain = {'name': 'GCC', 'version': '8.3.0'}
+
+source_urls = ['https://github.com/ginkgo-project/ginkgo/archive/refs/tags']
+sources = ['v%(version)s.tar.gz']
+checksums = ['6dcadbd3e93f6ec58ef6cda5b980fbf51ea3c7c13e27952ef38804058ac93f08']
+
+builddependencies = [
+    ('CMake', '3.15.3'),
+    ('Ninja', '1.9.0'),
+]
+
+buildopts = " && ninja test"
+
+sanity_check_paths = {
+    'files': ['include/ginkgo/ginkgo.hpp'],
+    'dirs': ['include', 'lib64'],
+}
+
+moduleclass = 'lib'
+
