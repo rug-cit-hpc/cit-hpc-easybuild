@@ -1,0 +1,72 @@
+easyblock = 'CMakeMake'
+
+name = 'deal.II'
+version = '9.3.1'
+
+homepage = 'https://www.dealii.org'
+description = """deal.II is a C++ program library targeted at the computational solution of
+ partial differential equations using adaptive finite elements."""
+
+toolchain = {'name': 'foss', 'version': '2019b'}
+
+source_urls = ['https://github.com/dealii/dealii/releases/download/v%(version)s/']
+sources = ['dealii-%(version)s.tar.gz']
+checksums = ['a62f4676ab2dc029892251d141427fb75cbb83cddd606019f615d0dde9c61ab8']
+
+builddependencies = [('CMake', '3.15.3')]
+
+dependencies = [
+    ('Python', '3.7.4'),
+    ('Boost', '1.71.0'),
+    ('HDF5', '1.10.5'),
+    ('hwloc', '1.11.12'),
+    ('netCDF', '4.7.1'),
+    ('PETSc', '3.12.4', '-Python-3.7.4'),
+    ('zlib', '1.2.11'),
+#    ('ADOL-C', '2.7.2'),
+    ('arpack-ng', '3.8.0'),
+    ('assimp', '5.0.1'),
+    ('Ginkgo', '1.4.0'),
+    ('gmsh', '4.7.1', '-Python-3.7.4'),
+    ('GSL', '2.6'),
+    ('METIS', '5.1.0'),
+    ('muParser', '2.2.6.1'),
+    ('OCE', '0.18.3'),
+    ('p4est', '2.2'),
+    ('SUNDIALS', '5.7.0'),
+    ('SymEngine', '0.7.0'),
+    ('Trilinos', '12.12.1', '-Python-3.7.4'),
+]
+
+configopts = "-DCMAKE_BUILD_TYPE=Release "
+configopts += "-DDEAL_II_WITH_LAPACK=ON -DDEAL_II_WITH_MPI=ON "
+configopts += "-DDEAL_II_WITH_BOOST=ON -DBOOST_DIR=$EBROOTBOOST "
+configopts += "-DDEAL_II_WITH_GSL=ON -DGSL_DIR=$EBROOTBOOST "
+configopts += "-DDEAL_II_WITH_HDF5=ON -DHDF5_DIR=$EBROOTBOOST "
+configopts += "-DHWLOC_DIR=$EBROOTGINKGO -DCMAKE_MODULE_PATH=$EBROOTGINKGO/lib/cmake/Ginkgo/Modules/Modules "
+configopts += "-DDEAL_II_WITH_METIS=ON -DMETIS_DIR=$EBROOTBOOST "
+configopts += "-DDEAL_II_WITH_NETCDF=ON -DNETCDF_DIR=$EBROOTBOOST "
+configopts += "-DDEAL_II_WITH_P4EST=ON -DP4EST_DIR=$EBROOTP4EST "
+configopts += "-DDEAL_II_WITH_PETSC=ON -DPETSC_DIR=$EBROOTBOOST "
+configopts += "-DDEAL_II_WITH_ZLIB=ON -DZLIB_DIR=$EBROOTZLIB "
+#configopts += "-DDEAL_II_WITH_ADOLC=ON -DADOLC_DIR=$EBROOTADOLMINC "
+configopts += "-DDEAL_II_WITH_ARPACK=ON -DARPACK_DIR=$EBROOTARPACK "
+configopts += "-DDEAL_II_WITH_ASSIMP=ON -DASSIMP_DIR=$EBROOTASSIMP "
+configopts += "-DDEAL_II_WITH_GINKGO=ON -DGINKGO_DIR=$EBROOTGINKGO "
+configopts += "-DDEAL_II_WITH_GMSH=ON -DGMSH_DIR=$EBROOTGMSH "
+configopts += "-DDEAL_II_WITH_MUPARSER=ON -DMUPARSER_DIR=$EBROOTMUPARSER "
+configopts += "-DDEAL_II_WITH_OPENCASCADE=ON -DOPENCASCADE_DIR=$EBROOTOCE "
+configopts += "-DDEAL_II_WITH_SUNDIALS=ON -DSUNDIALS_DIR=$EBROOTSUNDIALS "
+configopts += "-DDEAL_II_WITH_TRILINOS=ON -DTRILINOS_DIR=$EBROOTTRILINOS "
+configopts += "-DDEAL_II_WITH_SYMENGINE=ON -DSYMENGINE_DIR=$EBROOTSYMENGINE "
+#configopts += "-DDEAL_II_WITH_TBB=ON -DTBB_DIR=$EBROOTTBB "
+configopts += "-DDEAL_II_FORCE_BUNDLED_TBB=ON "
+
+configopts += "-DDEAL_II_LINKER_FLAGS='-fopenmp -lpython3.7m' -DCMAKE_CXX_FLAGS='-fopenmp' "
+
+sanity_check_paths = {
+    'files': ['lib/libdeal_II.%s' % SHLIB_EXT],
+    'dirs': ['include/deal.II', 'lib/cmake', 'lib/pkgconfig', 'share/deal.II'],
+}
+
+moduleclass = 'phys'
