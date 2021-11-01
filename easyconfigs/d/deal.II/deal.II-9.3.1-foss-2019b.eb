@@ -38,6 +38,8 @@ dependencies = [
     ('Trilinos', '12.12.1', '-Python-3.7.4'),
 ]
 
+preconfigopts = "sed -i '131 i list(REMOVE_ITEM Trilinos_LIBRARIES pytrilinos)' %(builddir)s/dealii-%(version)s/cmake/modules/FindTRILINOS.cmake && "
+
 configopts = "-DCMAKE_BUILD_TYPE=Release "
 configopts += "-DDEAL_II_WITH_LAPACK=ON -DDEAL_II_WITH_MPI=ON "
 configopts += "-DDEAL_II_WITH_BOOST=ON -DBOOST_DIR=$EBROOTBOOST "
@@ -62,7 +64,8 @@ configopts += "-DDEAL_II_WITH_SYMENGINE=ON -DSYMENGINE_DIR=$EBROOTSYMENGINE "
 #configopts += "-DDEAL_II_WITH_TBB=ON -DTBB_DIR=$EBROOTTBB "
 configopts += "-DDEAL_II_FORCE_BUNDLED_TBB=ON "
 
-configopts += "-DDEAL_II_LINKER_FLAGS='-fopenmp -lpython3.7m' -DCMAKE_CXX_FLAGS='-fopenmp' "
+#configopts += "-DDEAL_II_LINKER_FLAGS='-fopenmp -lpython3.7m' -DCMAKE_CXX_FLAGS='-fopenmp' "
+configopts += "-DCMAKE_CXX_FLAGS='-fopenmp' "
 
 sanity_check_paths = {
     'files': ['lib/libdeal_II.%s' % SHLIB_EXT],
