@@ -18,6 +18,11 @@ builddependencies = [
     ('Ninja', '1.9.0'),
 ]
 
+#dependencies = [('hwloc', '2.4.1')]
+
+#configopts = '-DGINKGO_BUILD_HWLOC=ON -DHWLOC_DIR=$EBROOTHWLOC '
+configopts = '-DGINKGO_BUILD_HWLOC=OFF '
+
 buildopts = " && ninja test"
 
 sanity_check_paths = {
