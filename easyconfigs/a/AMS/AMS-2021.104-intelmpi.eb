@@ -1,0 +1,42 @@
+easyblock = 'Tarball'
+
+name = 'AMS'
+version = '2021.104'
+versionsuffix = '-intelmpi'
+
+homepage = 'https://www.scm.com/amsterdam-modeling-suite/'
+description = """
+The Amsterdam Modeling Suite (AMS) provides a comprehensive set of modules for computational chemistry and materials
+science, from quantum mechanics to fluid thermodynamics.
+"""
+
+toolchain = SYSTEM
+
+sources = ['ams%(version)s.pc64_linux.intelmpi.bin.tgz']
+checksums = ['d9f314c6072f2e3777a742a29a8d7f2252f66dbef3be463ad36d9fdc9f910297']
+
+keepsymlinks = True
+
+postinstallcmds = ['cp /home/pg-beheer/installers/%(name)s/2021/license.txt %(installdir)s']
+
+sanity_check_paths = {
+    'files': ['bin/ams', 'bin/ams.exe'],
+    'dirs': [],
+}
+
+modextrapaths = {
+    'AMSHOME': '', 
+    'AMSBIN': 'bin',
+    'AMSRESOURCES': 'atomicdata',
+    'SCMLICENSE': 'license.txt',
+}
+modluafooter = '''
+if os.getenv("TMPDIR") then
+    setenv("SCM_TMPDIR", os.getenv("TMPDIR"))
+else
+    local user = capture("/usr/bin/whoami")
+    setenv("SCM_TMPDIR", pathJoin("/scratch", user))
+end
+'''
+
+moduleclass = 'chem'
