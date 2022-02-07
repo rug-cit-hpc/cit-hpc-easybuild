@@ -1,0 +1,27 @@
+easyblock = "Tarball"
+
+name = 'mumax3'
+version = '3.10'
+versionsuffix = '_linux_cuda11.0'
+
+homepage = 'https://mumax.github.io/'
+description = """mumax3 is a GPU-accelerated micromagnetic simulation program developed at the
+DyNaMat group of Prof. Van Waeyenberge at Ghent University. The code is written
+and maintained by Arne Vansteenkiste."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://mumax.ugent.be/mumax3-binaries/']
+sources = ['mumax%s%s.tar.gz' % (version, versionsuffix)]
+checksums = ['4c03533986dbf2a9cd7f9708c2f32e4e1ca849bb300e7b0946fdf50daf0a2694']
+
+sanity_check_paths = {
+    'files': ["mumax3", "lib/libcufft.so.10", "lib/libcurand.so.10"],
+    'dirs': []
+}
+
+modextrapaths = {
+    'PATH' : '',
+}
+
+moduleclass = 'phys'
