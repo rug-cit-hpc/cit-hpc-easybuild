@@ -1,0 +1,49 @@
+easyblock = 'ConfigureMake'
+
+name = 'Squashfs-Tools'
+version = '4.5'
+
+homepage = 'https://github.com/plougher/squashfs-tools'
+description = """Squashfs is a highly compressed read-only filesystem for Linux.
+ It uses either gzip/xz/lzo/lz4/zstd compression to compress both files, inodes
+ and directories.  Inodes in the system are very small and all blocks are
+ packed to minimise data overhead. Block sizes greater than 4K are supported
+ up to a maximum of 1Mbytes (default block size 128K)."""
+
+toolchain = {'name': 'GCCcore', 'version': '10.2.0'}
+
+github_account = 'plougher'
+source_urls = [GITHUB_SOURCE]
+sources = ['%(version)s.tar.gz']
+patches = ['Squashfs-Tools-4.5_fix_installdir.patch']
+checksums = [
+    'b9e16188e6dc1857fe312633920f7d71cc36b0162eb50f3ecb1f0040f02edddd', # 4.5.tar.gz
+    '8dd4df57aa67d9ed92dfca51456a219f3bff2cfac3b8ca62b5a0807b1bc03495', # Squashfs-Tools-4.5_fix_installdir.patch
+]
+
+builddependencies = [
+    ('binutils', '2.35'),
+]
+
+# zstd has the other compression tools and libraries as a dependency
+dependencies = [
+    ('zstd', '1.4.5'),
+]
+
+skipsteps = ['configure']
+
+prebuildopts = 'cd squashfs-tools && '
+
+# Select zstd as the default option as this should allow for the best
+# decompression speed
+buildopts = "ZSTD_SUPPORT=1 LZ4_SUPPORT=1 XZ_SUPPORT=1 COMP_DEFAULT=zstd"
+
+preinstallopts = 'cd squashfs-tools && '
+installopts = 'INSTALL_DIR=%(installdir)s/bin'
+
+sanity_check_paths = {
+    'files': ["bin/mksquashfs","bin/unsquashfs"],
+    'dirs': [],
+}
+
+moduleclass = 'lib'

@@ -1,0 +1,13 @@
+Allow changing INSTALL_DIR to another location
+Fokke Dijkstra - University of Groningen
+--- squashfs-tools-4.5.org/squashfs-tools/Makefile	2021-07-22 22:11:24.000000000 +0200
++++ squashfs-tools-4.5/squashfs-tools/Makefile	2022-02-07 16:46:06.000000000 +0100
+@@ -153,7 +153,7 @@
+ ###############################################
+ 
+ INCLUDEDIR = -I.
+-INSTALL_DIR = /usr/local/bin
++INSTALL_DIR ?= /usr/local/bin
+ 
+ MKSQUASHFS_OBJS = mksquashfs.o read_fs.o action.o swap.o pseudo.o compressor.o \
+ 	sort.o progressbar.o info.o restore.o process_fragments.o \
