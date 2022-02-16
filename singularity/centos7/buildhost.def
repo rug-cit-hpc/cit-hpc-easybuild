@@ -18,7 +18,10 @@ From: centos:7
     yum install -y asciidoc xmlto
     yum install -y glibc-static glib2-devel tcsh
     yum install -y slurm-devel pmix libevent-devel
-    yum install -y fuse3-devel
+    yum install -y fuse3
+# fuse and fuse-devel are required for an up-to-date squashfuse, which supports 
+# zstd compressoin
+    yum install -y fuse fuse-devel
     localedef -c -i nl_NL -f UTF-8 nl_NL.UTF-8
 # Easybuild GitHub integration
     yum install -y python36-GitPython python36-keyring
