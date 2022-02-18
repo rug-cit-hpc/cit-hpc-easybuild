@@ -1,0 +1,17 @@
+This patch fixes an issue with _pdep_u64 not being declared due to a missing include in nthbit.h.
+
+Bob Dröge, University of Groningen
+--- kaldi-orig/cmake/third_party/openfst.cmake	2022-02-15 16:44:49.000000000 +0100
++++ kaldi/cmake/third_party/openfst.cmake	2022-02-16 08:56:05.587980930 +0100
+@@ -10,6 +10,11 @@
+ FetchContent_GetProperties(openfst)
+ if(NOT openfst_POPULATED)
+     FetchContent_Populate(openfst)
++
++    # add missing include for _pdep_u64
++    set (sed_cmd sed -i "12i #include <immintrin.h>" _deps/openfst-src/src/include/fst/extensions/ngram/nthbit.h)
++    execute_process(COMMAND ${sed_cmd} WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
++
+     include_directories(${openfst_SOURCE_DIR}/src/include)
+ 
+     add_subdirectory(${openfst_SOURCE_DIR} ${openfst_BINARY_DIR})
