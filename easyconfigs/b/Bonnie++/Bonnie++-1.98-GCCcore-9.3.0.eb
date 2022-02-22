@@ -1,0 +1,31 @@
+##
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+#
+# Copyright:: Copyright 2012-2014 Uni.Lu/LCSB, NTUA
+# Authors::   Fotis Georgatos <fotis@cern.ch>
+# License::   MIT/GPL
+# $Id$
+##
+
+easyblock = 'ConfigureMake'
+
+name = 'Bonnie++'
+version = '1.98'
+
+homepage = 'http://www.coker.com.au/bonnie++/'
+description = """Bonnie++: Enhanced performance Test of Filesystem I/O"""
+
+sources = [SOURCELOWER_TGZ]
+source_urls = ['http://www.coker.com.au/bonnie++/']
+checksums = ['6e0bcbc08b78856fd998dd7bcb352d4615a99c26c2dc83d5b8345b102bad0b04']
+
+toolchain = {'name': 'GCCcore', 'version': '9.3.0'}
+
+builddependencies = [('binutils', '2.34')]
+
+sanity_check_paths = {
+    'files': ['sbin/bonnie++'],
+    'dirs': []
+}
+
+moduleclass = 'tools'
