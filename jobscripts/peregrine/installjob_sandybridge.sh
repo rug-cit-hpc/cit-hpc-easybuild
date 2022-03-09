@@ -6,4 +6,8 @@
 #SBATCH --time=12:00:00
 #SBATCH --partition=himem
 
+# Install package
 ./eb_install.sh $@
+
+# Update module cache
+./update_lmod_cache.sh

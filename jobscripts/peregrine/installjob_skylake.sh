@@ -7,4 +7,8 @@
 #SBATCH --partition=vulture
 #SBATCH --constraint=12cores
 
+# Install package
 ./eb_install.sh $@
+
+# Update module cache
+./update_lmod_cache.sh
