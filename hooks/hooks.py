@@ -29,3 +29,7 @@ def pre_module_hook(self, *args, **kwargs):
         self.log.info('[pre-module hook] Setting ALPHAFOLD_DATA_DIR to ' + data_dir)
         self.cfg.update('modextravars', extramodvars)
 
+    # Anaconda3: Execute intialization script
+    if self.name == 'Anaconda3':
+        luafooter =  'execute{cmd="source \'"..pathJoin(root, "/etc/profile.d/conda."..myShellType()).."\'", modeA={"load"}}'
+        self.cfg.update('modluafooter', luafooter)
