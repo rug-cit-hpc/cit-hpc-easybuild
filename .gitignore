@@ -3,3 +3,6 @@ config/config.cfg
 
 # Klemen's annoying vim swap files
 *.swp
+
+# Singularity image
+singularity/centos7/buildhost.simg
