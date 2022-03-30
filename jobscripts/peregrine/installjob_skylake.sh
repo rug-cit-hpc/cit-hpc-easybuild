@@ -4,8 +4,8 @@
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=64G
 #SBATCH --time=12:00:00
-#SBATCH --partition=vulture
-#SBATCH --constraint=12cores
+#SBATCH --partition=gpu
+#SBATCH --gres=gpu:v100:1
 
 # Install package
 ./eb_install.sh $@
