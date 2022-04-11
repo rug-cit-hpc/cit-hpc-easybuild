@@ -33,12 +33,16 @@ class EB_TURBOMOLE(Bundle):
 
     def make_module_extra(self):
         """Add directory for specified architecture (subdirectory of the main TURBOMOLE installation) to $PATH."""
-        turbomole_root = get_software_root('TURBOMOLE')
+        turbomole_root = get_software_root('TURBOMOLE-base')
         if not turbomole_root:
-            raise EasyBuildError("TURBOMOLE has to be listed as dependency!")
-        self.cfg['modextrapaths'] = {
+            raise EasyBuildError("TURBOMOLE-base has to be listed as dependency!")
+        self.cfg.update('modextrapaths',  {
             'PATH': os.path.join(turbomole_root, 'bin', self.cfg['arch'])
-        }
+        })
+        if self.cfg['arch'].endswith('_smp'):
+            self.cfg.update('modextravars', {'PARA_ARCH': 'SMP'})
+        if self.cfg['arch'].endswith('_mpi'):
+            self.cfg.update('modextravars', {'PARA_ARCH': 'MPI'})
         return super(EB_TURBOMOLE, self).make_module_extra()
 
     def sanity_check_step(self):
