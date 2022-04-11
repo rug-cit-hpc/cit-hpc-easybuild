@@ -27,7 +27,7 @@ class EB_TURBOMOLE(Bundle):
         """Specify to build in install dir."""
         super(EB_TURBOMOLE, self).__init__(*args, **kwargs)
         # We are reusing the main TURBOMOLE installation, so absolute paths are needed.
-        self.allow_prepend_abs_path = True
+        self.cfg['allow_prepend_abs_path'] = True
         if not self.cfg['arch']:
             raise EasyBuildError("Easyconfig parameter 'arch' has to be set!")
 
@@ -40,4 +40,17 @@ class EB_TURBOMOLE(Bundle):
             'PATH': os.path.join(turbomole_root, 'bin', self.cfg['arch'])
         }
         return super(EB_TURBOMOLE, self).make_module_extra()
+
+    def sanity_check_step(self):
+        """Custom sanity check for TURBOMOLE."""
+        
+        arch = self.cfg['arch']
+
+        custom_paths = {
+            'files': ['bin/%s/dscf' % arch, 'bin/%s/ridft' % arch, 'bin/%s/aoforce' % arch,
+                      'bin/%s/grad' % arch, 'bin/%s/uff' % arch],
+            'dirs': []
+        }
+
+        super(EB_TURBOMOLE, self).sanity_check_step(custom_paths=custom_paths)
 
