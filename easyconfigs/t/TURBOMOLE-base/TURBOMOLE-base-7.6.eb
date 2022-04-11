@@ -20,6 +20,8 @@ toolchain = SYSTEM
 sources = ['turbolinux%s-TMG.tar.gz' % version.replace('.', '')]
 checksums = ['2d531520a56ee01c930a49eba9ce06e10b8dcf4b614e0a1a2d02ffc0338cd583']
 
+postinstallcmds = ['chmod -R o+x %(installdir)s/bin']
+
 sanity_check_paths = {
     'files': ['scripts/tmole', 'scripts/log2int', 'scripts/cc2cosmo'],
     'dirs': ['bin/em64t-unknown-linux-gnu%s' % arch for arch in ['', '_smp', '_mpi']],
