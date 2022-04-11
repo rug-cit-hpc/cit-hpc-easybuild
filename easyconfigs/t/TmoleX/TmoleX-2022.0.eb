@@ -1,0 +1,38 @@
+easyblock = 'Binary'
+
+name = 'TmoleX'
+version = '2022.0'
+
+# Supported architectures:
+# em64t-unknown-linux-gnu
+# em64t-unknown-linux-gnu_smp
+# em64t-unknown-linux-gnu_mpi
+local_arch = 'em64t-unknown-linux-gnu'
+local_installer = '%%(name)s_unix_%s.bin' % version.replace('.', '_')
+
+homepage = 'https://www.3ds.com/products-services/biovia/products/molecular-modeling-simulation/solvation-chemistry/'
+description = """TmoleX is the easy to use graphical user interface to quickly handle TURBOMOLE calculations.
+While quantum chemistry suites have traditionally been developed for a command line or script based use
+(aiming at power users), TmoleX allows you to do quantum chemistry after a few minutes of introduction.
+It is the perfect tool for occasional TURBOMOLE use."""
+
+toolchain = SYSTEM
+
+# TmoleX is proprietary software, and cannot be downloaded freely.
+# Obtain source manually and make sure it can be found by EasyBuild. 
+sources = [local_installer]
+
+# Unattended installation (-q)
+install_cmd = './%s -q -dir %%(installdir)s' % local_installer
+
+sanity_check_paths = {
+    'files': ['TmoleX/TmoleX22'],
+    'dirs': ['TURBOMOLE'],
+}
+
+modextrapaths = {
+    'PATH': ['TURBOMOLE/scripts', 'TURBOMOLE/bin/%s' % local_arch],
+    'TURBODIR': 'TURBOMOLE',
+}
+
+moduleclass = 'chem'
