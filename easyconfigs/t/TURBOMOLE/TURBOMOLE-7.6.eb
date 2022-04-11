@@ -3,13 +3,6 @@ easyblock = 'Tarball'
 name = 'TURBOMOLE'
 version = '7.6'
 
-# Pick one of the following architectures to install for:
-# em64t-unknown-linux-gnu
-# em64t-unknown-linux-gnu_mpi
-# em64t-unknown-linux-gnu_smp
-# We just install it once, and make additional modulefiles for the other two versions manually.
-local_arch = 'em64t-unknown-linux-gnu'
-
 homepage = 'http://www.turbomole.org/'
 description = """TURBOMOLE: Program Package For Electronic Structure Calculations.
 TURBOMOLE is a collaborative, multi-national software development project aiming to provide highly efficient
@@ -24,12 +17,15 @@ sources = ['turbolinux%s-TMG.tar.gz' % version.replace('.', '')]
 checksums = ['2d531520a56ee01c930a49eba9ce06e10b8dcf4b614e0a1a2d02ffc0338cd583']
 
 sanity_check_paths = {
-    'files': ['bin/%s/dscf' % local_arch, 'bin/%s/ridft' % local_arch, 'bin/%s/aoforce' % local_arch,
-              'bin/%s/grad' % local_arch, 'bin/%s/uff' % local_arch,
-              'scripts/tmole', 'scripts/log2int', 'scripts/cc2cosmo'],
-    'dirs': ['bin', 'scripts'],
+    'files': ['scripts/tmole', 'scripts/log2int', 'scripts/cc2cosmo'],
+    'dirs': ['bin/em64t-unknown-linux-gnu%s' % arch for arch in ['', '_smp', '_mpi']],
 }
 
-modextrapaths = {'PATH': ['bin/%s' % local_arch, 'scripts']}
+sanity_check_commands = ['scripts/sysname']
+
+modextrapaths = {
+    'PATH': ['scripts'],
+    'TURBODIR': '',
+}
 
 moduleclass = 'chem'
