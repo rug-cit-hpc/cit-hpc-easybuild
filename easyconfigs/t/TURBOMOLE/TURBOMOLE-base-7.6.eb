@@ -1,13 +1,17 @@
 easyblock = 'Tarball'
 
-name = 'TURBOMOLE'
+name = 'TURBOMOLE-base'
 version = '7.6'
 
 homepage = 'http://www.turbomole.org/'
 description = """TURBOMOLE: Program Package For Electronic Structure Calculations.
 TURBOMOLE is a collaborative, multi-national software development project aiming to provide highly efficient
 and stable computational tools for quantum chemical simulations of molecules, clusters, periodic systems,
-and solutions."""
+and solutions.
+
+This (hidden) module only contains the base installation for TURBOMOLE, and does not add either one of the
+architecture-specific bin directories to $PATH. You can either do that yourself, or you can make use of
+one of the architecture-specific modules."""
 
 toolchain = SYSTEM
 
@@ -22,6 +26,8 @@ sanity_check_paths = {
 }
 
 sanity_check_commands = ['scripts/sysname']
+
+hidden = True
 
 modextrapaths = {
     'PATH': ['scripts'],

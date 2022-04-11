@@ -1,0 +1,20 @@
+name = 'TURBOMOLE'
+version = '7.6'
+versionsuffix = '-mpi'
+
+# Architectures to install for
+arch = 'em64t-unknown-linux-gnu_mpi'
+
+homepage = 'http://www.turbomole.org/'
+description = """TURBOMOLE: Program Package For Electronic Structure Calculations.
+TURBOMOLE is a collaborative, multi-national software development project aiming to provide highly efficient
+and stable computational tools for quantum chemical simulations of molecules, clusters, periodic systems,
+and solutions.
+
+This module uses the MPI version of the main TURBOMOLE installation."""
+
+toolchain = SYSTEM
+
+dependencies = [(name + '-base', '.' + version)]
+
+moduleclass = 'chem'
