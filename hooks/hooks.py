@@ -1,3 +1,13 @@
+CUDA_LUA_FOOTER = """local f = io.open("%(installdir)s/../../../%(name)s-%(version_major_minor)s.compat", "r")
+if f ~= nil then
+    -- local cuda_compat = f:read()
+    local cuda_compat = "CUDA-compat/%(version_major_minor)s"
+    if not ( isloaded(cuda_compat) ) then
+        load(cuda_compat)
+    end
+    io.close(f)
+end"""
+
 def pre_configure_hook(self, *args, **kwargs):
 
     # OpenMPI: add SLURM and pmix support
@@ -33,3 +43,7 @@ def pre_module_hook(self, *args, **kwargs):
     if self.name == 'Anaconda3':
         luafooter =  'execute{cmd="source \'"..pathJoin(root, "/etc/profile.d/conda."..myShellType()).."\'", modeA={"load"}}'
         self.cfg.update('modluafooter', luafooter)
+
+    # CUDA: add mechanism for optionally including a dependency on CUDA-compat module
+    if self.name == 'CUDA':
+        self.cfg.update('modluafooter', CUDA_LUA_FOOTER)
