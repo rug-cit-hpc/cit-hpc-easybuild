@@ -1,0 +1,32 @@
+#easyblock = 'Rpm'
+easyblock = 'Tarball'
+
+name = 'CUDA-compat'
+version = '11.3'
+local_driver = '465.19.01'
+
+homepage = 'https://docs.nvidia.com/deploy/cuda-compatibility/index.html'
+description = """Increasingly, data centers and enterprises may not want to update the NVIDIA GPU Driver across
+ major release versions due to the rigorous testing and validation that happens before any system level driver
+ installations are done.
+ 
+ To support such scenarios, CUDA introduced a Forward Compatibility Upgrade path in CUDA 10.0."""
+
+toolchain = SYSTEM
+
+sources = [{
+    'source_urls': 'https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/',
+    'filename': '%%(namelower)s-%s-%s-1.x86_64.rpm' % (version.replace('.', '-'), local_driver),
+    'extract_cmd': 'rpm2cpio %s | cpio -idmv',
+}]
+
+sanity_check_paths = {
+    'files': ['libcuda.so'],
+    'dirs': [],
+}
+
+modextrapaths = {
+    'LD_LIBRARY_PATH': '',
+}
+
+moduleclass = 'system'
