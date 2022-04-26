@@ -6,11 +6,8 @@ version = '11.3'
 local_driver = '465.19.01'
 
 homepage = 'https://docs.nvidia.com/deploy/cuda-compatibility/index.html'
-description = """Increasingly, data centers and enterprises may not want to update the NVIDIA GPU Driver across
- major release versions due to the rigorous testing and validation that happens before any system level driver
- installations are done.
- 
- To support such scenarios, CUDA introduced a Forward Compatibility Upgrade path in CUDA 10.0."""
+description = """Package containing all the necessary CUDA driver files related to forward compatibility.
+This compatibility enables newer CUDA runtimes to work with older display drivers."""
 
 toolchain = SYSTEM
 
