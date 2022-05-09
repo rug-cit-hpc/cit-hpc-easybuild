@@ -1,0 +1,30 @@
+easyblock = 'ConfigureMake'
+
+name = 'Recode'
+version = '3.7.12'
+
+homepage = 'https://github.com/rrthomas/recode/'
+description = """The Recode library converts files between character sets and usages. It recognises or produces over
+ 200 different character sets (or about 300 if combined with an iconv library) and transliterates files between almost
+ any pair. When exact transliteration are not possible, it gets rid of offending characters or falls back on 
+ approximations. The recode program is a handy front-end to the library."""
+
+toolchain = {'name': 'GCCcore', 'version': '10.3.0'}
+
+source_urls = ['https://github.com/rrthomas/recode/releases/download/v%(version)s']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['4db1c9076f04dbaa159726f5000847e5e5a83aec8e5c64f8ca04383f6cda12d5']
+
+builddependencies = [
+    ('binutils', '2.36.1'),
+    ('Python', '3.9.5'),
+]
+
+dependencies = [('libiconv', '1.16')]
+
+sanity_check_paths = {
+    'files': ['bin/recode', 'include/recode.h', 'lib/librecode.a', 'lib/librecode.%s' % SHLIB_EXT],
+    'dirs': ['share'],
+}
+
+moduleclass = 'lib'
