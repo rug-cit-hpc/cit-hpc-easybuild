@@ -1,0 +1,98 @@
+From a0d65eac26ce32af5d718fb15412643b808b2154 Mon Sep 17 00:00:00 2001
+From: Artemy Kovalyov <artemyko@mellanox.com>
+Date: Thu, 21 Oct 2021 10:37:15 +0300
+Subject: [PATCH] UCT/IB: Fix compilation without dv
+
+---
+ src/uct/ib/configure.m4       | 30 ++++++++++++++----------------
+ src/uct/ib/rdmacm/rdmacm_cm.c |  1 -
+ src/uct/ib/rdmacm/rdmacm_cm.h |  5 +++++
+ 3 files changed, 19 insertions(+), 17 deletions(-)
+
+diff --git a/src/uct/ib/configure.m4 b/src/uct/ib/configure.m4
+index a9cc24b390e..dd34a17ebe5 100644
+--- a/src/uct/ib/configure.m4
++++ b/src/uct/ib/configure.m4
+@@ -218,17 +218,14 @@ AS_IF([test "x$with_ib" = "xyes"],
+                        AC_CHECK_DECLS([ibv_alloc_td],
+                                   [has_res_domain=yes], [], [[#include <infiniband/verbs.h>]])])
+ 
+-              AC_CHECK_DECLS([ibv_alloc_td],
+-                      [has_res_domain=yes], [], [[#include <infiniband/verbs.h>]])])
+-
+-       AS_IF([test "x$with_devx" != xno], [
+-            AC_CHECK_DECL(MLX5DV_CONTEXT_FLAGS_DEVX, [
+-                 AC_DEFINE([HAVE_DEVX], [1], [DEVX support])
+-                 have_devx=yes
+-            ], [
+-                 AS_IF([test "x$with_devx" != xcheck],
+-                       [AC_MSG_ERROR([devx requested but not found])])
+-            ], [[#include <infiniband/mlx5dv.h>]])])
++               AS_IF([test "x$with_devx" != xno], [
++                    AC_CHECK_DECL(MLX5DV_CONTEXT_FLAGS_DEVX, [
++                         AC_DEFINE([HAVE_DEVX], [1], [DEVX support])
++                         have_devx=yes
++                    ], [
++                         AS_IF([test "x$with_devx" != xcheck],
++                               [AC_MSG_ERROR([devx requested but not found])])
++                    ], [[#include <infiniband/mlx5dv.h>]])])])
+ 
+        AS_IF([test "x$has_res_domain" = "xyes" -a "x$have_cq_io" = "xyes" ], [], [
+                with_mlx5_hw=no])
+@@ -383,13 +380,14 @@ AS_IF([test "x$with_ib" = "xyes"],
+            [AC_DEFINE([HAVE_TL_UD], 1, [UD transport support])])
+ 
+        # XRQ with Tag Matching support
+-       AS_IF([test "x$with_ib_hw_tm" != xno],
+-           [AC_CHECK_HEADERS([infiniband/tm_types.h])
++       AS_IF([test "x$with_ib_hw_tm" != xno], [
+             AC_CHECK_MEMBER([struct ibv_exp_tmh.tag], [with_ib_hw_tm=exp], [],
+                             [[#include <infiniband/verbs_exp.h>]])
+-            AC_CHECK_MEMBER([struct ibv_tmh.tag], [with_ib_hw_tm=upstream], [],
+-                            [[#include <infiniband/tm_types.h>]])
+-           ])
++            AS_IF([test "x$with_mlx5_dv" = "xyes"], [
++                AC_CHECK_HEADERS([infiniband/tm_types.h])
++                AC_CHECK_MEMBER([struct ibv_tmh.tag], [with_ib_hw_tm=upstream], [],
++                                [[#include <infiniband/tm_types.h>]])])])
++
+        AS_IF([test "x$with_ib_hw_tm" = xexp],
+            [AC_CHECK_MEMBERS([struct ibv_exp_create_srq_attr.dc_offload_params], [
+             AC_DEFINE([IBV_HW_TM], 1, [IB Tag Matching support])
+diff --git a/src/uct/ib/rdmacm/rdmacm_cm.c b/src/uct/ib/rdmacm/rdmacm_cm.c
+index 0f72803f159..07a1abed5a1 100644
+--- a/src/uct/ib/rdmacm/rdmacm_cm.c
++++ b/src/uct/ib/rdmacm/rdmacm_cm.c
+@@ -11,7 +11,6 @@
+ #include "rdmacm_cm_ep.h"
+ #include <uct/ib/base/ib_iface.h>
+ #include <uct/ib/mlx5/dv/ib_mlx5_ifc.h>
+-#include <uct/ib/mlx5/ib_mlx5.h>
+ #include <ucs/async/async.h>
+ 
+ #include <poll.h>
+diff --git a/src/uct/ib/rdmacm/rdmacm_cm.h b/src/uct/ib/rdmacm/rdmacm_cm.h
+index 4b43218905d..f9ef50ed7ec 100644
+--- a/src/uct/ib/rdmacm/rdmacm_cm.h
++++ b/src/uct/ib/rdmacm/rdmacm_cm.h
+@@ -10,8 +10,11 @@
+ #include <uct/base/uct_cm.h>
+ #include <ucs/datastruct/khash.h>
+ #include <ucs/sys/string.h>
++#include <ucs/type/spinlock.h>
+ #include <ucs/datastruct/bitmap.h>
++#if HAVE_MLX5_HW
+ #include <uct/ib/mlx5/ib_mlx5.h>
++#endif
+ 
+ #include <rdma/rdma_cma.h>
+ 
+@@ -61,7 +64,9 @@ typedef struct uct_rdmacm_cm_reserved_qpn_blk {
+     uint32_t               next_avail_qpn_offset; /** Offset of next available qpn */
+     uint32_t               refcount;              /** The counter of qpns which were created and hasn't been destroyed */
+     ucs_list_link_t        entry;                 /** List link of blocks */
++#if HAVE_DECL_MLX5DV_IS_SUPPORTED
+     struct mlx5dv_devx_obj *obj;                  /** The devx obj used to create the block */
++#endif
+ } uct_rdmacm_cm_reserved_qpn_blk_t;
+ 
