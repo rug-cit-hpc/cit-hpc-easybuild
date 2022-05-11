@@ -1,5 +1,5 @@
 [Mellanox-local] 
 name=Local Mellanox repository
 enabled=1
-baseurl=https://downloads.whamcloud.com/public/lustre/lustre-2.12.3-ib/MOFED-4.7-1.0.0.1/el7.7.1908/client
+baseurl=https://downloads.whamcloud.com/public/lustre/lustre-2.12.8-ib/MOFED-4.9-4.1.7.0/el7.9.2009/client
 gpgcheck=0
