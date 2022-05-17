@@ -1,0 +1,62 @@
+easyblock = 'Bundle'
+
+name = 'SAIGE'
+version = '1.0.4'
+
+homepage = 'https://github.com/saigegit/SAIGE/'
+description = """SAIGE is an R package developed with Rcpp for genome-wide association tests
+in large-scale data sets and biobanks."""
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+builddependencies = [
+    ('cget', '0.2.0'),
+]
+
+dependencies = [
+    ('R', '4.1.0'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_default_options = {
+    'source_urls': ['https://cran.r-project.org/src/contrib/'],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+exts_list = [
+    ('MetaSKAT', '0.81', {
+        'source_urls': ['https://cran.r-project.org/src/contrib/Archive/MetaSKAT'],
+        'checksums': ['449bdd336f3a41b6964b38b33411f1b8a9cabfa3fbcf46486d6f7d35e91e98db'],
+    }),
+    ('docopt', '0.7.1', {
+        'checksums': ['9f473887e4607e9b21fd4ab02e802858d0ac2ca6dad9e357a9d884a47fe4b0ff'],
+    }),
+    ('sparsesvd', '0.2', {
+        'checksums': ['1a1f54d6b0dca6ae83e3f729a1895c91c58bfe55427dacc50ddb0d2c5d32a9f6'],
+    }),
+    ('qlcMatrix', '0.9.7', {
+        'checksums': ['1ef5e0350cfbdb07fca761fc7251584d39d3da2958ea813498b467e4f7661347'],
+    }),
+    ('RhpcBLASctl', '0.21-247.1', {
+        'checksums': ['5be55fd5ddd8173167a48b9f072835a34062ad0268308f2b3fbd1781a5c99769'],
+    }),
+    ('Rcpp', '1.0.8.3', {
+        'checksums': ['9da5b84cdaf56e972b41e669d496b1ece2e91bcd435505c68b9f2bd98375f8bf'],
+    }),
+    ('RcppArmadillo', '0.11.1.1.0', {
+        'checksums': ['eb0bfc484c41543e766441b4c8c4a3061d8633540914ed2bbf363da047a74897'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/saigegit/SAIGE/releases/download/v%(version)s'],
+        'checksums': ['45ea22df68fe77880198d652935537cff19349d1201fb7ad2ee870259de57a29'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+moduleclass = 'bio'
