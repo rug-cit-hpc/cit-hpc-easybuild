@@ -1,0 +1,15 @@
+This patch prevents cget from unsetting LD_LIBRARY_PATH when calling cmake,
+which would lead to link errors.
+
+Author: Bob Dröge, University of Groningen
+--- cget-0.2.0-orig/cget/prefix.py	2022-05-17 10:45:18.712191500 +0200
++++ cget-0.2.0/cget/prefix.py	2022-05-17 10:48:10.479321365 +0200
+@@ -108,7 +108,7 @@
+ 
+     def get_env(self):
+         return {
+-            'LD_LIBRARY_PATH': self.get_path('lib'),
++            'LD_LIBRARY_PATH': ':'.join([self.get_path('lib'), os.environ.get('LD_LIBRARY_PATH')]),
+             'PKG_CONFIG_PATH': self.pkg_config_path()
+         }
+ 

@@ -15,8 +15,12 @@ description = """Cmake package retrieval. This can be used to download and insta
 
 toolchain = {'name': 'GCCcore', 'version': '10.3.0'}
 
-#source_urls = ['https://pypi.python.org/packages/source/c/cget/']
 sources = [SOURCE_TAR_GZ]
+patches = ['cget-0.2.0-dont_unset_ld_library_path.patch']
+checksums = [
+    '835009ba6d623a36eee8056975d7cdbeebb0e0091a058b572ed433fb12ae18e8',  # cget-0.2.0.tar.gz
+    '09c31dc29cf5513035e81f3e2f5951f000e6168bc842a0397d2eb5019f8c7b51',  # cget-0.2.0-dont_unset_ld_library_path.patch
+]
 
 builddependencies = [('binutils', '2.36.1')]
 
