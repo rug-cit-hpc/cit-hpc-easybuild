@@ -48,6 +48,7 @@ exts_list = [
     }),
     (name, version, {
         'source_urls': ['https://github.com/saigegit/SAIGE/releases/download/v%(version)s'],
+        'patches': ['SAIGE-1.0.4-dont_link_against_lapack.patch'],
         'checksums': ['45ea22df68fe77880198d652935537cff19349d1201fb7ad2ee870259de57a29'],
     }),
 ]

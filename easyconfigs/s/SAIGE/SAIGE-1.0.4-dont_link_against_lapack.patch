@@ -1,0 +1,14 @@
+It already links against FlexiBLAS, no need to have -llapack as well (which could even lead to errors if it's not installed).
+
+Author: Bob Dröge, University of Groningen
+--- SAIGE-orig/src/Makevars	2022-05-17 12:21:09.700097695 +0200
++++ SAIGE/src/Makevars	2022-05-17 12:23:11.034854098 +0200
+@@ -6,7 +6,7 @@
+ 
+ CXX_STD = CXX11 
+ 
+-PKG_LIBS = $(ZLIB_LIB) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -L../thirdParty/cget/lib/ -L../thirdParty/cget/lib64/ -lsuperlu -lzstd -L../lib64 -llapack
++PKG_LIBS = $(ZLIB_LIB) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -L../thirdParty/cget/lib/ -L../thirdParty/cget/lib64/ -lsuperlu -lzstd -L../lib64
+ PKG_LIBS += $(shell ${R_HOME}/bin/Rscript -e "RcppParallel::RcppParallelLibs()")
+ 
+ 
