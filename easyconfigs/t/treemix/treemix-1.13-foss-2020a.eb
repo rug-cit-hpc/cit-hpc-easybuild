@@ -14,7 +14,7 @@ description = 'TreeMix is a method for inferring the patterns of population spli
                	Reich D, Pakendorf B. The genetic prehistory of southern Africa. \
                	We describe an application of this model to looking for natural selection in humans and dogs at Genomes Unzipped.'
 
-toolchain = {'name': 'foss', 'version': '2016a'}
+toolchain = {'name': 'foss', 'version': '2020a'}
 
 source_urls = ['https://bitbucket.org/nygcresearch/treemix/downloads/']
 sources = ['%(name)s-%(version)s.tar.gz']
