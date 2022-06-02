@@ -10,7 +10,7 @@ floating-point support."""
 
 toolchain = {'name': 'GCC', 'version': '8.3.0'}
 
-source_urls = [('https://sourceforge.net/projects/mad/files/%(name)s/%(name)/%(version)s', 'download')]
+source_urls = [('https://sourceforge.net/projects/mad/files/%(name)s/%(name)s/%(version)s', 'download')]
 sources = [SOURCELOWER_TAR_GZ]
 checksums = ['b45f598643ffbd8e363ff24d61166ccec4836fea6d3888881b8df53e3bb55f6c']
 
