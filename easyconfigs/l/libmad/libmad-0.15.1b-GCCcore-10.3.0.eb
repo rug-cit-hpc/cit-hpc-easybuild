@@ -8,7 +8,7 @@ description = """MAD is a high-quality fixed-point MPEG audio decoder with 24-bi
 entirely new, based on the ISO/IEC standards, and performs especially well on systems without native 
 floating-point support."""
 
-toolchain = {'name': 'GCCcore', 'version': '8.3.0'}
+toolchain = {'name': 'GCCcore', 'version': '10.3.0'}
 
 source_urls = [('https://sourceforge.net/projects/mad/files/%(name)s/%(name)s/%(version)s', 'download')]
 sources = [SOURCELOWER_TAR_GZ]
