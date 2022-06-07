@@ -24,7 +24,7 @@ patches = [
     libmad-0.15.1b-md_size.patch
 ]
 checksums = [
-    'b45f598643ffbd8e363ff24d61166ccec4836fea6d3888881b8df53e3bb55f6c', # source
+    'bbfac3ed6bfbc2823d3775ebb931087371e142bb0e9bb1bee51a76a6e0078690', # source
     '0e485348925a9b3cb2472f8afad7f24abcfb3dd716f44b0410f5e6e8ea181a01', # libmad-0.15.1b-multiarch.patch
     'd513991563ef81e7901ec7f30ca8e52923cee21e58d947fad142296c45e55b02', # libmad-0.15.1b-ppc.patch ,
     '9837191bc840a072f1b483a22ed07bbe6a78c41499dc290b9e701343f6c513b5', # libmad-0.15.1b-Provide-Thumb-2-alternative-code-for-MAD_F_MLN.patch
