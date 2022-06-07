@@ -28,7 +28,7 @@ checksums = [
     '0e485348925a9b3cb2472f8afad7f24abcfb3dd716f44b0410f5e6e8ea181a01', # libmad-0.15.1b-multiarch.patch
     'd513991563ef81e7901ec7f30ca8e52923cee21e58d947fad142296c45e55b02', # libmad-0.15.1b-ppc.patch ,
     '9837191bc840a072f1b483a22ed07bbe6a78c41499dc290b9e701343f6c513b5', # libmad-0.15.1b-Provide-Thumb-2-alternative-code-for-MAD_F_MLN.patch
-    '6bb89c1b244912e6a863b451743e4c19145f0b75b8ac502eedc5f8b9bf998fdd', # libmad-0.15.1b-libmad.thumb.patch
+    'e17f43d27e88699017aba263f2c37df705ce5c4b63deb55badfceebcf052f44f', # libmad-0.15.1b-libmad.thumb.patch
     '0d92977b30b599be8d423e9bec39c0f76b9dbc0f38dbc98a397394c30e28243e', # libmad-0.15.1b-cflags.patch
     '197bd69c064ba2957b23d83509c9fdc63c5315076fdf8c98dbc9eccd3ff236ca', # libmad-0.15.1b-cflags-O2.patch
     '388f2fde37cb6bce2f58324880095efc41e490f41ef06bbac8ca850f7ac58728', # libmad-0.15.1b-length-check.patch
