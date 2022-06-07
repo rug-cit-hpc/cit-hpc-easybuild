@@ -13,6 +13,10 @@ toolchain = {'name': 'GCCcore', 'version': '10.3.0'}
 source_urls = [('https://sourceforge.net/projects/mad/files/%(name)s/%(name)s/%(version)s', 'download')]
 sources = [SOURCELOWER_TAR_GZ]
 
+builddependencies = [
+    ('binutils', '2.36.1'),
+]
+
 patches = [
     'libmad-0.15.1b-multiarch.patch',
     'libmad-0.15.1b-ppc.patch',
