@@ -36,7 +36,7 @@ checksums = [
 ]
 
 sanity_check_paths = {
-    'files': [''],
+    'files': ['include/mad.h', 'lib/libmad.a', 'lib/libmad.so.0.2.1'],
     'dirs': [''],
 }
 
