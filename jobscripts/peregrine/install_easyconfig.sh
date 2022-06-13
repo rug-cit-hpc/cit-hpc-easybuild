@@ -57,7 +57,6 @@ cat << EOF > $jobscript
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=64G
 #SBATCH --time=12:00:00
-
 EOF
      if [ $arch = "haswell" ]; then
         echo "#SBATCH --partition=regular" >> $jobscript
@@ -68,6 +67,9 @@ EOF
         echo "#SBATCH --partition=himem" >> $jobscript
      fi
      echo "#SBATCH --output=$softwarename-$arch-%A.out" >> $jobscript
+     echo >> $jobscript
+     echo "echo Installing $easyconfig on $arch" >> $jobscript
+     echo >> $jobscript
      echo "# Install package" >> $jobscript
      echo "./eb_install.sh $easyconfig $eb_options" >> $jobscript
      # Write footer for jobscript
