@@ -1,0 +1,53 @@
+easyblock = 'Tarball'
+
+name = 'DRAP'
+version = '10042020'  # Date of the used commit
+versionsuffix = '-Perl-%(perlver)s'
+
+homepage = 'http://www.sigenae.org/drap/index.html'
+description = """  """
+
+toolchain = {'name' : 'foss', 'version' : '2020a'}
+
+# A bit messy because it's a commit hash on GitLab that we're looking for
+source_urls = ['https://forgemia.inra.fr/cedric.cabau/drap/-/archive/d3eff205c0a29c7e6958c16fd5a3cf8f5c5af139/']
+sources = ['drap-d3eff205c0a29c7e6958c16fd5a3cf8f5c5af139.tar']
+
+dependencies = [
+    ('Python','2.7.18'),
+    ('Perl','5.30.2'),
+    ('BioPerl','1.7.7'),
+    ('Biopython','1.76','-Python-%(pyver)s'),
+]
+
+
+# Non-standard Perl modules this requires
+exts_defaultclass = 'PerlModule'
+exts_filter = ("perldoc -lm %(ext_name)s ","")
+
+exts_list = [
+    # BioPerl includes the following modules required on the DRAP installation guide page
+    # - Bio::Search::Hit::GenericHit
+    # - Bio::Search::Tiling::MapTiling
+    # - Bio::SeqIO
+    # Additionally BioPerl is included in dependencies as it's a separate module already
+    ('Bio::Tools::Run::StandAloneBlast','1.007003', {
+        'source_tmpl' : 'BioPerl-Run-%(version)s.tar.gz',
+        'source_urls' : ['https://cpan.metacpan.org/authors/id/C/CJ/CJFIELDS/'],
+    }),
+    ('Term::ANSIColor','5.01', {
+        'source_tmpl' : 'Term-ANSIColor-%(version)s.tar.gz',
+        'source_urls' : ['https://cpan.metacpan.org/authors/id/R/RR/RRA/'],
+    }),
+]
+
+modextrapaths = {
+    'PERL5LIB': 'lib/perl5/site_perl/%(perlver)s/',
+}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['bin', 'lib/perl5/site_perl/%(perlver)s/Bio'],
+}
+
+moduleclass = 'bio'
