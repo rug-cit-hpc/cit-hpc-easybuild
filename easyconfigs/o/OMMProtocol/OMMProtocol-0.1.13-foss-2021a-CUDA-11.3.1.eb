@@ -1,0 +1,66 @@
+easyblock = 'PythonBundle'
+
+name = 'OMMProtocol'
+version = '0.1.13'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/insilichem/ommprotocol'
+description = """A command line application to launch molecular dynamics simulations with OpenMM."""
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+dependencies = [
+    ('Python', '3.9.5'),
+    ('SciPy-bundle', '2021.05'),
+    ('netCDF', '4.8.0'),
+    ('OpenMM', '7.5.1', '-CUDA-%(cudaver)s'),
+    ('AmberTools', '21', '-CUDA-%(cudaver)s'),
+    ('CUDA', '11.3.1', '', True),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('ParmEd', '3.4.3', {
+        'checksums': ['90afb155e3ffe69230a002922b28968464126d4450059f0bd97ceca679c6627c'],
+    }),
+    ('ruamel.yaml.clib', '0.2.6', {
+        'modulename': False,
+        'checksums': ['4ff604ce439abb20794f05613c374759ce10e3595d1867764dd1ae675b85acbd'],
+    }),
+    ('ruamel.yaml', '0.17.21', {
+        'checksums': ['8b7ce697a2f212752a35c1ac414471dc16c424c9573be4926b56ff3f5d23b7af'],
+    }),
+    ('astunparse', '1.6.3', {
+        'checksums': ['5ad93a8456f0d084c3456d059fd9a92cce667963232cbf763eac3bc5b7940872'],
+    }),
+    ('mdtraj', '1.9.7', {
+        'checksums': ['8a3309d2ef6ddb1023dcf48300d5df9b190469b63f69af9d55490bc4799d3757'],
+    }),
+    ('openmoltools', '0.8.8', {
+        'source_tmpl': '%(version)s.tar.gz',
+        'source_urls': ['https://github.com/choderalab/openmoltools/archive/refs/tags/'],
+        'checksums': ['e808b8f8696ed42367e33c28b01f893783126212580e64472c810b970a610b1a'],
+    }),
+    ('pdbfixer', '1.7', {
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/openmm/pdbfixer/archive/refs/tags/'],
+        'checksums': ['a0bef3c52a7bbe69a6aea5333f51f3e7d158339be5829aed19b0344bd66d4eea'],
+    }),
+    (name, version, {
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/insilichem/ommprotocol/archive/refs/tags/'],
+        'checksums': ['a58dde3c860a72a3a3ea4590eee2ef2ce3197ce03ac6512c8d537dfc64ef311b'],
+    }),
+]
+
+sanity_check_commands = [
+    'ommanalyze --help',
+    'ommprotocol --help',
+    'mdconvert --help',
+    'parmed --help',
+    'pdbfixer --help',
+]
+
+moduleclass = 'bio'
