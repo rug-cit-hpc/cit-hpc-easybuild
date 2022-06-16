@@ -10,12 +10,14 @@ usage() {
    echo "        if none are given jobs are submitted for all of the supported ones"
    echo "   -e : Required. Easyconfig to submit build jobs for"
    echo "   -o : Optional. Options to pass to easybuild."
+   echo "   -t : Optional. Time limit for the build jobs (default: 12:00:00)."
    exit $1
 }
 
 architectures=$supported_archs
+walltime=12:00:00
 
-while getopts "ha:e:o:" arg; do
+while getopts "ha:e:o:t:" arg; do
   case $arg in
     h)
       usage
@@ -32,6 +34,10 @@ while getopts "ha:e:o:" arg; do
       eb_options=$OPTARG
       echo $eb_options
       ;;
+    t)
+      walltime=$OPTARG
+      echo $walltime
+      ;;
     *)
       usage 1
       ;;
@@ -40,7 +46,7 @@ done
 
 if [ -z $easyconfig ]; then
    usage 1
-fi   
+fi
 
 softwarename=$( basename $easyconfig .eb )
 jobscriptbase=$softwarename
@@ -56,8 +62,8 @@ cat << EOF > $jobscript
 #SBATCH --tasks-per-node=4
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=64G
-#SBATCH --time=12:00:00
 EOF
+     echo "#SBATCH --time=$walltime" >> $jobscript
      if [ $arch = "haswell" ]; then
         echo "#SBATCH --partition=regular" >> $jobscript
      elif [ $arch = "skylake" ]; then
@@ -74,9 +80,21 @@ EOF
      echo "./eb_install.sh $easyconfig $eb_options" >> $jobscript
      # Write footer for jobscript
 cat << EOF >> $jobscript
+ec=\$?
+if [ \$ec -ne 0 ] 
+then
+  # Copy the EasyBuild log from the temporary build directory to the job's directory
+  eb_log_src=\$(./eb_install.sh --last-log)
+  eb_log_dst="./${softwarename}-${arch}-\${SLURM_JOB_ID}-eb.log"
+  echo "Software installation failed, copying EasyBuild log to \$eb_log_dst"
+  cp "\$eb_log_src" "\$eb_log_dst"
+fi
 
 # Update module cache
 ./update_lmod_cache.sh
+
+# Set the exit code of the job to the exit code of EasyBuild 
+exit \$ec
 EOF
   # Submit jobscript to Slurm
   sbatch $jobscript
