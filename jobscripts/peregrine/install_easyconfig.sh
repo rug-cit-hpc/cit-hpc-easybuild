@@ -85,7 +85,7 @@ cat << EOF >> $jobscript
 ./update_lmod_cache.sh
 EOF
   # Submit jobscript to Slurm
-  #sbatch $jobscript
+  sbatch $jobscript
   else
      echo $arch unsupported!
      exit -1
