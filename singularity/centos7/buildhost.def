@@ -14,7 +14,7 @@ From: centos:7
     yum install -y mlnx-ofa_kernel-devel libmlx4-41mlnx1 libibmad librdmacm-devel
     yum install -y vim-common unzip zip
 # For Easybuild Python installation
-    yum install -y xz-devel gdbm-devel tk-devel tcl-devel
+    yum install -y xz-devel gdbm-devel tk-devel tcl-devel pam-devel
     yum install -y asciidoc xmlto
     yum install -y glibc-static glib2-devel tcsh
     yum install -y slurm-devel pmix libevent-devel
