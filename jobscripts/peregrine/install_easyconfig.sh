@@ -79,7 +79,7 @@ if [ \$ec -ne 0 ]
 then
   # Copy the EasyBuild log from the temporary build directory to the job's directory
   eb_log_src=\$(./eb_install.sh --last-log)
-  eb_log_dst="./bla-haswell-\${SLURM_JOB_ID}-eb.log"
+  eb_log_dst="./${softwarename}-${arch}-\${SLURM_JOB_ID}-eb.log"
   echo "Software installation failed, copying EasyBuild log to \$eb_log_dst"
   cp "\$eb_log_src" "\$eb_log_dst"
 fi
