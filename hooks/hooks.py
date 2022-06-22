@@ -24,7 +24,7 @@ def pre_module_hook(self, *args, **kwargs):
 
     # AlphaFold: set data directory
     if self.name == 'AlphaFold':
-        data_dir = '/data/public/alphafold/data-2.1.0'
+        data_dir = '/data/public/alphafold/data-' + self.version
         extramodvars = {'ALPHAFOLD_DATA_DIR': data_dir}
         self.log.info('[pre-module hook] Setting ALPHAFOLD_DATA_DIR to ' + data_dir)
         self.cfg.update('modextravars', extramodvars)
