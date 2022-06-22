@@ -14,5 +14,6 @@ if [ -c /dev/nvidia0 ]; then
     SINGOPTS="--nv $SINGOPTS"
 fi
 singularity shell $SINGOPTS /home/$USER/easybuild/cit-hpc-easybuild/singularity/centos7/buildhost.simg  < $TMPSCRIPT
+ec=$?
 rm $TMPSCRIPT
-
+exit $ec
