@@ -1,0 +1,38 @@
+easyblock = 'ConfigureMake'
+
+name = 'squashfuse'
+version = '0.1.104'
+
+homepage = 'https://github.com/vasi/squashfuse'
+description = """
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '10.3.0'}
+
+source_urls = [GITHUB_SOURCE]
+sources = ['https://github.com/vasi/squashfuse/releases/download/%(version)s/squashfuse-%(version)s.tar.gz']
+checksums = ['aa52460559e0d0b1753f6b1af5c68cfb777ca5a13913285e93f4f9b7aa894b3a']
+
+builddependencies = [
+    ('binutils', '2.36.1'),
+]
+
+osdependencies = [ 
+    ('libfuse-dev','fuse-devel'),
+    ('fuse')
+]
+
+dependencies = [
+    ('zstd', '1.4.9'),
+]
+
+runtest = 'check'
+
+#installopts = "PREFIX=%(installdir)s"
+
+sanity_check_paths = {
+    'files': ["bin/squashfuse", "bin/squashfuse_ll", "lib/libsquashfuse.so","include/squashfuse/squashfuse.h"],
+    'dirs': ["bin","lib64","lib","share","include"]
+}
+
+moduleclass = 'lib'
