@@ -86,6 +86,13 @@ exts_list = [
     }),
     ('py3Dmol', '1.7.0', {
     }),
+    ('immutabledict', '2.2.1', {
+        'checksums': ['1ddb0edf1bb6c70d0197eb90ce1fe2b2d58502334f5fdfde72d7c633d723ec3a'],
+    }),
+    ('ml_collections', '0.1.1', {
+        'preinstallopts': "touch requirements.txt && touch requirements-test.txt && ",
+        'checksums': ['3fefcc72ec433aa1e5d32307a3e474bbb67f405be814ea52a2166bfc9dbe68cc'],
+    }),
     ('alphafold-colabfold', '2.1.14', {
     }),
     ('importlib_metadata', '4.8.3', {
