@@ -93,6 +93,9 @@ exts_list = [
     ('absl-py', '0.13.0', {
         'modulename': 'absl',
     }),
+    ('toolz', '0.11.2', {
+        'checksums': ['6b312d5e15138552f1bda8a4e66c30e236c831b612b2bf0005f8a1df10a4bc33'],
+    }),
     ('chex', '0.1.3', {
         'checksums': ['2cfa6ccd02addd6b113658d03bd5ce8a7b3bd24fa62e746a246073414ea1e103'],
     }),
