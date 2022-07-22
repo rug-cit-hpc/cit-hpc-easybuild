@@ -1,0 +1,136 @@
+easyblock = 'PythonBundle'
+
+name = 'ColabFold'
+version = '1.3.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/sokrypton/ColabFold'
+description = "Making Protein folding accessible to all!"
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+builddependencies = [
+    # CMake/Doxygen/SWIG are required for building OpenMM
+    ('CMake', '3.20.1'),
+    ('Doxygen', '1.9.1'),
+    ('Bazel', '3.7.2'),
+    ('SWIG', '4.0.2'),
+]
+
+dependencies = [
+    ('Python', '3.9.5'),
+    ('CUDA', '11.3.1', '', True),
+    ('SciPy-bundle', '2021.05'),
+    ('matplotlib', '3.4.2'),
+    ('TensorFlow', '2.6.0', versionsuffix),
+    ('Biopython', '1.79'),
+    ('HH-suite', '3.3.0'),
+    ('Kalign', '3.3.1'),
+    ('jax', '0.3.9', versionsuffix),  # also provides absl-py
+    ('UCX-CUDA', '1.10.0', versionsuffix),
+    ('cuDNN', '8.2.1.32', versionsuffix, True),
+    ('tqdm', '4.61.2'),
+]
+local_openmm_preinstallopts = "export OPENMM_INCLUDE_PATH=%(installdir)s/include && "
+local_openmm_preinstallopts += " export OPENMM_LIB_PATH=%(installdir)s/lib && "
+
+# required to install OpenMM Python API;
+# avoid that setup.py partially uninstalls existing OpenMM Python bindings...
+local_openmm_installopts = " && cd python && sed -i 's/uninstall()/pass/g' setup.py && "
+local_openmm_installopts += "python setup.py build && python setup.py install --prefix=%(installdir)s"
+
+# commit to use for downloading stereo_chemical_props.txt and copy to alphafold/common,
+# see docker/Dockerfile in AlphaFold repository
+local_scp_commit = '7102c6'
+
+components = [
+    # for simtk
+    ('OpenMM', '7.5.1', {
+        'easyblock': 'CMakeMake',
+        'source_urls': ['https://github.com/openmm/openmm/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'patches': [{'name': 'OpenMM-%(version)s_AlphaFold.patch', 'sourcepath':'wrappers/python', 'alt_location': 'AlphaFold'}],
+        'start_dir': 'openmm-%(version)s',
+        'preinstallopts': local_openmm_preinstallopts,
+        'installopts': local_openmm_installopts,
+    }),
+    ('colabfold', version, {
+        'easyblock': 'PythonPackage',
+        'source_urls': [
+            'https://github.com/sokrypton/ColabFold/archive/refs/tags/',
+        ],
+        'sources': ['v%(version)s.tar.gz'],
+        'start_dir': 'ColabFold-%(version)s',
+        'use_pip': True,
+        'use_pip_extras': 'alphafold',
+        'preinstallopts': 'sed -i "s/1.2.0/1.3.0/g" pyproject.toml && sed -i "s/tensorflow-cpu/tensorflow/g" pyproject.toml && ',
+    }),
+]
+
+use_pip = True
+
+exts_list = [
+    ('PDBFixer', '1.7', {
+        'source_urls': ['https://github.com/openmm/pdbfixer/archive/refs/tags/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['a0bef3c52a7bbe69a6aea5333f51f3e7d158339be5829aed19b0344bd66d4eea'],
+    }),
+    ('dm-haiku', '0.0.4', {
+        'modulename': 'haiku',
+        'source_urls': ['https://github.com/deepmind/dm-haiku/archive/refs/tags/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+    }),
+    ('jmp', '0.0.2', {
+        'preinstallopts': "touch requirements.txt && touch requirements-test.txt && ",
+        'checksums': ['fdb5cec0d10aab4116c2770f24b2adf4f503fcfbb96ce8ef583e1879bdbf1b9b'],
+    }),
+    ('py3Dmol', '1.7.0', {
+    }),
+    ('alphafold-colabfold', '2.1.14', {
+    }),
+    ('importlib_metadata', '4.8.3', {
+    }),
+    ('absl-py', '0.13.0', {
+        'modulename': 'absl',
+    }),
+    ('chex', '0.1.3', {
+        'checksums': ['2cfa6ccd02addd6b113658d03bd5ce8a7b3bd24fa62e746a246073414ea1e103'],
+    }),
+    ('dm-tree', '0.1.7', {
+        'modulename': 'tree',
+        'checksums': ['30fec8aca5b92823c0e796a2f33b875b4dccd470b57e91e6c542405c5f77fd2a'],
+    }),
+    ('docker', '5.0.3', {
+        'checksums': ['d916a26b62970e7c2f554110ed6af04c7ccff8e9f81ad17d0d40c75637e227fb'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/colabfold_batch', 'bin/pdbfixer', 'lib/libOpenMM.%s' % SHLIB_EXT,
+              'lib/python%(pyshortver)s/site-packages/simtk/openmm/openmm.py'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages', 'scripts'],
+}
+
+sanity_check_commands = [
+    "pdbfixer --help",
+    "python -m simtk.testInstallation",
+    "python -c 'import colabfold'",
+]
+
+sanity_pip_check = True
+
+modextrapaths = {
+    'OPENMM_INCLUDE_PATH': 'include',
+    'OPENMM_LIB_PATH': 'lib',
+}
+
+# these allow to make predictions on proteins that would typically be too long to fit into GPU memory;
+# see https://github.com/deepmind/alphafold/blob/main/docker/run_docker.py
+modextravars = {
+    'TF_FORCE_UNIFIED_MEMORY': '1',
+    'XLA_PYTHON_CLIENT_MEM_FRACTION': '4.0',
+    # 'ALPHAFOLD_DATA_DIR': '/path/to/AlphaFold_DBs',  # please adapt
+    'OPENMM_RELAX': 'CUDA'  # unset or set to 'CPU' in order not to run the energy minimization on GPU; PR#189
+}
+
+moduleclass = 'bio'
