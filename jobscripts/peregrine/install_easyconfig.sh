@@ -48,6 +48,11 @@ if [ -z $easyconfig ]; then
    usage 1
 fi
 
+# Create and use a date based directory for storing the temporary files
+date=$( date +"%Y-%m-%d" )
+mkdir -p $date
+cd $date
+
 softwarename=$( basename $easyconfig .eb )
 jobscriptbase=$softwarename
 
