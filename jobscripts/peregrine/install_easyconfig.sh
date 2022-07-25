@@ -96,7 +96,7 @@ then
 fi
 
 # Update module cache
-./update_lmod_cache.sh
+../update_lmod_cache.sh
 
 # Set the exit code of the job to the exit code of EasyBuild 
 exit \$ec
