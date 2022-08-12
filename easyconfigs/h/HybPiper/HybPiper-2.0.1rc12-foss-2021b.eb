@@ -1,0 +1,62 @@
+easyblock = 'PythonBundle'
+
+name = 'HybPiper'
+version = '2.0.1rc12'
+local_commit = 'b91f49c'
+
+homepage = 'https://github.com/mossmatters/HybPiper'
+description = """HybPiper was designed for targeted sequence capture, in which DNA sequencing libraries are enriched
+ for gene regions of interest, especially for phylogenetics. HybPiper is a suite of Python scripts/modules that wrap
+ and connect bioinformatics tools in order to extract target sequences from high-throughput DNA sequencing reads."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('Seaborn', '0.11.2'),
+    ('matplotlib', '3.4.3'),
+    ('SciPy-bundle', '2021.10'),
+    #('Biopython', '1.8.0'), # version has not been released yet, so including dev version as extension for now
+    ('Exonerate', '2.4.0'),
+    ('BLAST+', '2.12.0'),
+    ('DIAMOND', '2.0.13'),
+    ('BWA', '0.7.17'),
+    ('BBMap', '38.98'),
+    ('SPAdes', '3.15.3'),
+    ('parallel', '20210722'),
+    ('SAMtools', '1.14'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('Pebble', '4.6.3', {
+        'checksums': ['694e1105db888f3576b8f00662f90b057cf3780e6f8b7f57955a568008d0f497'],
+    }),
+    ('python-utils', '3.3.3', {
+        'checksums': ['3b1c8b706e40e91280eec5fa72ea730880a166cee99afa5555b863d55664478d'],
+    }),
+    ('progressbar2', '4.0.0', {
+        'modulename': 'progressbar',
+        'checksums': ['14d3165a1781d053ffaa117daf27cc706128d2ec1d2977fdb05b6bb079888013'],
+    }),
+    ('biopython', '1.80', {
+        'modulename': 'Bio',
+        'source_tmpl': 'b135edb.tar.gz',
+        'source_urls': ['https://github.com/biopython/biopython/archive/'],
+        'checksums': ['6e7c224adaeaac9ac67cfc452241ec75ff04593407cc0c22766da5be6c0f3872'],
+    }),
+    (name, version, {
+        'source_tmpl': 'b91f49c.tar.gz',
+        'source_urls': ['https://github.com/mossmatters/HybPiper/archive/'],
+        'checksums': ['62d9e4c73dd7bc30c9a1b957d544ca3f50fc6b74a574b97a028a4d87b08a9fe9'],
+    }),
+]
+
+sanity_check_commands = [
+    'hybpiper --help',
+    'hybpiper check_dependencies',
+]
+
+moduleclass = 'bio'
