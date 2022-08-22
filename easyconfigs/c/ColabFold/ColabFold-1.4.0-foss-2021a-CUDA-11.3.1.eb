@@ -30,7 +30,6 @@ dependencies = [
     ('jax', '0.3.9', versionsuffix),  # also provides absl-py
     ('UCX-CUDA', '1.10.0', versionsuffix),
     ('cuDNN', '8.2.1.32', versionsuffix, True),
-#    ('tqdm', '4.61.2'),
 ]
 
 local_openmm_preinstallopts = "export OPENMM_INCLUDE_PATH=%(installdir)s/include && "
@@ -58,9 +57,7 @@ components = [
     }),
     ('colabfold', version, {
         'easyblock': 'PythonPackage',
-        'source_urls': [
-            'https://github.com/sokrypton/ColabFold/archive/refs/tags/',
-        ],
+        'source_urls': ['https://github.com/sokrypton/ColabFold/archive/refs/tags/'],
         'sources': ['v%(version)s.tar.gz'],
         'start_dir': 'ColabFold-%(version)s',
         'use_pip': True,
@@ -157,15 +154,17 @@ sanity_pip_check = True
 modextrapaths = {
     'OPENMM_INCLUDE_PATH': 'include',
     'OPENMM_LIB_PATH': 'lib',
+    'COLABFOLDDIR': '',
+    'XDG_CACHE_HOME': '',
 }
 
-# these allow to make predictions on proteins that would typically be too long to fit into GPU memory;
-# see https://github.com/deepmind/alphafold/blob/main/docker/run_docker.py
 modextravars = {
-    'TF_FORCE_UNIFIED_MEMORY': '1',
+    #'TF_FORCE_UNIFIED_MEMORY': '1',
+    'TF_FORCE_UNIFIED_MEMORY': '0',
+    'OPENMM_RELAX': 'CUDA',  # unset or set to 'CPU' in order not to run the energy minimization on GPU; PR#189
     'XLA_PYTHON_CLIENT_MEM_FRACTION': '4.0',
-    # 'ALPHAFOLD_DATA_DIR': '/path/to/AlphaFold_DBs',  # please adapt
-    'OPENMM_RELAX': 'CUDA'  # unset or set to 'CPU' in order not to run the energy minimization on GPU; PR#189
+    'MPLBACKEND': 'Agg',
+
 }
 
 moduleclass = 'bio'
