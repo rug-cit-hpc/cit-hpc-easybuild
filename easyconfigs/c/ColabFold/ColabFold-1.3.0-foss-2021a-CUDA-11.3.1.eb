@@ -40,10 +40,6 @@ local_openmm_preinstallopts += " export OPENMM_LIB_PATH=%(installdir)s/lib && "
 local_openmm_installopts = " && cd python && sed -i 's/uninstall()/pass/g' setup.py && "
 local_openmm_installopts += "python setup.py build && python setup.py install --prefix=%(installdir)s"
 
-# commit to use for downloading stereo_chemical_props.txt and copy to alphafold/common,
-# see docker/Dockerfile in AlphaFold repository
-local_scp_commit = '7102c6'
-
 components = [
     # for simtk
     ('OpenMM', '7.5.1', {
@@ -51,6 +47,10 @@ components = [
         'source_urls': ['https://github.com/openmm/openmm/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'patches': [{'name': 'OpenMM-%(version)s_AlphaFold.patch', 'sourcepath':'wrappers/python', 'alt_location': 'AlphaFold'}],
+        'checksums': [
+            'c88d6946468a2bde2619acb834f57b859b5e114a93093cf562165612e10f4ff7',  # OpenMM-7.5.1.tar.gz
+            '1b109dfff3af5c6aa70690bca14618612953c68840a7e64f679db7ca33c1aff6',  # OpenMM-7.5.1_AlphaFold.patch
+        ],
         'start_dir': 'openmm-%(version)s',
         'preinstallopts': local_openmm_preinstallopts,
         'installopts': local_openmm_installopts,
@@ -59,11 +59,18 @@ components = [
         'easyblock': 'PythonPackage',
         'source_urls': ['https://github.com/sokrypton/ColabFold/archive/refs/tags/'],
         'sources': ['v%(version)s.tar.gz'],
+        'checksums': ['97b7908ce0fc866fe0c204996bb9ead94e122078b8163ccee1f9af3c921cc14c'],
         'start_dir': 'ColabFold-%(version)s',
         'use_pip': True,
         'use_pip_extras': 'alphafold',
         'preinstallopts': 'sed -i "s/1.2.0/1.3.0/g" pyproject.toml && sed -i "s/tensorflow-cpu/tensorflow/g" pyproject.toml && ',
     }),
+]
+
+postinstallcmds = [
+    'mkdir %(installdir)s/colabfold',
+    'ln -s /data/public/colabfold/1.3.0/db %(installdir)s/colabfold/'
+    'ln -s /data/public/colabfold/1.3.0/params %(installdir)s/colabfold/'
 ]
 
 use_pip = True
@@ -78,6 +85,7 @@ exts_list = [
         'modulename': 'haiku',
         'source_urls': ['https://github.com/deepmind/dm-haiku/archive/refs/tags/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['e9896d161938b53f869fde207f3f6fca496d09b2a47d21dd9b6b65e897ad6aab'],
     }),
     ('jmp', '0.0.2', {
         'preinstallopts': "touch requirements.txt && touch requirements-test.txt && ",
@@ -85,18 +93,22 @@ exts_list = [
     }),
     ('py3Dmol', '1.7.0', {
         'modulename': 'py3Dmol',
+        'checksums': ['612c6f42251987c12fe0b932460963d6669ebc596ab77af6d697baa7ce421add'],
     }),
     ('immutabledict', '2.2.1', {
         'checksums': ['1ddb0edf1bb6c70d0197eb90ce1fe2b2d58502334f5fdfde72d7c633d723ec3a'],
     }),
     ('alphafold-colabfold', '2.1.14', {
-        'preinstallopts': 'sed -i "s/tensorflow-cpu/tensorflow/g" setup.py && ',
         'modulename': 'alphafold',
+        'preinstallopts': 'sed -i "s/tensorflow-cpu/tensorflow/g" setup.py && ',
+        'checksums': ['66ac55dec55a6020216093d3a244b6b1ffdfff2c28251c36a315c5da94466f1f'],
     }),
     ('importlib_metadata', '4.8.3', {
+        'checksums': ['766abffff765960fcc18003801f7044eb6755ffae4521c8e8ce8e83b9c9b0668'],
     }),
     ('absl-py', '0.13.0', {
         'modulename': 'absl',
+        'checksums': ['6953272383486044699fd0e9f00aad167a27e08ce19aae66c6c4b10e7e767793'],
     }),
     ('toolz', '0.11.2', {
         'checksums': ['6b312d5e15138552f1bda8a4e66c30e236c831b612b2bf0005f8a1df10a4bc33'],
@@ -123,14 +135,19 @@ exts_list = [
         'checksums': ['3fefcc72ec433aa1e5d32307a3e474bbb67f405be814ea52a2166bfc9dbe68cc'],
     }),
     ('matplotlib', '3.1.3', {
+        'checksums': ['db3121f12fb9b99f105d1413aebaeb3d943f269f3d262b45586d12765866f0c6'],
     }),
     ('pandas', '1.3.3', {
+        'checksums': ['272c8cb14aa9793eada6b1ebe81994616e647b5892a370c7135efb2924b701df'],
     }),
     ('charset-normalizer', '2.0.12', {
+        'checksums': ['2857e29ff0d34db842cd7ca3230549d1a697f96ee6d3fb071cfa6c7393832597'],
     }),
     ('requests', '2.28.1', {
+        'checksums': ['7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983'],
     }),
     ('tqdm', '4.64.0', {
+        'checksums': ['40be55d30e200777a307a7585aee69e4eabb46b4ec6a4b4a5f2d9f11e7d5408d'],
     }),
 ]
 
