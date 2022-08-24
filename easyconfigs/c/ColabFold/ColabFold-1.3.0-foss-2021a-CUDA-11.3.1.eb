@@ -176,10 +176,9 @@ sanity_check_commands = [
 sanity_pip_check = True
 
 modextrapaths = {
+    'COLABFOLDDIR': '',
     'OPENMM_INCLUDE_PATH': 'include',
     'OPENMM_LIB_PATH': 'lib',
-    'COLABFOLDDIR': '',
-    'XDG_CACHE_HOME': '',
 }
 
 modextravars = {
@@ -188,7 +187,8 @@ modextravars = {
     'OPENMM_RELAX': 'CUDA',  # unset or set to 'CPU' in order not to run the energy minimization on GPU; PR#189
     'XLA_PYTHON_CLIENT_MEM_FRACTION': '4.0',
     'MPLBACKEND': 'Agg',
-
+    'COLABFOLD_DATA_DIR': '/data/public/colabfold/%(version)s/db',
+    'XDG_CACHE_HOME': '',
 }
 
 moduleclass = 'bio'
