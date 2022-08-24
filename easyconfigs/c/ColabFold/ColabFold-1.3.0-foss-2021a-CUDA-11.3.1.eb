@@ -49,6 +49,7 @@ components = [
         'sources': ['%s.tar.gz' % local_mmseqs_commit],
         'checksums': ['51d6e41b27e923ecde805dcc026a3d0b5c67c5a1d162efc39f11a87d5e3c8a81'],
         'start_dir': 'MMseqs2-%s' % local_mmseqs_commit,
+        'configopts': '-DVERSION_OVERRIDE="%%(version)s (commit %s)"' % local_mmseqs_commit,
     }),
     # for simtk
     ('OpenMM', '7.5.1', {
@@ -187,7 +188,7 @@ modextravars = {
     'OPENMM_RELAX': 'CUDA',  # unset or set to 'CPU' in order not to run the energy minimization on GPU; PR#189
     'XLA_PYTHON_CLIENT_MEM_FRACTION': '4.0',
     'MPLBACKEND': 'Agg',
-    'COLABFOLD_DATA_DIR': '/data/public/colabfold/%(version)s/db',
+    'COLABFOLD_DATA_DIR': '/data/public/colabfold/data-%(version)s',
     'XDG_CACHE_HOME': '',
 }
 
