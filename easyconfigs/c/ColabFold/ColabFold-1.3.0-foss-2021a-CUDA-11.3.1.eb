@@ -40,6 +40,7 @@ local_openmm_preinstallopts += " export OPENMM_LIB_PATH=%(installdir)s/lib && "
 local_openmm_installopts = " && cd python && sed -i 's/uninstall()/pass/g' setup.py && "
 local_openmm_installopts += "python setup.py build && python setup.py install --prefix=%(installdir)s"
 
+local_mmseqs_version = '2022-08-09' # date of the corresponding commit
 local_mmseqs_commit = '67949d702dbfc6e5d54fdd0f14a9ab6740f11c32'
 
 components = [
@@ -172,6 +173,7 @@ sanity_check_commands = [
     "colabfold_batch --help",
     "colabfold_search --help",
     "colabfold_split_msas --help",
+    "mmseqs --help | grep 'MMseqs2 Version: %s (commit %s)'" % (local_mmseqs_version, local_mmseqs_commit),
 ]
 
 sanity_pip_check = True
