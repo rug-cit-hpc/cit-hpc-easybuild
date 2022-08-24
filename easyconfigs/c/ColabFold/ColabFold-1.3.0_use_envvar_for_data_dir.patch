@@ -1,0 +1,18 @@
+--- colabfold-orig/download.py	2022-08-22 16:43:23.576677852 +0200
++++ colabfold/download.py	2022-08-22 16:43:12.563588142 +0200
+@@ -1,4 +1,5 @@
+ import logging
++import os
+ import tarfile
+ from pathlib import Path
+ 
+@@ -10,7 +11,7 @@
+ 
+ # The data dir location logic switches between a version with and one without "params" because alphafold
+ # always internally joins "params". (We should probably patch alphafold)
+-default_data_dir = Path(appdirs.user_cache_dir(__package__ or "colabfold"))
++default_data_dir = Path(os.environ.get('COLABFOLD_DATA_DIR', None) or appdirs.user_cache_dir(__package__ or "colabfold"))
+ 
+ 
+ def download_alphafold_params(model_type: str, data_dir: Path = default_data_dir):
+
