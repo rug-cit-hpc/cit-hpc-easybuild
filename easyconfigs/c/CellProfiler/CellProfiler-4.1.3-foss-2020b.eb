@@ -33,7 +33,7 @@ dependencies = [
     ('GTK+', '3.24.23'),
 ]
 
-osdependencies = [('appmenu-gtk3-module', 'appmenu-gtk3-module', '')]
+#osdependencies = [('appmenu-gtk3-module', 'appmenu-gtk3-module', '')]
 use_pip = True
 sanity_pip_check = True
 
