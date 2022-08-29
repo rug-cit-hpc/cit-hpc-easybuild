@@ -27,7 +27,7 @@ dependencies = [
     ('GTK+', '3.24.23'),
     ('GLib', '2.66.1'),
     ('GConf', '3.2.6'),
-    ('GST-plugins-base', '1.18.3'),
+    ('GST-plugins-base', '1.18.4'),
     ('Mesa', '20.2.1'),
     ('libGLU', '9.0.1'),
     ('LibSoup', '2.72.0'),
