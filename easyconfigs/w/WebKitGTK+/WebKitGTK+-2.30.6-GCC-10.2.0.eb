@@ -22,11 +22,6 @@ checksums = [
     '539d043e99070ffa8349c67969d9d0b7eb431641d76f4a70a2c20374ca4e1e74',
 ]
 
-#osdependencies = [
-#    OS_PKG_OPENSSL_DEV,
-#    ('systemd-devel', 'libsystemd-dev', 'libsystemd-devel')
-#]
-
 builddependencies = [
     ('CMake', '3.18.4'),
     ('Python', '3.8.6'),
@@ -55,7 +50,7 @@ dependencies = [
 # No rule to make target 'JavaScriptCore-4.0.gir', needed by 'WebKit2-4.0.gir'
 # see https://bugs.webkit.org/show_bug.cgi?id=195251
 
-configopts = "-DPORT=GTK -DPYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python -DRUBY_EXECUTABLE=$EBROOTRUBY/bin/ruby "
+configopts = "-DPORT=GTK -DPYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python -DRUBY_EXECUTABLE=$EBROOTRUBY/bin/ruby -DUSE_SYSTEMD=OFF"
 
 sanity_check_paths = {
     'files': ['bin/WebKitWebDriver', 'lib/libwebkit2gtk-4.0.%s' % SHLIB_EXT],
