@@ -18,6 +18,7 @@ builddependencies = [
 ]
 
 dependencies = [
+    ('OpenMM', '7.5.1', '-DeepMind-patch'),
     ('Python', '3.9.5'),
     ('CUDA', '11.3.1', '', True),
     ('SciPy-bundle', '2021.05'),
@@ -60,20 +61,6 @@ components = [
         'checksums': ['51d6e41b27e923ecde805dcc026a3d0b5c67c5a1d162efc39f11a87d5e3c8a81'],
         'start_dir': 'MMseqs2-%s' % local_mmseqs_commit,
         'configopts': '-DVERSION_OVERRIDE="%%(version)s (commit %s)"' % local_mmseqs_commit,
-    }),
-    # for simtk
-    ('OpenMM', '7.5.1', {
-        'easyblock': 'CMakeMake',
-        'source_urls': ['https://github.com/openmm/openmm/archive/'],
-        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'patches': [{'name': 'OpenMM-%(version)s_AlphaFold.patch', 'sourcepath':'wrappers/python', 'alt_location': 'AlphaFold'}],
-        'checksums': [
-            'c88d6946468a2bde2619acb834f57b859b5e114a93093cf562165612e10f4ff7',  # OpenMM-7.5.1.tar.gz
-            '1b109dfff3af5c6aa70690bca14618612953c68840a7e64f679db7ca33c1aff6',  # OpenMM-7.5.1_AlphaFold.patch
-        ],
-        'start_dir': 'openmm-%(version)s',
-        'preinstallopts': local_openmm_preinstallopts,
-        'installopts': local_openmm_installopts,
     }),
     ('colabfold', version, {
         'easyblock': 'PythonPackage',
