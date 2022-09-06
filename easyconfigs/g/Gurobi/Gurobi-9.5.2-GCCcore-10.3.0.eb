@@ -13,7 +13,7 @@ source_urls = ['https://packages.gurobi.com/%(version_major_minor)s/']
 sources = ['%(namelower)s%(version)s_linux64.tar.gz']
 patches = ['%(name)s-9.0.1_use-eb-python-gurobi-shell.patch']
 checksums = [
-    'bb542e5a5d1685f6e364eaf05ea6c5572485ffc37a2245169cf3cb40288bc29e',  # gurobi9.5.0_linux64.tar.gz
+    '95d8ca18b7f86116ba834a27fd6228c5b1708ae67927e7ea0e954c09374a2d0f',  # gurobi9.5.0_linux64.tar.gz
     'b4a998182d05f969d1de519f4746ac9e0c6646dd35233231b6ab5963dfa67d01',  # Gurobi-9.0.1_use-eb-python-gurobi-shell.patch
 ]
 
