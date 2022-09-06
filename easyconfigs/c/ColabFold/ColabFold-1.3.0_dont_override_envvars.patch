@@ -1,0 +1,17 @@
+The Python code overrides two environment variables,
+which are already set by the modulefile.
+
+Author: Bob Dröge, University of Groningen
+
+--- colabfold-orig/batch.py	2022-09-06 16:38:20.026762948 +0200
++++ colabfold/batch.py	2022-09-06 16:38:36.829846118 +0200
+@@ -1,7 +1,7 @@
+ import os
+ 
+-os.environ["TF_FORCE_UNIFIED_MEMORY"] = "1"
+-os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "2.0"
++#os.environ["TF_FORCE_UNIFIED_MEMORY"] = "1"
++#os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "2.0"
+ 
+ import json
+ import logging

@@ -58,9 +58,13 @@ components = [
         'easyblock': 'PythonPackage',
         'source_urls': ['https://github.com/sokrypton/ColabFold/archive/refs/tags/'],
         'sources': ['v%(version)s.tar.gz'],
-        'patches': ['ColabFold-1.3.0_use_envvar_for_data_dir.patch'],
+        'patches': [
+            'ColabFold-1.3.0_dont_override_envvars.patch',
+            'ColabFold-1.3.0_use_envvar_for_data_dir.patch',
+        ],
         'checksums': [
             '97b7908ce0fc866fe0c204996bb9ead94e122078b8163ccee1f9af3c921cc14c',  # v1.3.0.tar.gz
+            '4ee94f87ffe4091476cdba4c5906d544b06ce801704e9297097d6e7ef4fbdb9f',  # ColabFold-1.3.0_dont_override_envvars.patch
             'b22a7e28779dbdad07873dde80f9a01de4ccf0cf05a5d73091aa273666e3149a',  # ColabFold-1.3.0_use_envvar_for_data_dir.patch
         ],
         'start_dir': 'ColabFold-%(version)s',
