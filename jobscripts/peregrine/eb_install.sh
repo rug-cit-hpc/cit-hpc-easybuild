@@ -9,7 +9,7 @@ module purge
 module load EasyBuild
 eb $COMMAND
 EOF
-SINGOPTS="-B /local/tmp -B /software -B /apps -B /data -B /scratch"
+SINGOPTS="-B /local/tmp -B /software -B /apps -B /data -B /scratch -B /home/pg-beheer"
 if [ -c /dev/nvidia0 ]; then
     SINGOPTS="--nv $SINGOPTS"
 fi

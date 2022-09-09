@@ -1,0 +1,51 @@
+easyblock = 'ConfigureMake'
+
+name = 'BBarolo'
+version = '1.6'
+
+homepage = 'https://bbarolo.readthedocs.io/'
+description = """BBarolo is a 3D fitting tool to derive the kinematics of galaxies from emission-line observations."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+source_urls = ['https://github.com/editeodoro/Bbarolo/archive/']
+sources = ['%(version)s.tar.gz']
+checksums = ['f9ad7d7a32b9141e76d21867ebe17fde777e40a998e08290785d8a284bc3973d']
+
+dependencies = [
+    ('CFITSIO', '3.49'),
+    ('WCSLIB', '7.11'),
+    ('gnuplot', '5.4.2'),
+    ('Python', '3.9.6'),
+    ('astropy', '3.2.3'),
+    ('matplotlib', '3.4.3'),
+    ('Qt5', '5.15.2'),
+]
+
+configopts = '--with-cfitsio=$EBROOTCFITSIO --with-fftw3=$EBROOTFFTW --with-wcslib=$EBROOTWCSLIB --with-mpi CXX=mpicxx'
+
+# correctly set the installation prefix of the Python bindings
+prebuildopts = 'sed -i "s|python setup.py install|python setup.py install --prefix=%(installdir)s|" Makefile && '
+
+# target "all" includes the GUI
+buildopts = 'all' 
+
+# but the Python bindings have to be installed separately
+installopts = ' && make pybbinst'
+
+# "make install" does not install the GUI
+postinstallcmds = ['cp BBaroloGUI %(installdir)s/bin/']
+
+sanity_check_paths = {
+    'files': ['bin/BBarolo'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    'BBarolo --version | grep "version %(version)s"',
+    'python -c "import pyBBarolo"',
+]
+
+modextrapaths = {'PYTHONPATH': ['lib/python%(pyshortver)s/site-packages']}
+
+moduleclass = 'astro'

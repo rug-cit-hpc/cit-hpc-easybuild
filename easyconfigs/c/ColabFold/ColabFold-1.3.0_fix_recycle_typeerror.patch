@@ -1,0 +1,21 @@
+Fix a TypeError issue with the recycles variable, which is not subscriptable (but an integer instead).
+
+Author: Bob Dröge, University of Groningen
+
+--- colabfold-orig/batch.py	2022-09-06 16:38:20.026762948 +0200
++++ colabfold/batch.py	2022-09-08 10:13:21.530347447 +0200
+@@ -218,12 +218,12 @@
+ 
+         if is_complex:
+             logger.info(
+-                f"{model_name} took {prediction_time:.1f}s ({recycles[0]} recycles) "
++                f"{model_name} took {prediction_time:.1f}s ({recycles} recycles) "
+                 f"with pLDDT {mean_plddt:.3g} and ptmscore {mean_ptm:.3g}"
+             )
+         else:
+             logger.info(
+-                f"{model_name} took {prediction_time:.1f}s ({recycles[0]} recycles) "
++                f"{model_name} took {prediction_time:.1f}s ({recycles} recycles) "
+                 f"with pLDDT {mean_plddt:.3g}"
+             )
+         final_atom_mask = prediction_result["structure_module"]["final_atom_mask"]
