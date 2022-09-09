@@ -25,7 +25,7 @@ def pre_module_hook(self, *args, **kwargs):
     # AlphaFold: set data directory, disable unified memory (doesn't work with V100)
     if self.name == 'AlphaFold':
         data_dir = '/data/public/alphafold/data-' + self.version
-        extramodvars = {'ALPHAFOLD_DATA_DIR': data_dir, 'TF_FORCE_UNIFIED_MEMORY': 0}
+        extramodvars = {'ALPHAFOLD_DATA_DIR': data_dir, 'TF_FORCE_UNIFIED_MEMORY': '0'}
         self.log.info('[pre-module hook] Setting ALPHAFOLD_DATA_DIR to ' + data_dir)
         self.log.info('[pre-module hook] Setting TF_FORCE_UNIFIED_MEMORY to 0')
         self.cfg.update('modextravars', extramodvars)
