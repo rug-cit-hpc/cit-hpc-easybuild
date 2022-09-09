@@ -1,0 +1,18 @@
+export EASYBUILD_ZIP_LOGS=bzip2
+export EASYBUILD_RPATH=1
+export EASYBUILD_MODULE_EXTENSIONS=1
+export EASYBUILD_SOURCEPATH=/data/${USER}/sources
+
+if [ -z ${REPO} ] || [ -z ${ARCH} ]; then
+  echo "Error: \$REPO and \$ARCH have to be set!"
+  exit 1
+fi
+export EASYBUILD_INSTALLPATH=/cvmfs/${REPO}/${ARCH}
+
+# TODO: uncomment the following lines whenever we need hooks
+#export EASYBUILD_HOOKS=$(realpath eb_hooks.py)
+# make sure hooks are available, so we can produce a clear error message
+#if [ ! -f $EASYBUILD_HOOKS ]; then
+#  echo "Error: $EASYBUILD_HOOKS does not exist!"
+#  exit 1
+#fi
