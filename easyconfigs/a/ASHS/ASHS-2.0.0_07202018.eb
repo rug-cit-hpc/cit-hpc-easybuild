@@ -1,0 +1,24 @@
+easyblock = 'Tarball'
+name = 'ASHS'
+version = '2.0.0_07202018'
+
+homepage = 'https://sites.google.com/site/hipposubfields/home'
+description = """ ASHS is a software package for automatic segmentation of hippocampal subfields in MRI scans. ASHS requires a T1-weighted scan and an oblique coronal T2-weighted scan with high in-plane resolution. ASHS will automatically label main hippocampal subfields and medial temporal lobe subregions. ASHS is easy to train for other brain segmentation applications as well. """
+
+toolchain = SYSTEM
+
+# ashs-fastashs_2.0.0_07202018.zip
+source_urls = ['https://www.nitrc.org/frs/download.php/10887/ashs-fastashs_%(version)s.zip']
+sources = ['ashs-fastashs_%(version)s.zip']
+checksums = ['9999d6aa005b39a02e3bf91ce35d541d2b9e3018db891496975739071df478ba']
+
+modextravars = {'ASHS_ROOT': '%(installdir)s'}
+
+sanity_check_paths = {
+    'files': ['bin/ashs_main.sh', 'bin/ashs_template_qsub.sh', 'bin/ashs_train.sh',
+              'bin/ashs_util_makepdf.sh'],
+    'dirs': ['ext'],
+}
+
+moduleclass = 'bio'
+
