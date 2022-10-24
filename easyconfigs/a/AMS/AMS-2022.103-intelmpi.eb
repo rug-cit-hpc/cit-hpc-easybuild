@@ -30,7 +30,7 @@ modextrapaths = {
     'AMSRESOURCES': 'atomicdata',
 }
 modextravars = {
-    'SCMLICENSE': 'license.txt',
+    'SCMLICENSE': ''%(installdir)s/license.txt',
 }
 modluafooter = '''
 conflict("ADF")
