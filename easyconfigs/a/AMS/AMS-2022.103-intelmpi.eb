@@ -28,9 +28,12 @@ modextrapaths = {
     'AMSHOME': '', 
     'AMSBIN': 'bin',
     'AMSRESOURCES': 'atomicdata',
+}
+modextravars = {
     'SCMLICENSE': 'license.txt',
 }
 modluafooter = '''
+conflict("ADF")
 local groups = capture("/usr/bin/id -Gn")
 if not groups:find("pg%-gaussian") then
     LmodError("AMS can only be used by members of the pg-gaussian group. You are not in this group, ask the group admin to contact hpc@rug.nl if you need to be added.")
