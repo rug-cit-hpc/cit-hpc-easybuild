@@ -12,7 +12,7 @@ toolchain = SYSTEM
 sources = ['FLUIDS_%(version)s_LINX64.tgz']
 checksums = ['53bf96347a0323e32e7843981d3a8d4f48d9e64e0d61b6c595b3470249b4ce93']
 
-subdir_version = '212'
+subdir_version = '222'
 
 modluafooter = '''
 local groups = capture("/usr/bin/id -Gn")
