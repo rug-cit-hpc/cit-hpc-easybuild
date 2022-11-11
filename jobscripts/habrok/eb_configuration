@@ -7,7 +7,7 @@ if [ -z ${REPO} ] || [ -z ${ARCH} ]; then
   echo "Error: \$REPO and \$ARCH have to be set!"
   exit 1
 fi
-export EASYBUILD_INSTALLPATH=/cvmfs/${REPO}/${ARCH}
+export EASYBUILD_INSTALLPATH=/cvmfs/${REPO}/${OS}/${ARCH}
 
 # TODO: uncomment the following lines whenever we need hooks
 #export EASYBUILD_HOOKS=$(realpath eb_hooks.py)
