@@ -13,7 +13,7 @@ Usage: $0 [OPTION]... <COMMAND>
   -h, --help                             display this help and exit
   -k, --keep                             keep this run's temporary directory
   -n, --name <FILENAME>                  name of the resulting tarball
-  -o, --output <DIRECTORY>               output directory for storing the produced tarball
+  -o, --output <DIRECTORY>               output directory for storing the produced tarball, no tarball is created when not set
   -t, --tmpdir <DIRECTORY>               temporary directory to be used for CVMFS, fuse-overlayfs, and EasyBuild
 "
 }
@@ -101,10 +101,10 @@ MYTMPDIR=$(mktemp -p ${TMPDIR} -d eb_install.XXXXX)
 echo "Using ${MYTMPDIR} as temporary directory for this run."
 trap cleanup EXIT
 
-if [ -z "${OUTDIR}" ]
+if [ ! -z "${OUTDIR}" ]
 then
-  OUTDIR=$PWD
-  echo 'No output directory specified. The tarball will be saved to $PWD.'
+  echo "Creating output directory ${OUTDIR}..."
+  mkdir -p "${OUTDIR}"
 fi
 
 if [ -z ${ARCH} ];
@@ -156,9 +156,8 @@ cat << EOF > $TMPSCRIPT
 #cd $HOME
 # Source global definitions
 [ -f /etc/bashrc ] && . /etc/bashrc
-module use /cvmfs/${REPO}/${ARCH}/modules/all
+module use /cvmfs/${REPO}/${OS}/${ARCH}/modules/all
 module purge
-#export EASYBUILD_INSTALLPATH=/cvmfs/${REPO}/${ARCH}
 
 if ! module is-avail EasyBuild
 then
@@ -217,36 +216,42 @@ else
   singularity shell ${SINGBIND} -B ${EASYBUILD_SOURCEPATH} -B ${CVMFS_LOCAL_DEFAULTS}:/etc/cvmfs/default.local -B ${MYTMPDIR}/cvmfs/run:/var/run/cvmfs -B ${MYTMPDIR}/cvmfs/lib:/var/lib/cvmfs -B ${MYTMPDIR} --fusemount "container:cvmfs2 ${REPO} /cvmfs_ro/${REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${REPO}" ${CONTAINER} < $TMPSCRIPT
 fi
 
-# Make a tarball of the installed software if the overlay's upper dir is non-empty.
-OLDPWD=$PWD
-UPPERARCHDIR=${MYTMPDIR}/overlay/upper/${ARCH%/*}
-CPUARCH=${ARCH#*/}
-if [ -d ${UPPERARCHDIR} ] && [ "$(ls -A ${UPPERARCHDIR})" ]
+# Make a tarball of the installed software if the overlay's upper dir is non-empty and an output directory is specified.
+if [ ! -z "${OUTDIR}" ]
 then
-  TARBALL=${OUTDIR}/${TARBALL:-${ARCH#*/}-$(date +%s).tar.gz}
-  FILES_LIST=${MYTMPDIR}/files.list.txt
-  cd ${UPPERARCHDIR}
+  OLDPWD=$PWD
+  UPPERARCHDIR=${MYTMPDIR}/overlay/upper/${ARCH%/*}
+  CPUARCH=${ARCH#*/}
+  if [ -d ${UPPERARCHDIR} ] && [ "$(ls -A ${UPPERARCHDIR})" ]
+  then
+    TARBALL=${OUTDIR}/${TARBALL:-${ARCH#*/}-$(date +%s).tar.gz}
+    FILES_LIST=${MYTMPDIR}/files.list.txt
+    cd ${UPPERARCHDIR}
 
-  if [ -d ${CPUARCH}/.lmod ]; then
-    # include Lmod cache and configuration file (lmodrc.lua),
-    # skip whiteout files and backup copies of Lmod cache (spiderT.old.*)
-    find ${CPUARCH}/.lmod -type f | egrep -v '/\.wh\.|spiderT.old' > ${FILES_LIST}
-  fi
-  if [ -d ${CPUARCH}/modules ]; then
-    # module files
-    find ${CPUARCH}/modules -type f >> ${FILES_LIST}
-    # module symlinks
-    find ${CPUARCH}/modules -type l >> ${FILES_LIST}
-  fi
-  if [ -d ${CPUARCH}/software ]; then
-    # installation directories
-    ls -d ${CPUARCH}/software/*/* >> ${FILES_LIST}
-  fi
+    if [ -d ${CPUARCH}/.lmod ]; then
+      # include Lmod cache and configuration file (lmodrc.lua),
+      # skip whiteout files and backup copies of Lmod cache (spiderT.old.*)
+      find ${CPUARCH}/.lmod -type f | egrep -v '/\.wh\.|spiderT.old' > ${FILES_LIST}
+    fi
+    if [ -d ${CPUARCH}/modules ]; then
+      # module files
+      find ${CPUARCH}/modules -type f >> ${FILES_LIST}
+      # module symlinks
+      find ${CPUARCH}/modules -type l >> ${FILES_LIST}
+    fi
+    if [ -d ${CPUARCH}/software ]; then
+      # installation directories
+      ls -d ${CPUARCH}/software/*/* >> ${FILES_LIST}
+    fi
 
-  echo "Creating tarball ${TARBALL} from ${UPPERARCHDIR}..."
-  cd $OLDPWD
-  tar -C ${UPPERARCHDIR} -czf ${TARBALL} --files-from=${FILES_LIST} --exclude=*.wh.*
-  echo "${TARBALL} created!"
+    echo "Creating tarball ${TARBALL} from ${UPPERARCHDIR}..."
+    cd $OLDPWD
+    tar -C ${UPPERARCHDIR} -czf ${TARBALL} --files-from=${FILES_LIST} --exclude=*.wh.*
+    echo "${TARBALL} created!"
+  else
+    echo "Looks like no software has been installed, so not creating a tarball."
+  fi
 else
-  echo "Looks like no software has been installed, so not creating a tarball."
+  echo 'No tarball output directory specified, hence no tarball will be created.'
 fi
+
