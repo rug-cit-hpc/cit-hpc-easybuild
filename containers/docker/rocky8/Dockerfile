@@ -4,6 +4,7 @@ ARG fuseoverlayfsversion=0.3
 ARG fqrn=hpc.rug.nl
 
 
+# Build the specified version of fuse-overlayfs in its own container...
 FROM rockylinux/rockylinux:8 AS build-fuse-overlayfs
 ARG fuseoverlayfsversion
 RUN dnf install -y wget fuse3-devel autoconf automake gcc-c++ make tar gzip
@@ -13,6 +14,7 @@ RUN wget https://github.com/containers/fuse-overlayfs/archive/refs/tags/v${fuseo
   && ./autogen.sh && ./configure && make && make install
 
 
+# and now build the real container.
 FROM rockylinux/rockylinux:8
 ARG fqrn
 
