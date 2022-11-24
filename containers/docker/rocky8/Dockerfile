@@ -42,6 +42,11 @@ RUN dnf install -y gcc gcc-c++ gcc-gfortran gdb patch git flex && \
 RUN pip3 install GitPython keyring keyrings.alt rich
 # Install archspec for CPU detection
 RUN pip3 install archspec
+# Install EESSI's archdetect for CPU detection
+RUN wget -O /usr/local/bin/eessi_archdetect.sh https://raw.githubusercontent.com/EESSI/software-layer/main/init/eessi_archdetect.sh && \
+    chmod +x /usr/local/bin/eessi_archdetect.sh && \
+    mkdir /usr/local/bin/arch_specs && \
+    wget -O /usr/local/bin/arch_specs/eessi_arch_x86.spec https://raw.githubusercontent.com/EESSI/software-layer/main/init/arch_specs/eessi_arch_x86.spec
 
 RUN mkdir -p /cvmfs/${fqrn} && mkdir -p /cvmfs_ro/${fqrn}
 
