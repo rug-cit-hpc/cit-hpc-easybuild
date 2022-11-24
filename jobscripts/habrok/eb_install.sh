@@ -3,12 +3,13 @@
 CONTAINER=docker://ghcr.io/bedroge/build-node
 REPO=hpc.rug.nl
 OS=rocky8
+EB_CONFIG_FILE=$(dirname $(realpath $0))/eb_configuration
 
 function show_help() {
   echo "
 Usage: $0 [OPTION]... <COMMAND>
 
-  -a, --arch <ISA>/<MICROARCHITECTURE>   architecture to build for, e.g. x86_64/haswell
+  -a, --arch <ISA>/<VENDOR>/<uarch>      architecture to build for, e.g. x86_64/intel/haswell or x86_64/generic
   -b, --bind <DIR1[,DIR2,...,DIRN]>      bind the given host directory into the build container
   -h, --help                             display this help and exit
   -k, --keep                             keep this run's temporary directory
@@ -111,18 +112,27 @@ if [ -z ${ARCH} ];
 then
   # No architecture specified, so let's build for the current host.
   # Use archspec to determine the architecture name of this host.
-  ARCH=$(uname -m)/$(singularity exec ${CONTAINER} archspec cpu)
+  #ARCH=$(uname -m)/$(singularity exec ${CONTAINER} archspec cpu)
+  # Use EESSI's archdetect script to determine the architecture name of this host.
+  ARCH=$(singularity exec ${CONTAINER} eessi_archdetect.sh cpupath)
   #ARCH=x86_64/zen2
   #export EASYBUILD_OPTARCH="march=x86-64-v3"
-elif [ ! -z "${ARCH##*'/'*}" ]
+elif [ -z "${ARCH##*'/'generic}" ]
+then
+  echo "Configuring EasyBuild for generic builds..."
+  export EASYBUILD_OPTARCH="GENERIC"
+elif [ ! -z "${ARCH##*'/'*'/'*}" ]
 then
   # Architecture was specified, but is invalid.
-  echo "Error: invalid architecture. Please use <ISA>/<MICROARCHITECTURE>, e.g. x86_64/haswell."
+  echo "Error: invalid architecture. Please use <ISA>/<VENDOR>/<MICROARCHITECTURE>, e.g. x86_64/intel/haswell."
   exit 1
 else
-  # Architecture was specified correctly. The Easybuild setting should only contain the last part,
+  # Architecture was specified correctly.
+  # For cross-building: the Easybuild setting should only contain the last part,
   # e.g. "march=haswell" when "x86_64/haswell" was specified.
-  export EASYBUILD_OPTARCH="march=${ARCH#*/}"
+  # But we currently disable cross-building, as it's usually quite dangerous.
+  echo 'WARNING: custom architecture specified, but do note that this only affects the installation path (i.e. no cross-compiling)!'
+  #export EASYBUILD_OPTARCH="march=${ARCH#*/*/}"
 fi
 
 echo "Going to build for architecture ${ARCH}."
@@ -146,7 +156,12 @@ echo "ARCH=${ARCH}" > $CVMFS_LOCAL_DEFAULTS
 #fi
 
 # Configure EasyBuild
-source eb_configuration
+if [ ! -f "${EB_CONFIG_FILE}" ]
+then
+  echo "ERROR: cannot find ${EB_CONFIG_FILE}"
+  exit 1
+fi
+source "${EB_CONFIG_FILE}"
 mkdir -p ${EASYBUILD_SOURCEPATH}
 
 # Generate the script that we need to actually build the software.
