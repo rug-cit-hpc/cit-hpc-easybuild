@@ -2,6 +2,7 @@
 
 CONTAINER=docker://ghcr.io/bedroge/build-node
 REPO=hpc.rug.nl
+OS=rocky8
 
 function show_help() {
   echo "
