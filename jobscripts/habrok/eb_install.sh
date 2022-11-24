@@ -2,7 +2,6 @@
 
 CONTAINER=docker://ghcr.io/bedroge/build-node
 REPO=hpc.rug.nl
-OS=rocky8
 
 function show_help() {
   echo "
@@ -83,7 +82,8 @@ while true ; do
   esac
 done
 
-SINGBIND=""
+# Always bind mount $PWD, and add the user-specified ones.
+SINGBIND="-B $PWD"
 for dir in ${BIND//,/ }
 do
     SINGBIND="$SINGBIND -B ${dir}"
@@ -152,7 +152,7 @@ mkdir -p ${EASYBUILD_SOURCEPATH}
 export COMMAND=$@
 TMPSCRIPT=${MYTMPDIR}/eb_install.sh
 cat << EOF > $TMPSCRIPT
-cd $HOME
+#cd $HOME
 # Source global definitions
 [ -f /etc/bashrc ] && . /etc/bashrc
 module use /cvmfs/${REPO}/${ARCH}/modules/all
@@ -172,6 +172,17 @@ then
 fi
 module load EasyBuild
 $COMMAND
+
+# Check for failures
+ec=\$?
+if [ \$ec -ne 0 ]
+then
+  # Copy the EasyBuild log from the temporary build directory to the job's directory
+  eb_log_src=\$(eb --last-log)
+  eb_log_dst="${PWD}/\$(basename \$eb_log_src)"
+  echo "Software installation failed, copying EasyBuild log to \$eb_log_dst"
+  cp "\$eb_log_src" "\$eb_log_dst"
+fi
 
 # Generate Lmod cache
 DOT_LMOD="\${EASYBUILD_INSTALLPATH}/.lmod"
@@ -231,9 +242,10 @@ then
     ls -d ${CPUARCH}/software/*/* >> ${FILES_LIST}
   fi
 
-  echo "Creating tarball ${TARBALL}..."
+  echo "Creating tarball ${TARBALL} from ${UPPERARCHDIR}..."
   cd $OLDPWD
   tar -C ${UPPERARCHDIR} -czf ${TARBALL} --files-from=${FILES_LIST} --exclude=*.wh.*
+  echo "${TARBALL} created!"
 else
   echo "Looks like no software has been installed, so not creating a tarball."
 fi
