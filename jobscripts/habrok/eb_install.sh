@@ -3,7 +3,8 @@
 CONTAINER=docker://ghcr.io/bedroge/build-node
 REPO=hpc.rug.nl
 OS=rocky8
-EB_CONFIG_FILE=$(dirname $(realpath $0))/eb_configuration
+#EB_CONFIG_FILE=$(dirname $(realpath $0))/eb_configuration
+EB_CONFIG_FILE=config/eb_configuration_habrok
 
 function show_help() {
   echo "
