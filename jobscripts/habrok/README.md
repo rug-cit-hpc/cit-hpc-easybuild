@@ -28,3 +28,14 @@ If no `COMMAND` is specified, the script will launch an interactive container se
 
 The `eb_install.sh` scripts needs an accompanying `eb_configuration` file containing the EasyBuild configuration. Note that environment variables are being used in order to allow
 `eb_install.sh` to source this file. This also makes it possible to use other environment variables like `$HOME` and `$USER` in the configuration.
+
+
+## Automating the installation using the EESSI GitHub Bot
+
+We use the bot developed by EESSI (https://github.com/EESSI/eessi-bot-software-layer) to automate the software installations using pull requests.
+These pull requests should add new software to the easystack file found at https://github.com/rug-cit-hpc/cit-hpc-easybuild/blob/master/easystacks/habrok.yml.
+
+### Setting up the bot
+First, follow the installation instructions at https://github.com/EESSI/eessi-bot-software-layer. 
+
+TODO: describe configuration, scripts, how to run the scripts (screen/tmux?)
