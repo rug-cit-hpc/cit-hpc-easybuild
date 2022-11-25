@@ -21,9 +21,10 @@ Usage: eb_install.sh [OPTION]... [<COMMAND>]
   -t, --tmpdir <DIRECTORY>               temporary directory to be used for CVMFS, fuse-overlayfs, and EasyBuild
 ```
 
+By default, the script will build/optimize the software for the current host, and uses an installation path that reflects its architecture name (determined by using `archspec` or `archdetect`).
+The latter can be overridden if necessary with `-a`/`--arch`, and can also be set to a generic build.
+
 If no `COMMAND` is specified, the script will launch an interactive container session.
 
-
-## `eb_configuration`
-This file contains the EasyBuild configuration used by `eb_install.sh`. Note that environment variables are being used in order to allow
+The `eb_install.sh` scripts needs an accompanying `eb_configuration` file containing the EasyBuild configuration. Note that environment variables are being used in order to allow
 `eb_install.sh` to source this file. This also makes it possible to use other environment variables like `$HOME` and `$USER` in the configuration.
