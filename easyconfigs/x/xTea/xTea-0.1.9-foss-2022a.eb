@@ -1,0 +1,49 @@
+easyblock = 'Tarball'
+
+name = 'xTea'
+version = '0.1.9'
+
+homepage = 'https://github.com/parklab/xTea'
+description = '''xTea (comprehensive transposable element analyzer) is designed to identify TE 
+insertions from paired-end Illumina reads, barcode linked-reads, long reads 
+(PacBio or Nanopore), or hybrid data from different sequencing platforms and takes 
+whole-exome sequencing (WES) or whole-genome sequencing (WGS) data as input.'''
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+source_urls = ['https://github.com/parklab/xTea/archive/refs/tags']
+sources = ['v%(version)s.tar.gz']
+checksums = ['05c81982504f2e5a463789efec76486e3e195335395612c69e224aef756691b9']
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('BWA', '0.7.17'),
+    ('SAMtools', '1.14'),
+    ('minimap2', '2.24'),
+    ('wtdbg2', '2.5'),
+    ('SciPy-bundle', '2021.10'),
+    ('Pysam', '0.18.0'),
+    ('scikit-learn', '1.0.1'),
+]
+
+exts_defaultclass = 'PythonPackage'
+
+exts_default_options = {
+    'use_pip': True,
+}
+
+exts_list = [
+    ('deep-forest', '0.1.7', {
+        'source_urls': ['https://github.com/LAMDA-NJU/Deep-Forest/archive/refs/tags/'],
+        'sources': ['v%(version)s.tar.gz'],
+        'checksums': ['9c7000fe0df84d8a2ca1ac6872d112f5d2f13865f0ead82f7498913cf9119c04'],
+        'modulename': 'deepforest',
+    }),
+]
+
+modextrapaths = {'PYTHONPATH': ['lib/python%(pyshortver)s/site-packages']}
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['xtea', 'xtea_hg19', 'xtea_long']],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
