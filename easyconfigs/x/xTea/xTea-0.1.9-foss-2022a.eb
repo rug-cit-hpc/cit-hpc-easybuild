@@ -23,7 +23,7 @@ dependencies = [
     ('wtdbg2', '2.5'),
     ('SciPy-bundle', '2021.10'),
     ('Pysam', '0.18.0'),
-    ('scikit-learn', '1.0.1'),
+    ('scikit-learn', '1.0.2'),
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -47,3 +47,5 @@ sanity_check_paths = {
     'files': ['bin/%s' % x for x in ['xtea', 'xtea_hg19', 'xtea_long']],
     'dirs': ['lib/python%(pyshortver)s/site-packages'],
 }
+
+moduleclass = 'bio'
