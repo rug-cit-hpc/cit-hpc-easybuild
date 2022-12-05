@@ -3,7 +3,6 @@ easyblock = 'PythonPackage'
 
 name = 'pasta'
 version = '1.9.0'
-versionsuffix = '-Python-%(pyver)s'
 local_commit = '8e2811b4c3e778742c2f968dc7e08dfb00b11c16'
 
 homepage = 'https://github.com/smirarab/pasta'
