@@ -1,0 +1,15 @@
+# This patch fixes the issue that Mapping has been moved to collections.abc
+# in Python 3.10
+# Author: Fokke Dijkstra (University of Groningen, NL)
+diff -ur --no-dereference sepp-4.5.1.org/sepp/alignment.py sepp-4.5.1/sepp/alignment.py
+--- sepp-4.5.1.org/sepp/alignment.py	2021-03-10 17:58:30.000000000 +0100
++++ sepp-4.5.1/sepp/alignment.py	2022-12-07 16:29:47.000000000 +0100
+@@ -26,7 +26,7 @@
+ 
+ from sepp.filemgr import open_with_intermediates
+ 
+-from collections import Mapping
++from collections.abc import Mapping
+ import copy
+ from sepp import get_logger
+ import io
