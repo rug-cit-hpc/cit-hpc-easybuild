@@ -22,6 +22,7 @@ sources = [{
 patches = ['Kaldi-20220213_fix_pdep_u64_not_declared.patch']
 checksums = [
     # '7d70ba635a2fb6254edc794f7d89317d31ac6f79d9e70a717e07381cd1a58eb0',  # Kaldi-20220213.tar.gz
+    None,
     # Kaldi-20220213_fix_pdep_u64_not_declared.patch
     '594943de70b800f86d22c81a169a2e98ff4c661a56dbcf13bbd790201d8c9f32',
 ]
@@ -39,10 +40,11 @@ configopts = '-GNinja -DBUILD_SHARED_LIBS=ON -DBLAS_openblas_LIBRARY=$EBROOTFLEX
 configopts += '-DLAPACK_openblas_LIBRARY=$EBROOTFLEXIBLAS/lib64/libflexiblas.so'
 build_cmd = 'cmake --build .'
 install_cmd = 'cmake --build . --target install'
+postinstallcmds = ['cp -r %(builddir)s/kaldi/egs %(installdir)s']
 
 sanity_check_paths = {
     'files': ['bin/fstcopy', 'bin/gmm-init-model', 'bin/matrix-sum', 'lib64/libfst.so', 'lib64/libkaldi-base.so'],
-    'dirs': ['include', 'lib', 'lib64', 'testbin'],
+    'dirs': ['egs', 'include', 'lib', 'lib64', 'testbin'],
 }
 
 sanity_check_commands = [
