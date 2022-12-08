@@ -92,7 +92,6 @@ do
     SINGBIND="$SINGBIND -B ${dir}"
 done
 
-#ARCH=${ARCH:-$(uname -m)/$(archspec cpu)}
 if [ -z "${TMPDIR}" ]
 then
   echo 'No temporary directory specified with $TMPDIR nor -t, so using /tmp as base temporary directory.'
