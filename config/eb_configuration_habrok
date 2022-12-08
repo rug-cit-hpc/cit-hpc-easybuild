@@ -11,7 +11,7 @@ fi
 export EASYBUILD_INSTALLPATH=/cvmfs/${REPO}/${OS}/${ARCH}
 
 export EASYBUILD_HOOKS=/home/${USER}/easybuild/cit-hpc-easybuild/hooks/hooks.py
- make sure hooks are available, so we can produce a clear error message
+# make sure hooks are available, so we can produce a clear error message
 if [ ! -f $EASYBUILD_HOOKS ]; then
   echo "Error: $EASYBUILD_HOOKS does not exist!"
   exit 1
