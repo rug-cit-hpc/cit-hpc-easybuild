@@ -115,8 +115,7 @@ then
   #ARCH=$(uname -m)/$(singularity exec ${CONTAINER} archspec cpu)
   # Use EESSI's archdetect script to determine the architecture name of this host.
   ARCH=$(singularity exec ${CONTAINER} eessi_archdetect.sh cpupath)
-  #ARCH=x86_64/zen2
-  #export EASYBUILD_OPTARCH="march=x86-64-v3"
+  #ARCH=x86_64/amd/zen2
 elif [ -z "${ARCH##*'/'generic}" ]
 then
   echo "Configuring EasyBuild for generic builds..."
@@ -129,7 +128,7 @@ then
 else
   # Architecture was specified correctly.
   # For cross-building: the Easybuild setting should only contain the last part,
-  # e.g. "march=haswell" when "x86_64/haswell" was specified.
+  # e.g. "march=haswell" when "x86_64/intel/haswell" was specified.
   # But we currently disable cross-building, as it's usually quite dangerous.
   echo 'WARNING: custom architecture specified, but do note that this only affects the installation path (i.e. no cross-compiling)!'
   #export EASYBUILD_OPTARCH="march=${ARCH#*/*/}"
