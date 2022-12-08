@@ -28,6 +28,7 @@ checksums = [
 dependencies = [
     ('Python', '3.10.4'),
     ('DendroPy', '4.5.2'),
+    ('pasta', '1.9.0'),
 ]
 
 fix_python_shebang_for = ['bin/*.py']
