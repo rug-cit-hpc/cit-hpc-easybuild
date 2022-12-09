@@ -8,7 +8,7 @@ if [ -z ${REPO} ] || [ -z ${ARCH} ]; then
   echo "Error: \$REPO and \$ARCH have to be set!"
   exit 1
 fi
-export EASYBUILD_INSTALLPATH=/cvmfs/${REPO}/${OS}/${ARCH}
+export EASYBUILD_INSTALLPATH=/cvmfs/${REPO}/versions/${VERSION}/${OS}/${ARCH}
 
 export EASYBUILD_HOOKS=/home/${USER}/easybuild/cit-hpc-easybuild/hooks/hooks.py
 # make sure hooks are available, so we can produce a clear error message
