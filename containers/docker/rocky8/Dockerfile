@@ -39,7 +39,7 @@ RUN dnf install -y gcc gcc-c++ gcc-gfortran gdb patch git flex && \
     dnf install -y glibc-gconv-extra which make libtool automake autoconf file bzip2 gzip p7zip p7zip-plugins && \
     dnf install -y openssl openssl-devel openssh-clients strace wget curl && \
     dnf install -y vim-common xz unzip zip && \
-    pip3 install pep8
+    pip3 install pycodestyle
 # Easybuild GitHub integration
 RUN pip3 install GitPython keyring keyrings.alt rich
 # Install archspec for CPU detection
