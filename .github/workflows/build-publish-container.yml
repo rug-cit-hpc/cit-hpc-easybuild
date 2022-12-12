@@ -11,23 +11,22 @@ on:
     paths:
       - containers/docker/rocky8/Dockerfile
 
+# Declare default permissions as read-only.
+permissions: read-all
+
 jobs:
   build_and_publish:
     name: Build and publish image
     runs-on: ubuntu-latest
     permissions:
       packages: write
-      contents: read
 
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
-
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@8c0edbc76e98fa90f69d9a2c020dcb50019dc325 # v2.2.1
 
       - name: Cache Docker layers
-        uses: actions/cache@v2
+        uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # v3.0.11
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx
@@ -36,7 +35,7 @@ jobs:
 
       - name: Login to GitHub Container Registry
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v1
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a # v2.1.0
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
@@ -44,7 +43,7 @@ jobs:
 
       - name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@c56af957549030174b10d6867f20e78cfd7debc5 #v3.2.0
         with:
           file: containers/docker/rocky8/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
