@@ -4,12 +4,12 @@ on:
     branches:
       - master
     paths:
-      - containers/docker/rocky8/Dockerfile
+      - containers/docker/rocky8/*
   pull_request:
     branches:
       - master
     paths:
-      - containers/docker/rocky8/Dockerfile
+      - containers/docker/rocky8/*
 
 # Declare default permissions as read-only.
 permissions: read-all
