@@ -3,6 +3,7 @@
 CONTAINER=docker://ghcr.io/bedroge/build-node
 REPO=hpc.rug.nl
 OS=rocky8
+VERSION=2023.01
 #EB_CONFIG_FILE=$(dirname $(realpath $0))/eb_configuration
 EB_CONFIG_FILE=config/eb_configuration_habrok
 
@@ -17,6 +18,7 @@ Usage: $0 [OPTION]... <COMMAND>
   -n, --name <FILENAME>                  name of the resulting tarball
   -o, --output <DIRECTORY>               output directory for storing the produced tarball, no tarball is created when not set
   -t, --tmpdir <DIRECTORY>               temporary directory to be used for CVMFS, fuse-overlayfs, and EasyBuild
+  -v, --version <VERSION>                version number of the stack to build software for
 "
 }
 
@@ -33,8 +35,8 @@ function cleanup() {
 # Parse command-line options
 
 # Option strings
-SHORT=h?k?a:b:n:o:t:
-LONG=help,keep,arch:bind:name:output:tmpdir:
+SHORT=h?k?a:b:n:o:t:v:
+LONG=help,keep,arch:bind:name:output:tmpdir:version:
 
 # read the options
 OPTS=$(getopt --options $SHORT --long $LONG --name "$0" -- "$@")
@@ -72,6 +74,10 @@ while true ; do
       ;;
     -t | --tmpdir )
       TMPDIR="$2"
+      shift 2
+      ;;
+    -v | --version )
+      VERSION="$2"
       shift 2
       ;;
     -- )
@@ -170,7 +176,7 @@ cat << EOF > $TMPSCRIPT
 #cd $HOME
 # Source global definitions
 [ -f /etc/bashrc ] && . /etc/bashrc
-module use /cvmfs/${REPO}/${OS}/${ARCH}/modules/all
+module use /cvmfs/${REPO}/versions/${VERSION}/${OS}/${ARCH}/modules/all
 module purge
 
 if ! module is-avail EasyBuild
@@ -234,33 +240,36 @@ fi
 if [ ! -z "${OUTDIR}" ]
 then
   OLDPWD=$PWD
-  UPPERARCHDIR=${MYTMPDIR}/overlay/upper/${ARCH%/*}
-  CPUARCH=${ARCH#*/}
-  if [ -d ${UPPERARCHDIR} ] && [ "$(ls -A ${UPPERARCHDIR})" ]
+  TOPDIR=${MYTMPDIR}/overlay/upper/versions
+  ARCHDIR=${VERSION}/${OS}/${ARCH}
+  #ARCHDIR=versions/${VERSION}/${OS}/${ARCH%/*}
+  #CPUARCH=${ARCH#*/}
+  if [ -d "${TOPDIR}/${ARCHDIR}" ] && [ "$(ls -A ${TOPDIR}/${ARCHDIR})" ]
   then
-    TARBALL=${OUTDIR}/${TARBALL:-${ARCH#*/}-$(date +%s).tar.gz}
+    TARBALL=${OUTDIR}/${TARBALL:-${ARCH#*/*/}-$(date +%s).tar.gz}
     FILES_LIST=${MYTMPDIR}/files.list.txt
-    cd ${UPPERARCHDIR}
+    cd ${TOPDIR}
 
-    if [ -d ${CPUARCH}/.lmod ]; then
+    # don't build the lmod cache here, due to race conditions when doing simultaneous builds
+    # if [ -d ${CPUARCH}/.lmod ]; then
       # include Lmod cache and configuration file (lmodrc.lua),
       # skip whiteout files and backup copies of Lmod cache (spiderT.old.*)
-      find ${CPUARCH}/.lmod -type f | egrep -v '/\.wh\.|spiderT.old' > ${FILES_LIST}
-    fi
-    if [ -d ${CPUARCH}/modules ]; then
+      # find ${CPUARCH}/.lmod -type f | egrep -v '/\.wh\.|spiderT.old' > ${FILES_LIST}
+    # fi
+    if [ -d ${ARCHDIR}/modules ]; then
       # module files
-      find ${CPUARCH}/modules -type f >> ${FILES_LIST}
+      find ${ARCHDIR}/modules -type f >> ${FILES_LIST}
       # module symlinks
-      find ${CPUARCH}/modules -type l >> ${FILES_LIST}
+      find ${ARCHDIR}/modules -type l >> ${FILES_LIST}
     fi
-    if [ -d ${CPUARCH}/software ]; then
+    if [ -d ${ARCHDIR}/software ]; then
       # installation directories
-      ls -d ${CPUARCH}/software/*/* >> ${FILES_LIST}
+      ls -d ${ARCHDIR}/software/*/* >> ${FILES_LIST}
     fi
 
-    echo "Creating tarball ${TARBALL} from ${UPPERARCHDIR}..."
+    echo "Creating tarball ${TARBALL} from ${TOPDIR}..."
     cd $OLDPWD
-    tar -C ${UPPERARCHDIR} -czf ${TARBALL} --files-from=${FILES_LIST} --exclude=*.wh.*
+    tar -C ${TOPDIR} -czf ${TARBALL} --files-from=${FILES_LIST} --exclude=*.wh.*
     echo "${TARBALL} created!"
   else
     echo "Looks like no software has been installed, so not creating a tarball."
