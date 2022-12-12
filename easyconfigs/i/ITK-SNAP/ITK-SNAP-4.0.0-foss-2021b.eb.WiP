@@ -1,0 +1,49 @@
+# This easyconfig is "Work in Progress". The combination of libraries did not work for v3.8.0
+# but may work for the upcoming 4.0.0 release.
+easyblock = 'CMakeMake'
+
+name = 'ITK-SNAP'
+version = '4.0.0'
+
+homepage = 'http://www.itksnap.org/'
+description = """ITK-SNAP is a software application used to segment structures in 3D medical images. It is the product of a decade-long collaboration between Paul Yushkevich, Ph.D., of the Penn Image Computing and Science Laboratory (PICSL) at the University of Pennsylvania, and Guido Gerig, Ph.D., of the Scientific Computing and Imaging Institute (SCI) at the University of Utah, whose vision was to create a tool that would be dedicated to a specific function, segmentation, and would be easy to use and learn. ITK-SNAP is free, open-source, and multi-platform."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+toolchainopts = {'pic': True, 'cstd': 'c++11'}
+
+#github_account = 'pyushkevich'
+
+sources = [
+  {
+  'filename': 'v%(version)s.tar.gz',
+  'git_config': {
+    'url': 'https://github.com/pyushkevich',
+    'repo_name': 'itksnap',
+    'commit': '7a104c2',
+    'keep_git_dir': True,
+    'recursive': True,
+  },
+}]
+
+builddependencies = [
+    ('CMake', '3.22.1', '', ('GCCcore', '11.2.0')),
+]
+
+# start_dir = ''
+
+dependencies = [
+    ('ITK', '5.2.1'),
+    ('VTK', '9.1.0'),
+    ('Qt5', '5.15.2', '', ('GCCcore', '11.2.0')),
+    ('Eigen', '3.4.0', '', ('GCCcore', '11.2.0')),
+]
+
+separate_build_dir = True
+
+
+configopts = '-DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=ON -DENABLE_PRECOMPILED_HEADERS=OFF '
+configopts += '-DITK_DIR=$EBROOTITK -DVTK_DIR=$EBROOTVTK '
+configopts += '-DCMAKE_PREFIX_PATH=$EBROOTQT5/lib/cmake '
+
+moduleclass = 'vis'
+
