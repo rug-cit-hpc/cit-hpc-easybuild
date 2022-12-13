@@ -11,7 +11,7 @@ if [ -z ${REPO} ] || [ -z ${ARCH} ]; then
 fi
 export EASYBUILD_INSTALLPATH=/cvmfs/${REPO}/versions/${VERSION}/${OS}/${ARCH}
 
-export EASYBUILD_HOOKS=/home/${USER}/easybuild/cit-hpc-easybuild/hooks/hooks.py
+export EASYBUILD_HOOKS=/home/${USER}/easybuild/cit-hpc-easybuild/hooks/habrok.py
 # make sure hooks are available, so we can produce a clear error message
 if [ ! -f $EASYBUILD_HOOKS ]; then
   echo "Error: $EASYBUILD_HOOKS does not exist!"
