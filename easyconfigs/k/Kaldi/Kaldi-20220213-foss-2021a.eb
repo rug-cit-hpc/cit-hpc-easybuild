@@ -53,4 +53,6 @@ sanity_check_commands = [
     'matrix-sum --help',
 ]
 
+modextravars = {'KALDI_ROOT': '%(installdir)s'}
+
 moduleclass = 'tools'
