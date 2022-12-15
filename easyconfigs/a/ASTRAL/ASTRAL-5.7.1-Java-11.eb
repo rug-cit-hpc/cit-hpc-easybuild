@@ -1,0 +1,31 @@
+easyblock = 'Tarball'
+
+name = 'ASTRAL'
+version = '5.7.1'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://github.com/smirarab/ASTRAL'
+description = """ASTRAL is a tool for estimating an unrooted species tree given a set of unrooted gene trees."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/smirarab/ASTRAL/archive/refs/tags/']
+sources = [{
+    'filename': 'v%(version)s.tar.gz',
+}]
+checksums = ['c7c1738a7e104586747962bde082acc2f7b23dbd672efb1d85d9ca380bb1a98c']
+
+dependencies = [('Java', '11')]
+
+start_dir = '%(name)s-%(version)s'
+
+postinstallcmds = ['cd %(installdir)s && ./make.sh']
+
+sanity_check_paths = {
+    'files': ['astral.%(version)s.jar'],
+    'dirs': ['lib'],
+}
+
+modloadmsg = "To execute ASTRAL run: java -jar $EBROOTASTRAL/%(namelower)s.%(version)s.jar"
+
+moduleclass = 'bio'
