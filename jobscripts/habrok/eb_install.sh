@@ -150,15 +150,15 @@ mkdir -p ${MYTMPDIR}/pycache
 export PYTHONPYCACHEPREFIX=${MYTMPDIR}/pycache
 
 CVMFS_LOCAL_DEFAULTS=${MYTMPDIR}/cvmfs/default.local
-echo "ARCH=${ARCH}" > $CVMFS_LOCAL_DEFAULTS
-# Use host's proxy if it has one?
-#if [ -f /etc/cvmfs/default.local ];
-#then
-#  cat /etc/cvmfs/default.local | grep -v "^ARCH=" >> $CVMFS_LOCAL_DEFAULTS
-#  grep "CVMFS_HTTP_PROXY=" /etc/cvmfs/default.local >> $CVMFS_LOCAL_DEFAULTS
-#else
+echo "SW_STACK_ARCH=${ARCH}" > $CVMFS_LOCAL_DEFAULTS
+echo "SW_STACK_OS=${OS}" >> $CVMFS_LOCAL_DEFAULTS
+# Use host's proxy if it has one
+if [ -f "/etc/cvmfs/default.local" ] && grep -q "^CVMFS_HTTP_PROXY=" /etc/cvmfs/default.local;
+then
+  grep "^CVMFS_HTTP_PROXY=" /etc/cvmfs/default.local >> ${CVMFS_LOCAL_DEFAULTS}
+else
   echo 'CVMFS_HTTP_PROXY=DIRECT' >> ${CVMFS_LOCAL_DEFAULTS}
-#fi
+fi
 
 # Configure EasyBuild
 if [ ! -f "${EB_CONFIG_FILE}" ]
