@@ -19,6 +19,7 @@ Usage: eb_install.sh [OPTION]... [<COMMAND>]
   -n, --name <FILENAME>                  name of the resulting tarball
   -o, --output <DIRECTORY>               output directory for storing the produced tarball, no tarball is created when not set
   -t, --tmpdir <DIRECTORY>               temporary directory to be used for CVMFS, fuse-overlayfs, and EasyBuild
+  -v, --version <VERSION>                version number of the stack to build software for
 ```
 
 By default, the script will build/optimize the software for the current host, and uses an installation path that reflects its architecture name (determined by using `archspec` or `archdetect`).
@@ -33,9 +34,9 @@ The `eb_install.sh` scripts needs an accompanying `eb_configuration` file contai
 ## Automating the installation using the EESSI GitHub Bot
 
 We use the bot developed by EESSI (https://github.com/EESSI/eessi-bot-software-layer) to automate the software installations using pull requests.
-These pull requests should add new software to the easystack file found at https://github.com/rug-cit-hpc/cit-hpc-easybuild/blob/master/easystacks/habrok.yml.
+These pull requests should add new software to the easystack file found at https://github.com/rug-cit-hpc/cit-hpc-easybuild/blob/master/easystacks/.
 
 ### Setting up the bot
 First, follow the installation instructions at https://github.com/EESSI/eessi-bot-software-layer. 
 
-TODO: describe configuration, scripts, how to run the scripts (screen/tmux?)
+TODO: describe configuration, scripts, how to run the scripts
