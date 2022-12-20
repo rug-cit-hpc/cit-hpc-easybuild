@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONTAINER=docker://ghcr.io/bedroge/build-node
+CONTAINER=docker://ghcr.io/rug-cit-hpc/build-node
 REPO=hpc.rug.nl
 OS=rocky8
 VERSION=2023.01
