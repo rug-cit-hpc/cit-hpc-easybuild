@@ -246,7 +246,8 @@ then
   #CPUARCH=${ARCH#*/}
   if [ -d "${TOPDIR}/${ARCHDIR}" ] && [ "$(ls -A ${TOPDIR}/${ARCHDIR})" ]
   then
-    TARBALL=${OUTDIR}/${TARBALL:-${ARCH#*/*/}-$(date +%s).tar.gz}
+    # Default tarball name: <version>-<architecture (/ replaced by -)>-<unix timestamp>.tar.gz
+    TARBALL=${OUTDIR}/${TARBALL:-${VERSION}-${ARCH//\//-}-$(date +%s).tar.gz}
     FILES_LIST=${MYTMPDIR}/files.list.txt
     cd ${TOPDIR}
 
