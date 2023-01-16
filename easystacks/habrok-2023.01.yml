@@ -1,11 +1,2 @@
-software:
-  freetype:
-    toolchains:
-      GCCcore-10.3.0:
-        versions:
-          2.10.4:
-  GROMACS:
-    toolchains:
-      foss-2021a:
-        versions:
-          '2021.3':
+easyconfigs:
+  - GROMACS-2021.5-foss-2021b.eb
