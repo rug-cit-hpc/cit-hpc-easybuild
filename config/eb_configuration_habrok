@@ -1,0 +1,19 @@
+export EASYBUILD_ZIP_LOGS=bzip2
+export EASYBUILD_RPATH=1
+export EASYBUILD_MODULE_EXTENSIONS=1
+export EASYBUILD_BUILDPATH=/dev/shm/${USER}
+export EASYBUILD_SOURCEPATH=/data/${USER}/sources
+export EASYBUILD_ROBOT_PATHS=/home/${USER}/easybuild/cit-hpc-easybuild:/home/${USER}/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+
+if [ -z ${REPO} ] || [ -z ${ARCH} ]; then
+  echo "Error: \$REPO and \$ARCH have to be set!"
+  exit 1
+fi
+export EASYBUILD_INSTALLPATH=/cvmfs/${REPO}/versions/${VERSION}/${OS}/${ARCH}
+
+export EASYBUILD_HOOKS=/home/${USER}/easybuild/cit-hpc-easybuild/hooks/habrok.py
+# make sure hooks are available, so we can produce a clear error message
+if [ ! -f $EASYBUILD_HOOKS ]; then
+  echo "Error: $EASYBUILD_HOOKS does not exist!"
+  exit 1
+fi
