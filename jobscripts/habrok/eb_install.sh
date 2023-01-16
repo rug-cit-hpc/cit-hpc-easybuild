@@ -1,8 +1,8 @@
 #!/bin/bash
 
-CONTAINER=docker://ghcr.io/rug-cit-hpc/build-node
 REPO=hpc.rug.nl
 OS=rocky8
+CONTAINER=docker://ghcr.io/rug-cit-hpc/build-node:${OS}
 VERSION=2023.01
 EB_CONFIG_FILE=$(dirname $(realpath $0))/../../config/eb_configuration_habrok
 
