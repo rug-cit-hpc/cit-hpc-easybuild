@@ -47,7 +47,7 @@ jobs:
         with:
           file: containers/docker/rocky8/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/${{ github.repository_owner }}/build-node:latest
+          tags: ghcr.io/${{ github.repository_owner }}/build-node:rocky8
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
