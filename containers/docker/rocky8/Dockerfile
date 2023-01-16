@@ -16,6 +16,7 @@ RUN wget https://github.com/containers/fuse-overlayfs/archive/refs/tags/v${fuseo
 # and now build the real container.
 FROM rockylinux/rockylinux:8
 
+# Copy the fuse-overlayfs binary built in the previous step
 COPY --from=build-fuse-overlayfs /usr/local/bin/fuse-overlayfs /usr/local/bin/fuse-overlayfs
 # Configure the repositories
 RUN dnf install -y epel-release && \
