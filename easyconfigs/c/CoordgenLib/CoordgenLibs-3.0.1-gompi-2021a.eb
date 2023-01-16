@@ -22,7 +22,7 @@ dependencies = [
 configopts = "-Dmaeparser_DIR=$EBROOTMAEPARSER/lib/cmake"
 
 # work around compiler warning treated as error by stripping out use of -Werror
-prebuildopts = "sed -i 's/-Werror//g' CMakeFiles/*.dir/flags.make && "
+prebuildopts = "sed -i 's/-Werror//g' test/CMakeFiles/*.dir/flags.make && "
 
 sanity_check_paths = {
     'files': ['lib/libcoordgen.%s' % SHLIB_EXT],
