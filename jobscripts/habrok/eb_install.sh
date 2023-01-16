@@ -267,10 +267,15 @@ then
       ls -d ${ARCHDIR}/software/*/* >> ${FILES_LIST}
     fi
 
-    echo "Creating tarball ${TARBALL} from ${TOPDIR}..."
-    cd $OLDPWD
-    tar -C ${TOPDIR} -czf ${TARBALL} --files-from=${FILES_LIST} --exclude=*.wh.*
-    echo "${TARBALL} created!"
+    # create the tarball if new files were created
+    if [ ! -s "${FILES_LIST}" ]; then
+      echo "File list for tarball is empty, not creating a tarball."
+    else
+      echo "Creating tarball ${TARBALL} from ${TOPDIR}..."
+      cd $OLDPWD
+      tar -C ${TOPDIR} -czf ${TARBALL} --files-from=${FILES_LIST} --exclude=*.wh.*
+      echo "${TARBALL} created!"
+    fi
   else
     echo "Looks like no software has been installed, so not creating a tarball."
   fi
