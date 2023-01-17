@@ -1,3 +1,5 @@
+# Dockerfile for Habrok software build container based on Rocky 8
+
 # Stick to old version of fuse-overlayfs due to issues with newer versions
 # (cfr. https://github.com/containers/fuse-overlayfs/issues/232)
 ARG fuseoverlayfsversion=0.3
