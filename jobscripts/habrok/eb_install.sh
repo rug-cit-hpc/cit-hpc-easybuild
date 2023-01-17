@@ -154,7 +154,9 @@ echo "SW_STACK_OS=${OS}" >> $CVMFS_LOCAL_DEFAULTS
 # Use host's proxy if it has one
 if [ -f "/etc/cvmfs/default.local" ] && grep -q "^CVMFS_HTTP_PROXY=" /etc/cvmfs/default.local;
 then
-  grep "^CVMFS_HTTP_PROXY=" /etc/cvmfs/default.local >> ${CVMFS_LOCAL_DEFAULTS}
+  # This doesn't always work too well, so for now it's disabled
+  # grep "^CVMFS_HTTP_PROXY=" /etc/cvmfs/default.local >> ${CVMFS_LOCAL_DEFAULTS}
+  echo 'CVMFS_HTTP_PROXY=DIRECT' >> ${CVMFS_LOCAL_DEFAULTS}
 else
   echo 'CVMFS_HTTP_PROXY=DIRECT' >> ${CVMFS_LOCAL_DEFAULTS}
 fi
