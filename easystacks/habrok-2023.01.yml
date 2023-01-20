@@ -31,7 +31,9 @@ easyconfigs:
   - PyTorch-1.12.1-foss-2022a-CUDA-11.7.0.eb
   - QIIME2-2022.8.eb
   - QuantumESPRESSO-7.1-foss-2022a.eb
-  - R-4.2.1-foss-2022a.eb
+  - R-4.2.1-foss-2022a.eb:
+      options:
+        parallel-extensions-install: True
   - R-bundle-Bioconductor-3.15-foss-2022a-R-4.2.1.eb
   - SAMtools-1.16.1-GCC-11.3.0.eb
   - scikit-learn-1.1.2-foss-2022a.eb
