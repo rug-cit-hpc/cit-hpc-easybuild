@@ -7,3 +7,4 @@ config/config.cfg
 # Singularity image
 singularity/centos7/buildhost.simg
 jobscripts/peregrine/slurm-*.out
+jobscripts/peregrine/2023-*/
