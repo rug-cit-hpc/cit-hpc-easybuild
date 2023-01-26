@@ -3,6 +3,7 @@
 ##
 name = 'OpenMPI'
 version = '4.1.1'
+versionsuffix = '-i8'
 
 homepage = 'https://www.open-mpi.org/'
 description = """The Open MPI Project is an open source MPI-3 implementation."""
@@ -46,6 +47,6 @@ dependencies = [
 configopts =  'CC=icc CXX=icpc F77="ifort -i8 " FC="ifort -i8 "'
 
 # to enable SLURM integration (site-specific)
-configopts += '--with-slurm --with-pmi=/usr/include/slurm --with-pmi-libdir=/usr'
+configopts = '--with-slurm --with-pmi=%(builddir)s/pmi --with-pmix=/usr --with-libevent=/usr'
 
 moduleclass = 'mpi'
