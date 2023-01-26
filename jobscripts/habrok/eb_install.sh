@@ -5,6 +5,9 @@ OS=rocky8
 CONTAINER=docker://ghcr.io/rug-cit-hpc/build-node:${OS}
 VERSION=2023.01
 EB_CONFIG_FILE=$(dirname $(realpath $0))/../../config/eb_configuration_habrok
+LC_ALL=C.utf8
+
+export REPO OS VERSION LC_ALL
 
 function show_help() {
   echo "
@@ -275,7 +278,7 @@ then
     else
       echo "Creating tarball ${TARBALL} from ${TOPDIR}..."
       cd $OLDPWD
-      tar -C ${TOPDIR} -czf ${TARBALL} --files-from=${FILES_LIST} --exclude=*.wh.*
+      tar --exclude=*.wh.* -C ${TOPDIR} -czf ${TARBALL} --files-from=${FILES_LIST}
       echo "${TARBALL} created!"
     fi
   else
