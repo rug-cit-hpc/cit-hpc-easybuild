@@ -61,3 +61,6 @@ COPY containers/docker/rocky8/rug.nl.conf /etc/cvmfs/domain.d/
 # Lmod settings
 COPY containers/docker/rocky8/00-modulepath.sh /etc/profile.d/
 COPY containers/docker/rocky8/z01_StdEnv.sh /etc/profile.d/
+
+# Fix for CUDA installation failures
+RUN touch /usr/local/cuda
