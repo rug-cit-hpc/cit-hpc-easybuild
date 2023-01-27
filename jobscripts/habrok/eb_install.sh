@@ -93,8 +93,8 @@ while true ; do
   esac
 done
 
-# Always bind mount $PWD, and add the user-specified ones.
-SINGBIND="-B $PWD"
+# Always bind mount $PWD and /var/log (to prevent issues with CUDA installations), and add the user-specified ones.
+SINGBIND="-B $PWD -B /var/log"
 for dir in ${BIND//,/ }
 do
     SINGBIND="$SINGBIND -B ${dir}"
