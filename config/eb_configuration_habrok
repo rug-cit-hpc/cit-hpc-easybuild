@@ -19,6 +19,9 @@ if [ "${SW_STACK_ARCH}" = "x86_64/intel/skylake_avx512" ]; then
 elif [ "${SW_STACK_ARCH}" = "x86_64/intel/icelake" ]; then
   # Nvidia A100
   export EASYBUILD_CUDA_COMPUTE_CAPABILITIES=8.0
+else
+  # Pick the oldest one as default
+  export EASYBUILD_CUDA_COMPUTE_CAPABILITIES=7.0
 fi
 
 export EASYBUILD_HOOKS=/home/${USER}/easybuild/cit-hpc-easybuild/hooks/habrok.py
