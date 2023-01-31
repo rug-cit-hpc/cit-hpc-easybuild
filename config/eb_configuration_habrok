@@ -11,6 +11,15 @@ if [ -z ${SW_STACK_REPO} ] || [ -z ${SW_STACK_ARCH} ] || [ -z ${SW_STACK_OS} ] |
 fi
 export EASYBUILD_INSTALLPATH=/cvmfs/${SW_STACK_REPO}/versions/${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
 
+# CUDA capabilities for different nodes
+if [ "${SW_STACK_ARCH}" = "x86_64/intel/skylake_avx512" ]; then
+  # Nvidia V100
+  export EASYBUILD_CUDA_COMPUTE_CAPABILITIES=7.0
+elif [ "${SW_STACK_ARCH}" = "x86_64/intel/icelake" ]; then
+  # Nvidia A100
+  export EASYBUILD_CUDA_COMPUTE_CAPABILITIES=8.0
+fi
+
 export EASYBUILD_HOOKS=/home/${USER}/easybuild/cit-hpc-easybuild/hooks/habrok.py
 # make sure hooks are available, so we can produce a clear error message
 if [ ! -f $EASYBUILD_HOOKS ]; then
