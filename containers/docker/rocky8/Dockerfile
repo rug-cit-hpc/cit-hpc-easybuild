@@ -1,25 +1,7 @@
 # Dockerfile for Habrok software build container based on Rocky 8
 
-# Stick to old version of fuse-overlayfs due to issues with newer versions
-# (cfr. https://github.com/containers/fuse-overlayfs/issues/232)
-ARG fuseoverlayfsversion=0.3
-
-
-# Build the specified version of fuse-overlayfs in its own container...
-FROM rockylinux/rockylinux:8 AS build-fuse-overlayfs
-ARG fuseoverlayfsversion
-RUN dnf install -y wget fuse3-devel autoconf automake gcc-c++ make tar gzip
-RUN wget https://github.com/containers/fuse-overlayfs/archive/refs/tags/v${fuseoverlayfsversion}.tar.gz \
-  && tar xzf v${fuseoverlayfsversion}.tar.gz \
-  && cd fuse-overlayfs-${fuseoverlayfsversion} \
-  && ./autogen.sh && ./configure && make && make install
-
-
-# and now build the real container.
 FROM rockylinux/rockylinux:8
-
-# Copy the fuse-overlayfs binary built in the previous step
-COPY --from=build-fuse-overlayfs /usr/local/bin/fuse-overlayfs /usr/local/bin/fuse-overlayfs
+ARG fuseoverlayfsversion=1.10
 # Configure the repositories
 RUN dnf install -y epel-release && \
     dnf install -y 'dnf-command(config-manager)' && \
@@ -50,6 +32,9 @@ RUN wget -O /usr/local/bin/eessi_archdetect.sh https://raw.githubusercontent.com
     chmod +x /usr/local/bin/eessi_archdetect.sh && \
     mkdir /usr/local/bin/arch_specs && \
     wget -O /usr/local/bin/arch_specs/eessi_arch_x86.spec https://raw.githubusercontent.com/EESSI/software-layer/main/init/arch_specs/eessi_arch_x86.spec
+# Install fuse-overlayfs
+RUN wget -O /usr/local/bin/fuse-overlayfs https://github.com/containers/fuse-overlayfs/releases/download/v${fuseoverlayfsversion}/fuse-overlayfs-x86_64 && \
+    chmod +x /usr/local/bin/fuse-overlayfs
 
 RUN mkdir -p /cvmfs/hpc.rug.nl && mkdir -p /cvmfs_ro/hpc.rug.nl
 
