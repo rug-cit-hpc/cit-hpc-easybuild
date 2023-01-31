@@ -1,13 +1,13 @@
 #!/bin/bash
 
-REPO=hpc.rug.nl
-OS=rocky8
-CONTAINER=docker://ghcr.io/rug-cit-hpc/build-node:${OS}
-VERSION=2023.01
+SW_STACK_REPO=hpc.rug.nl
+SW_STACK_OS=rocky8
+SW_STACK_VERSION=2023.01
+BUILD_CONTAINER=docker://ghcr.io/rug-cit-hpc/build-node:${SW_STACK_OS}
 EB_CONFIG_FILE=$(dirname $(realpath $0))/../../config/eb_configuration_habrok
 LC_ALL=C.utf8
 
-export REPO OS VERSION LC_ALL
+export SW_STACK_REPO SW_STACK_OS SW_STACK_VERSION LC_ALL
 
 function show_help() {
   echo "
@@ -59,7 +59,7 @@ while true ; do
       shift
       ;;
     -a | --arch )
-      ARCH="$2"
+      SW_STACK_ARCH="$2"
       shift 2
       ;;
     -b | --bind )
@@ -79,7 +79,7 @@ while true ; do
       shift 2
       ;;
     -v | --version )
-      VERSION="$2"
+      SW_STACK_VERSION="$2"
       shift 2
       ;;
     -- )
@@ -116,19 +116,19 @@ then
   mkdir -p "${OUTDIR}"
 fi
 
-if [ -z ${ARCH} ];
+if [ -z ${SW_STACK_ARCH} ];
 then
   # No architecture specified, so let's build for the current host.
   # Use archspec to determine the architecture name of this host.
-  #ARCH=$(uname -m)/$(singularity exec ${CONTAINER} archspec cpu)
+  #ARCH=$(uname -m)/$(singularity exec ${BUILD_CONTAINER} archspec cpu)
   # Use EESSI's archdetect script to determine the architecture name of this host.
-  ARCH=$(singularity exec ${CONTAINER} eessi_archdetect.sh cpupath)
-  #ARCH=x86_64/amd/zen2
-elif [ -z "${ARCH##*'/'generic}" ]
+  SW_STACK_ARCH=$(singularity exec ${BUILD_CONTAINER} eessi_archdetect.sh cpupath)
+  #SW_STACK_ARCH=x86_64/amd/zen2
+elif [ -z "${SW_STACK_ARCH##*'/'generic}" ]
 then
   echo "Configuring EasyBuild for generic builds..."
   export EASYBUILD_OPTARCH="GENERIC"
-elif [ ! -z "${ARCH##*'/'*'/'*}" ]
+elif [ ! -z "${SW_STACK_ARCH##*'/'*'/'*}" ]
 then
   # Architecture was specified, but is invalid.
   echo "Error: invalid architecture. Please use <ISA>/<VENDOR>/<MICROARCHITECTURE>, e.g. x86_64/intel/haswell."
@@ -139,10 +139,10 @@ else
   # e.g. "march=haswell" when "x86_64/intel/haswell" was specified.
   # But we currently disable cross-building, as it's usually quite dangerous.
   echo 'WARNING: custom architecture specified, but do note that this only affects the installation path (i.e. no cross-compiling)!'
-  #export EASYBUILD_OPTARCH="march=${ARCH#*/*/}"
+  #export EASYBUILD_OPTARCH="march=${SW_STACK_ARCH#*/*/}"
 fi
 
-echo "Going to build for architecture ${ARCH}."
+echo "Going to build for architecture ${SW_STACK_ARCH}."
 
 mkdir -p ${MYTMPDIR}/cvmfs/{lib,run}
 mkdir -p ${MYTMPDIR}/overlay/{upper,work}
@@ -152,8 +152,8 @@ mkdir -p ${MYTMPDIR}/pycache
 export PYTHONPYCACHEPREFIX=${MYTMPDIR}/pycache
 
 CVMFS_LOCAL_DEFAULTS=${MYTMPDIR}/cvmfs/default.local
-echo "SW_STACK_ARCH=${ARCH}" > $CVMFS_LOCAL_DEFAULTS
-echo "SW_STACK_OS=${OS}" >> $CVMFS_LOCAL_DEFAULTS
+echo "ARCH=${SW_STACK_ARCH}" > $CVMFS_LOCAL_DEFAULTS
+echo "OS=${SW_STACK_OS}" >> $CVMFS_LOCAL_DEFAULTS
 # Use host's proxy if it has one
 if [ -f "/etc/cvmfs/default.local" ] && grep -q "^CVMFS_HTTP_PROXY=" /etc/cvmfs/default.local;
 then
@@ -180,7 +180,7 @@ cat << EOF > $TMPSCRIPT
 #cd $HOME
 # Source global definitions
 [ -f /etc/bashrc ] && . /etc/bashrc
-module use /cvmfs/${REPO}/versions/${VERSION}/${OS}/${ARCH}/modules/all
+module use /cvmfs/${SW_STACK_REPO}/versions/${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}/modules/all
 module purge
 
 if ! module is-avail EasyBuild
@@ -235,9 +235,9 @@ EOF
 # Launch the container. If a command was specified, we run the above script. Otherwise, we fire up an interactive shell.
 if [ -z "${COMMAND}" ];
 then
-  singularity shell ${SINGBIND} -B ${EASYBUILD_SOURCEPATH} -B ${CVMFS_LOCAL_DEFAULTS}:/etc/cvmfs/default.local -B ${MYTMPDIR}/cvmfs/run:/var/run/cvmfs -B ${MYTMPDIR}/cvmfs/lib:/var/lib/cvmfs -B ${MYTMPDIR} --fusemount "container:cvmfs2 ${REPO} /cvmfs_ro/${REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${REPO}" ${CONTAINER}
+  singularity shell ${SINGBIND} -B ${EASYBUILD_SOURCEPATH} -B ${CVMFS_LOCAL_DEFAULTS}:/etc/cvmfs/default.local -B ${MYTMPDIR}/cvmfs/run:/var/run/cvmfs -B ${MYTMPDIR}/cvmfs/lib:/var/lib/cvmfs -B ${MYTMPDIR} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER}
 else
-  singularity shell ${SINGBIND} -B ${EASYBUILD_SOURCEPATH} -B ${CVMFS_LOCAL_DEFAULTS}:/etc/cvmfs/default.local -B ${MYTMPDIR}/cvmfs/run:/var/run/cvmfs -B ${MYTMPDIR}/cvmfs/lib:/var/lib/cvmfs -B ${MYTMPDIR} --fusemount "container:cvmfs2 ${REPO} /cvmfs_ro/${REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${REPO}" ${CONTAINER} < $TMPSCRIPT
+  singularity shell ${SINGBIND} -B ${EASYBUILD_SOURCEPATH} -B ${CVMFS_LOCAL_DEFAULTS}:/etc/cvmfs/default.local -B ${MYTMPDIR}/cvmfs/run:/var/run/cvmfs -B ${MYTMPDIR}/cvmfs/lib:/var/lib/cvmfs -B ${MYTMPDIR} --fusemount "container:cvmfs2 ${REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER} < $TMPSCRIPT
 fi
 
 # Make a tarball of the installed software if the overlay's upper dir is non-empty and an output directory is specified.
@@ -245,13 +245,13 @@ if [ ! -z "${OUTDIR}" ]
 then
   OLDPWD=$PWD
   TOPDIR=${MYTMPDIR}/overlay/upper/versions
-  ARCHDIR=${VERSION}/${OS}/${ARCH}
-  #ARCHDIR=versions/${VERSION}/${OS}/${ARCH%/*}
-  #CPUARCH=${ARCH#*/}
+  ARCHDIR=${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
+  #ARCHDIR=versions/${VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH%/*}
+  #CPUARCH=${SW_STACK_ARCH#*/}
   if [ -d "${TOPDIR}/${ARCHDIR}" ] && [ "$(ls -A ${TOPDIR}/${ARCHDIR})" ]
   then
     # Default tarball name: <version>-<architecture (/ replaced by -)>-<unix timestamp>.tar.gz
-    TARBALL=${OUTDIR}/${TARBALL:-${VERSION}-${ARCH//\//-}-$(date +%s).tar.gz}
+    TARBALL=${OUTDIR}/${TARBALL:-${SW_STACK_VERSION}-${SW_STACK_ARCH//\//-}-$(date +%s).tar.gz}
     FILES_LIST=${MYTMPDIR}/files.list.txt
     cd ${TOPDIR}
 
