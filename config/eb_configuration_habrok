@@ -4,6 +4,7 @@ export EASYBUILD_MODULE_EXTENSIONS=1
 export EASYBUILD_BUILDPATH=/dev/shm/${USER}
 export EASYBUILD_SOURCEPATH=/data/${USER}/sources
 export EASYBUILD_ROBOT_PATHS=/home/${USER}/easybuild/cit-hpc-easybuild:/home/${USER}/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+export EASYBUILD_ACCEPT_EULA_FOR=CUDA,Intel-oneAPI
 
 if [ -z ${SW_STACK_REPO} ] || [ -z ${SW_STACK_ARCH} ] || [ -z ${SW_STACK_OS} ] || [ -z ${SW_STACK_VERSION} ]; then
   echo "Error: the variables \$SW_STACK_REPO, \$SW_STACK_OS, \$SW_STACK_VERSION, and \$SW_STACK_ARCH have to be set!"
