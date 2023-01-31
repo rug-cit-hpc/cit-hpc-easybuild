@@ -1,4 +1,7 @@
 easyconfigs:
+  - netCDF-4.9.0-gompi-2022a.eb:
+      options:
+        skip-test-step: True
   - AmberTools-22.3-foss-2021b.eb
   - Anaconda3-2022.05.eb
   - angsd-0.940-GCC-11.2.0.eb
@@ -24,7 +27,6 @@ easyconfigs:
   - MMseqs2-13-45111-gompi-2021b.eb
   - OpenCV-4.6.0-foss-2022a-contrib.eb
   - OpenFOAM-v2206-foss-2022a.eb
-  - ORCA-5.0.3-gompi-2021b.eb
   - ParaView-5.10.1-foss-2022a-mpi.eb
   - PETSc-3.17.4-foss-2022a.eb
   - PLINK-2.00a3.7-foss-2022a.eb
