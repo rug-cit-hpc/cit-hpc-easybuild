@@ -15,7 +15,7 @@ RUN dnf install -y https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-
                    https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/f/fuse3-libs-3.6.1-2.el7.x86_64.rpm && \
     dnf install -y cvmfs cvmfs-fuse3
 # Interconnect libraries
-RUN dnf install -y rdma-core rdma-core-devel
+RUN dnf install -y rdma-core rdma-core-devel libpsm2
 # Other tools
 RUN dnf install -y gcc gcc-c++ gcc-gfortran gdb patch git flex && \
     dnf install -y python3 python3-setuptools python3-pip python3-cryptography python3-pyyaml python3-wheel && \
