@@ -32,8 +32,9 @@ RUN pip3 install archspec
 # Install EESSI's archdetect for CPU detection
 RUN wget -O /usr/local/bin/eessi_archdetect.sh https://raw.githubusercontent.com/EESSI/software-layer/main/init/eessi_archdetect.sh && \
     chmod +x /usr/local/bin/eessi_archdetect.sh && \
-    mkdir /usr/local/bin/arch_specs && \
-    wget -O /usr/local/bin/arch_specs/eessi_arch_x86.spec https://raw.githubusercontent.com/EESSI/software-layer/main/init/arch_specs/eessi_arch_x86.spec
+    mkdir /usr/local/bin/arch_specs
+    # wget -O /usr/local/bin/arch_specs/eessi_arch_x86.spec https://raw.githubusercontent.com/EESSI/software-layer/main/init/arch_specs/eessi_arch_x86.spec
+COPY containers/docker/rocky8/habrok_arch_x86.spec /usr/local/bin/arch_specs/eessi_arch_x86.spec
 # Install fuse-overlayfs
 RUN wget -O /usr/local/bin/fuse-overlayfs https://github.com/containers/fuse-overlayfs/releases/download/v${fuseoverlayfsversion}/fuse-overlayfs-x86_64 && \
     chmod +x /usr/local/bin/fuse-overlayfs
