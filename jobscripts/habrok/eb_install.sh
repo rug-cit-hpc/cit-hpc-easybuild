@@ -5,9 +5,8 @@ SW_STACK_OS=rocky8
 SW_STACK_VERSION=2023.01
 BUILD_CONTAINER=docker://ghcr.io/rug-cit-hpc/build-node:${SW_STACK_OS}
 EB_CONFIG_FILE=$(dirname $(realpath $0))/../../config/eb_configuration_habrok
-LC_ALL=C.utf8
 
-export SW_STACK_REPO SW_STACK_OS SW_STACK_VERSION LC_ALL
+export SW_STACK_REPO SW_STACK_OS SW_STACK_VERSION
 
 function show_help() {
   echo "
