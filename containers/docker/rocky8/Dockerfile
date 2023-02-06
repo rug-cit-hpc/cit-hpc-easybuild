@@ -2,6 +2,8 @@
 
 FROM rockylinux/rockylinux:8
 ARG fuseoverlayfsversion=1.10
+# Set locale
+ENV LC_ALL C.UTF-8
 # Configure the repositories
 RUN dnf install -y epel-release && \
     dnf install -y 'dnf-command(config-manager)' && \
