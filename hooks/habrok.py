@@ -30,12 +30,6 @@ def pre_configure_hook(self, *args, **kwargs):
 
 def pre_module_hook(self, *args, **kwargs):
 
-    # impi: use PMIx library
-    if self.name == 'impi':
-        self.log.info("[pre-module hook] Set I_MPI_PMI_LIBRARY to PMIx library")
-        pmi_mod_vars = {'I_MPI_PMI_LIBRARY': '/usr/lib64/libpmix.so'}
-        self.cfg.update('modextravars', pmi_mod_vars)
-
     # AlphaFold: set data directory, disable unified memory (doesn't work with V100)
     if self.name == 'AlphaFold':
         data_dir = '/data/public/alphafold/data-' + self.version
