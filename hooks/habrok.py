@@ -1,3 +1,17 @@
+OPENMPI_OPA_FOOTER = '''
+function has_opa()
+  local f = io.open("/dev/hfi1_0", "r")
+  if f ~= nil then io.close(f) return true else return false end
+end
+
+if has_opa()
+then
+  setenv("OMPI_MCA_btl", "^openib,ofi")
+  setenv("OMPI_MCA_pml", "^ucx")
+end
+'''
+
+
 def pre_configure_hook(self, *args, **kwargs):
 
     # Wien2k: use srun instead of mpirun
@@ -30,8 +44,11 @@ def pre_module_hook(self, *args, **kwargs):
         self.log.info('[pre-module hook] Setting TF_FORCE_UNIFIED_MEMORY to 0')
         self.cfg.update('modextravars', extramodvars)
 
-
     # Anaconda3: Execute intialization script
     if self.name == 'Anaconda3':
         luafooter =  'execute{cmd="source \'"..pathJoin(root, "/etc/profile.d/conda."..myShellType()).."\'", modeA={"load"}}'
         self.cfg.update('modluafooter', luafooter)
+
+    # OpenMPI: add Lua code that disables UCX and libfabric on nodes with an Omnipath device
+    if self.name == 'OpenMPI':
+        self.cfg.update('modluafooter', OPENMPI_OPA_FOOTER)
