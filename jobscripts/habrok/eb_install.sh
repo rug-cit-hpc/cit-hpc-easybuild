@@ -104,6 +104,7 @@ then
   echo 'No temporary directory specified with $TMPDIR nor -t, so using /tmp as base temporary directory.'
   TMPDIR=/tmp
 fi
+mkdir -p ${TMPDIR}
 MYTMPDIR=$(mktemp -p ${TMPDIR} -d eb_install.XXXXX)
 [ -z ${MYTMPDIR} ] && echo "Failed to create temporary directory!" && exit 1
 echo "Using ${MYTMPDIR} as temporary directory for this run."
