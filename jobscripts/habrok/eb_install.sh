@@ -267,8 +267,8 @@ then
       find ${ARCHDIR}/modules -type l >> ${FILES_LIST}
     fi
     if [ -d ${ARCHDIR}/software ]; then
-      # installation directories
-      ls -d ${ARCHDIR}/software/*/* >> ${FILES_LIST}
+      # find all installation directories with an easybuild subdirectory (which means they completed successfully)
+      find ${ARCHDIR}/software/*/* -maxdepth 1 -name easybuild -type d | xargs dirname >> ${FILES_LIST}
     fi
 
     # create the tarball if new files were created
