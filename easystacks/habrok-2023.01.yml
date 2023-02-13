@@ -27,6 +27,7 @@ easyconfigs:
   - MMseqs2-13-45111-gompi-2021b.eb
   - OpenCV-4.6.0-foss-2022a-contrib.eb
   - OpenFOAM-v2206-foss-2022a.eb
+  - OSU-Micro-Benchmarks-5.9-gompi-2022a.eb
   - ParaView-5.10.1-foss-2022a-mpi.eb
   - PETSc-3.17.4-foss-2022a.eb
   - PLINK-2.00a3.7-foss-2022a.eb
