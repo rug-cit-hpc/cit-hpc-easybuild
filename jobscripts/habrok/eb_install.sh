@@ -278,7 +278,7 @@ then
     else
       echo "Creating tarball ${TARBALL} from ${TOPDIR}..."
       cd $OLDPWD
-      tar --exclude=.cvmfscatalog --exclude=*.wh.* -C ${TOPDIR} -czf ${TARBALL} --files-from=${FILES_LIST}
+      tar --exclude=.cvmfscatalog --exclude=*.wh.* -C ${TOPDIR} -czvf ${TARBALL} --files-from=${FILES_LIST}
       echo "${TARBALL} created!"
     fi
   else
