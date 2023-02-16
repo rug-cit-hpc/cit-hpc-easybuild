@@ -204,6 +204,7 @@ export PYTHONPYCACHEPREFIX=${MYTMPDIR}/pycache
 CVMFS_LOCAL_DEFAULTS=${MYTMPDIR}/cvmfs/default.local
 echo "SW_STACK_ARCH=${SW_STACK_ARCH}" > $CVMFS_LOCAL_DEFAULTS
 echo "SW_STACK_OS=${SW_STACK_OS}" >> $CVMFS_LOCAL_DEFAULTS
+echo "CVMFS_QUOTA_LIMIT=16384" >> $CVMFS_LOCAL_DEFAULTS
 # Use host's proxy if it has one
 if [ -f "/etc/cvmfs/default.local" ] && grep -q "^CVMFS_HTTP_PROXY=" /etc/cvmfs/default.local;
 then
