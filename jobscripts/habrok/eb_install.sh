@@ -34,6 +34,58 @@ function cleanup() {
   fi
 }
 
+function create_tarball() {
+  # Make a tarball of the installed software if the overlay's upper dir is non-empty and an output directory is specified.
+  if [ ! -z "${OUTDIR}" ]
+  then
+    OLDPWD=$PWD
+    TOPDIR=${MYTMPDIR}/overlay/upper/versions
+    ARCHDIR=${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
+    #ARCHDIR=versions/${VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH%/*}
+    #CPUARCH=${SW_STACK_ARCH#*/}
+    if [ -d "${TOPDIR}/${ARCHDIR}" ] && [ "$(ls -A ${TOPDIR}/${ARCHDIR})" ]
+    then
+      # Default tarball name: <version>-<architecture (/ replaced by -)>-<unix timestamp>.tar.gz
+      TARBALL=${OUTDIR}/${TARBALL:-${SW_STACK_VERSION}-${SW_STACK_ARCH//\//-}-$(date +%s).tar.gz}
+      FILES_LIST=${MYTMPDIR}/files.list.txt
+      cd ${TOPDIR}
+
+      # don't build the lmod cache here, due to race conditions when doing simultaneous builds
+      # if [ -d ${CPUARCH}/.lmod ]; then
+        # include Lmod cache and configuration file (lmodrc.lua),
+        # skip whiteout files and backup copies of Lmod cache (spiderT.old.*)
+        # find ${CPUARCH}/.lmod -type f | egrep -v '/\.wh\.|spiderT.old' > ${FILES_LIST}
+      # fi
+      if [ -d ${ARCHDIR}/modules ]; then
+        # module files
+        find ${ARCHDIR}/modules -type f >> ${FILES_LIST}
+        # module symlinks
+        find ${ARCHDIR}/modules -type l >> ${FILES_LIST}
+      fi
+      if [ -d ${ARCHDIR}/software ]; then
+        # find all installation directories with an easybuild subdirectory (which means they completed successfully)
+        find ${ARCHDIR}/software/*/* -maxdepth 1 -name easybuild -type d | xargs dirname >> ${FILES_LIST}
+      fi
+
+      # create the tarball if new files were created
+      if [ ! -s "${FILES_LIST}" ]; then
+        echo "File list for tarball is empty, not creating a tarball."
+      else
+        echo "Creating tarball ${TARBALL} from ${TOPDIR}..."
+        cd $OLDPWD
+        tar --exclude=.cvmfscatalog --exclude=*.wh.* -C ${TOPDIR} -czvf ${TARBALL} --files-from=${FILES_LIST}
+        echo "${TARBALL} created!"
+      fi
+    else
+      echo "Looks like no software has been installed, so not creating a tarball."
+    fi
+  else
+    echo 'No tarball output directory specified, hence no tarball will be created.'
+  fi
+}
+
+export -f create_tarball
+
 # Parse command-line options
 
 # Option strings
@@ -142,6 +194,7 @@ else
   echo 'WARNING: custom architecture specified, but do note that this only affects the installation path (i.e. no cross-compiling)!'
   #export EASYBUILD_OPTARCH="march=${SW_STACK_ARCH#*/*/}"
 fi
+export SW_STACK_ARCH
 
 echo "Going to build for architecture ${SW_STACK_ARCH}."
 
@@ -233,59 +286,17 @@ fi
 /bin/bash -l -c "/usr/share/lmod/lmod/libexec/update_lmod_system_cache_files -d \${DOT_LMOD}/cache -t \${DOT_LMOD}/cache/timestamp \${EASYBUILD_INSTALLPATH}/modules/all"
 EOF
 
+# Make some variables available inside the container, convenient for interactive use
+export MYTMPDIR TARBALL OUTDIR
+
 # Launch the container. If a command was specified, we run the above script. Otherwise, we fire up an interactive shell.
+SINGBIND="${SINGBIND} -B ${EASYBUILD_SOURCEPATH} -B ${CVMFS_LOCAL_DEFAULTS}:/etc/cvmfs/default.local -B ${MYTMPDIR}/cvmfs/run:/var/run/cvmfs -B ${MYTMPDIR}/cvmfs/lib:/var/lib/cvmfs -B ${MYTMPDIR}"
 if [ -z "${COMMAND}" ];
 then
-  singularity shell ${SINGBIND} -B ${EASYBUILD_SOURCEPATH} -B ${CVMFS_LOCAL_DEFAULTS}:/etc/cvmfs/default.local -B ${MYTMPDIR}/cvmfs/run:/var/run/cvmfs -B ${MYTMPDIR}/cvmfs/lib:/var/lib/cvmfs -B ${MYTMPDIR} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER}
+  singularity shell ${SINGBIND} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER}
 else
-  singularity shell ${SINGBIND} -B ${EASYBUILD_SOURCEPATH} -B ${CVMFS_LOCAL_DEFAULTS}:/etc/cvmfs/default.local -B ${MYTMPDIR}/cvmfs/run:/var/run/cvmfs -B ${MYTMPDIR}/cvmfs/lib:/var/lib/cvmfs -B ${MYTMPDIR} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER} < $TMPSCRIPT
+  singularity shell ${SINGBIND} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER} < ${TMPSCRIPT}
 fi
 
-# Make a tarball of the installed software if the overlay's upper dir is non-empty and an output directory is specified.
-if [ ! -z "${OUTDIR}" ]
-then
-  OLDPWD=$PWD
-  TOPDIR=${MYTMPDIR}/overlay/upper/versions
-  ARCHDIR=${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
-  #ARCHDIR=versions/${VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH%/*}
-  #CPUARCH=${SW_STACK_ARCH#*/}
-  if [ -d "${TOPDIR}/${ARCHDIR}" ] && [ "$(ls -A ${TOPDIR}/${ARCHDIR})" ]
-  then
-    # Default tarball name: <version>-<architecture (/ replaced by -)>-<unix timestamp>.tar.gz
-    TARBALL=${OUTDIR}/${TARBALL:-${SW_STACK_VERSION}-${SW_STACK_ARCH//\//-}-$(date +%s).tar.gz}
-    FILES_LIST=${MYTMPDIR}/files.list.txt
-    cd ${TOPDIR}
-
-    # don't build the lmod cache here, due to race conditions when doing simultaneous builds
-    # if [ -d ${CPUARCH}/.lmod ]; then
-      # include Lmod cache and configuration file (lmodrc.lua),
-      # skip whiteout files and backup copies of Lmod cache (spiderT.old.*)
-      # find ${CPUARCH}/.lmod -type f | egrep -v '/\.wh\.|spiderT.old' > ${FILES_LIST}
-    # fi
-    if [ -d ${ARCHDIR}/modules ]; then
-      # module files
-      find ${ARCHDIR}/modules -type f >> ${FILES_LIST}
-      # module symlinks
-      find ${ARCHDIR}/modules -type l >> ${FILES_LIST}
-    fi
-    if [ -d ${ARCHDIR}/software ]; then
-      # find all installation directories with an easybuild subdirectory (which means they completed successfully)
-      find ${ARCHDIR}/software/*/* -maxdepth 1 -name easybuild -type d | xargs dirname >> ${FILES_LIST}
-    fi
-
-    # create the tarball if new files were created
-    if [ ! -s "${FILES_LIST}" ]; then
-      echo "File list for tarball is empty, not creating a tarball."
-    else
-      echo "Creating tarball ${TARBALL} from ${TOPDIR}..."
-      cd $OLDPWD
-      tar --exclude=.cvmfscatalog --exclude=*.wh.* -C ${TOPDIR} -czvf ${TARBALL} --files-from=${FILES_LIST}
-      echo "${TARBALL} created!"
-    fi
-  else
-    echo "Looks like no software has been installed, so not creating a tarball."
-  fi
-else
-  echo 'No tarball output directory specified, hence no tarball will be created.'
-fi
-
+# Create a tarball of the installed software, if applicable
+create_tarball
