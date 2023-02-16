@@ -6,9 +6,6 @@ SW_STACK_VERSION=2023.01
 BUILD_CONTAINER=docker://ghcr.io/rug-cit-hpc/build-node:${SW_STACK_OS}
 EB_CONFIG_FILE=$(dirname $(realpath $0))/../../config/eb_configuration_habrok
 
-export SW_STACK_REPO SW_STACK_OS SW_STACK_VERSION
-unset MODULEPATH
-
 function show_help() {
   echo "
 Usage: $0 [OPTION]... <COMMAND>
@@ -194,7 +191,6 @@ else
   echo 'WARNING: custom architecture specified, but do note that this only affects the installation path (i.e. no cross-compiling)!'
   #export EASYBUILD_OPTARCH="march=${SW_STACK_ARCH#*/*/}"
 fi
-export SW_STACK_ARCH
 
 echo "Going to build for architecture ${SW_STACK_ARCH}."
 
@@ -286,14 +282,19 @@ fi
 /bin/bash -l -c "/usr/share/lmod/lmod/libexec/update_lmod_system_cache_files -d \${DOT_LMOD}/cache -t \${DOT_LMOD}/cache/timestamp \${EASYBUILD_INSTALLPATH}/modules/all"
 EOF
 
-# Make some variables available inside the container, convenient for interactive use
-export MYTMPDIR TARBALL OUTDIR
+# Set up environment for the container: unset any Lmod settings from the host, pass the required variables for interactive use
+unset MODULEPATH
+if [ ! -z "${LMOD_DIR}" ];
+then
+  clearLmod
+fi
+export MYTMPDIR TARBALL OUTDIR SW_STACK_REPO SW_STACK_OS SW_STACK_VERSION SW_STACK_ARCH
 
 # Launch the container. If a command was specified, we run the above script. Otherwise, we fire up an interactive shell.
 SINGBIND="${SINGBIND} -B ${EASYBUILD_SOURCEPATH} -B ${CVMFS_LOCAL_DEFAULTS}:/etc/cvmfs/default.local -B ${MYTMPDIR}/cvmfs/run:/var/run/cvmfs -B ${MYTMPDIR}/cvmfs/lib:/var/lib/cvmfs -B ${MYTMPDIR}"
 if [ -z "${COMMAND}" ];
 then
-  singularity shell ${SINGBIND} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER}
+  singularity exec ${SINGBIND} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER} /bin/bash
 else
   singularity shell ${SINGBIND} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER} < ${TMPSCRIPT}
 fi
