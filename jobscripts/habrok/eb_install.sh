@@ -7,6 +7,7 @@ BUILD_CONTAINER=docker://ghcr.io/rug-cit-hpc/build-node:${SW_STACK_OS}
 EB_CONFIG_FILE=$(dirname $(realpath $0))/../../config/eb_configuration_habrok
 
 export SW_STACK_REPO SW_STACK_OS SW_STACK_VERSION
+unset MODULEPATH
 
 function show_help() {
   echo "
