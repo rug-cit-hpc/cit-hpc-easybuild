@@ -55,7 +55,7 @@ function create_tarball() {
       # fi
       if [ -d ${ARCHDIR}/modules ]; then
         # module files
-        find ${ARCHDIR}/modules -type f >> ${FILES_LIST}
+        find ${ARCHDIR}/modules -type f > ${FILES_LIST}
         # module symlinks
         find ${ARCHDIR}/modules -type l >> ${FILES_LIST}
       fi
