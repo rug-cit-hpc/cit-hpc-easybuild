@@ -61,7 +61,7 @@ function create_tarball() {
       fi
       if [ -d ${ARCHDIR}/software ]; then
         # find all installation directories with an easybuild subdirectory (which means they completed successfully)
-        find ${ARCHDIR}/software/*/* -maxdepth 1 -name easybuild -type d | xargs dirname >> ${FILES_LIST}
+        find ${ARCHDIR}/software/*/* -maxdepth 1 -name easybuild -type d | xargs -r dirname >> ${FILES_LIST}
       fi
 
       # create the tarball if new files were created
