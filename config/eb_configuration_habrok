@@ -2,7 +2,7 @@ export EASYBUILD_ZIP_LOGS=bzip2
 export EASYBUILD_RPATH=1
 export EASYBUILD_MODULE_EXTENSIONS=1
 export EASYBUILD_BUILDPATH=/dev/shm/${USER}
-export EASYBUILD_SOURCEPATH=/data/${USER}/sources
+export EASYBUILD_SOURCEPATH=${HOME}/sources
 export EASYBUILD_ROBOT_PATHS=${HOME}/easybuild/cit-hpc-easybuild:${HOME}/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
 export EASYBUILD_ACCEPT_EULA_FOR=CUDA,Intel-oneAPI
 
