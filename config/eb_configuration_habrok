@@ -10,7 +10,15 @@ if [ -z ${SW_STACK_REPO} ] || [ -z ${SW_STACK_ARCH} ] || [ -z ${SW_STACK_OS} ] |
   echo "Error: the variables \$SW_STACK_REPO, \$SW_STACK_OS, \$SW_STACK_VERSION, and \$SW_STACK_ARCH have to be set!"
   exit 1
 fi
-export EASYBUILD_INSTALLPATH=/cvmfs/${SW_STACK_REPO}/versions/${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
+
+if [ ! -z ${SW_GENERIC} ]; then
+  SW_STACK_ARCH=$(uname -m)/generic
+fi
+if [ -z ${SW_STACK_RESTRICTED} ]; then
+  export EASYBUILD_INSTALLPATH=/cvmfs/${SW_STACK_REPO}/versions/${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
+else
+  export EASYBUILD_INSTALLPATH=/apps/versions/${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
+fi
 
 # CUDA capabilities for different nodes
 if [ "${SW_STACK_ARCH}" = "x86_64/intel/skylake_avx512" ]; then
