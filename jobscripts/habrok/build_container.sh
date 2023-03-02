@@ -12,10 +12,12 @@ Usage: $0 [OPTION]... <COMMAND>
 
   -a, --arch <ISA>/<VENDOR>/<uarch>      architecture to build for, e.g. x86_64/intel/haswell or x86_64/generic
   -b, --bind <DIR1[,DIR2,...,DIRN]>      bind the given host directory into the build container
+  -g, --generic                          do a generic build and install to the generic stack
   -h, --help                             display this help and exit
   -k, --keep                             keep this run's temporary directory
   -n, --name <FILENAME>                  name of the resulting tarball
   -o, --output <DIRECTORY>               output directory for storing the produced tarball, no tarball is created when not set
+  -r, --restricted                       install the given software to the restricted software stack
   -t, --tmpdir <DIRECTORY>               temporary directory to be used for CVMFS, fuse-overlayfs, and EasyBuild
   -v, --version <VERSION>                version number of the stack to build software for
 "
@@ -86,8 +88,8 @@ export -f create_tarball
 # Parse command-line options
 
 # Option strings
-SHORT=h?k?a:b:n:o:t:v:
-LONG=help,keep,arch:bind:name:output:tmpdir:version:
+SHORT=g?h?k?r?a:b:n:o:t:v:
+LONG=generic,help,keep,restricted,arch:bind:name:output:tmpdir:version:
 
 # read the options
 OPTS=$(getopt --options $SHORT --long $LONG --name "$0" -- "$@")
@@ -99,12 +101,20 @@ eval set -- "$OPTS"
 # extract options and their arguments into variables.
 while true ; do
   case "$1" in
+    -g | --generic )
+      export SW_GENERIC=1
+      shift
+      ;;
     -h | --help )
       show_help
       exit 0
       ;;
     -k | --keep )
       NOCLEAN=1
+      shift
+      ;;
+    -r | --restricted )
+      export SW_STACK_RESTRICTED=1
       shift
       ;;
     -a | --arch )
@@ -142,8 +152,8 @@ while true ; do
   esac
 done
 
-# Always bind mount $PWD and /var/log (to prevent issues with CUDA installations), and add the user-specified ones.
-SINGBIND="-B $PWD -B /var/log"
+# Always bind mount $PWD, /var/log (to prevent issues with CUDA installations), /apps (for licensed apps), and add the user-specified ones.
+SINGBIND="-B $PWD -B /var/log -B /apps"
 for dir in ${BIND//,/ }
 do
     SINGBIND="$SINGBIND -B ${dir}"
@@ -174,10 +184,6 @@ then
   # Use EESSI's archdetect script to determine the architecture name of this host.
   SW_STACK_ARCH=$(singularity exec ${BUILD_CONTAINER} eessi_archdetect.sh cpupath)
   #SW_STACK_ARCH=x86_64/amd/zen2
-elif [ -z "${SW_STACK_ARCH##*'/'generic}" ]
-then
-  echo "Configuring EasyBuild for generic builds..."
-  export EASYBUILD_OPTARCH="GENERIC"
 elif [ ! -z "${SW_STACK_ARCH##*'/'*'/'*}" ]
 then
   # Architecture was specified, but is invalid.
@@ -189,6 +195,7 @@ else
   # e.g. "march=haswell" when "x86_64/intel/haswell" was specified.
   # But we currently disable cross-building, as it's usually quite dangerous.
   echo 'WARNING: custom architecture specified, but do note that this only affects the installation path (i.e. no cross-compiling)!'
+  echo 'Only use this option if you are really sure what you are doing!'
   #export EASYBUILD_OPTARCH="march=${SW_STACK_ARCH#*/*/}"
 fi
 
