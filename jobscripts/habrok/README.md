@@ -14,16 +14,20 @@ The script uses the following syntax:
 Usage: build_container.sh [OPTION]... [<COMMAND>]
   -a, --arch <ISA>/<VENDOR>/<uarch>      architecture to build for, e.g. x86_64/intel/haswell or x86_64/generic
   -b, --bind <DIR1[,DIR2,...,DIRN]>      bind the given host directory into the build container
+  -g, --generic                          do a generic build and install to the generic stack
   -h, --help                             display this help and exit
   -k, --keep                             keep this run's temporary directory
   -n, --name <FILENAME>                  name of the resulting tarball
   -o, --output <DIRECTORY>               output directory for storing the produced tarball, no tarball is created when not set
+  -r, --restricted                       install the given software to the restricted software stack
   -t, --tmpdir <DIRECTORY>               temporary directory to be used for CVMFS, fuse-overlayfs, and EasyBuild
   -v, --version <VERSION>                version number of the stack to build software for
 ```
 
 By default, the script will build/optimize the software for the current host, and uses an installation path that reflects its architecture name (determined by using `archspec` or `archdetect`).
-The latter can be overridden if necessary with `-a`/`--arch`, and can also be set to a generic build.
+The latter can be overridden if necessary with `-a`/`--arch`, and with `-g`/`--generic` you can also install to the generic installation directory.
+
+For applications that require a license / group dir, the `-r`/`--restricted` option can be used in order to install the application to the NFS mount `/apps` instead of CVMFS.
 
 If no `COMMAND` is specified, the script will launch an interactive container session.
 
