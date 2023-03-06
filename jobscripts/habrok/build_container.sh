@@ -152,11 +152,15 @@ while true ; do
   esac
 done
 
-# Always bind mount $PWD, /var/log (to prevent issues with CUDA installations), /apps (for licensed apps), and add the user-specified ones.
-SINGBIND="-B $PWD -B /var/log -B /apps"
+# Always bind mount $PWD, /var/log (to prevent issues with CUDA installations), /apps (if available, for licensed apps), and add the user-specified ones.
+SINGBIND="-B $PWD -B /var/log"
+if [ -d "/apps" ]
+then
+    SINGBIND="${SINGBIND} -B /apps"
+fi
 for dir in ${BIND//,/ }
 do
-    SINGBIND="$SINGBIND -B ${dir}"
+    SINGBIND="${SINGBIND} -B ${dir}"
 done
 
 if [ -z "${TMPDIR}" ]
