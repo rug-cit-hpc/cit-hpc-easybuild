@@ -25,6 +25,7 @@ easyconfigs:
   - matplotlib-3.5.2-foss-2022a.eb
   - MIGRATE-N-5.0.4-foss-2021b.eb
   - MMseqs2-13-45111-gompi-2021b.eb
+  - ncurses-5.9.eb
   - OpenCV-4.6.0-foss-2022a-contrib.eb
   - OpenFOAM-v2206-foss-2022a.eb
   - OSU-Micro-Benchmarks-5.9-gompi-2022a.eb
