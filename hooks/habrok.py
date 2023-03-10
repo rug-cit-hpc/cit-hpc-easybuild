@@ -1,3 +1,17 @@
+NOT_IN_GROUP_MSG = "This software can only be used by members of a particular group, "
+NOT_IN_GROUP_MSG += "and you are not in this group. Please contact hpc@rug.nl if you want to be added."
+
+GROUP_CHECK = '''
+local groups = capture("/usr/bin/id -Gn")
+if not groups:find("%s") then
+    LmodError("%s")
+end
+'''
+
+GROUP_SOFTWARE = {
+    'ORCA': ('hb%-orca', NOT_IN_GROUP_MSG)
+}
+
 LICENSES = {
     'MATLAB': {
       'license_server': 'lic004.workspace.rug.nl',
@@ -25,6 +39,13 @@ end
 '''
 
 
+#def parse_hook(self):
+    # Check if the software should only be available to a specific group
+    # Disabled for now, does not work in a container :-(
+    #if self.name in GROUP_SOFTWARE:
+    #    self.log.info("[pre-configure hook] Making sure that this software is only available to a specific group")
+    #    self['group'] = GROUP_SOFTWARE[self.name]
+
 def pre_configure_hook(self, *args, **kwargs):
     # Check if a license file/server needs to be configured
     if self.name in LICENSES:
@@ -47,6 +68,9 @@ def pre_configure_hook(self, *args, **kwargs):
 
 
 def pre_module_hook(self, *args, **kwargs):
+    # Add a load message for software that is only available to a certain group
+    if self.name in GROUP_SOFTWARE:
+        self.cfg.update('modluafooter', GROUP_CHECK % GROUP_SOFTWARE[self.name])
 
     # AlphaFold: set data directory, disable unified memory (doesn't work with V100)
     if self.name == 'AlphaFold':
