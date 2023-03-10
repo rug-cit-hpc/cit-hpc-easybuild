@@ -17,6 +17,7 @@ easyconfigs:
   - BWA-0.7.17-GCCcore-11.3.0.eb
   - CLHEP-2.4.5.1-GCC-11.2.0.eb
   - DIAMOND-2.0.13-GCC-11.2.0.eb
+  - FreeSurfer-7.3.2-centos8_x86_64.eb
   - GROMACS-2021.5-foss-2021b.eb
   - HMMER-3.3.2-gompi-2021b.eb
   - HTSlib-1.15.1-GCC-11.3.0.eb
