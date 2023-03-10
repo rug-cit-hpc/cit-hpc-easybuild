@@ -163,7 +163,7 @@ if [ -d "/apps" ]
 then
     SINGBIND="${SINGBIND} -B /apps"
 fi
-if [ -d "/var/lib/sss"]
+if [ -d "/var/lib/sss" ]
 then
     SINGBIND="${SINGBIND} -B /var/lib/sss -B /etc/nsswitch.conf"
 fi
