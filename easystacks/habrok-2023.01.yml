@@ -36,7 +36,7 @@ easyconfigs:
   - PETSc-3.17.4-foss-2022a.eb
   - PLINK-2.00a3.7-foss-2022a.eb
   - PyTorch-1.12.1-foss-2022a-CUDA-11.7.0.eb
-  - QIIME2-2022.8.eb
+  - QIIME2-2022.11.eb
   - QuantumESPRESSO-7.1-foss-2022a.eb
   - R-4.2.1-foss-2022a.eb:
       options:
