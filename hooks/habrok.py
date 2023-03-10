@@ -1,3 +1,8 @@
+import os
+
+from easybuild.tools.build_log import EasyBuildError
+
+
 NOT_IN_GROUP_MSG = "This software can only be used by members of a particular group, "
 NOT_IN_GROUP_MSG += "and you are not in this group. Please contact hpc@rug.nl if you want to be added."
 
