@@ -10,8 +10,10 @@ description = """MATLAB is a high-level language and interactive environment
 
 toolchain = SYSTEM
 
-sources = ['R%s_Update_%s_Linux.iso' % (version, _update)]
-checksums = ['b3fb5aed8fc54e5becf7d66bc63bbb1b91c59433f9c73cd7aa47cab5c9436fb3']
+#sources = ['R%s_Update_%s_Linux.iso' % (version, _update)]
+#checksums = ['b3fb5aed8fc54e5becf7d66bc63bbb1b91c59433f9c73cd7aa47cab5c9436fb3']
+sources = ['%(name)s-%(version)s%(versionsuffix)s.tar.gz']
+checksums = ['95e25b0e75b7f6befe66f4e567f429a3b76783477b108c96f57e78215e15308a']
 
 java_options = '-Xmx2048m'
 
