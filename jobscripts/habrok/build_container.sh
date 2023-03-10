@@ -152,11 +152,20 @@ while true ; do
   esac
 done
 
-# Always bind mount $PWD, /var/log (to prevent issues with CUDA installations), /apps (if available, for licensed apps), and add the user-specified ones.
+# Always bind mount:
+# $PWD
+# /var/log (to prevent issues with CUDA installations)
+# /apps (if available, for licensed apps)
+# /var/lib/sss (if available), and /etc/nsswitch.conf, for ldap functionality
+# all user-specified ones.
 SINGBIND="-B $PWD -B /var/log"
 if [ -d "/apps" ]
 then
     SINGBIND="${SINGBIND} -B /apps"
+fi
+if [ -d "/var/lib/sss"]
+then
+    SINGBIND="${SINGBIND} -B /var/lib/sss -B /etc/nsswitch.conf"
 fi
 for dir in ${BIND//,/ }
 do
