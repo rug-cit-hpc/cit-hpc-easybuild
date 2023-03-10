@@ -53,6 +53,10 @@ def pre_configure_hook(self, *args, **kwargs):
             self.log.info("[pre-configure hook] Setting %s to %s" % (lic_key, lic_value))
             self.cfg[lic_key] = lic_value
 
+    # MATLAB requires a file installation key
+    if self.name == 'MATLAB' and not 'EB_MATLAB_KEY' in os.environ:
+        raise EasyBuildError('MATLAB requires $EB_MATLAB_KEY to be set!')
+
     # Wien2k: use srun instead of mpirun
     if self.name == 'WIEN2k':
         self.log.info("[pre-configure hook] Making sure that srun is used instead of mpirun")
