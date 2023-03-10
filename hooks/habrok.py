@@ -1,3 +1,16 @@
+LICENSES = {
+    'MATLAB': {
+      'license_server': 'lic004.workspace.rug.nl',
+      'license_server_port': '27000',
+    },
+    'Mathematica': {
+        'license_server': 'lic005.workspace.rug.nl',
+    },
+    'COMSOL': {
+        'license_file': 'license.dat',
+    }
+}
+
 OPENMPI_OPA_FOOTER = '''
 function has_opa()
   local f = io.open("/dev/hfi1_0", "r")
@@ -13,6 +26,11 @@ end
 
 
 def pre_configure_hook(self, *args, **kwargs):
+    # Check if a license file/server needs to be configured
+    if self.name in LICENSES:
+        for lic_key, lic_value in LICENSES[self.name].items():
+            self.log.info("[pre-configure hook] Setting %s to %s" % (lic_key, lic_value))
+            self.cfg[lic_key] = lic_value
 
     # Wien2k: use srun instead of mpirun
     if self.name == 'WIEN2k':
