@@ -1,0 +1,53 @@
+easyblock = 'Tarball'
+
+name = 'AMS'
+version = '2022.102'
+versionsuffix = '-intelmpi'
+
+homepage = 'https://www.scm.com/amsterdam-modeling-suite/'
+description = """
+The Amsterdam Modeling Suite (AMS) provides a comprehensive set of modules for computational chemistry and materials
+science, from quantum mechanics to fluid thermodynamics.
+"""
+
+toolchain = {'name': 'iimpi', 'version': '2021b'}
+
+sources = ['ams%(version)s.pc64_linux.intelmpi.bin.tgz']
+checksums = ['fced7314cd543d983b08ca379f59b64764f3f20379f4b8d92e605e77fe30fc3b']
+
+dependencies = [('libGLU', '9.0.2')]
+
+keepsymlinks = True
+
+postinstallcmds = ['cp ~/installers/%(name)s/license.txt %(installdir)s']
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['atomicdata', 'bin', 'examples'],
+}
+
+# check if license file is installed
+# sanity_check_commands = ['dirac check']
+
+modextrapaths = {
+    'AMSHOME': '',
+    'AMSBIN': 'bin',
+    'AMSRESOURCES': 'atomicdata',
+}
+
+modextravars = {
+    # use Intel MPI from EasyBuild
+    'SCM_USE_LOCAL_IMPI': '1',
+    'SCMLICENSE': '%(installdir)s/license.txt',
+}
+
+modluafooter = """
+if os.getenv("TMPDIR") then
+    setenv("SCM_TMPDIR", os.getenv("TMPDIR"))
+else
+    local user = capture("/usr/bin/whoami")
+    setenv("SCM_TMPDIR", pathJoin("/scratch", user))
+end
+"""
+
+moduleclass = 'chem'
