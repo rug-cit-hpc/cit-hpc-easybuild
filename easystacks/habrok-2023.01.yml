@@ -24,6 +24,7 @@ easyconfigs:
   - HTSlib-1.15.1-GCC-11.3.0.eb
   - Julia-1.8.5-linux-x86_64.eb
   - JupyterLab-3.5.0-GCCcore-11.3.0.eb
+  - libGLU-9.0.2-GCCcore-11.2.0.eb
   - matplotlib-3.5.2-foss-2022a.eb
   - MIGRATE-N-5.0.4-foss-2021b.eb
   - MMseqs2-13-45111-gompi-2021b.eb
