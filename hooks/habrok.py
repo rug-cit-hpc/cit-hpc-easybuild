@@ -14,7 +14,8 @@ end
 '''
 
 GROUP_SOFTWARE = {
-    'ORCA': ('hb%-orca', NOT_IN_GROUP_MSG)
+    'AMS': ('hb%-gaussian', NOT_IN_GROUP_MSG),
+    'ORCA': ('hb%-orca', NOT_IN_GROUP_MSG),
 }
 
 LICENSES = {
