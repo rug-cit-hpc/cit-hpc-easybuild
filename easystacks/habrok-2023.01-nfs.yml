@@ -1,5 +1,7 @@
 easyconfigs:
+  - COMSOL-6.0.eb
   - Mathematica-13.1.0.eb
+  - MATLAB-2022b-r5.eb
   - ORCA-5.0.4-gompi-2022a.eb
   - StataSE-17.eb:
       options:
