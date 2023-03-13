@@ -15,9 +15,9 @@ precompiled_binaries = True
 
 # license file - uncomment if a licence file is supplied by your site and
 # is valid for all users - the value of license_file may have to be changed
-license_file = '/apps/licenses/%(name)s/token'
+license_file = 'token'
 
-group = ('pg-aim', 'Molpro can only be used by members of the pg-aim group from FSE. You are not in this group, contact hpc@rug.nl if you need to be added.')
+#group = ('pg-aim', 'Molpro can only be used by members of the pg-aim group from FSE. You are not in this group, contact hpc@rug.nl if you need to be added.')
 
 moduleclass = 'chem'
 
