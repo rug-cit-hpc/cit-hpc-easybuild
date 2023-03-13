@@ -16,6 +16,7 @@ end
 
 GROUP_SOFTWARE = {
     'AMS': ('hb%-gaussian', NOT_IN_GROUP_MSG),
+    'Molpro': ('hb%-aim', NOT_IN_GROUP_MSG),
     'ORCA': ('hb%-orca', NOT_IN_GROUP_MSG),
 }
 
