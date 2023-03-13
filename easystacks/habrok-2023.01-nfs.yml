@@ -3,6 +3,8 @@ easyconfigs:
   - COMSOL-6.0.eb
   - Mathematica-13.1.0.eb
   - MATLAB-2022b-r5.eb
+  - Molpro-mpp-2021.2.0.linux_x86_64_mpipr.eb
+  - Molpro-mpp-2021.2.0.linux_x86_64_sockets.eb
   - ORCA-5.0.4-gompi-2022a.eb
   - StataSE-17.eb:
       options:
