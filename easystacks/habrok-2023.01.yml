@@ -22,6 +22,7 @@ easyconfigs:
   - HMMER-3.3.2-gompi-2021b.eb
   - HPL-2.3-foss-2022a.eb
   - HTSlib-1.15.1-GCC-11.3.0.eb
+  - intel-2021b.eb
   - Julia-1.8.5-linux-x86_64.eb
   - JupyterLab-3.5.0-GCCcore-11.3.0.eb
   - libGLU-9.0.2-GCCcore-11.2.0.eb
