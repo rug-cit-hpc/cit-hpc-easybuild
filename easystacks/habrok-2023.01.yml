@@ -52,4 +52,8 @@ easyconfigs:
   - Stacks-2.62-foss-2022a.eb
   - SUNDIALS-6.3.0-foss-2022a.eb
   - TensorFlow-2.7.1-foss-2021b-CUDA-11.4.1.eb
+  - TURBOMOLE-base-7.6.eb
+  - TURBOMOLE-7.6-mpi.eb
+  - TURBOMOLE-7.6-serial.eb
+  - TURBOMOLE-7.6-smp.eb
   - X11-20220504-GCCcore-11.3.0.eb
