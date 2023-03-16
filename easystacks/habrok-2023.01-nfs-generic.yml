@@ -2,6 +2,8 @@ easyconfigs:
   - Amber-22.0-foss-2021b-AmberTools-22.3-CUDA-11.4.1.eb
   - AMS-2022.103-iimpi-2021b-intelmpi.eb
   - COMSOL-6.0.eb
+  - Gaussian-16.B.01-AVX2.eb
+  - GaussView-5.0.9.eb
   - Mathematica-13.1.0.eb
   - MATLAB-2022b-r5.eb
   - Molpro-mpp-2021.2.0.linux_x86_64_mpipr.eb
