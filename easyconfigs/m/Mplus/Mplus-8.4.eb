@@ -12,7 +12,7 @@ description = """Mplus is a statistical modeling program that provides researche
 toolchain = {'name': 'system', 'version': 'system'}
 
 sources = ['ComboLinux64_v84.bin']
-install_cmd = 'export IATEMPDIR=/local/tmp && ./ComboLinux64_v84.bin -i silent -DUSER_INSTALL_DIR=%(installdir)s -DCHOOSE_FEATURE_LIST=Application,Examples -DCHOOSE_INSTALL_FEATURE_LIST=Application,Examples -DCHOOSE_INSTALL_SET=Typical'
+install_cmd = 'export IATEMPDIR=${TMPDIR:-/tmp} && ./ComboLinux64_v84.bin -i silent -DUSER_INSTALL_DIR=%(installdir)s -DCHOOSE_FEATURE_LIST=Application,Examples -DCHOOSE_INSTALL_FEATURE_LIST=Application,Examples -DCHOOSE_INSTALL_SET=Typical'
 #checksums = ['02cf92847ec704d010a54df293b9c60a']
 
 sanity_check_paths = {
