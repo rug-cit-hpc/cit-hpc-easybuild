@@ -1,0 +1,45 @@
+easyblock = 'Tarball'
+
+# IMPORTANT!!
+# Needs to be installed with --umask=007
+
+name = 'GaussView'
+version = '5.0.9'
+
+homepage = 'https://www.gaussian.com/'
+
+description = """
+GaussView is a graphical user interface designed to help you prepare input for submission to Gaussian
+ and to examine graphically the output that Gaussian produces. GaussView is not integrated with the 
+computational module of Gaussian, but rather is a front-end/back-end processor to aid in the use of Gaussian.
+"""
+
+toolchain = SYSTEM
+
+# GaussView is licensed software.
+sources = ['gv-%s-Linux-x86-64.tgz' % version.replace('.', '')]
+
+start_dir = '..'
+
+postinstallcmds = [
+    'chmod -R o-rwx %(installdir)s/gv',
+]
+
+sanity_check_paths = {
+    'files': ['gv/gview', 'gv/gview.csh'],
+    'dirs': ['gv/%s' % x for x in ['bin', 'data', 'gvref', 'lib']],
+}
+
+modextravars = {
+    'GV_DIR': '%(installdir)s/gv',
+}
+
+modextrapaths = {
+    'LD_LIBRARY_PATH': 'gv/lib',
+}
+
+modaliases = {
+    'gv': '%(installdir)s/gv/gview.csh',
+}
+
+moduleclass = 'chem'
