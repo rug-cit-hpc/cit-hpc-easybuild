@@ -3,24 +3,24 @@ import os
 from easybuild.tools.build_log import EasyBuildError
 
 
-NOT_IN_GROUP_MSG = "This software can only be used by members of a particular group, "
-NOT_IN_GROUP_MSG += "and you are not in this group. Please contact hpc@rug.nl if you want to be added."
+NOT_IN_GROUP_MSG = "This software can only be used by members of the {group} group, "
+NOT_IN_GROUP_MSG += "and you are not in this group. Please contact {group_owner} if you want to be added."
 
 GROUP_CHECK = '''
 local user = capture("/usr/bin/whoami")
 local groups = capture("/usr/bin/id -Gn " .. user)
-if not groups:find("%s") then
-    LmodError("%s")
+if not groups:find("{group_lua}") then
+    LmodError("{not_in_group_msg}")
 end
 '''
 
 GROUP_SOFTWARE = {
-    'Amber': ('hb%-roelfes', NOT_IN_GROUP_MSG),
-    'AMS': ('hb%-gaussian', NOT_IN_GROUP_MSG),
-    'Gaussian': ('hb%-gaussian', NOT_IN_GROUP_MSG),
-    'GaussView': ('hb%-gaussian', NOT_IN_GROUP_MSG),
-    'Molpro': ('hb%-aim', NOT_IN_GROUP_MSG),
-    'ORCA': ('hb%-orca', NOT_IN_GROUP_MSG),
+    'Amber': ('hb-roelfes', 'hpc@rug.nl', NOT_IN_GROUP_MSG),
+    'AMS': ('hb-gaussian', 'dr. J.E.M.N. Klein', NOT_IN_GROUP_MSG),
+    'Gaussian': ('hb-gaussian', 'dr. J.E.M.N. Klein', NOT_IN_GROUP_MSG),
+    'GaussView': ('hb-gaussian', 'dr. J.E.M.N. Klein', NOT_IN_GROUP_MSG),
+    'Molpro': ('hb-aim', 'hpc@rug.nl', NOT_IN_GROUP_MSG),
+    'ORCA': ('hb-orca', 'hpc@rug.nl', NOT_IN_GROUP_MSG),
 }
 
 LICENSES = {
@@ -85,7 +85,10 @@ def pre_configure_hook(self, *args, **kwargs):
 def pre_module_hook(self, *args, **kwargs):
     # Add a load message for software that is only available to a certain group
     if self.name in GROUP_SOFTWARE:
-        self.cfg.update('modluafooter', GROUP_CHECK % GROUP_SOFTWARE[self.name])
+        group, owner, msg = GROUP_SOFTWARE[self.name]
+        self.cfg.update('modluafooter',
+            GROUP_CHECK.format(group_lua=group.replace('-', '%-'), not_in_group_msg=msg.format(group=group, group_owner=owner))
+        )
 
     # AlphaFold: set data directory, disable unified memory (doesn't work with V100)
     if self.name == 'AlphaFold':
