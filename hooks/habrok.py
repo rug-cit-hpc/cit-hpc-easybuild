@@ -20,6 +20,7 @@ GROUP_SOFTWARE = {
     'Gaussian': ('hb-gaussian', 'dr. J.E.M.N. Klein', NOT_IN_GROUP_MSG),
     'GaussView': ('hb-gaussian', 'dr. J.E.M.N. Klein', NOT_IN_GROUP_MSG),
     'Molpro': ('hb-aim', 'hpc@rug.nl', NOT_IN_GROUP_MSG),
+    'Mplus': ('hb-mplus', 'hpc@rug.nl', NOT_IN_GROUP_MSG),
     'ORCA': ('hb-orca', 'hpc@rug.nl', NOT_IN_GROUP_MSG),
 }
 
