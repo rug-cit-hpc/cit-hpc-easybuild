@@ -8,6 +8,7 @@ easyconfigs:
   - MATLAB-2022b-r5.eb
   - Molpro-mpp-2021.2.0.linux_x86_64_mpipr.eb
   - Molpro-mpp-2021.2.0.linux_x86_64_sockets.eb
+  - Mplus-8.4.eb
   - ORCA-5.0.4-gompi-2022a.eb
   - StataSE-17.eb:
       options:
