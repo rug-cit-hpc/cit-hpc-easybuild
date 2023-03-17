@@ -14,11 +14,4 @@ checksums = ['53bf96347a0323e32e7843981d3a8d4f48d9e64e0d61b6c595b3470249b4ce93']
 
 subdir_version = '222'
 
-modluafooter = '''
-local groups = capture("/usr/bin/id -Gn")
-if not groups:find("pg%-solar_racing") then
-    LmodError("FLUENT can only be used by members of the pg-solar_racing group. You are not in this group, ask the group admin to contact hpc@rug.nl if you need to be added.")
-end
-'''
-
 moduleclass = 'cae'
