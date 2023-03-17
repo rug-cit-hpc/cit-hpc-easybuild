@@ -17,6 +17,7 @@ end
 GROUP_SOFTWARE = {
     'Amber': ('hb-roelfes', 'hpc@rug.nl', NOT_IN_GROUP_MSG),
     'AMS': ('hb-gaussian', 'dr. J.E.M.N. Klein', NOT_IN_GROUP_MSG),
+    'FLUENT': ('hb-solar_racing', 'the solar racing group admin', NOT_IN_GROUP_MSG),
     'Gaussian': ('hb-gaussian', 'dr. J.E.M.N. Klein', NOT_IN_GROUP_MSG),
     'GaussView': ('hb-gaussian', 'dr. J.E.M.N. Klein', NOT_IN_GROUP_MSG),
     'Molpro': ('hb-aim', 'hpc@rug.nl', NOT_IN_GROUP_MSG),
