@@ -27,7 +27,7 @@ Usage: build_container.sh [OPTION]... [<COMMAND>]
 By default, the script will build/optimize the software for the current host, and uses an installation path that reflects its architecture name (determined by using `archspec` or `archdetect`).
 The latter can be overridden if necessary with `-a`/`--arch`, and with `-g`/`--generic` you can also install to the generic installation directory.
 
-For applications that require a license / group dir, the `-r`/`--restricted` option can be used in order to install the application to the NFS mount `/apps` instead of CVMFS.
+For applications that require a group dir, the `-r`/`--restricted` option can be used in order to install the application to the NFS mount `/apps` instead of CVMFS. If it's a binary installation, add `-g`/`--generic` as well, and use https://github.com/rug-cit-hpc/cit-hpc-easybuild/blob/master/scripts/mkgeneric.sh to set up symlinks from all architecture-specific stacks.
 
 If no `COMMAND` is specified, the script will launch an interactive container session.
 
