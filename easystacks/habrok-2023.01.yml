@@ -2,6 +2,9 @@ easyconfigs:
   - netCDF-4.9.0-gompi-2022a.eb:
       options:
         skip-test-step: True
+  - imkl-FFTW-2022.2.1-iimpi-2022b.eb:
+      options:
+        include-easyblocks-from-pr: 2912
   - AIMMS-4.92.7.5.eb
   - AmberTools-22.3-foss-2021b.eb
   - Anaconda3-2022.05.eb
