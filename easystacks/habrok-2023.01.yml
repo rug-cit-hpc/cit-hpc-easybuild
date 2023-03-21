@@ -24,6 +24,8 @@ easyconfigs:
   - CLHEP-2.4.5.1-GCC-11.2.0.eb
   - DIAMOND-2.0.13-GCC-11.2.0.eb
   - DIRAC-23.0-foss-2022b.eb
+  - DIRAC-23.0-intel-2022b.eb
+  - DIRAC-23.0-intel-2022b-int64.eb
   - dRep-3.4.2-foss-2022a.eb
   - FreeSurfer-7.3.2-centos8_x86_64.eb
   - GROMACS-2021.5-foss-2021b.eb
