@@ -2,6 +2,9 @@ easyconfigs:
   - Amber-22.0-foss-2021b-AmberTools-22.3-CUDA-11.4.1.eb
   - AMS-2022.103-iimpi-2021b-intelmpi.eb
   - COMSOL-6.0.eb
+  - CPLEX-22.1.1-GCCcore-11.2.0.eb:
+      options:
+        from-pr: 17574
   - FLUENT-2022R2.eb
   - Gaussian-16.B.01-AVX2.eb
   - GaussView-5.0.9.eb
