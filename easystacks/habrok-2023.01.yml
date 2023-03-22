@@ -22,11 +22,13 @@ easyconfigs:
   - BWA-0.7.17-GCCcore-11.3.0.eb
   - CellRanger-6.1.2.eb
   - CLHEP-2.4.5.1-GCC-11.2.0.eb
+  - DFT-D3-3.2.0-intel-compilers-2021.4.0.eb
   - DIAMOND-2.0.13-GCC-11.2.0.eb
   - DIRAC-23.0-foss-2022b.eb
   - DIRAC-23.0-intel-2022b.eb
   - DIRAC-23.0-intel-2022b-int64.eb
   - dRep-3.4.2-foss-2022a.eb
+  - ELPA-2021.05.001-intel-2021b.eb
   - FreeSurfer-7.3.2-centos8_x86_64.eb
   - GROMACS-2021.5-foss-2021b.eb
   - Gurobi-10.0.1-GCCcore-11.3.0.eb
