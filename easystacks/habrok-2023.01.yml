@@ -22,6 +22,7 @@ easyconfigs:
   - BWA-0.7.17-GCCcore-11.3.0.eb
   - CellRanger-6.1.2.eb
   - CLHEP-2.4.5.1-GCC-11.2.0.eb
+  - COMSOL-6.0.eb
   - DFT-D3-3.2.0-intel-compilers-2021.4.0.eb
   - DIAMOND-2.0.13-GCC-11.2.0.eb
   - DIRAC-23.0-foss-2022b.eb
@@ -39,6 +40,8 @@ easyconfigs:
   - Julia-1.8.5-linux-x86_64.eb
   - JupyterLab-3.5.0-GCCcore-11.3.0.eb
   - libGLU-9.0.2-GCCcore-11.2.0.eb
+  - Mathematica-13.1.0.eb
+  - MATLAB-2022b-r5.eb
   - matplotlib-3.5.2-foss-2022a.eb
   - MIGRATE-N-5.0.4-foss-2021b.eb
   - MMseqs2-13-45111-gompi-2021b.eb
@@ -62,6 +65,9 @@ easyconfigs:
   - SciPy-bundle-2022.05-foss-2022a.eb
   - Seaborn-0.12.1-foss-2022a.eb
   - Stacks-2.62-foss-2022a.eb
+  - StataSE-17.eb:
+      options:
+        ignore-osdeps: True
   - SUNDIALS-6.3.0-foss-2022a.eb
   - TensorFlow-2.7.1-foss-2021b-CUDA-11.4.1.eb
   - TURBOMOLE-base-7.6.eb
