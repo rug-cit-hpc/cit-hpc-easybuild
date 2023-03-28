@@ -18,6 +18,9 @@ easyconfigs:
   - BEDTools-2.30.0-GCC-11.3.0.eb
   - BioPerl-1.7.8-GCCcore-11.3.0.eb
   - Biopython-1.79-foss-2022a.eb
+  - Bismark-0.24.0-GCC-11.3.0.eb:
+      options:
+        from-pr: 17610
   - BLAST-2.11.0-Linux_x86_64.eb
   - BLAST+-2.13.0-gompi-2022a.eb
   - Bowtie-1.3.1-GCC-11.2.0.eb
@@ -33,6 +36,7 @@ easyconfigs:
   - DIRAC-23.0-intel-2022b-int64.eb
   - dRep-3.4.2-foss-2022a.eb
   - ELPA-2021.05.001-intel-2021b.eb
+  - FastQC-0.11.9-Java-11.eb
   - FreeSurfer-7.3.2-centos8_x86_64.eb
   - GROMACS-2021.5-foss-2021b.eb
   - Gurobi-10.0.1-GCCcore-11.3.0.eb
@@ -49,6 +53,7 @@ easyconfigs:
   - MIGRATE-N-5.0.4-foss-2021b.eb
   - MMseqs2-13-45111-gompi-2021b.eb
   - Molden-7.1-GCCcore-11.3.0.eb
+  - MultiQC-1.14-foss-2022a.eb
   - ncurses-5.9.eb
   - OpenCV-4.6.0-foss-2022a-contrib.eb
   - OpenFOAM-v2206-foss-2022a.eb
@@ -74,6 +79,9 @@ easyconfigs:
         ignore-osdeps: True
   - SUNDIALS-6.3.0-foss-2022a.eb
   - TensorFlow-2.7.1-foss-2021b-CUDA-11.4.1.eb
+  - Trim_Galore-0.6.10-GCCcore-11.3.0.eb:
+      options:
+        from-pr: 17611
   - TURBOMOLE-base-7.6.eb
   - TURBOMOLE-7.6-mpi.eb
   - TURBOMOLE-7.6-serial.eb
