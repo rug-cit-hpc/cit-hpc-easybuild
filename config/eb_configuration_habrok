@@ -21,6 +21,11 @@ else
   export EASYBUILD_INSTALLPATH=/apps/versions/${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
 fi
 
+# Intel compiler optimization settings for non-Intel CPUs
+if [[ "${SW_STACK_ARCH}" != "x86_64/intel/"* ]]; then
+  export EASYBUILD_OPTARCH="Intel:march=core-avx2"
+fi
+
 # CUDA capabilities for different nodes
 if [ "${SW_STACK_ARCH}" = "x86_64/intel/skylake_avx512" ]; then
   # Nvidia V100
