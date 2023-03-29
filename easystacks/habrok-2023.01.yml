@@ -40,6 +40,7 @@ easyconfigs:
   - FreeSurfer-7.3.2-centos8_x86_64.eb
   - GROMACS-2019.6-foss-2022a.eb
   - GROMACS-2021.5-foss-2021b.eb
+  - GROMACS-2021.6-foss-2022a-CUDA-11.7.0.eb
   - Gurobi-10.0.1-GCCcore-11.3.0.eb
   - HMMER-3.3.2-gompi-2021b.eb
   - HPL-2.3-foss-2022a.eb
