@@ -46,6 +46,7 @@ easyconfigs:
   - intel-2021b.eb
   - Julia-1.8.5-linux-x86_64.eb
   - JupyterLab-3.5.0-GCCcore-11.3.0.eb
+  - LAMMPS-23Jun2022-foss-2021b-kokkos.eb
   - libGLU-9.0.2-GCCcore-11.2.0.eb
   - Mathematica-13.1.0.eb
   - MATLAB-2022b-r5.eb
