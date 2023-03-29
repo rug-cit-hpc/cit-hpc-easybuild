@@ -40,8 +40,6 @@ function create_tarball() {
     OLDPWD=$PWD
     TOPDIR=${MYTMPDIR}/overlay/upper/versions
     ARCHDIR=${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
-    #ARCHDIR=versions/${VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH%/*}
-    #CPUARCH=${SW_STACK_ARCH#*/}
     if [ -d "${TOPDIR}/${ARCHDIR}" ] && [ "$(ls -A ${TOPDIR}/${ARCHDIR})" ]
     then
       # Default tarball name: <version>-<architecture (/ replaced by -)>-<unix timestamp>.tar.gz
@@ -51,10 +49,10 @@ function create_tarball() {
 
       # include the new Lmod cache
       # note that simultaneous builds could lead to race conditions
-      if [ -d ${CPUARCH}/.lmod ]; then
+      if [ -d ${ARCHDIR}/.lmod ]; then
         # include Lmod cache and configuration file (lmodrc.lua),
         # skip whiteout files and backup copies of Lmod cache (spiderT.old.*)
-        find ${CPUARCH}/.lmod -type f | egrep -v '/\.wh\.|spiderT.old' > ${FILES_LIST}
+        find ${ARCHDIR}/.lmod -type f | egrep -v '/\.wh\.|spiderT.old' > ${FILES_LIST}
       fi
       if [ -d ${ARCHDIR}/modules ]; then
         # module files
