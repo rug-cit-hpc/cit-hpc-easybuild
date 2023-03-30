@@ -101,6 +101,11 @@ def pre_module_hook(self, *args, **kwargs):
         self.log.info('[pre-module hook] Setting TF_FORCE_UNIFIED_MEMORY to 0')
         self.cfg.update('modextravars', extramodvars)
 
+    # AMS: use srun as launcher
+    if self.name == 'AMS':
+        self.log.info('[pre-module hook] Setting SCM_MPIRUN_EXE=mpirun')
+        self.cfg.update('modextravars', {'SCM_MPIRUN_EXE': 'mpirun'})
+
     # Anaconda3: Execute intialization script
     if self.name == 'Anaconda3':
         luafooter =  'execute{cmd="source \'"..pathJoin(root, "/etc/profile.d/conda."..myShellType()).."\'", modeA={"load"}}'
