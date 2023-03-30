@@ -12,13 +12,16 @@ if [ -z ${SW_STACK_REPO} ] || [ -z ${SW_STACK_ARCH} ] || [ -z ${SW_STACK_OS} ] |
   exit 1
 fi
 
-if [ ! -z ${SW_GENERIC} ]; then
-  SW_STACK_ARCH=$(uname -m)/generic
-fi
+# Determine installation path
 if [ -z ${SW_STACK_RESTRICTED} ]; then
-  export EASYBUILD_INSTALLPATH=/cvmfs/${SW_STACK_REPO}/versions/${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
+  SW_STACK_ROOT=/cvmfs/${SW_STACK_REPO}/versions
 else
-  export EASYBUILD_INSTALLPATH=/apps/versions/${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
+  SW_STACK_ROOT=/apps/versions
+fi
+if [ -z ${SW_GENERIC} ]; then
+  export EASYBUILD_INSTALLPATH=${SW_STACK_ROOT}/${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
+else
+  export EASYBUILD_INSTALLPATH=${SW_STACK_ROOT}/${SW_STACK_VERSION}/${SW_STACK_OS}/$(uname -m)/generic  
 fi
 
 # Intel compiler optimization settings for non-Intel CPUs
