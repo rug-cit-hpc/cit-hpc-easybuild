@@ -21,7 +21,7 @@ fi
 if [ -z ${SW_GENERIC} ]; then
   export EASYBUILD_INSTALLPATH=${SW_STACK_ROOT}/${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
 else
-  export EASYBUILD_INSTALLPATH=${SW_STACK_ROOT}/${SW_STACK_VERSION}/${SW_STACK_OS}/$(uname -m)/generic  
+  export EASYBUILD_INSTALLPATH=${SW_STACK_ROOT}/${SW_STACK_VERSION}/${SW_STACK_OS}/$(uname -m)/generic
 fi
 
 # Intel compiler optimization settings for non-Intel CPUs
