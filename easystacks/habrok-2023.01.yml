@@ -14,6 +14,7 @@ easyconfigs:
   - Anaconda3-2022.05.eb
   - angsd-0.940-GCC-11.2.0.eb
   - astropy-5.1.1-foss-2022a.eb
+  - AutoDock-Vina/AutoDock-Vina-1.2.3-foss-2021b.eb
   - BCFtools-1.15.1-GCC-11.3.0.eb
   - BEDTools-2.30.0-GCC-11.3.0.eb
   - BioPerl-1.7.8-GCCcore-11.3.0.eb
