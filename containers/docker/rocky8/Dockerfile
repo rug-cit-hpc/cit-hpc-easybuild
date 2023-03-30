@@ -21,7 +21,7 @@ RUN dnf install -y rdma-core rdma-core-devel libpsm2 libpsm2-devel
 # Other tools
 RUN dnf install -y gcc gcc-c++ gcc-gfortran gdb patch git flex freetype fontconfig libglvnd-glx alsa-lib tcsh && \
     dnf install -y python3 python3-setuptools python3-pip python3-cryptography python3-pyyaml python3-wheel && \
-    dnf install -y glibc-gconv-extra which make libtool automake autoconf file bzip2 gzip p7zip p7zip-plugins && \
+    dnf install -y glibc-static glibc-gconv-extra which make libtool automake autoconf file bzip2 gzip p7zip p7zip-plugins && \
     dnf install -y openssl openssl-devel openssh-clients strace wget curl sssd-client bc && \
     dnf install -y vim-common xz unzip zip cpio && \
     pip3 install pycodestyle
