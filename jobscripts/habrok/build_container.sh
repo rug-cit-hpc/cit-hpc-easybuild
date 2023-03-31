@@ -49,11 +49,11 @@ function create_tarball() {
 
       # include the new Lmod cache
       # note that simultaneous builds could lead to race conditions
-      if [ -d ${ARCHDIR}/.lmod ]; then
+      #if [ -d ${ARCHDIR}/.lmod ]; then
         # include Lmod cache and configuration file (lmodrc.lua),
         # skip whiteout files and backup copies of Lmod cache (spiderT.old.*)
         # find ${ARCHDIR}/.lmod -type f | egrep -v '/\.wh\.|spiderT.old' > ${FILES_LIST}
-      fi
+      #fi
       if [ -d ${ARCHDIR}/modules ]; then
         # module files
         find ${ARCHDIR}/modules -type f > ${FILES_LIST}
