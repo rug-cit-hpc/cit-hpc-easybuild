@@ -1,0 +1,73 @@
+# /!\ IMPORTANT: you need at least 8 cores to complete successfully the tests
+# Author: Jir Furst <jiri.furst@gmail.com>
+# Based on Dakota 6.15 easyconfig by Sebastien Varrette (Falkor)
+easyblock = 'CMakeMake'
+
+name = 'Dakota'
+version = '6.17.0'
+
+homepage = "https://dakota.sandia.gov/"
+description = """
+ The Dakota project delivers both state-of-the-art research and robust, usable
+ software for optimization and UQ. Broadly, the Dakota software's advanced
+ parametric analyses enable design exploration, model calibration, risk
+ analysis, and quantification of margins and uncertainty with computational
+ models.
+"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+# Disable architecture optimization, otherwise the basic tests fail
+# toolchainopts = {'pic': True, 'usempi': True, 'optarch': False}
+toolchainopts = {'pic': True, 'usempi': True}
+
+source_urls = ['https://dakota.sandia.gov/sites/default/files/distributions/public/']
+sources = ['%(namelower)s-%(version)s-release-public-src-cli.tar.gz']
+checksums = [
+]
+
+dependencies = [
+    ('Boost', '1.79.0'),
+    ('Perl', '5.34.1'),
+    ('Python', '3.10.4'),
+    ('HDF5', '1.12.2'),
+    ('GSL', '2.7'),
+]
+
+builddependencies = [
+    ('CMake', '3.23.1')
+]
+
+# disable GUI
+configopts = "-DHAVE_X_GRAPHICS=OFF "
+# set other dependencies
+configopts += "-DBLAS_LIBS=${EBROOTFLEXIBLAS}/lib/libflexiblas.%s " % SHLIB_EXT
+configopts += "-DLAPACK_LIBS=${EBROOTFLEXIBLAS}/lib/libflexiblas.%s " % SHLIB_EXT
+configopts += "-DDAKOTA_HAVE_MPI=ON "
+configopts += "-DBoost_NO_SYSTEM_PATHS=ON "
+configopts += "-DDAKOTA_HAVE_HDF5=ON "
+configopts += "-DDAKOTA_HAVE_GSL=ON "
+
+# Run install step in parallel
+installopts = ' -j %(parallel)s '
+
+postinstallcmds = ['chmod a+x %(installdir)s/share/dakota/test/*.perl']
+fix_perl_shebang_for = ['share/dakota/test/*.perl']
+
+# Tests should be run after the installation?
+#runtest = ' test ARGS="--bin-dir=%(installdir)s/bin -L AcceptanceTest -j %(parallel)s" '
+tests = [
+    '%(installdir)s/share/dakota/test/dakota_test.perl -L AcceptanceTest'
+]
+
+sanity_check_commands = [
+    'perl %(installdir)s/share/dakota/test/dakota_test.perl -L FastTest'
+]
+
+sanity_check_paths = {
+    'files': ["bin/dakota"],
+    'dirs': []
+}
+
+modextrapaths = {'PYTHONPATH': 'share/dakota/Python'}
+
+moduleclass = 'math'
