@@ -37,12 +37,10 @@ ls ${STACK}/modules
 MODULEPATH=/cvmfs/hpc.rug.nl/versions/modules
 for class in \$(ls -1 ${STACK}/modules | grep -v "^all$");
 do
-  echo \$class
   export MODULEPATH=\${MODULEPATH}:${STACK}/modules/\${class}
 done
-echo "mod path: \${MODULEPATH}"
+echo "Using MODULEPATH: \${MODULEPATH}"
 /usr/share/lmod/lmod/libexec/update_lmod_system_cache_files -d ${DOT_LMOD}/cache -t ${DOT_LMOD}/cache/timestamp \$MODULEPATH
-#${STACK}/modules/all
 
 EOF
 

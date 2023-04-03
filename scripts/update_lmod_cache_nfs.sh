@@ -12,7 +12,7 @@ do
 
   echo "Generating Lmod cache for ${STACK}..."
 
-  apptainer shell -B /cvmfs ${CONTAINER} <<EOF
+  apptainer shell -B /apps -B /cvmfs ${CONTAINER} <<EOF
 
 if [ ! -d "${DOT_LMOD}" ]
 then
@@ -34,13 +34,16 @@ LMODRCEOF
 fi
 
 ls ${STACK}/modules
-MODULEPATH=/cvmfs/hpc.rug.nl/versions/modules
+unset MODULEPATH
 for class in \$(ls -1 ${STACK}/modules | grep -v "^all$");
 do
-  echo \$class
-  export MODULEPATH=\${MODULEPATH}:${STACK}/modules/\${class}
+  if [ -z \${MODULEPATH} ]; then
+    export MODULEPATH=${STACK}/modules/\${class}
+  else
+    export MODULEPATH=\${MODULEPATH}:${STACK}/modules/\${class}
+  fi
 done
-echo "mod path: \${MODULEPATH}"
+echo "Using MODULEPATH: \${MODULEPATH}"
 /usr/share/lmod/lmod/libexec/update_lmod_system_cache_files -d ${DOT_LMOD}/cache -t ${DOT_LMOD}/cache/timestamp \$MODULEPATH
 #${STACK}/modules/all
 
