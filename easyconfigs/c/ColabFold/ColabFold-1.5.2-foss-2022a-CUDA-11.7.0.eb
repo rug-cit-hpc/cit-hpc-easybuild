@@ -1,0 +1,159 @@
+easyblock = 'PythonBundle'
+
+name = 'ColabFold'
+version = '1.5.2'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/sokrypton/ColabFold'
+description = "Making Protein folding accessible to all!"
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+builddependencies = [
+    ('CMake', '3.23.1'),
+]
+
+dependencies = [
+    ('OpenMM', '7.7.0'),
+    ('Python', '3.10.4'),
+    ('CUDA', '11.7.0', '', SYSTEM),
+    ('SciPy-bundle', '2022.05'),
+    ('PyYAML', '6.0'),
+    ('matplotlib', '3.5.2'),
+    ('TensorFlow', '2.11.0', versionsuffix),
+    ('Biopython', '1.79'),
+    ('HH-suite', '3.3.0'),
+    ('Kalign', '3.3.5'),
+    ('jax', '0.4.4', versionsuffix),  # also provides absl-py
+    ('UCX-CUDA', '1.12.1', versionsuffix),
+    ('cuDNN', '8.4.1.50', versionsuffix, SYSTEM),
+]
+
+local_mmseqs_version = '14-7e284'
+
+components = [
+    ('vmtouch', '1.3.1', {
+        'easyblock': 'ConfigureMake',
+        'source_urls': ['https://github.com/hoytech/vmtouch/archive/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['d57b7b3ae1146c4516429ab7d6db6f2122401db814ddd9cdaad10980e9c8428c'],
+        'skipsteps': 'configure',
+        'start_dir': '%(name)s-%(version)s',
+        'installopts': 'PREFIX=%(installdir)s',
+    }),
+    ('MMseqs2', local_mmseqs_version, {
+        'easyblock': 'CMakeMake',
+        'source_urls': ['https://github.com/soedinglab/MMseqs2/archive/'],
+        'sources': ['%s.tar.gz' % local_mmseqs_version],
+        'start_dir': 'MMseqs2-%s' % local_mmseqs_version,
+        'configopts': '-DVERSION_OVERRIDE="%(version)s"',
+  }),
+    ('colabfold', version, {
+        'easyblock': 'PythonPackage',
+        'source_urls': ['https://github.com/sokrypton/ColabFold/archive/refs/tags/'],
+        'sources': ['v%(version)s.tar.gz'],
+        'patches': [
+            'ColabFold-1.3.0_use_envvar_for_data_dir.patch',
+        ],
+        'checksums': [
+        ],
+        'start_dir': 'ColabFold-%(version)s',
+        'use_pip': True,
+        'use_pip_extras': 'alphafold-minus-jax',
+        'preinstallopts': 'sed -i "s/<=3.10/<=3.10.4/g" pyproject.toml && sed -i "s/tensorflow-cpu/tensorflow/g" pyproject.toml && ' 
+    }),
+]
+
+use_pip = True
+
+exts_list = [
+    ('PDBFixer', '1.8.1', {
+        'source_urls': ['https://github.com/openmm/pdbfixer/archive/refs/tags/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['d50551abfe9dbaefc066f4d9d400cdebe57f1fefd9de9d01e12beb87efd99595'],
+    }),
+    ('dm-haiku', '0.0.9', {
+        'modulename': 'haiku',
+        'source_urls': ['https://github.com/deepmind/dm-haiku/archive/refs/tags/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['d550f07f5891ede30ada5faafde98f549ed1b8ceadb7a601cca3d81db7d82414'],
+    }),
+    ('jmp', '0.0.2', {
+        'preinstallopts': "touch requirements.txt && touch requirements-test.txt && ",
+        'checksums': ['fdb5cec0d10aab4116c2770f24b2adf4f503fcfbb96ce8ef583e1879bdbf1b9b'],
+    }),
+    ('py3Dmol', '2.0.1.post1', {
+        'modulename': 'py3Dmol',
+        'checksums': ['add70ecf8f647970925eb8c1043c5c1343813fa49e613b77f0628e522c4148ac'],
+    }),
+    ('immutabledict', '2.2.3', {
+        'checksums': ['0e1e8a3f2b3ff062daa19795f947e9ec7a58add269d44e34d3ab4319e1343853'],
+    }),
+    ('alphafold-colabfold', '2.3.4', {
+        'modulename': 'alphafold',
+        'preinstallopts': 'sed -i "s/tensorflow-cpu/tensorflow/g" setup.py && ',
+        'checksums': ['ddc0fbaa15385e0d161029a129a52bec7a9c796f5a7b34a1159d6e43d47cd4fa'],
+    }),
+    ('importlib_metadata', '4.13.0', {
+        'checksums': ['dd0173e8f150d6815e098fd354f6414b0f079af4644ddfe90c71e2fc6174346d'],
+    }),
+    ('toolz', '0.12.0', {
+        'checksums': ['88c570861c440ee3f2f6037c4654613228ff40c93a6c25e0eba70d17282c6194'],
+    }),
+    ('chex', '0.1.6', {
+        'checksums': ['adb5d2352b5f0d248ccf594be1b1bf9ee7a2bee2a57f0eac78547538d479b0e7'],
+    }),
+    ('dm-tree', '0.1.8', {
+        'modulename': 'tree',
+        'checksums': ['0fcaabbb14e7980377439e7140bd05552739ca5e515ecb3119f234acee4b9430'],
+    }),
+    ('websocket-client', '1.5.1', {
+        'modulename': 'websocket',
+        'checksums': ['3f09e6d8230892547132177f575a4e3e73cfdf06526e20cc02aa1c3b47184d40'],
+    }),
+    ('docker', '6.0.1', {
+        'checksums': ['896c4282e5c7af5c45e8b683b0b0c33932974fe6e50fc6906a0a83616ab3da97'],
+    }),
+    ('contextlib2', '21.6.0', {
+        'checksums': ['ab1e2bfe1d01d968e1b7e8d9023bc51ef3509bba217bb730cee3827e1ee82869'],
+    }),
+    ('ml_collections', '0.1.1', {
+        'preinstallopts': "touch requirements.txt && touch requirements-test.txt && ",
+        'checksums': ['3fefcc72ec433aa1e5d32307a3e474bbb67f405be814ea52a2166bfc9dbe68cc'],
+    }),
+    ('tqdm', '4.65.0', {
+        'checksums': ['1871fb68a86b8fb3b59ca4cdd3dcccbc7e6d613eeed31f4c332531977b89beb5'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/colabfold_batch', 'bin/colabfold_search', 'bin/pdbfixer'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    "pdbfixer --help",
+    "python -m openmm.testInstallation",
+    "python -c 'import colabfold'",
+    "colabfold_batch --help",
+    "colabfold_search --help",
+    "colabfold_split_msas --help",
+    "mmseqs --help | grep 'MMseqs2 Version: %s'" % local_mmseqs_version,
+]
+
+sanity_pip_check = True
+
+modextrapaths = {
+    'COLABFOLDDIR': '',
+}
+
+modextravars = {
+    'TF_FORCE_UNIFIED_MEMORY': '1',
+    'OPENMM_RELAX': 'CUDA',  # unset or set to 'CPU' in order not to run the energy minimization on GPU; PR#189
+    'XLA_PYTHON_CLIENT_MEM_FRACTION': '4.0',
+    'MPLBACKEND': 'Agg',
+    # 'COLABFOLD_DATA_DIR': '/data/public/colabfold/data-%(version)s', # please adapt
+    'XDG_CACHE_HOME': '',
+}
+
+moduleclass = 'bio'
