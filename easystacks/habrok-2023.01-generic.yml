@@ -1,0 +1,8 @@
+easyconfigs:
+  - COMSOL-6.0.eb
+  - Mathematica-13.1.0.eb
+  - MATLAB-2022b-r5.eb
+  - StataSE-17.eb:
+      options:
+        ignore-osdeps: True
+

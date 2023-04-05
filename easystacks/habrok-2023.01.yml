@@ -29,7 +29,6 @@ easyconfigs:
   - BWA-0.7.17-GCCcore-11.3.0.eb
   - CellRanger-6.1.2.eb
   - CLHEP-2.4.5.1-GCC-11.2.0.eb
-  - COMSOL-6.0.eb
   - Dakota-6.17.0-foss-2022a.eb
   - DFT-D3-3.2.0-intel-compilers-2021.4.0.eb
   - DIAMOND-2.0.13-GCC-11.2.0.eb
@@ -55,8 +54,6 @@ easyconfigs:
   - LAMMPS-23Jun2022-foss-2021b-kokkos.eb
   - LAMMPS-23Jun2022-foss-2021b-kokkos-CUDA-11.4.1.eb
   - libGLU-9.0.2-GCCcore-11.2.0.eb
-  - Mathematica-13.1.0.eb
-  - MATLAB-2022b-r5.eb
   - matplotlib-3.5.2-foss-2022a.eb
   - MEGAHIT-1.2.9-GCCcore-11.3.0.eb
   - MIGRATE-N-5.0.4-foss-2021b.eb
@@ -87,9 +84,6 @@ easyconfigs:
   - Seaborn-0.12.1-foss-2022a.eb
   - SPAdes-3.15.5-GCC-11.3.0.eb
   - Stacks-2.62-foss-2022a.eb
-  - StataSE-17.eb:
-      options:
-        ignore-osdeps: True
   - SUNDIALS-6.3.0-foss-2022a.eb
   - TensorFlow-2.7.1-foss-2021b-CUDA-11.4.1.eb
   - TensorFlow-2.11.0-foss-2022a-CUDA-11.7.0.eb
