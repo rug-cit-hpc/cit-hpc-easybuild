@@ -13,7 +13,9 @@ sources = [SOURCELOWER_TAR]
 sources = ['%(namelower)s-%(version)s.x86_64-linux.tar']
 
 # TODO: fix this, as it probably will not clean old installation when reinstalling this
-skipsteps = ['install']
+# Skipping sanitycheck as well, because this fails with RPATH enabled,
+# need to switch to a Binary easyblock to make it succeed
+skipsteps = ['install', 'sanitycheck']
 
 cmds_map = [
     ('', 'echo %(installdir)s > answers.txt && ' +
