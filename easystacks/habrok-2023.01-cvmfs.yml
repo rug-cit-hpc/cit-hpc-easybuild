@@ -19,9 +19,7 @@ easyconfigs:
   - BEDTools-2.30.0-GCC-11.3.0.eb
   - BioPerl-1.7.8-GCCcore-11.3.0.eb
   - Biopython-1.79-foss-2022a.eb
-  - Bismark-0.24.0-GCC-11.3.0.eb:
-      options:
-        from-pr: 17610
+  - Bismark-0.24.0-GCC-11.3.0.eb
   - BLAST-2.11.0-Linux_x86_64.eb
   - BLAST+-2.13.0-gompi-2022a.eb
   - Bowtie-1.3.1-GCC-11.2.0.eb
