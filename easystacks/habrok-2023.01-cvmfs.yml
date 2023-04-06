@@ -36,6 +36,7 @@ easyconfigs:
   - dRep-3.4.2-foss-2022a.eb
   - ELPA-2021.05.001-intel-2021b.eb
   - FastQC-0.11.9-Java-11.eb
+  - fpc-3.2.2.eb
   - FreeSurfer-7.3.2-centos8_x86_64.eb
   - Geant4-11.0.2-GCC-11.3.0-OpenGL.eb
   - Geant4-data-20220929.eb
