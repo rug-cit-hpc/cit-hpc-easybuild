@@ -53,12 +53,18 @@ end
 '''
 
 
-#def parse_hook(self):
+def parse_hook(self):
     # Check if the software should only be available to a specific group
     # Disabled for now, does not work in a container :-(
     #if self.name in GROUP_SOFTWARE:
     #    self.log.info("[pre-configure hook] Making sure that this software is only available to a specific group")
     #    self['group'] = GROUP_SOFTWARE[self.name]
+
+    # Skip sanity check for git-lfs, which doesn not work with RPATH enabled
+    # because it's built with Go:
+    # https://github.com/easybuilders/easybuild-easyconfigs/issues/17516
+    if self.name == 'git-lfs':
+        self['skipsteps'] = ['sanitycheck'] if not 'skipsteps' in self else self['skipsteps'] + ['sanitycheck']
 
 def pre_configure_hook(self, *args, **kwargs):
     # Check if a license file/server needs to be configured
