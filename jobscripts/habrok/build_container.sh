@@ -310,13 +310,21 @@ then
 fi
 export MYTMPDIR TARBALL OUTDIR SW_STACK_REPO SW_STACK_OS SW_STACK_VERSION SW_STACK_ARCH
 
+# Determine if the host has a GPU, and make it available in the container
+SING_GPU_FLAGS=""
+if [ -c /dev/nvidia0 ];
+then
+    SING_GPU_FLAGS="--nv"
+    SINGBIND="-B /etc/OpenCL/ ${SINGBIND}"
+fi
+
 # Launch the container. If a command was specified, we run the above script. Otherwise, we fire up an interactive shell.
 SINGBIND="${SINGBIND} -B ${EASYBUILD_SOURCEPATH} -B ${CVMFS_LOCAL_DEFAULTS}:/etc/cvmfs/default.local -B ${MYTMPDIR}/cvmfs/run:/var/run/cvmfs -B ${MYTMPDIR}/cvmfs/lib:/var/lib/cvmfs -B ${MYTMPDIR}"
 if [ -z "${COMMAND}" ];
 then
-  singularity exec ${SINGBIND} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER} /bin/bash
+  singularity exec ${SING_GPU_FLAGS} ${SINGBIND} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER} /bin/bash
 else
-  singularity shell ${SINGBIND} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER} < ${TMPSCRIPT}
+  singularity shell ${SING_GPU_FLAGS} ${SINGBIND} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER} < ${TMPSCRIPT}
 fi
 
 # Create a tarball of the installed software, if applicable
