@@ -1,0 +1,14 @@
+# This patch resolves the tree vectorizatior error that appears when "-march" is used with GCC 11.3.0:
+# Based on the patch for OpenMM 8.0.0 created by maxim-masterov (SURF)
+
+diff -ru openmm-7.7.0-orig/platforms/common/src/CommonKernels.cpp openmm-7.7.0/platforms/common/src/CommonKernels.cpp
+--- openmm-7.7.0-orig/platforms/common/src/CommonKernels.cpp    2023-04-05 13:36:30.596808118 +0200
++++ openmm-7.7.0/platforms/common/src/CommonKernels.cpp 2023-04-05 13:37:07.499449649 +0200
+@@ -5125,6 +5125,7 @@
+     sortAtoms();
+ }
+ 
++__attribute__((optimize("no-tree-vectorize")))
+ void CommonCalcGayBerneForceKernel::sortAtoms() {
+     // Sort the list of atoms by type to avoid thread divergence.  This is executed every time
+     // the atoms are reordered.
