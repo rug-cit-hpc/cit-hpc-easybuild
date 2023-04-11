@@ -99,3 +99,4 @@ easyconfigs:
   - IOR-3.3.0-gompi-2022a.eb
   - netCDF-C++4-4.3.1-gompi-2021b.eb
   - netCDF-C++4-4.3.1-gompi-2022a.eb
+  - netCDF-C++4-4.3.1-gompi-2021a.eb
