@@ -97,3 +97,5 @@ easyconfigs:
   - HPL-2.3-intel-2021b.eb
   - HPL-2.3-foss-2022a.eb
   - IOR-3.3.0-gompi-2022a.eb
+  - netCDF-C++4-4.3.1-gompi-2021b.eb
+  - netCDF-C++4-4.3.1-gompi-2022a.eb
