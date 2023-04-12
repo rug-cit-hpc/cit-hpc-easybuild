@@ -101,3 +101,4 @@ easyconfigs:
   - netCDF-C++4-4.3.1-gompi-2022a.eb
   - netCDF-C++4-4.3.1-gompi-2021a.eb
   - Python-3.9.5-GCCcore-10.3.0.eb
+  - Python-3.8.16-GCCcore-11.2.0.eb
