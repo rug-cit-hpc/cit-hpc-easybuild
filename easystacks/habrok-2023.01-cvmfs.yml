@@ -102,3 +102,7 @@ easyconfigs:
   - netCDF-C++4-4.3.1-gompi-2021a.eb
   - Python-3.9.5-GCCcore-10.3.0.eb
   - Python-3.8.16-GCCcore-11.2.0.eb
+  - HybPiper-2.1.1-foss-2021b.eb
+  - MAFFT-7.490-gompi-2021b-with-extensions.eb
+  - Armadillo-11.4.2-foss-2022a.eb
+  - Trimmomatic-0.39-Java-11.eb
