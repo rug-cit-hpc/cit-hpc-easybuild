@@ -106,3 +106,4 @@ easyconfigs:
   - MAFFT-7.490-gompi-2021b-with-extensions.eb
   - Armadillo-11.4.2-foss-2022a.eb
   - Trimmomatic-0.39-Java-11.eb
+  - phyx-1.3-foss-2022a.eb
