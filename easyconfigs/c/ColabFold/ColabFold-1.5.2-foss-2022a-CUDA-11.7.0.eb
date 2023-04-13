@@ -14,7 +14,7 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('OpenMM', '7.7.0', versionsuffix),
+    ('OpenMM', '8.0.0', versionsuffix),
     ('Python', '3.10.4'),
     ('CUDA', '11.7.0', '', SYSTEM),
     ('SciPy-bundle', '2022.05'),
