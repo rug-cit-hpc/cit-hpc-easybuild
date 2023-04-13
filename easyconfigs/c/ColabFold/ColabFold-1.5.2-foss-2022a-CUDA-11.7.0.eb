@@ -24,7 +24,7 @@ dependencies = [
     ('Biopython', '1.79'),
     ('HH-suite', '3.3.0'),
     ('Kalign', '3.3.5'),
-    ('jax', '0.4.4', versionsuffix),  # also provides absl-py
+    ('jax', '0.3.25', versionsuffix),  # also provides absl-py
     ('UCX-CUDA', '1.12.1', versionsuffix),
     ('cuDNN', '8.4.1.50', versionsuffix, SYSTEM),
 ]
