@@ -108,3 +108,4 @@ easyconfigs:
   - Trimmomatic-0.39-Java-11.eb
   - phyx-1.3-foss-2022a.eb
   - RAxML-8.2.12-gompi-2021b-hybrid-avx2.eb
+  - ASTRAL-5.7.1-Java-11.eb
