@@ -73,6 +73,7 @@ easyconfigs:
   - PIPITS-3.0-foss-2022a.eb
   - PLINK-1.90b7-x86_64.eb
   - PLINK-2.00a3.7-foss-2022a.eb
+  - PRSice-2.3.5-GCCcore-11.3.0.eb
   - PyTorch-1.12.1-foss-2022a-CUDA-11.7.0.eb
   - QIIME2-2022.11.eb
   - QuantumESPRESSO-7.1-foss-2022a.eb
