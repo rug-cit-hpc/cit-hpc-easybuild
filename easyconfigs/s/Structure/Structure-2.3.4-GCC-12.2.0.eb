@@ -29,6 +29,10 @@ buildopts = 'all CC="$CC" OPT="$CFLAGS"'
 
 files_to_copy = [(['structure'], 'bin')]
 
+sanity_check_commands = [
+    'structure | grep "Version %(version)s"'
+]
+
 sanity_check_paths = {
     'files': ['bin/structure'],
     'dirs': [],
