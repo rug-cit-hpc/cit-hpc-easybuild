@@ -1,0 +1,32 @@
+easyblock = 'PythonBundle'
+
+name = 'OpenEXR-python'
+version = '1.3.9'
+
+homepage = 'https://github.com/sanguinariojoe/pip-openexr'
+description = "Python bindings for ILM’s OpenEXR image file format."
+
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('OpenEXR', '3.1.5'),
+    ('zlib', '1.2.12'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('OpenEXR', version, {
+        'modulename': 'OpenEXR',
+        'patches': ['OpenEXR-python-1.3.9_fix_search_paths_for_headers_and_libs.patch'],
+        'checksums': [
+            {'OpenEXR-1.3.9.tar.gz': 'cffcd13906291ef1a81b369c1c0e907648ecd24363668873691f44866704ab21'},
+            {'OpenEXR-python-1.3.9_fix_search_paths_for_headers_and_libs.patch':
+             '347966ea87743f5208d83e9374d3eb82b93380879eb2a96218b5768563440045'},
+        ],
+    }),
+]
+
+moduleclass = 'vis'
