@@ -54,9 +54,7 @@ easyconfigs:
   - intel-2021b.eb
   - Julia-1.8.5-linux-x86_64.eb
   - JupyterLab-3.5.0-GCCcore-11.3.0.eb
-  - Kraken2-2.1.2-gompi-2022a.eb:
-      options:
-        from-pr: 17725
+  - Kraken2-2.1.2-gompi-2022a.eb
   - LAMMPS-23Jun2022-foss-2021b-kokkos.eb
   - LAMMPS-23Jun2022-foss-2021b-kokkos-CUDA-11.4.1.eb
   - libGLU-9.0.2-GCCcore-11.2.0.eb
@@ -76,9 +74,7 @@ easyconfigs:
   - PIPITS-3.0-foss-2022a.eb
   - PLINK-1.90b7-x86_64.eb
   - PLINK-2.00a3.7-foss-2022a.eb
-  - prokka-1.14.5-gompi-2022a.eb:
-      options:
-        from-pr: 17723
+  - prokka-1.14.5-gompi-2022a.eb
   - PRSice-2.3.5-GCCcore-11.3.0.eb
   - PyTorch-1.12.1-foss-2022a-CUDA-11.7.0.eb
   - QIIME2-2022.11.eb
@@ -95,9 +91,7 @@ easyconfigs:
   - SPAdes-3.15.5-GCC-11.3.0.eb
   - Stacks-2.62-foss-2022a.eb
   - Structure-2.3.4-GCC-12.2.0.eb
-  - Subread-2.0.4-GCC-11.3.0.eb:
-      options:
-        from-pr: 17724
+  - Subread-2.0.4-GCC-11.3.0.eb
   - SUNDIALS-6.3.0-foss-2022a.eb
   - TensorFlow-2.7.1-foss-2021b-CUDA-11.4.1.eb
   - TensorFlow-2.11.0-foss-2022a-CUDA-11.7.0.eb
