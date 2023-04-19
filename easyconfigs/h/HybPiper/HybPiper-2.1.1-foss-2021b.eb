@@ -1,0 +1,59 @@
+easyblock = 'PythonBundle'
+
+name = 'HybPiper'
+version = '2.1.1'
+
+homepage = 'https://github.com/mossmatters/HybPiper'
+description = """HybPiper was designed for targeted sequence capture, in which DNA sequencing libraries are enriched
+ for gene regions of interest, especially for phylogenetics. HybPiper is a suite of Python scripts/modules that wrap
+ and connect bioinformatics tools in order to extract target sequences from high-throughput DNA sequencing reads."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('Seaborn', '0.11.2'),
+    ('matplotlib', '3.4.3'),
+    ('SciPy-bundle', '2021.10'),
+    #('Biopython', '1.8.0'), # version has not been released yet, so including dev version as extension for now
+    ('Exonerate', '2.4.0'),
+    ('BLAST+', '2.12.0'),
+    ('DIAMOND', '2.0.13'),
+    ('BWA', '0.7.17'),
+    ('BBMap', '38.98'),
+    ('SPAdes', '3.15.3'),
+    ('parallel', '20210722'),
+    ('SAMtools', '1.14'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('Pebble', '4.6.3', {
+        'checksums': ['694e1105db888f3576b8f00662f90b057cf3780e6f8b7f57955a568008d0f497'],
+    }),
+    ('python-utils', '3.3.3', {
+        'checksums': ['3b1c8b706e40e91280eec5fa72ea730880a166cee99afa5555b863d55664478d'],
+    }),
+    ('progressbar2', '4.0.0', {
+        'modulename': 'progressbar',
+        'checksums': ['14d3165a1781d053ffaa117daf27cc706128d2ec1d2977fdb05b6bb079888013'],
+    }),
+    ('biopython', '1.81', {
+        'modulename': 'Bio',
+        'checksums': ['2cf38112b6d8415ad39d6a611988cd11fb5f33eb09346666a87263beba9614e0'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/mossmatters/HybPiper/archive/refs/tags'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['666dd34254a285a9ebd42fd2a46d01970f8375c1b719b6d0aeadd7b0fbaea11a'],
+    }),
+]
+
+sanity_check_commands = [
+    'hybpiper --help',
+    'hybpiper check_dependencies',
+]
+
+moduleclass = 'bio'
