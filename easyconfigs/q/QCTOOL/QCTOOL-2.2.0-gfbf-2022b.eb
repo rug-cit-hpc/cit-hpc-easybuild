@@ -1,0 +1,39 @@
+easyblock = 'Waf'
+
+name = 'QCTOOL'
+version = '2.2.0'
+_commit = '86639c1ad4e7cba1'
+
+homepage = 'https://www.well.ox.ac.uk/~gav/qctool_v2/index.html'
+description = "QCTOOL is a command-line utility program for basic quality control of gwas datasets"
+
+toolchain = {'name': 'gfbf', 'version': '2022b'}
+
+# source tarball is generated on the fly and can be slow, --download-timeout may be necessary
+source_urls = ['https://enkre.net/cgi-bin/code/%%(name)s/tarball/%s' % _commit]
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'download_filename': '%(namelower)s-%s.tar.gz' % _commit
+}]
+patches = ['%(name)s-%(version)s_use_flexiblas.patch']
+checksums = [
+    {'QCTOOL-2.2.0.tar.gz': '2ded823f597faa3bfe9e72ef8c21485eee7fece65aa50d0a40ea7220f1cae475'},
+    {'QCTOOL-2.2.0_use_flexiblas.patch': '1f9943f12350f1b26f6b24230336ce132e2a15a953f35a57c79b95c94fb3fd28'},
+]
+
+builddependencies = [
+    ('Python', '3.10.8'),
+]
+
+_bins = ['hptest', 'inthinnerator', 'ldbird', 'qctool', 'selfmap']
+# all installed binaries have a suffix containing the version, make symlinks without this suffix
+postinstallcmds = ['ln -s %s_v%%(version)s %%(installdir)s/bin/%s' % (x, x) for x in _bins]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in _bins],
+    'dirs': []
+}
+
+sanity_check_commands = ['%s -help' % x for x in _bins]
+
+moduleclass = 'bio'

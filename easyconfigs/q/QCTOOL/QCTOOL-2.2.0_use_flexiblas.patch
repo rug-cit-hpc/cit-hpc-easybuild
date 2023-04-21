@@ -1,0 +1,28 @@
+Link with FlexiBLAS for BLAS and LAPACK functionality.
+Author: Bob Dröge, University of Groningen
+
+diff -ru qctool-86639c1ad4e7cba1.orig/wscript qctool-86639c1ad4e7cba1/wscript
+--- qctool-86639c1ad4e7cba1.orig/wscript	2021-11-30 14:26:33.000000000 +0100
++++ qctool-86639c1ad4e7cba1/wscript	2023-04-21 11:25:51.333814762 +0200
+@@ -161,13 +161,17 @@
+ 	return int(result) ;
+ }
+ """
+-		if check_cxx( cfg, lib = 'cblas', fragment = blasCode, uselib_store = 'CBLAS' ):
+-			cfg.define( 'HAVE_CBLAS', 1 ) ;
+-		elif check_cxx( cfg, lib = 'blas', fragment = blasCode, uselib_store = 'CBLAS' ):
++		if check_cxx( cfg, lib = 'flexiblas', fragment = blasCode, uselib_store = 'CBLAS' ):
+ 			cfg.define( 'HAVE_CBLAS', 1 ) ;
+ 		elif check_cxx( cfg, lib = 'openblas', fragment = blasCode, uselib_store = 'CBLAS' ):
+ 			cfg.define( 'HAVE_CBLAS', 1 ) ;
+-		if check_cxx(
++		elif check_cxx( cfg, lib = 'cblas', fragment = blasCode, uselib_store = 'CBLAS' ):
++			cfg.define( 'HAVE_CBLAS', 1 ) ;
++		elif check_cxx( cfg, lib = 'blas', fragment = blasCode, uselib_store = 'CBLAS' ):
++			cfg.define( 'HAVE_CBLAS', 1 ) ;
++		if check_cxx( cfg, lib = 'flexiblas', uselib_store = 'LAPACK' ):
++			cfg.define( 'HAVE_LAPACK', 1 );
++		elif check_cxx(
+ 			cfg,
+ 			lib = 'lapack',
+ 			uselib_store = 'LAPACK'
