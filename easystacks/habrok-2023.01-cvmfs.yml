@@ -78,6 +78,7 @@ easyconfigs:
   - prokka-1.14.5-gompi-2022a.eb
   - PRSice-2.3.5-GCCcore-11.3.0.eb
   - PyTorch-1.12.1-foss-2022a-CUDA-11.7.0.eb
+  - QCTOOL-2.2.0-gfbf-2022b.eb
   - QIIME2-2022.11.eb
   - QuantumESPRESSO-7.1-foss-2022a.eb
   - QUAST-5.2.0-foss-2022a.eb
