@@ -10,7 +10,7 @@ description = "QCTOOL is a command-line utility program for basic quality contro
 toolchain = {'name': 'gfbf', 'version': '2022b'}
 
 # source tarball is generated on the fly and can be slow, --download-timeout may be necessary
-source_urls = ['https://enkre.net/cgi-bin/code/%%(name)s/tarball/%s' % _commit]
+source_urls = ['https://enkre.net/cgi-bin/code/%%(namelower)s/tarball/%s' % _commit]
 sources = [{
     'filename': '%(name)s-%(version)s.tar.gz',
     'download_filename': '%%(namelower)s-%s.tar.gz' % _commit
