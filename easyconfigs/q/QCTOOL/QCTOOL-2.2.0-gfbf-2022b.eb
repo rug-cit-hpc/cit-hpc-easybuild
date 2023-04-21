@@ -13,7 +13,7 @@ toolchain = {'name': 'gfbf', 'version': '2022b'}
 source_urls = ['https://enkre.net/cgi-bin/code/%%(name)s/tarball/%s' % _commit]
 sources = [{
     'filename': '%(name)s-%(version)s.tar.gz',
-    'download_filename': '%(namelower)s-%s.tar.gz' % _commit
+    'download_filename': '%%(namelower)s-%s.tar.gz' % _commit
 }]
 patches = ['%(name)s-%(version)s_use_flexiblas.patch']
 checksums = [
