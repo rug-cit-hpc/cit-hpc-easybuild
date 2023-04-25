@@ -25,6 +25,8 @@ osdependencies = [
 
 dependencies = [
     ('zstd', '1.5.2'),
+    ('XZ', '5.2.5'),
+    ('lz4', '1.9.3'),
 ]
 
 preconfigopts = './autogen.sh && '
