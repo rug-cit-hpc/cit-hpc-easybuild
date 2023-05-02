@@ -122,3 +122,6 @@ easyconfigs:
   - RAxML-8.2.12-gompi-2021b-hybrid-avx2.eb
   - ASTRAL-5.7.1-Java-11.eb
   - deepTools-3.5.1-foss-2021b.eb
+  - CDO-2.0.5-gompi-2021b.eb
+  - CDO-2.0.6-gompi-2022a.eb
+  - R2jags/0.7-1-foss-2022a-R-4.2.1
