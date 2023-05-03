@@ -4,7 +4,9 @@ name = 'CellProfiler'
 version = '4.2.5'
 
 homepage = 'http://cellprofiler.org/'
-description = """CellProfiler is a free open-source software designed to enable biologists without training in computer vision or programming to quantitatively measure phenotypes from thousands of images automatically."""
+description = """CellProfiler is a free open-source software designed to enable biologists without 
+training in computer vision or programming to quantitatively measure phenotypes 
+from thousands of images automatically."""
 
 toolchain = {'name': 'foss', 'version': '2022a'}
 
@@ -29,9 +31,6 @@ dependencies = [
 ]
 
 use_pip = True
-#sanity_pip_check = True
-
-#exts_default_options = {'source_urls': [PYPI_SOURCE]}
 
 exts_list = [
     ('docutils', '0.19', {
