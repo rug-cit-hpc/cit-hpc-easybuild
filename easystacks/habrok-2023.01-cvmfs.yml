@@ -126,4 +126,5 @@ easyconfigs:
   - CDO-2.0.6-gompi-2022a.eb
   - R2jags/0.7-1-foss-2022a-R-4.2.1
   - ViennaRNA-2.5.1-foss-2021b.eb
-  - Metal-2020-05-05-GCC-10.2.0
+  - Metal-2020-05-05-GCC-10.2.0.eb
+  - NWChem-7.0.2-intel-2022a.eb
