@@ -10,6 +10,6 @@ toolchain = SYSTEM
 sources = ['Mathematica_%(version)s_BNDL_LINUX.sh']
 checksums = ['2c8a46009dee4e46608dcd18ca4c2eb32c8740a9429d3beb6464ad15f48ecfad']
 
-license_server = 'lic005.workspace.rug.nl'
+license_server = 'lic009.workspace.rug.nl'
 
 moduleclass = 'math'
