@@ -81,6 +81,9 @@ easyconfigs:
   - PLINK-2.00a3.7-foss-2022a.eb
   - prokka-1.14.5-gompi-2022a.eb
   - PRSice-2.3.5-GCCcore-11.3.0.eb
+  - PSORTb-3.0.6-GCCcore-11.3.0.eb:
+      options:
+        from-pr: 17877
   - PyTorch-1.12.1-foss-2022a-CUDA-11.7.0.eb
   - QCTOOL-2.2.0-gfbf-2022b.eb:
       options:
