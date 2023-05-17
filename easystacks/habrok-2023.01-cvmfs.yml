@@ -142,3 +142,4 @@ easyconfigs:
   - Metal-2020-05-05-GCC-10.2.0.eb
   - NWChem-7.0.2-intel-2022a.eb
   - VMD-1.9.4a57-foss-2022a.eb
+  - EMBOSS-6.6.0-foss-2022a.eb
