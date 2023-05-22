@@ -1,0 +1,60 @@
+easyblock = 'CMakeMake'
+
+name = 'Kaldi'
+version = '20220213'
+versionsuffix = '-CUDA-%(cudaver)s'
+local_commit = 'e4940d0'
+
+homepage = 'https://kaldi-asr.org/'
+description = """Kaldi is a toolkit for speech recognition, intended for use by speech recognition
+ researchers and professionals."""
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'git_config': {
+        'url': 'https://github.com/kaldi-asr',
+        'repo_name': name.lower(),
+        'commit': local_commit,
+        'keep_git_dir': True,
+    },
+}]
+patches = ['Kaldi-20220213_fix_pdep_u64_not_declared.patch']
+checksums = [
+    # '7d70ba635a2fb6254edc794f7d89317d31ac6f79d9e70a717e07381cd1a58eb0',  # Kaldi-20220213.tar.gz
+    None,
+    # Kaldi-20220213_fix_pdep_u64_not_declared.patch
+    '594943de70b800f86d22c81a169a2e98ff4c661a56dbcf13bbd790201d8c9f32',
+]
+
+builddependencies = [
+    ('CMake', '3.20.1'),
+    ('Ninja', '1.10.2'),
+]
+
+dependencies = [
+    ('SoX', '14.4.2'),
+    ('CUDA', '11.1.1', '', True),
+]
+
+configopts = '-GNinja -DBUILD_SHARED_LIBS=ON -DBLAS_openblas_LIBRARY=$EBROOTFLEXIBLAS/lib64/libflexiblas.so '
+configopts += '-DLAPACK_openblas_LIBRARY=$EBROOTFLEXIBLAS/lib64/libflexiblas.so'
+build_cmd = 'cmake --build .'
+install_cmd = 'cmake --build . --target install'
+postinstallcmds = ['cp -r %(builddir)s/kaldi/egs %(installdir)s']
+
+sanity_check_paths = {
+    'files': ['bin/fstcopy', 'bin/gmm-init-model', 'bin/matrix-sum', 'lib64/libfst.so', 'lib64/libkaldi-base.so'],
+    'dirs': ['egs', 'include', 'lib', 'lib64', 'testbin'],
+}
+
+sanity_check_commands = [
+    'fstcopy --help',
+    'gmm-init-model --help',
+    'matrix-sum --help',
+]
+
+modextravars = {'KALDI_ROOT': '%(installdir)s'}
+
+moduleclass = 'tools'
