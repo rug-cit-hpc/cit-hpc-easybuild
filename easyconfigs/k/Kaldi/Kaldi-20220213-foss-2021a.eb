@@ -33,7 +33,7 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('SoX', '14.4.2'),
+    ('SoX', '14.4.2', '', ('GCCcore', '10.3.0')),
 ]
 
 configopts = '-GNinja -DBUILD_SHARED_LIBS=ON -DBLAS_openblas_LIBRARY=$EBROOTFLEXIBLAS/lib64/libflexiblas.so '
