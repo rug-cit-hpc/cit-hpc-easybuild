@@ -115,6 +115,7 @@ easyconfigs:
   - TURBOMOLE-7.6-serial.eb
   - TURBOMOLE-7.6-smp.eb
   - X11-20220504-GCCcore-11.3.0.eb
+  - XCrySDen-1.6.2-foss-2022a.eb
   - HPL-2.3-intel-2021b.eb
   - HPL-2.3-foss-2022a.eb
   - IOR-3.3.0-gompi-2022a.eb
