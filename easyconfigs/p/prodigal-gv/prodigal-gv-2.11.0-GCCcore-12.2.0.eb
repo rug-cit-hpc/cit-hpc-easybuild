@@ -1,0 +1,38 @@
+##
+# This is a contribution from Phoenix HPC Service, The University of Adelaide, Australia
+# Homepage: https://www.adelaide.edu.au/phoenix/
+#
+# Copyright::   adelaide.edu.au/phoenix
+# Authors::	Robert Qiao <robert.qiao@adelaide.edu.au>, Exe Escobedo <exequiel.sepulvedaescobedo@adelaide.edu.au>
+# License::	GPL-v3.0
+#
+# Notes::
+##
+
+easyblock = 'MakeCp'
+
+name = 'prodigal-gv'
+version = '2.11.0'
+
+homepage = 'https://github.com/apcamargo/prodigal-gv'
+
+description = """A fork of Prodigal meant to improve gene calling for giant viruses 
+	and viruses that use alternative genetic codes"""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+source_urls = ['https://github.com/apcamargo/prodigal-gv/archive/refs/tags/']
+sources = ['%(version)s.tar.gz']
+
+files_to_copy = [
+    (['prodigal-gv'], 'bin'),
+    (['*.h'], 'include'),
+    (['LICENSE'], 'license'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/prodigal-gv'],
+    'dirs': ['include', 'license'],
+}
+
+moduleclass = 'bio'
