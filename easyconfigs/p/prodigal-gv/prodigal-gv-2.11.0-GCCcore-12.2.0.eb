@@ -38,4 +38,6 @@ sanity_check_paths = {
     'dirs': ['include', 'license'],
 }
 
+sanity_check_commands = ['prodigal-gv -h']
+
 moduleclass = 'bio'
