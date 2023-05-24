@@ -23,6 +23,7 @@ toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
 
 source_urls = ['https://github.com/apcamargo/prodigal-gv/archive/refs/tags/']
 sources = ['%(version)s.tar.gz']
+checksums = ['ea3df16a7022146f4e9d610f9b77a33b0a4d39d91d311301ffbee679e3f7ed02']
 
 files_to_copy = [
     (['prodigal-gv'], 'bin'),
