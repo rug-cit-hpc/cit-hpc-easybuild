@@ -81,6 +81,7 @@ easyconfigs:
   - PIPITS-3.0-foss-2022a.eb
   - PLINK-1.90b7-x86_64.eb
   - PLINK-2.00a3.7-foss-2022a.eb
+  - PostgreSQL-13.4-GCCcore-11.2.0.eb
   - prokka-1.14.5-gompi-2022a.eb
   - PRSice-2.3.5-GCCcore-11.3.0.eb
   - PSORTb-3.0.6-GCCcore-11.3.0.eb:
