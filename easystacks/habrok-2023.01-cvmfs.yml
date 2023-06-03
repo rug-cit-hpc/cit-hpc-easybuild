@@ -1,8 +1,5 @@
 easyconfigs:
   - EasyBuild-4.7.1.eb
-  - SeqKit-2.3.1.eb:
-      options:
-        include-easyblocks-from-pr: 2913
   - netCDF-4.9.0-gompi-2022a.eb:
       options:
         skip-test-step: True
@@ -101,6 +98,7 @@ easyconfigs:
   - scikit-learn-1.1.2-foss-2022a.eb
   - SciPy-bundle-2022.05-foss-2022a.eb
   - Seaborn-0.12.1-foss-2022a.eb
+  - SeqKit-2.3.1.eb
   - SPAdes-3.15.5-GCC-11.3.0.eb
   - Stacks-2.62-foss-2022a.eb
   - Structure-2.3.4-GCC-12.2.0.eb
