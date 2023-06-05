@@ -40,6 +40,7 @@ easyconfigs:
   - FreeSurfer-7.3.2-centos8_x86_64.eb
   - Geant4-11.0.2-GCC-11.3.0-OpenGL.eb
   - Geant4-data-20220929.eb
+  - GetOrganelle-1.7.7.0-foss-2022a.eb
   - git-lfs-3.2.0.eb
   - GROMACS-2019.6-foss-2022a.eb
   - GROMACS-2021.5-foss-2021b.eb
