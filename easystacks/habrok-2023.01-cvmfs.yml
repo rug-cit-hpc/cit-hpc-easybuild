@@ -145,3 +145,4 @@ easyconfigs:
   - CellProfiler-4.2.5-foss-2021b.eb:
       options:
         rpath: False
+  - ROOT-6.24.06-foss-2021b.eb
