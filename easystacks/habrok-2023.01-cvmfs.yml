@@ -146,3 +146,5 @@ easyconfigs:
       options:
         rpath: False
   - ROOT-6.24.06-foss-2021b.eb
+  - wxPython-4.2.0-foss-2022a.eb
+  - scikit-image-0.19.3-foss-2022a.eb
