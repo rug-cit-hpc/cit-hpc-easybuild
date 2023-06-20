@@ -102,6 +102,7 @@ easyconfigs:
   - SeqKit-2.3.1.eb
   - SPAdes-3.15.5-GCC-11.3.0.eb
   - Stacks-2.62-foss-2022a.eb
+  - STAR-2.7.10b-GCC-11.3.0.eb
   - Structure-2.3.4-GCC-12.2.0.eb
   - Subread-2.0.4-GCC-11.3.0.eb
   - SUNDIALS-6.3.0-foss-2022a.eb
