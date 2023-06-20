@@ -132,7 +132,7 @@ easyconfigs:
   - deepTools-3.5.1-foss-2021b.eb
   - CDO-2.0.5-gompi-2021b.eb
   - CDO-2.0.6-gompi-2022a.eb
-  - R2jags/0.7-1-foss-2022a-R-4.2.1
+  - R2jags-0.7-1-foss-2022a-R-4.2.1.eb
   - GATK-4.3.0.0-GCCcore-11.3.0-Java-11.eb
   - ncview-2.1.8-gompi-2021a.eb
   - ncview-2.1.8-gompi-2021b.eb
