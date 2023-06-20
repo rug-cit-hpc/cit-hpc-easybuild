@@ -142,3 +142,9 @@ easyconfigs:
   - NWChem-7.0.2-intel-2022a.eb
   - VMD-1.9.4a57-foss-2022a.eb
   - EMBOSS-6.6.0-foss-2022a.eb
+  - CellProfiler-4.2.5-foss-2021b.eb:
+      options:
+        rpath: False
+  - ROOT-6.24.06-foss-2021b.eb
+  - wxPython-4.2.0-foss-2022a.eb
+  - scikit-image-0.19.3-foss-2022a.eb
