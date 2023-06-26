@@ -36,6 +36,7 @@ easyconfigs:
   - dRep-3.4.2-foss-2022a.eb
   - ELPA-2021.05.001-intel-2021b.eb
   - FastQC-0.11.9-Java-11.eb
+  - FFTW-3.3.10-iimpi-2021b.eb
   - fpc-3.2.2.eb
   - FreeSurfer-7.3.2-centos8_x86_64.eb
   - Geant4-11.0.2-GCC-11.3.0-OpenGL.eb
@@ -57,6 +58,7 @@ easyconfigs:
   - LAMMPS-23Jun2022-foss-2021b-kokkos.eb
   - LAMMPS-23Jun2022-foss-2021b-kokkos-CUDA-11.4.1.eb
   - libGLU-9.0.2-GCCcore-11.2.0.eb
+  - libxc-5.1.6-intel-compilers-2021.4.0.eb
   - matplotlib-3.5.2-foss-2022a.eb
   - MEGAHIT-1.2.9-GCCcore-11.3.0.eb
   - MIGRATE-N-5.0.4-foss-2021b.eb
