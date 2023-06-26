@@ -180,6 +180,7 @@ mkdir -p ${TMPDIR}
 MYTMPDIR=$(mktemp -p ${TMPDIR} -d eb_install.XXXXX)
 [ -z ${MYTMPDIR} ] && echo "Failed to create temporary directory!" && exit 1
 echo "Using ${MYTMPDIR} as temporary directory for this run."
+export TMPDIR=${MYTMPDIR}
 trap cleanup EXIT
 
 if [ ! -z "${OUTDIR}" ]
