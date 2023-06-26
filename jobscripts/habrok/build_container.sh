@@ -316,6 +316,7 @@ if [ -c /dev/nvidia0 ];
 then
     SING_GPU_FLAGS="--nv"
     SINGBIND="-B /etc/OpenCL/ ${SINGBIND}"
+    export SW_BUILD_HOST_HAS_GPU=1
 fi
 
 # Launch the container. If a command was specified, we run the above script. Otherwise, we fire up an interactive shell.
