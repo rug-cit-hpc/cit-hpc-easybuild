@@ -66,6 +66,11 @@ def parse_hook(self):
     if self.name == 'git-lfs':
         self['skipsteps'] = ['sanitycheck'] if not 'skipsteps' in self else self['skipsteps'] + ['sanitycheck']
 
+    # Disable OpenMM GPU tests if we are building on a host without a GPU
+    if self.name == 'OpenMM' and not os.environ.get('SW_BUILD_HOST_HAS_GPU', None):
+        self.log.error(self['runtest'])
+        self['runtest'] = self['runtest'][0:self['runtest'].rindex("'")] + '|(Cuda)|(OpenCL)\'" '
+
 def pre_configure_hook(self, *args, **kwargs):
     # Check if a license file/server needs to be configured
     if self.name in LICENSES:
