@@ -112,7 +112,7 @@ def pre_module_hook(self, *args, **kwargs):
         #self.log.info('[pre-module hook] Setting TF_FORCE_UNIFIED_MEMORY to 0')
         if os.getenv('SW_STACK_ARCH', '') == 'x86_64/intel/skylake_avx512':
             # Building for V100 without CUDA unified memory support
-            extramodvars['TF_FORCE_UNIFIED_MEMORY'] = 0
+            extramodvars['TF_FORCE_UNIFIED_MEMORY'] = '0'
             self.log.info('[pre-module hook] Setting TF_FORCE_UNIFIED_MEMORY to 0')
         self.cfg.update('modextravars', extramodvars)
 
@@ -123,7 +123,7 @@ def pre_module_hook(self, *args, **kwargs):
         self.log.info('[pre-module hook] Setting COLABFOLD_DATA_DIR to ' + data_dir)
         if os.getenv('SW_STACK_ARCH', '') == 'x86_64/intel/skylake_avx512':
             # Building for V100 without CUDA unified memory support
-            extramodvars['TF_FORCE_UNIFIED_MEMORY'] = 0
+            extramodvars['TF_FORCE_UNIFIED_MEMORY'] = '0'
             self.log.info('[pre-module hook] Setting TF_FORCE_UNIFIED_MEMORY to 0')
         self.cfg.update('modextravars', extramodvars)
 
