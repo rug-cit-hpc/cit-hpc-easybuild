@@ -52,6 +52,7 @@ easyconfigs:
   - GROMACS-2019.6-foss-2022a.eb
   - GROMACS-2021.5-foss-2021b.eb
   - GROMACS-2021.6-foss-2022a-CUDA-11.7.0.eb
+  - GTDB-Tk-2.1.1-foss-2021b.eb
   - Gurobi-10.0.1-GCCcore-11.3.0.eb
   - HISAT2-2.2.1-gompi-2022a.eb
   - HMMER-3.3.2-gompi-2021b.eb
