@@ -76,6 +76,7 @@ easyconfigs:
   - OpenEXR-python-1.3.9-GCCcore-11.3.0.eb
   - OpenFOAM-v2206-foss-2022a.eb
   - OSU-Micro-Benchmarks-5.9-gompi-2022a.eb
+  - PALEOMIX-1.3.7-foss-2022a.eb
   - Pandoc-3.1.2.eb
   - ParaView-5.10.1-foss-2022a-mpi.eb
   - PETSc-3.17.4-foss-2022a.eb
