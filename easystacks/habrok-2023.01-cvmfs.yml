@@ -58,6 +58,7 @@ easyconfigs:
   - intel-2021b.eb
   - Julia-1.8.5-linux-x86_64.eb
   - JupyterLab-3.5.0-GCCcore-11.3.0.eb
+  - Kaldi-20220213-foss-2021a.eb
   - Kraken2-2.1.2-gompi-2022a.eb
   - LAMMPS-23Jun2022-foss-2021b-kokkos.eb
   - LAMMPS-23Jun2022-foss-2021b-kokkos-CUDA-11.4.1.eb
