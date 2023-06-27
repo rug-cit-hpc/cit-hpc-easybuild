@@ -120,6 +120,8 @@ easyconfigs:
   - TURBOMOLE-7.6-mpi.eb
   - TURBOMOLE-7.6-serial.eb
   - TURBOMOLE-7.6-smp.eb
+  - VCFtools-0.1.16-GCC-11.2.0.eb
+  - VCFtools-0.1.16-GCC-12.2.0.eb
   - X11-20220504-GCCcore-11.3.0.eb
   - XCrySDen-1.6.2-foss-2022a.eb
   - HPL-2.3-intel-2021b.eb
