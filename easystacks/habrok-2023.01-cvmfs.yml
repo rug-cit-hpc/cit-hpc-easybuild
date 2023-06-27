@@ -115,6 +115,7 @@ easyconfigs:
   - SUNDIALS-6.3.0-foss-2022a.eb
   - TensorFlow-2.7.1-foss-2021b-CUDA-11.4.1.eb
   - TensorFlow-2.11.0-foss-2022a-CUDA-11.7.0.eb
+  - TreeMix-1.13-GCC-11.2.0.eb
   - Trim_Galore-0.6.10-GCCcore-11.3.0.eb
   - TURBOMOLE-base-7.6.eb
   - TURBOMOLE-7.6-mpi.eb
