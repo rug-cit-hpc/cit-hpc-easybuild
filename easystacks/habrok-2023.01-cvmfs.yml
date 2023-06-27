@@ -68,6 +68,7 @@ easyconfigs:
   - libGLU-9.0.2-GCCcore-11.2.0.eb
   - libxc-5.1.6-intel-compilers-2021.4.0.eb
   - matplotlib-3.5.2-foss-2022a.eb
+  - MDAnalysis-2.4.2-foss-2022b.eb
   - MEGAHIT-1.2.9-GCCcore-11.3.0.eb
   - MIGRATE-N-5.0.4-foss-2021b.eb
   - MMseqs2-13-45111-gompi-2021b.eb
