@@ -13,6 +13,7 @@ easyconfigs:
   - AlphaFold-2.3.1-foss-2022a-CUDA-11.7.0.eb
   - AmberTools-22.3-foss-2021b.eb
   - Anaconda3-2022.05.eb
+  - Anaconda3-2023.03-1.eb
   - angsd-0.940-GCC-11.2.0.eb
   - astropy-5.1.1-foss-2022a.eb
   - AutoDock-Vina-1.2.3-foss-2021b.eb
