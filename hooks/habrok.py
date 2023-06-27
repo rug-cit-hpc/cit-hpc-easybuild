@@ -110,7 +110,7 @@ def pre_module_hook(self, *args, **kwargs):
         extramodvars = {'ALPHAFOLD_DATA_DIR': data_dir}
         self.log.info('[pre-module hook] Setting ALPHAFOLD_DATA_DIR to ' + data_dir)
         #self.log.info('[pre-module hook] Setting TF_FORCE_UNIFIED_MEMORY to 0')
-        if os.getenv('SW_STACK_ARCH', '') == 'x86_64/intel/skylake_avx512'
+        if os.getenv('SW_STACK_ARCH', '') == 'x86_64/intel/skylake_avx512':
             # Building for V100 without CUDA unified memory support
             extramodvars['TF_FORCE_UNIFIED_MEMORY'] = 0
             self.log.info('[pre-module hook] Setting TF_FORCE_UNIFIED_MEMORY to 0')
@@ -121,7 +121,7 @@ def pre_module_hook(self, *args, **kwargs):
         data_dir = '/scratch/public/%s/%s' % (self.name, self.version)
         extramodvars = {'COLABFOLD_DATA_DIR': data_dir} #, 'TF_FORCE_UNIFIED_MEMORY': '0'}
         self.log.info('[pre-module hook] Setting COLABFOLD_DATA_DIR to ' + data_dir)
-        if os.getenv('SW_STACK_ARCH', '') == 'x86_64/intel/skylake_avx512'
+        if os.getenv('SW_STACK_ARCH', '') == 'x86_64/intel/skylake_avx512':
             # Building for V100 without CUDA unified memory support
             extramodvars['TF_FORCE_UNIFIED_MEMORY'] = 0
             self.log.info('[pre-module hook] Setting TF_FORCE_UNIFIED_MEMORY to 0')
