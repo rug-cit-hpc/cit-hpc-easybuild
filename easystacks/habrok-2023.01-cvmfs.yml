@@ -178,3 +178,4 @@ easyconfigs:
   - Xerces-C++-3.2.3-GCCcore-11.3.0.eb:
       options:
         rpath: False
+  - Geant4-11.0.2-GCC-11.3.0-OpenGL_GDML.eb
