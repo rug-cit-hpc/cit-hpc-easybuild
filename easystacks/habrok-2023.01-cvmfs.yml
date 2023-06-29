@@ -18,6 +18,7 @@ easyconfigs:
   - BA3-SNPS-autotune-2.1.2-GCC-11.3.0.eb
   - BCFtools-1.15.1-GCC-11.3.0.eb
   - BEDTools-2.30.0-GCC-11.3.0.eb
+  - bioawk-1.0-GCC-11.2.0.eb
   - BioPerl-1.7.8-GCCcore-11.3.0.eb
   - Biopython-1.79-foss-2022a.eb
   - Bismark-0.24.0-GCC-11.3.0.eb
