@@ -1,0 +1,68 @@
+easyblock = 'PythonBundle'
+
+name = 'geNomad'
+version = '1.5.2'
+versionsuffix = '-CUDA-11.4.1'
+
+homepage = 'https://portal.nersc.gov/genomad/'
+description = """geNomad is a tool that identifies virus and plasmid genomes from nucleotide sequences.
+It provides state-of-the-art classification performance and can be used to quickly find mobile genetic elements
+from genomes, metagenomes, or metatranscriptomes."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+builddependencies = [('CMake', '3.21.1')]
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('prodigal-gv', '2.11.0'),
+    ('MMseqs2', '13-45111'),
+    ('ARAGORN', '1.2.41'),
+    ('SciPy-bundle', '2021.10'),
+    ('TensorFlow', '2.7.1', versionsuffix),
+    ('numba', '0.54.1', versionsuffix),
+]
+
+use_pip = True
+
+exts_list = [
+    ('flit_core', '3.9.0', {
+        'checksums': ['72ad266176c4a3fcfab5f2930d76896059851240570ce9a98733b658cb786eba'],
+    }),
+    ('python-crfsuite', '0.9.9', {
+        'modulename': 'pycrfsuite',
+        'checksums': ['caa6261d6955466756f986b7fcfbd4fd50622963e3bdb5cc180c129c62b3a76d'],
+    }),
+    ('mdurl', '0.1.2', {
+        'checksums': ['bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba'],
+    }),
+    ('markdown-it-py', '2.2.0', {
+        'modulename': 'markdown_it',
+        'checksums': ['7c9a5e412688bc771c67432cbfebcdd686c93ce6484913dccf06cb5a0bea35a1'],
+    }),
+    ('rich', '13.2.0', {
+        'checksums': ['f1a00cdd3eebf999a15d85ec498bfe0b1a77efe9b34f645768a54132ef444ac5'],
+    }),
+    ('rich-click', '1.6.1', {
+        'checksums': ['f8ff96693ec6e261d1544e9f7d9a5811c5ef5d74c8adb4978430fc0dac16777e'],
+    }),
+    ('taxopy', '0.11.0', {
+        'checksums': ['7ed459e48041a975f3cc9aa2bb4045e65382d45919598d497ca1f86d2f88bd28'],
+    }),
+    ('xgboost', '1.7.6', {
+        'checksums': ['1c527554a400445e0c38186039ba1a00425dcdb4e40b37eed0e74cb39a159c47'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/apcamargo/%(namelower)s/archive'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['e7765db982584b82ab85cc3632e90c33da3a42df396f0e4fc3399f14a51095e2'],
+    }),
+]
+
+sanity_pip_check = True
+
+sanity_check_commands = [
+    'genomad --help',
+]
+
+moduleclass = 'bio'
