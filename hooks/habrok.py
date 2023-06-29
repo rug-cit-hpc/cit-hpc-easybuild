@@ -143,7 +143,8 @@ def pre_module_hook(self, *args, **kwargs):
         self.cfg.update('modluafooter', luafooter)
 
     # Kraken2: add module load message about datasets
-    self.cfg['modloadmsg'] = KRAKEN2_LOAD_MSG
+    if self.name == 'Kraken2':
+        self.cfg['modloadmsg'] = KRAKEN2_LOAD_MSG
 
     # OpenMPI: add Lua code that disables UCX and libfabric on nodes with an Omnipath device
     if self.name == 'OpenMPI':
