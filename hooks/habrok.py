@@ -52,6 +52,11 @@ then
 end
 '''
 
+KRAKEN2_LOAD_MSG = '''The standard Kraken2 database from https://benlangmead.github.io/aws-indexes/k2
+can be found in /scratch/public/genomes/kraken2db. You can use this database by executing:
+export KRAKEN2_DEFAULT_DB=/scratch/public/genomes/kraken2db
+'''
+
 
 def parse_hook(self):
     # Check if the software should only be available to a specific group
@@ -136,6 +141,9 @@ def pre_module_hook(self, *args, **kwargs):
     if self.name == 'Anaconda3':
         luafooter =  'execute{cmd="source \'"..pathJoin(root, "/etc/profile.d/conda."..myShellType()).."\'", modeA={"load"}}'
         self.cfg.update('modluafooter', luafooter)
+
+    # Kraken2: add module load message about datasets
+    self.cfg.update('modloadmsg', KRAKEN2_LOAD_MSG)
 
     # OpenMPI: add Lua code that disables UCX and libfabric on nodes with an Omnipath device
     if self.name == 'OpenMPI':
