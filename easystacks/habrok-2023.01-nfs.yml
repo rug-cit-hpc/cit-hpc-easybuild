@@ -1,3 +1,4 @@
 easyconfigs:
   - Amber-22.0-foss-2021b-AmberTools-22.3-CUDA-11.4.1.eb
+  - CASTEP-23.1-foss-2022b.eb
   - WIEN2k-21.1-intel-2021b.eb
