@@ -1,0 +1,41 @@
+# Updated to PythonBundle and latest version from Pypi
+# Author: J. Sassmannshausen (Imperial College London/UK) 
+
+easyblock = 'PythonBundle'
+
+name = 'HTSeq'
+version = '2.0.3'
+
+homepage = 'https://github.com/simon-anders/htseq'
+description = """HTSeq is a Python library to facilitate processing and analysis
+ of data from high-throughput sequencing (HTS) experiments."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+builddependencies = [('SWIG', '4.0.2')]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('Pysam', '0.19.1'),
+    ('SciPy-bundle', '2022.05'),
+    ('matplotlib', '3.5.2'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    (name, version, {
+        'checksums': ['c7e7eb29bdc44e80d2d68e3599fa8a8f1d9d6475624dcf1b9644285a8a9c0fac'],
+        'modulename': '%(name)s',
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s-count', 'bin/%(namelower)s-qa'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/%(name)s/scripts'],
+}
+
+sanity_check_commands = ['%(namelower)s-count --help']
+
+moduleclass = 'bio'
