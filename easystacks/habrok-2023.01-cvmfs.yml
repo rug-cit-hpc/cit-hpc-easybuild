@@ -185,3 +185,4 @@ easyconfigs:
   - IQ-TREE-2.2.2.3-gompi-2022a.eb
   - HTSeq-2.0.3-foss-2022a.eb
   - PAML-4.10.5-GCCcore-11.3.0.eb
+  - ELPA-2021.11.001-intel-2021b.eb
