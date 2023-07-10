@@ -1,6 +1,7 @@
 easyconfigs:
   - EasyBuild-4.7.1.eb
   - EasyBuild-4.7.2.eb
+  - EasyBuild-4.8.0.eb
   - netCDF-4.9.0-gompi-2022a.eb:
       options:
         skip-test-step: True
