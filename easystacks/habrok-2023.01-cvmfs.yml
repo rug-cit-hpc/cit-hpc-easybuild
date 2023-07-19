@@ -9,7 +9,7 @@ easyconfigs:
       options:
         include-easyblocks-from-pr: 2912
   - ADMIXTURE-1.3.0.eb
-  - AIMMS-4.92.7.5.eb
+  - AIMMS-4.96.4.6.eb
   - AlphaFold-2.3.1-foss-2022a-CUDA-11.7.0.eb
   - AmberTools-22.3-foss-2021b.eb
   - Anaconda3-2022.05.eb
