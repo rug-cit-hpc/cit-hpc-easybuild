@@ -1,26 +1,35 @@
 easyblock = 'Binary'
 
 name = 'AIMMS'
-version = '4.92.7.5'
+version = '4.96.4.6'
 
 homepage = 'https://www.aimms.com/english/developers/resources/manuals/optimization-modeling/'
 description = """AIMMS"""
 
 toolchain = SYSTEM
 
-source_urls = ['https://download.aimms.com/aimms/download/data/4.92/7.5/']
+source_urls = ['https://download.aimms.com/aimms/download/data/4.96/4.6/']
 sources = ['Aimms-%(version)s-installer.run']
-checksums = ['4ece627159e017babd58b8c858434cde834a8f92fc27e78c9adc7c28e4bb8c8a']
+checksums = ['6542a1d5fe0adf6e92e48936fb8b150ef0231343348c984de131be99c783cc24']
 
 install_cmd = './Aimms-%(version)s-installer.run --noexec --target %(installdir)s'
 postinstallcmds = [
     'sed -i "s|\${HOME}/.Aimms|%(installdir)s|g" %(installdir)s/aimms', 
     'env LD_LIBRARY_PATH=%(installdir)s/Bin:$LD_LIBRARY_PATH %(installdir)s/Bin/NodelockTool --network 129.125.67.225 --aimms-root-path %(installdir)s',
+    'chmod -R +X %(installdir)s',
+    'mkdir %(installdir)s/Config',
+    'mkdir %(installdir)s/Licenses',
+    'echo "1	network	129.125.67.225" > %(installdir)s/Config/licenses.cfg',
 ]
 
 sanity_check_paths = {
     'files': ['aimms'],
     'dirs': [],
+}
+
+modextrapaths = {
+    'LD_LIBRARY_PATH': 'Bin',
+    'PATH': 'Bin',
 }
 
 moduleclass = 'math'
