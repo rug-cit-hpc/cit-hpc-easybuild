@@ -157,7 +157,7 @@ done
 # /apps (if available, for licensed apps)
 # /var/lib/sss (if available), and /etc/nsswitch.conf, for ldap functionality
 # all user-specified ones.
-SINGBIND="-B $PWD -B /var/log"
+SINGBIND="-B $PWD -B /var/log -B /home4/hb-software"
 if [ -d "/apps" ]
 then
     SINGBIND="${SINGBIND} -B /apps"
