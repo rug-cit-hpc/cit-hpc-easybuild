@@ -25,6 +25,7 @@ GROUP_SOFTWARE = {
     'Molpro': ('hb-aim', 'hpc@rug.nl', NOT_IN_GROUP_MSG),
     'Mplus': ('hb-mplus', 'hpc@rug.nl', NOT_IN_GROUP_MSG),
     'ORCA': ('hb-orca', 'hpc@rug.nl', NOT_IN_GROUP_MSG),
+    'VASP': ('hb-vasp', 'r.w.a.havenith@rug.nl', NOT_IN_GROUP_MSG),
 }
 
 LICENSES = {
