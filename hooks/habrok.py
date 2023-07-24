@@ -82,8 +82,8 @@ def parse_hook(self):
     if self.name == 'json-c':
         self['pretestopts'] = 'ln -s ../libjson-c.so.5 tests/libjson-c.so.5 && USE_VALGRIND=0 '
 
-    # Xerces: fix failing tests due to not finding a shared library
-    if self.name == 'Xerces':
+    # Xerces-C++: fix failing tests due to not finding a shared library
+    if self.name == 'Xerces-C++':
         self['pretestopts'] = 'export LD_LIBRARY_PATH=%(builddir)s/easybuild_obj/src:$LD_LIBRARY_PATH && ' + (self['pretestopts'] if 'pretestopts' in self else '')
 
 
