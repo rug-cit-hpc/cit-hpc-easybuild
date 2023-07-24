@@ -78,9 +78,13 @@ def parse_hook(self):
         self.log.error(self['runtest'])
         self['runtest'] = self['runtest'][0:self['runtest'].rindex("'")] + '|(Cuda)|(OpenCL)\'" '
 
-    # json-c: add RPATH-related fix for failing tests due to not finding a shared library
+    # json-c: fix failing tests due to not finding a shared library
     if self.name == 'json-c':
         self['pretestopts'] = 'ln -s ../libjson-c.so.5 tests/libjson-c.so.5 && USE_VALGRIND=0 '
+
+    # Xerces: fix failing tests due to not finding a shared library
+    if self.name == 'Xerces':
+        self['pretestopts'] = 'export LD_LIBRARY_PATH=%(builddir)s/easybuild_obj/src:$LD_LIBRARY_PATH && ' + (self['pretestopts'] if 'pretestopts' in self else '')
 
 
 def pre_configure_hook(self, *args, **kwargs):
