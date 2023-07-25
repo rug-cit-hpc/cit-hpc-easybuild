@@ -117,6 +117,9 @@ easyconfigs:
   - R-4.2.1-foss-2022a.eb:
       options:
         parallel-extensions-install: True
+  - R-4.2.2-foss-2022b.eb:
+      options:
+        parallel-extensions-install: True
   - R-bundle-Bioconductor-3.15-foss-2022a-R-4.2.1.eb
   - RepeatModeler-2.0.4-foss-2022a.eb
   - SAMtools-1.16.1-GCC-11.3.0.eb
