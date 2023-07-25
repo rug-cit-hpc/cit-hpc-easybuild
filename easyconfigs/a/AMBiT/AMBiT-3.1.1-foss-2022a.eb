@@ -1,0 +1,52 @@
+easyblock = 'SCons'
+
+name = 'AMBiT'
+version = '3.1.1'
+
+homepage = 'https://github.com/drjuls/AMBiT'
+description = """AMBiT is a high-precision atomic structure software package based on the Configuration Interaction +
+ Many-Body Perturbation Theory (CI+MBPT) method and is developed and maintained by the Julian Berengut Group at the
+ University of New South Wales in Sydney, Australia."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = ['https://github.com/drjuls/%(name)s/archive/']
+sources = ['v%(version)s.tar.gz']
+patches = [('AMBiT-3.1.1-config.ini', 'config.ini')]
+checksums = [
+    {'v3.1.1.tar.gz': '1e9020e7bbdca66d93eda02d836a792f74242174a2569690d27cf423900e5ec7'},
+    {'AMBiT-3.1.1-config.ini': '5c151a9e2f615b96e48a9dd63dea1834331ab5a3174fd8e02770e9632d680235'},
+]
+
+# TODO: generate this file using an easyblock
+builddependencies = [
+    ('SCons', '4.4.0'),
+    ('pkgconf', '1.8.0'),
+    ('git', '2.36.0', '-nodocs'),
+    ('googletest', '1.11.0'), # only for testing
+    # header-only dependencies:
+    ('Eigen', '3.4.0'),
+    ('sparsehash', '2.0.4'),
+]
+
+dependencies = [
+    ('GSL', '2.7'),
+    ('Boost', '1.79.0'),
+]
+
+# Add an install target (which just copies the single binary) to the SConstruct file
+prebuildopts = 'echo "env.Install(\'%(installdir)s/bin\', \'ambit\')" >> SConstruct && '
+prebuildopts += 'echo "env.Alias(\'install\', \'%(installdir)s/bin\')" >> SConstruct && '
+
+prefix_arg = ''
+runtest = '-j %(parallel)s test'
+testopts = ' && ./ambit_test'
+
+sanity_check_paths = {
+    'files': ['bin/ambit'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['ambit --help']
+
+moduleclass = 'chem'
