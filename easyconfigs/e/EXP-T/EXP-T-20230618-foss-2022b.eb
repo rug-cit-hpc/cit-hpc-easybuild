@@ -1,0 +1,35 @@
+easyblock = 'CMakeMakeCp'
+
+name = 'EXP-T'
+version = '20230618'
+local_commit = '3fe5547'
+
+homepage = 'http://qchem.pnpi.spb.ru/expt'
+description = """The EXP-T program package is designed for high-precision modeling of molecular electronic structure
+ using the relativistic Fock space multireference coupled cluster method (FS-RCC). EXP-T is written from scratch in
+ the C99 programming language and is currently focused on Unix-like systems."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+source_urls = ['https://github.com/aoleynichenko/%(name)s/archive/']
+sources = ['%s.tar.gz' % local_commit]
+checksums = ['306332dba48133786e779ca17fa0558295fbff9977a2506644ad09a3f4ee8ec7']
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+]
+
+files_to_copy = [(['expt*.x', 'heffman.x'], 'bin')]
+
+preconfigopts = 'LDFLAGS="$LDFLAGS -llapacke" '
+
+sanity_check_paths = {
+    'files': ['bin/expt.x'],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    'expt.x --help',
+]
+
+moduleclass = 'chem'
