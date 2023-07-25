@@ -146,7 +146,8 @@ easyconfigs:
   - TURBOMOLE-7.6-smp.eb
   - VCFtools-0.1.16-GCC-11.2.0.eb
   - VCFtools-0.1.16-GCC-12.2.0.eb
-  - VirSorter2-2.2.4-foss-2022a.eb
+# VirSorter2 config is invalid as it requires conda.
+#  - VirSorter2-2.2.4-foss-2022a.eb
   - X11-20220504-GCCcore-11.3.0.eb
   - XCrySDen-1.6.2-foss-2022a.eb
   - HPL-2.3-intel-2021b.eb
