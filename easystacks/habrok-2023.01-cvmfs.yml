@@ -40,6 +40,7 @@ easyconfigs:
   - Dakota-6.17.0-foss-2022a.eb
   - DFT-D3-3.2.0-intel-compilers-2021.4.0.eb
   - DIAMOND-2.0.13-GCC-11.2.0.eb
+  - DIAMOND-2.1.8-GCC-11.2.0.eb
   - DIRAC-23.0-foss-2022b.eb
   - DIRAC-23.0-foss-2022b-MxprimL_MxcontL.eb
   - DIRAC-23.0-intel-2022b.eb
