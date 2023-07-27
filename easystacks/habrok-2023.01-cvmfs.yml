@@ -49,6 +49,7 @@ easyconfigs:
   - DIRAC-23.0-intel-2022b-int64-MxprimL_MxcontL.eb
   - dRep-3.4.2-foss-2022a.eb
   - ELPA-2021.05.001-intel-2021b.eb
+  - EXP-T-20230618-foss-2022b.eb
   - FastQC-0.11.9-Java-11.eb
   - FFTW-3.3.10-iimpi-2021b.eb
   - fpc-3.2.2.eb
