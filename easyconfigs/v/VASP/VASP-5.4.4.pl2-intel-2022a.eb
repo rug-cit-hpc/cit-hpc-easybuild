@@ -24,7 +24,7 @@ prebuildopts = 'cp arch/makefile.include.linux_intel ./makefile.include && '
 prebuildopts += r'sed -i "s|\$(MKLROOT)/interfaces/fftw3xf|\$(FFTW_LIB_DIR)|" makefile.include && '
 
 # remove mkl flag to prevent mixing dynamic libs with the static libs in LIBBLACS/SCALAPACK
-prebuildopts += 'sed -i "s|-mkl||" makefile.include && '
+#prebuildopts += 'sed -i "s|-mkl||" makefile.include && '
 
 # VASP uses LIBS as a list of folders
 prebuildopts += 'unset LIBS && '
