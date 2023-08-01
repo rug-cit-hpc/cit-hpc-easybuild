@@ -12,7 +12,7 @@ toolchain = {'name': 'intel', 'version': '2022a'}
 toolchainopts = {'usempi': True}
 
 # Vasp is proprietary software, see http://www.vasp.at/index.php/faqs on how to get access to the code
-sources = ['vasp.5.4.4.pl2.tar.gz']
+sources = ['vasp.5.4.4.pl2.tgz']
 
 checksums = [
     '6e08d8fcc3c3753d716f577c3611caab317cd43eebbc2ea7335fb90e55ab9abb',
