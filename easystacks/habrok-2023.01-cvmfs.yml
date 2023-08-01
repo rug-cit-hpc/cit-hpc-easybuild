@@ -35,6 +35,7 @@ easyconfigs:
   - breseq-0.38.1-foss-2022a.eb
   - BWA-0.7.17-GCCcore-11.3.0.eb
   - CellRanger-6.1.2.eb
+  - CFOUR-2.1-iomkl-2022b.eb
   - CheckV-1.0.1-foss-2021b.eb
   - CLHEP-2.4.5.1-GCC-11.2.0.eb
   - ColabFold-1.5.2-foss-2022a-CUDA-11.7.0.eb
