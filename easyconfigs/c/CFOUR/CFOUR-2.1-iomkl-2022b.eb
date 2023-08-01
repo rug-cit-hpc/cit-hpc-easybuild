@@ -1,0 +1,31 @@
+easyblock = 'ConfigureMake'
+
+name = 'CFOUR'
+version = '2.1'
+
+toolchain = {'name': 'iomkl', 'version': '2022b'}
+
+homepage = 'https://cfour.uni-mainz.de/cfour/'
+description = """CFOUR (Coupled-Cluster techniques for Computational Chemistry) is a program package for performing
+ high-level quantum chemical calculations on atoms and molecules. The major strength of the program suite is its 
+ rather sophisticated arsenal of high-level ab initio methods for the calculation of atomic and molecular properties.
+ Virtually all approaches based on Møller-Plesset (MP) perturbation theory and the coupled-cluster approximation (CC)
+ are available; most of these have complementary analytic derivative approaches within the package as well."""
+
+download_instructions = """Download of sources requires a password that can be obtained by signing a license agreement.
+See: https://cfour.uni-mainz.de/cfour/index.php?n=Main.Download"""
+sources = ['%(namelower)s_v%(version)s.tar.gz']
+checksums = ['e3cceb194c5cd4913f43b23b0d2b508e79558f68880afbec79ecf97eff94cdf8']
+
+dependencies = [('Python', '3.10.8')]
+
+preconfigopts = 'CC=icx CXX=icpx FC=ifort MPIFC=mpif90 '
+configopts = ' --enable-gimic --enable-mpi=openmpi '
+
+test_cmd = 'cd %(start_dir)s/testsuite && env PATH=%(start_dir)s/bin:$PATH xtester '
+runtest = ''
+testopts = '-j %(parallel)s --testcase 001'
+# Running all tests takes a very long time
+#testopts = '--all -j %(parallel)s'
+
+moduleclass = 'chem'
