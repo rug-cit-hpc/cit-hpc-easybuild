@@ -17,10 +17,10 @@ builddependencies = [
     ('binutils', '2.38'),
 ]
 
-files_to_copy = [ 'bin', 'example', 'misc', 'tutorial' ]
+files_to_copy = ['bin', 'example', 'misc', 'tutorial']
 
 sanity_check_paths = {
-    'files': ['bin/astral', 'bin/astral-hybrid', 'bin/astral-pro', 'bin/master-pair', 'bin/master-site' ],
+    'files': ['bin/astral', 'bin/astral-hybrid', 'bin/astral-pro', 'bin/master-pair', 'bin/master-site'],
     'dirs':  [],
 }
 
