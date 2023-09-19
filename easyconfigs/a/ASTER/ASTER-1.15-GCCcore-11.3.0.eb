@@ -1,0 +1,27 @@
+easyblock = 'MakeCp'
+
+name = 'ASTER'
+version = '1.15'
+
+homepage = 'https://github.com/chaoszhang/ASTER'
+description = """Accurate Species Tree EstimatoR (ASTER).
+A family of optimatization algorithms for species tree inference"""
+
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+
+source_urls = ['https://github.com/chaoszhang/ASTER/archive/refs/tags']
+sources = ['v%(version)s.tar.gz']
+checksums = ['71618824a0f39135977709f21f3b6374815407411fb44474442a1a9c88a6c919']
+
+builddependencies = [
+    ('binutils', '2.38'),
+]
+
+files_to_copy = ['bin', 'example', 'misc', 'tutorial']
+
+sanity_check_paths = {
+    'files': ['bin/astral', 'bin/astral-hybrid', 'bin/astral-pro', 'bin/master-pair', 'bin/master-site'],
+    'dirs':  [],
+}
+
+moduleclass = 'bio'
