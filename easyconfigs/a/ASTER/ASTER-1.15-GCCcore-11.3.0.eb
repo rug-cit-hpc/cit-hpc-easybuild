@@ -23,3 +23,5 @@ sanity_check_paths = {
     'files': ['bin/astral', 'bin/astral-hybrid', 'bin/astral-pro', 'bin/master-pair', 'bin/master-site' ],
     'dirs':  [],
 }
+
+moduleclass = 'bio'
