@@ -1,0 +1,41 @@
+easyblock = 'PythonBundle'
+
+name = 'DRAM'
+version = '1.4.6'
+
+homepage = 'https://github.com/WrightonLabCSU/DRAM'
+description = """DRAM (Distilled and Refined Annotation of Metabolism) is a tool for annotating 
+metagenomic assembled genomes and VirSorter identified viral contigs."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+#    ('DIAMOND', '2.0.13'),
+#    ('HMMER', '3.3.2'),
+#    ('prodigal-gv', '2.11.0'),
+    ('Python', '3.10.8'),
+#    ('SciPy-bundle', '2021.10'),
+#    ('Biopython', '1.79'),
+]
+
+use_pip = True
+
+#exts_list = [
+#    ('kcounter', '0.1.1', {
+#        'sources': ['kcounter-0.1.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl'],
+#        'checksums': ['522413a35f2c9afbeb30a7d32b168b40d206735413a10b4afc82512a365e5b72'],
+#    }),
+#    (name, version, {
+#        'source_urls': ['https://bitbucket.org/berkeleylab/checkv/get/'],
+#        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.#gz'}],
+#        'checksums': ['bcd346067b377a24f6ee4decc78a70d8172212bd0655f4a2bb1d770b1a1b3d9a'],
+#    }),
+#]
+
+sanity_pip_check = True
+
+sanity_check_commands = [
+    'dram --help',
+]
+
+moduleclass = 'bio'
