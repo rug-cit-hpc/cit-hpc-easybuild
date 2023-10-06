@@ -204,3 +204,6 @@ easyconfigs:
       options:
         accept-eula-for: NVHPC
   - irodsfs-0.8.12-linux-amd64.eb
+  - VSEARCH-2.23.0-GCC-11.3.0.eb
+  - cutadapt-4.4-GCCcore-12.2.0.eb
+  - BAMM-2.5.0-foss-2022a.eb
