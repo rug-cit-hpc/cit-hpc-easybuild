@@ -56,16 +56,19 @@ class Apptainer(Binary):
         """Initialize custom class variables."""
         super(Apptainer, self).__init__(*args, **kwargs)
 
-        # set the installation command
-        self.cfg['install_cmd'] = DEFAULT_INSTALL_CMD + '-n ' + self.name.lower() + ' -v ' + self.version + ' '
-        self.cfg['install_cmd'] += "-o " + self.installdir + ' '
-
         # do not prepend anything to path like binary does
         self.cfg['prepend_to_path'] = None
 
     def extract_step(self):
         """No extract step"""
         pass
+
+    def install_step(self):
+        # Set the installation command
+        self.cfg['install_cmd'] = DEFAULT_INSTALL_CMD + '-n ' + self.name.lower() + ' -v ' + self.version + ' '
+        self.cfg['install_cmd'] += "-o " + self.installdir + ' '
+
+        super(Apptainer, self).install_step()
 
     def make_module_req(self):
         """
