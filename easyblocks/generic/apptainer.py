@@ -55,7 +55,11 @@ class Apptainer(Binary):
     def __init__(self, *args, **kwargs):
         """Initialize custom class variables."""
         super(Apptainer, self).__init__(*args, **kwargs)
-        self.cfg['install_cmd'] = DEFAULT_INSTALL_CMD + "-o " + self.installdir
+
+        # set the installation command
+        self.cfg['install_cmd'] = DEFAULT_INSTALL_CMD + '-n ' + self.name.lower() + ' -v ' + self.version + ' '
+        self.cfg['install_cmd'] += "-o " + self.installdir + ' '
+
         # do not prepend anything to path like binary does
         self.cfg['prepend_to_path'] = None
 
