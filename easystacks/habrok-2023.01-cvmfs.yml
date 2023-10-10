@@ -22,6 +22,7 @@ easyconfigs:
   - astropy-5.1.1-foss-2022a.eb
   - AutoDock-Vina-1.2.3-foss-2021b.eb
   - BA3-SNPS-autotune-2.1.2-GCC-11.3.0.eb
+  - BAMM-2.5.0-foss-2022a.eb
   - BCFtools-1.15.1-GCC-11.3.0.eb
   - BEDTools-2.30.0-GCC-11.3.0.eb
   - bioawk-1.0-GCC-11.2.0.eb
@@ -39,10 +40,13 @@ easyconfigs:
   - CheckV-1.0.1-foss-2021b.eb
   - CLHEP-2.4.5.1-GCC-11.2.0.eb
   - ColabFold-1.5.2-foss-2022a-CUDA-11.7.0.eb
+  - cutadapt-4.4-GCCcore-12.2.0.eb
   - Dakota-6.17.0-foss-2022a.eb
   - DFT-D3-3.2.0-intel-compilers-2021.4.0.eb
   - DIAMOND-2.0.13-GCC-11.2.0.eb
   - DIAMOND-2.1.8-GCC-11.2.0.eb
+  - DIRAC-19.0-intel-2021b-Python-2.7.18-int64.eb
+  - DIRAC-19.0-intel-2021b-Python-2.7.18-mpi-int64.eb
   - DIRAC-23.0-foss-2022b.eb
   - DIRAC-23.0-foss-2022b-MxprimL_MxcontL.eb
   - DIRAC-23.0-intel-2022b.eb
@@ -147,6 +151,7 @@ easyconfigs:
   - TURBOMOLE-7.6-smp.eb
   - VCFtools-0.1.16-GCC-11.2.0.eb
   - VCFtools-0.1.16-GCC-12.2.0.eb
+  - VSEARCH-2.23.0-GCC-11.3.0.eb
 # VirSorter2 config is invalid as it requires conda.
 #  - VirSorter2-2.2.4-foss-2022a.eb
   - X11-20220504-GCCcore-11.3.0.eb
@@ -204,6 +209,4 @@ easyconfigs:
       options:
         accept-eula-for: NVHPC
   - irodsfs-0.8.12-linux-amd64.eb
-  - VSEARCH-2.23.0-GCC-11.3.0.eb
-  - cutadapt-4.4-GCCcore-12.2.0.eb
-  - BAMM-2.5.0-foss-2022a.eb
+  - ASTER-1.15-GCCcore-11.3.0.eb
