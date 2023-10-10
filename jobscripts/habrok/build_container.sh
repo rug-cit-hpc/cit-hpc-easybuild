@@ -39,7 +39,11 @@ function create_tarball() {
   then
     OLDPWD=$PWD
     TOPDIR=${MYTMPDIR}/overlay/upper/versions
-    ARCHDIR=${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
+    if [ -z "${SW_GENERIC}" ]; then
+      ARCHDIR=${SW_STACK_VERSION}/${SW_STACK_OS}/${SW_STACK_ARCH}
+    else
+      ARCHDIR=${SW_STACK_VERSION}/${SW_STACK_OS}/$(uname -m)/generic
+    fi
     if [ -d "${TOPDIR}/${ARCHDIR}" ] && [ "$(ls -A ${TOPDIR}/${ARCHDIR})" ]
     then
       # Default tarball name: <version>-<architecture (/ replaced by -)>-<unix timestamp>.tar.gz
