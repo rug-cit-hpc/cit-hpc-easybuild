@@ -43,6 +43,8 @@ easyconfigs:
   - DFT-D3-3.2.0-intel-compilers-2021.4.0.eb
   - DIAMOND-2.0.13-GCC-11.2.0.eb
   - DIAMOND-2.1.8-GCC-11.2.0.eb
+  - DIRAC-19.0-intel-2021b-Python-2.7.18-int64.eb
+  - DIRAC-19.0-intel-2021b-Python-2.7.18-mpi-int64.eb
   - DIRAC-23.0-foss-2022b.eb
   - DIRAC-23.0-foss-2022b-MxprimL_MxcontL.eb
   - DIRAC-23.0-intel-2022b.eb
@@ -204,3 +206,4 @@ easyconfigs:
       options:
         accept-eula-for: NVHPC
   - irodsfs-0.8.12-linux-amd64.eb
+  - ASTER-1.15-GCCcore-11.3.0.eb
