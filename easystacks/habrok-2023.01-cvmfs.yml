@@ -132,6 +132,7 @@ easyconfigs:
   - RepeatModeler-2.0.4-foss-2022a.eb
   - SAMtools-1.16.1-GCC-11.3.0.eb
   - scikit-learn-1.1.2-foss-2022a.eb
+  - scikit-learn-0.24.1-foss-2022a.eb
   - SciPy-bundle-2022.05-foss-2022a.eb
   - Seaborn-0.12.1-foss-2022a.eb
   - SeqKit-2.3.1.eb
@@ -212,3 +213,4 @@ easyconfigs:
   - ASTER-1.15-GCCcore-11.3.0.eb
   - OpenMolcas-22.10-intel-2022a.eb
   - TOPAS-3.9-foss-2022b.eb
+
