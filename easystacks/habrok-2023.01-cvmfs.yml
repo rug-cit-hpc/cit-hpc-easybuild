@@ -204,3 +204,4 @@ easyconfigs:
       options:
         accept-eula-for: NVHPC
   - irodsfs-0.8.12-linux-amd64.eb
+  - scikit-learn-0.24.1-foss-2022a.eb
