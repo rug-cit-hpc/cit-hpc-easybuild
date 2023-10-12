@@ -116,6 +116,7 @@ easyconfigs:
       options:
         download-timeout: 100
   - QIIME2-2022.11.eb
+  - QIIME2-2023.7-foss-2022a.eb
   - QuantumESPRESSO-7.1-foss-2022a.eb
   - QUAST-5.2.0-foss-2022a.eb
   - R-4.2.1-foss-2022a.eb:
