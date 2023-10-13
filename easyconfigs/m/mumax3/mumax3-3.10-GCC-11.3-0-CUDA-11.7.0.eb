@@ -1,0 +1,54 @@
+# Though this gets built with Go, the GoPackage easyblock does not work for this software.
+# Addtional steps are needed, and a Makefile is provided by the tool.
+easyblock = 'ConfigureMake'
+
+name = 'mumax3'
+version = '3.10'
+
+homepage = 'https://mumax.github.io/'
+description = """mumax3 is a GPU-accelerated micromagnetic simulation program
+developed and maintained at the DyNaMat group at Ghent University."""
+
+toolchain = {'name': 'GCC', 'version': '11.3.0'}
+source_urls = ['https://github.com/mumax/3/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['42c858661cec3896685ff4babea11e711f71fd6ea37d20c2bed7e4a918702caa']
+
+builddependencies = [
+    ('Go', '1.17.6', '', SYSTEM),
+]
+
+dependencies = [
+    ('gnuplot', '5.4.4'),
+    ('CUDA', '11.7.0', '', SYSTEM),
+]
+
+local_modulename = 'github.com/mumax/3'
+# You can override the compute capability on the command line or by setting $EASYBUILD_COMPUTE_CAPABILITIES.
+# Do note that lists are not supported though!
+cuda_compute_capabilities = "7.0"
+# Remove the dot in the compute capability
+local_cuda_cc = '$(echo %(cuda_compute_capabilities)s | tr -d ".")'
+
+# Makefile assumes that there is a .git/hooks directory, so let's just make it.
+prebuildopts = 'mkdir -p .git/hooks && '
+# Initialize a Go module with the correct name (specified above), otherwise more recent Go compilers will complain.
+prebuildopts += 'go mod init %s && ' % local_modulename
+# Set the installation dir, CUDA C++ compiler, and CUDA compute capabilities.
+prebuildopts += 'export GOBIN=%%(installdir)s/bin CUDA_CC="%s" NVCC_CCBIN=$EBROOTGCC/bin/gcc && ' % local_cuda_cc
+
+# There's only one call to make, which does the build and installation.
+skipsteps = ['configure', 'install']
+
+local_bins = ['mumax3', 'mumax3-convert', 'mumax3-httpfsd', 'mumax3-plot', 'mumax3-script', 'mumax3-server']
+
+# Use the CUDA stubs to be able to run "mumax3 --help" without complaints about a missing libcuda.so
+# (the GPU is not actually used for these --help commands).
+sanity_check_commands = ['env LD_LIBRARY_PATH=$CUDA_HOME/lib64/stubs:$LD_LIBRARY_PATH %s --help' % x for x in local_bins]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in local_bins],
+    'dirs': [],
+}
+
+moduleclass = 'phys'
