@@ -4,6 +4,7 @@ easyblock = 'ConfigureMake'
 
 name = 'mumax3'
 version = '3.10'
+versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://mumax.github.io/'
 description = """mumax3 is a GPU-accelerated micromagnetic simulation program
