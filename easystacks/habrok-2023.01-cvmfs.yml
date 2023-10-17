@@ -216,6 +216,8 @@ easyconfigs:
         accept-eula-for: NVHPC
   - irodsfs-0.8.12-linux-amd64.eb
   - ASTER-1.15-GCCcore-11.3.0.eb
-  - OpenMolcas-22.10-intel-2022a.eb
+  - OpenMolcas-22.10-intel-2022a.eb:
+      options:
+        optarch: mavx2
   - TOPAS-3.9-foss-2022b.eb
 
