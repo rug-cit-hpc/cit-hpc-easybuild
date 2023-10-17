@@ -4,6 +4,7 @@ SW_STACK_REPO=hpc.rug.nl
 SW_STACK_OS=rocky8
 SW_STACK_VERSION=2023.01
 BUILD_CONTAINER=docker://ghcr.io/rug-cit-hpc/build-node:${SW_STACK_OS}
+docker://ghcr.io/rug-cit-hpc/build-node:${SW_STACK_OS}
 EB_CONFIG_FILE=$(dirname $(realpath $0))/../../config/eb_configuration_habrok
 
 function show_help() {
@@ -33,7 +34,7 @@ function cleanup() {
   fi
 }
 
-function create_tarball() {
+function create_software_tarball() {
   # Make a tarball of the installed software if the overlay's upper dir is non-empty and an output directory is specified.
   if [ ! -z "${OUTDIR}" ]
   then
@@ -47,7 +48,7 @@ function create_tarball() {
     if [ -d "${TOPDIR}/${ARCHDIR}" ] && [ "$(ls -A ${TOPDIR}/${ARCHDIR})" ]
     then
       # Default tarball name: <version>-<architecture (/ replaced by -)>-<unix timestamp>.tar.gz
-      TARBALL=${OUTDIR}/${TARBALL:-${SW_STACK_VERSION}-${SW_STACK_ARCH//\//-}-$(date +%s).tar.gz}
+      SW_TARBALL=${OUTDIR}/${TARBALL:-${SW_STACK_VERSION}-${SW_STACK_ARCH//\//-}-$(date +%s).tar.gz}
       FILES_LIST=${MYTMPDIR}/files.list.txt
       cd ${TOPDIR}
 
@@ -71,22 +72,76 @@ function create_tarball() {
 
       # create the tarball if new files were created
       if [ ! -s "${FILES_LIST}" ]; then
-        echo "File list for tarball is empty, not creating a tarball."
+        echo "File list for software tarball is empty, not creating a tarball."
       else
-        echo "Creating tarball ${TARBALL} from ${TOPDIR}..."
+        echo "Creating software tarball ${SW_TARBALL} from ${TOPDIR}..."
         cd $OLDPWD
-        tar --exclude=.cvmfscatalog --exclude=*.wh.* -C ${TOPDIR} -czf ${TARBALL} --files-from=${FILES_LIST}
-        echo "${TARBALL} created!"
+        tar --exclude=.cvmfscatalog --exclude=*.wh.* -C ${TOPDIR} -czf ${SW_TARBALL} --files-from=${FILES_LIST}
+        echo "${SW_TARBALL} created!"
       fi
     else
-      echo "Looks like no software has been installed, so not creating a tarball."
+      echo "Looks like no software has been installed, so not creating a software tarball."
     fi
   else
-    echo 'No tarball output directory specified, hence no tarball will be created.'
+    echo 'No tarball output directory specified, hence no software tarball will be created.'
   fi
 }
 
-export -f create_tarball
+function create_container_tarball() {
+  # Make a tarball of software installed as containers if the overlay's upper dir is non-empty and an output directory is specified.
+  if [ ! -z "${OUTDIR}" ]
+  then
+    OLDPWD=$PWD
+    TOPDIR=${MYTMPDIR}/overlay/upper/containers/versions
+    ARCHDIR=${SW_STACK_VERSION}/$(uname -m)
+    if [ -d "${TOPDIR}/${ARCHDIR}" ] && [ "$(ls -A ${TOPDIR}/${ARCHDIR})" ]
+    then
+      # Default tarball name: <version>-container-<architecture (/ replaced by -)>-<unix timestamp>.tar.gz
+      CONTAINER_TARBALL=${OUTDIR}/${TARBALL:-${SW_STACK_VERSION}-container-${SW_STACK_ARCH//\//-}-$(date +%s).tar.gz}
+      FILES_LIST=${MYTMPDIR}/files.list.txt
+      cd ${TOPDIR}
+
+      # include the new Lmod cache
+      # note that simultaneous builds could lead to race conditions
+      #if [ -d ${ARCHDIR}/.lmod ]; then
+        # include Lmod cache and configuration file (lmodrc.lua),
+        # skip whiteout files and backup copies of Lmod cache (spiderT.old.*)
+        # find ${ARCHDIR}/.lmod -type f | egrep -v '/\.wh\.|spiderT.old' > ${FILES_LIST}
+      #fi
+      if [ -d ${ARCHDIR}/modules ]; then
+        # module files
+        find ${ARCHDIR}/modules -type f > ${FILES_LIST}
+        # module symlinks
+        find ${ARCHDIR}/modules -type l >> ${FILES_LIST}
+      fi
+      if [ -d ${ARCHDIR}/software ]; then
+        # find all installation directories with an easybuild subdirectory (which means they completed successfully)
+        find ${ARCHDIR}/software/*/* -maxdepth 1 -name easybuild -type d | xargs -r dirname >> ${FILES_LIST}
+      fi
+
+      # create the tarball if new files were created
+      if [ ! -s "${FILES_LIST}" ]; then
+        echo "File list for container tarball is empty, not creating a tarball."
+      else
+        echo "Creating container tarball ${CONTAINER_TARBALL} from ${TOPDIR}..."
+        cd $OLDPWD
+        tar --exclude=.cvmfscatalog --exclude=*.wh.* -C ${TOPDIR} -czf ${CONTAINER_TARBALL} --files-from=${FILES_LIST}
+        echo "${CONTAINER_TARBALL} created!"
+      fi
+    else
+      echo "Looks like no software has been installed as container, so not creating a tarball."
+    fi
+  else
+    echo 'No tarball output directory specified, hence no container tarball will be created.'
+  fi
+}
+
+function create_tarballs() {
+  create_software_tarball
+  create_container_tarball
+}
+
+export -f create_tarballs create_software_tarball create_container_tarball
 
 # Parse command-line options
 
@@ -333,5 +388,5 @@ else
   singularity shell ${SING_GPU_FLAGS} ${SINGBIND} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER} < ${TMPSCRIPT}
 fi
 
-# Create a tarball of the installed software, if applicable
-create_tarball
+# Create tarballs of the installed software (regular installations and container installations), if applicable
+create_tarballs
