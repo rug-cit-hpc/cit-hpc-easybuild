@@ -1,6 +1,8 @@
 import os
 
 from easybuild.tools.build_log import EasyBuildError
+from easybuild.tools.config import ConfigurationVariables
+
 
 
 NOT_IN_GROUP_MSG = "This software can only be used by members of the {group} group, "
@@ -85,6 +87,14 @@ def parse_hook(self):
     # Xerces-C++: fix failing tests due to not finding a shared library
     if self.name == 'Xerces-C++':
         self['pretestopts'] = 'export LD_LIBRARY_PATH=%(builddir)s/easybuild_obj/src:$LD_LIBRARY_PATH && ' + (self['pretestopts'] if 'pretestopts' in self else '')
+
+    # Apptainer: set the correct installation directory
+    if self['easyblock'] == "Apptainer":
+        self.log.info("[parse hook] Checking and setting the container installation path")
+        if 'EB_HABROK_CONTAINER_PATH' not in os.environ:
+            raise EasyBuildError('Apptainer builds require $EB_HABROK_CONTAINER_PATH to be set!')
+        ConfigurationVariables()._FrozenDict__dict['installpath'] = os.getenv('EB_HABROK_CONTAINER_PATH')
+
 
 
 def pre_configure_hook(self, *args, **kwargs):
