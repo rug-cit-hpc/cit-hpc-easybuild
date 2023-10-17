@@ -220,4 +220,4 @@ easyconfigs:
       options:
         optarch: mavx2
   - TOPAS-3.9-foss-2022b.eb
-
+  - orad-2.6.1.eb

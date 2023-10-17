@@ -1,0 +1,28 @@
+
+easyblock = 'Tarball'
+
+name = 'orad'
+version = '2.6.1'
+
+homepage = 'https://support.illumina.com/sequencing/sequencing_software/DRAGENORA.html'
+description = """DRAGENTM ORA Decompression software v.2.6.1 which decompresses *.fastq.ora files that have been
+                 compressed using DRAGEN ORA Compression software."""
+
+toolchain = {'name': 'system', 'version': 'system'}
+
+source_urls = ['https://webdata.illumina.com/downloads/software/dragen-decompression/']
+sources = ['%(name)s.%(version)s.tar.gz']
+checksums = ['95f302e6baba786d305b96de598f3d3f3b747f33fe493763d17223c0217fba30']
+
+modextrapaths = {
+    'PATH': '.'
+}
+
+sanity_check_paths = {
+    'files': ["orad", "oradata/README", "oradata/refbin"],
+    'dirs' : []
+}
+
+sanity_check_commands = ['orad --version']
+
+moduleclass = 'bio'
