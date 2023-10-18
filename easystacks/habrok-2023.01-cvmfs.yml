@@ -221,3 +221,16 @@ easyconfigs:
         optarch: mavx2
   - TOPAS-3.9-foss-2022b.eb
   - orad-2.6.1.eb
+  - BBMap-39.01-GCC-12.2.0
+  - BLAST+-2.14.0-gompi-2022b
+  - BWA-0.7.17-GCCcore-12.2.0
+  - CGAL-4.14.3-gompi-2021b
+  - DIAMOND-2.1.8-GCC-12.2.0
+  - Exonerate-2.4.0-GCC-12.2.0
+  - gnuplot-5.4.2-GCCcore-11.2.0
+  - Hybpiper-2.1.6-foss-2022b
+  - Julia-1.9.2-linux-x86_64
+  - kallisto-0.48.0-gompi-2022a
+  - METIS-5.1.0-GCCcore-11.2.0
+  - OpenFOAM-v2112-foss-2021b
+  - QIIME2-2023.5.1-foss-2022a
