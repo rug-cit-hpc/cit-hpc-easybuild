@@ -240,3 +240,4 @@ easyconfigs:
   - Python-3.11.3-GCCcore-12.3.0
   - Qt5-5.15.2-GCCcore-10.3.0.eb
   - MRtrix-3.0.4-foss-2022b.eb
+  - FSL-6.0.5.1-foss-2021a.eb
