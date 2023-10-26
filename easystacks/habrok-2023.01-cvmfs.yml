@@ -73,7 +73,6 @@ easyconfigs:
   - Gurobi-10.0.1-GCCcore-11.3.0.eb
   - HISAT2-2.2.1-gompi-2022a.eb
   - HMMER-3.3.2-gompi-2021b.eb
-  - HPL-2.3-foss-2022a.eb
   - HTSlib-1.15.1-GCC-11.3.0.eb
   - intel-2021b.eb
   - jax-0.3.23-foss-2021b-CUDA-11.4.1.eb
@@ -209,7 +208,6 @@ easyconfigs:
   - HTSeq-2.0.3-foss-2022a.eb
   - PAML-4.10.5-GCCcore-11.3.0.eb
   - ELPA-2021.11.001-intel-2021b.eb
-  - snappy-1.1.8-GCCcore-10.3.0.eb
   - eSpeak-NG-1.51-GCC-11.3.0.eb
   - nvofbf-2022.07.eb:
       options:
