@@ -242,3 +242,14 @@ easyconfigs:
   - MRtrix-3.0.4-foss-2022b.eb
   - FSL-6.0.5.1-foss-2021a.eb
   - Kaiju-1.9.2-gompi-2022b-Python-3.10.8.eb
+  - CheckV-1.0.1-DIAMOND-2.1.8-foss-2021b.eb
+  - freeglut-3.2.1-GCCcore-10.3.0.eb
+  - Graphviz-2.47.2-GCCcore-10.3.0.eb
+  - GSL-2.7-GCC-10.3.0.eb
+  - Qwt-6.2.0-GCCcore-10.3.0.eb
+  - SWIG-4.0.2-GCCcore-10.3.0.eb
+  - Tk-8.6.11-GCCcore-10.3.0.eb
+  - VTK-9.0.1-foss-2021a.eb
+  - Roary-3.13.0-foss-2022a.eb
+  - FFmpeg-5.1.2-GCCcore-12.2.0.eb
+  - Yasm-1.3.0-GCCcore-12.2.0.eb
