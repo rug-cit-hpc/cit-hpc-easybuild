@@ -251,3 +251,4 @@ easyconfigs:
   - Roary-3.13.0-foss-2022a.eb
   - FFmpeg-5.1.2-GCCcore-12.2.0.eb
   - Yasm-1.3.0-GCCcore-12.2.0.eb
+  - IPython-7.26.0-GCCcore-11.2.0.eb
