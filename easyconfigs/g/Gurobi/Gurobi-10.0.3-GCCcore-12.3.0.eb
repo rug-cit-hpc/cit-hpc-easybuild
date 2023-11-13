@@ -12,11 +12,11 @@ toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 source_urls = ['https://packages.gurobi.com/%(version_major_minor)s/']
 sources = ['%(namelower)s%(version)s_linux64.tar.gz']
 patches = ['%(name)s-9.0.1_use-eb-python-gurobi-shell.patch']
-#checksums = [
-#    {'gurobi10.0.1_linux64.tar.gz': 'a0b551156df2c94107b3428cae278716a0a6c913f63ac132573852b9725b6c59'},
-#    {'Gurobi-9.0.1_use-eb-python-gurobi-shell.patch':
-#     'b4a998182d05f969d1de519f4746ac9e0c6646dd35233231b6ab5963dfa67d01'},
-#]
+checksums = [
+    {'gurobi10.0.3_linux64.tar.gz': '82f916db110c42ce8ce13c10a14eba97c7acd63c3c0c59f98186c5085780ca83'},
+    {'Gurobi-9.0.1_use-eb-python-gurobi-shell.patch':
+     'b4a998182d05f969d1de519f4746ac9e0c6646dd35233231b6ab5963dfa67d01'},
+]
 
 builddependencies = [
     ('binutils', '2.40'),
