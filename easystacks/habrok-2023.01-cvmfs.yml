@@ -252,3 +252,4 @@ easyconfigs:
   - FFmpeg-5.1.2-GCCcore-12.2.0.eb
   - Yasm-1.3.0-GCCcore-12.2.0.eb
   - IPython-7.26.0-GCCcore-11.2.0.eb
+  - Gurobi-10.0.3-GCCcore-12.3.0.eb
