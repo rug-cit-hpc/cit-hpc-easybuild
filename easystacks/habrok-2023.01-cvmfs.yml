@@ -257,3 +257,4 @@ easyconfigs:
   - JupyterLab-3.1.6-GCCcore-11.2.0.eb
   - nodejs-14.17.6-GCCcore-11.2.0.eb
   - jupyterlmod-4.0.3-GCCcore-11.3.0.eb
+  - jupyterlmod-4.0.3-GCCcore-11.2.0.eb
