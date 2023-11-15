@@ -15,7 +15,8 @@ RUN dnf install -y https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-
     dnf install -y http://mirror.centos.org/centos/7/os/x86_64/Packages/fuse-2.9.2-11.el7.x86_64.rpm \
                    https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/f/fuse3-3.6.1-2.el7.x86_64.rpm \
                    https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/f/fuse3-libs-3.6.1-2.el7.x86_64.rpm && \
-    dnf install -y cvmfs cvmfs-fuse3
+    dnf install -y cvmfs cvmfs-fuse3 && 
+    dnf install -y pam-devel
 # Interconnect libraries
 RUN dnf install -y rdma-core rdma-core-devel libpsm2 libpsm2-devel
 # Other tools
