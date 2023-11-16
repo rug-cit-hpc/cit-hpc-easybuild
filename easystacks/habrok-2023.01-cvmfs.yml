@@ -258,3 +258,4 @@ easyconfigs:
   - nodejs-14.17.6-GCCcore-11.2.0.eb
   - jupyterlmod-4.0.3-GCCcore-11.3.0.eb
   - jupyterlmod-4.0.3-GCCcore-11.2.0.eb
+  - RStudio-Server-2022.07.2+576-foss-2022a-Java-11-R-4.2.1.eb
