@@ -1,11 +1,11 @@
---- BOLT-LMM/Makefile.in.orig
-+++ BOLT-LMM/Makefile
+--- BOLT-LMM/src/Makefile.in.orig
++++ BOLT-LMM/src/Makefile
 @@ -1,21 +1,21 @@
  ### modify these paths to local Boost and NLopt install directories
 -BOOST_INSTALL_DIR = /home/pl88/boost_1_58_0/install
 -NLOPT_INSTALL_DIR = /n/groups/price/poru/HSPH_SVN/src/BOLT-LMM/nlopt-2.4.2
-+BOOST_INSTALL_DIR = /cvmfs/hpc.rug.nl/versions/2023.01/rocky8/x86_64/amd/zen3/software/Boost/1.81.0-GCC-12.2.0
-+NLOPT_INSTALL_DIR = /cvmfs/hpc.rug.nl/versions/2023.01/rocky8/x86_64/amd/zen3/software/NLopt/2.7.1-GCCcore-12.2.0
++BOOST_INSTALL_DIR = ${EBROOTBOOST}
++NLOPT_INSTALL_DIR = ${EBROOTNLOPT}
  
  INTELROOT = /n/groups/price/poru/external_software/intel_mkl_2019u4
 -MKLROOT = ${INTELROOT}/mkl
@@ -13,8 +13,8 @@
 -LIBSTDCXX_STATIC_DIR = /n/groups/price/poru/external_software/libstdc++/usr/lib/gcc/x86_64-redhat-linux/4.8.5/
 -GLIBC_STATIC_DIR = /home/pl88/glibc-static/usr/lib64
 +MKLROOT = /cvmfs/hpc.rug.nl/versions/2023.01/rocky8/x86_64/amd/zen3/software/imkl/2022.2.1/mkl/2022.2.1
-+ZLIB_STATIC_DIR = /cvmfs/hpc.rug.nl/versions/2023.01/rocky8/x86_64/amd/zen3/software/zlib/1.2.12-GCCcore-12.2.0
-+LIBSTDCXX_STATIC_DIR = /cvmfs/hpc.rug.nl/versions/2023.01/rocky8/x86_64/amd/zen3/software/GCCcore/12.2.0/lib64/
++ZLIB_STATIC_DIR = ${EBROOTZLIB}
++LIBSTDCXX_STATIC_DIR = ${EBROOTGCCCORE}/lib64/
 +GLIBC_STATIC_DIR = /usr/lib64/
  
 -ZSTD_DIR = /n/data1/bwh/medicine/loh/ploh/external_software/zstd-1.5.2/lib

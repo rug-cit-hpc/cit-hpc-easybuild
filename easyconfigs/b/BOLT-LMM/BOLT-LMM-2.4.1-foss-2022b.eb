@@ -1,0 +1,45 @@
+easyblock = 'MakeCp'
+
+name = 'BOLT-LMM'
+version = '2.4.1'
+
+homepage = 'https://data.broadinstitute.org/alkesgroup/BOLT-LMM/'
+description = """
+	The BOLT-LMM software package currently consists of two main algorithms, 
+	the BOLT-LMM algorithm for mixed model association testing, and the BOLT-REML 
+	algorithm for variance components analysis (i.e., partitioning of SNP-heritability 
+	and estimation of genetic correlations). 
+"""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+source_urls = ['http://data.broadinstitute.org/alkesgroup/BOLT-LMM/downloads/']
+sources = ['%(name)s_v%(version)s.tar.gz']
+dependencies = [
+    ('Boost', '1.81.0'),
+    ('NLopt', '2.7.1'),
+]
+start_dir = 'src'
+
+patches = [
+    'BOLT-LMM-%(version)s_makefile.patch'
+]
+
+#prebuildopts = "sed -i 's/CC = icpc/CC = g++/g' Makefile && "
+
+#cmds_map = [('%(name)s_v%(version)s.tar.gz', 'tar -xzvf %(source)s && cd BOLT-LMM_v2.3.4 ')]
+
+files_to_copy = [
+    (['bolt'], '%(installdir)s/bin/'),
+    (['lib/libiomp5.so'], '%(installdir)s/lib/'),
+]
+
+skipsteps = ['configure', 'install']
+
+#runtest = 'check'
+
+sanity_check_paths = {
+    'files': ["bin/bolt"],
+    'dirs' : ['bin']
+}
+
+moduleclass = 'bio'
