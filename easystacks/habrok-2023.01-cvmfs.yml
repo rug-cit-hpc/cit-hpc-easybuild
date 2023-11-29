@@ -128,6 +128,9 @@ easyconfigs:
   - QIIME2-2023.7-foss-2022a.eb
   - QuantumESPRESSO-7.1-foss-2022a.eb
   - QUAST-5.2.0-foss-2022a.eb
+  - R-4.1.2-foss-2021b.eb:
+      options:
+        parallel-extensions-install: True
   - R-4.2.1-foss-2022a.eb:
       options:
         parallel-extensions-install: True
