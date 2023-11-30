@@ -1,0 +1,61 @@
+easyblock = 'ConfigureMake'
+
+name = 'AFNI'
+version = '23.3.07'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'http://afni.nimh.nih.gov/'
+description = """AFNI is a set of C programs for processing, analyzing, and displaying functional MRI (FMRI) data -
+ a technique for mapping human brain activity."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+toolchainopts = {'openmp': True, 'pic': True}
+
+source_urls = ['https://github.com/afni/afni/archive/refs/tags']
+sources = ['AFNI_%(version)s.tar.gz']
+checksums = ['6f20e2223c259ccd15ec4441047300fb030aae7ccbf6e8913fe8bcce0990cdbd']
+
+#patches = ['AFNI-18.1.09_omp-pragma-statement-fix.patch']
+
+builddependencies = [('M4', '1.4.19')]
+
+dependencies = [
+    ('tcsh', '6.24.07'),
+    ('Python', '3.10.8'),
+    ('X11', '20221110'),
+    ('motif', '2.3.8'),
+    ('R', '4.2.2'),
+    ('PyQt5', '5.15.5'),
+    ('expat', '2.4.9'),
+    ('libpng', '1.6.38'),
+    ('libjpeg-turbo', '2.1.4'),
+    ('GSL', '2.7'),
+    ('GLib', '2.75.0'),  # must match version used in Qt5 (via PyQt5)
+    ('zlib', '1.2.12'),
+]
+
+skipsteps = ['configure', 'install']
+
+prebuildopts = "cd src && cp Makefile.linux_openmp_64 Makefile && "
+buildopts = 'totality LGIFTI="$EBROOTEXPAT/lib/libexpat.a" LDPYTHON="-lpython%(pyshortver)s" '
+buildopts += r'CC="${CC} ${CFLAGS} -fPIC -DREAD_WRITE_64 -DLINUX2 \$(CEXTRA)" '
+buildopts += r'CCVOL="${CC} ${CFLAGS} -fPIC -DREAD_WRITE_64 -DLINUX2 \$(CEXTRA)" '
+buildopts += r'CCFAST="${CC} ${CFLAGS} -fPIC -DREAD_WRITE_64 -DLINUX2 \$(CEXTRA)" '
+buildopts += r'CCOLD="${CC} ${CFLAGS} -fPIC -DREAD_WRITE_64 -DLINUX2 \$(CEXTRA)" '
+buildopts += r'CCMIN="${CC} ${CFLAGS} -fPIC -DREAD_WRITE_64 -DLINUX2 \$(CEXTRA)" '
+buildopts += r'CCSVD="${CC} ${CFLAGS} -fPIC -DREAD_WRITE_64 -DLINUX2 \$(CEXTRA)" '
+buildopts += r'LD="${CC} \$(CPROF)" LZLIB="${EBROOTZLIB}/lib/libz.a" XLIBS="-lXm -lXt" '
+buildopts += 'IFLAGS="-I. -I$EBROOTPYTHON/include/python%(pyshortver)s '
+buildopts += '-I$EBROOTGLIB/lib/glib-2.0/include -I$EBROOTGLIB/include/glib-2.0"'
+buildopts += ' INSTALLDIR=%(installdir)s'
+
+parallel = 1
+
+modextrapaths = {'PATH': ['']}
+
+sanity_check_paths = {
+    'files': ['afni'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
