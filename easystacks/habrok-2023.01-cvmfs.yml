@@ -267,3 +267,4 @@ easyconfigs:
   - jupyterlmod-4.0.3-GCCcore-11.3.0.eb
   - jupyterlmod-4.0.3-GCCcore-11.2.0.eb
   - Dalton-2020.1-foss-2022b.eb
+  - QIIME2-2020.8.eb
