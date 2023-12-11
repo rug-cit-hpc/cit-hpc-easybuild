@@ -24,6 +24,8 @@ if [ -z ${SW_GENERIC} ]; then
 else
   export EASYBUILD_INSTALLPATH=${SW_STACK_ROOT}/${SW_STACK_VERSION}/${SW_STACK_OS}/$(uname -m)/generic
 fi
+# Also set the container installation path
+export EB_HABROK_CONTAINER_PATH=/cvmfs/${SW_STACK_REPO}/containers/versions/${SW_STACK_VERSION}/$(uname -m)
 
 # Intel compiler optimization settings for non-Intel CPUs
 if [[ "${SW_STACK_ARCH}" != "x86_64/intel/"* ]]; then
