@@ -35,13 +35,16 @@ skipsteps = ['configure', 'install']
 #runtest = 'check'
 
 files_to_copy = [
-    (['src/bolt'], '%(installdir)s/'),
-    (['lib/libiomp5.so'], '%(installdir)s/lib/'),
+    ('%(start_dir)s/bolt', '.'),
+    (['%(start_dir)s/lib/libiomp5.so'], 'lib/'),
 ]
 
 sanity_check_paths = {
-    'files': ["bolt", "lib/libiomp5"],
+    'files': ["bolt", "lib/libiomp5.so"],
     'dirs': ["lib"],
 }
 
+sanity_check_commands = ["bolt --help | grep 'BOLT-LMM, v2.4.1'"]
+
 moduleclass = 'bio'
+
