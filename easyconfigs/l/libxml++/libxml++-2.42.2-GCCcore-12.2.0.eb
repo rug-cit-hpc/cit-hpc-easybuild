@@ -1,0 +1,35 @@
+easyblock = 'MesonNinja'
+
+name = 'libxml++'
+version = '2.42.2'
+
+homepage = 'http://libxmlplusplus.sourceforge.net'
+description = """libxml++ is a C++ wrapper for the libxml XML parser library."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+toolchainopts = {'pic': True}
+
+source_urls = ['http://ftp.gnome.org/pub/GNOME/sources/%(name)s/%(version_major_minor)s']
+sources = [SOURCELOWER_TAR_XZ]
+checksums = ['a433987f54cc1ecaa84af26af047a62df9e884574e0d686e5ddc6f70441c152b']
+
+builddependencies = [
+    ('pkg-config', '0.29.2'),
+    ('Meson', '0.64.0'),
+    ('mm-common', '1.0.5'),
+    ('Ninja', '1.11.1'),
+    ('CMake', '3.24.3'),
+]
+
+dependencies = [
+    ('GLibmm', '2.66.4'),
+    ('libxml2', '2.10.3'),
+    ('Boost', '1.81.0', '', ('GCC', '12.2.0')),
+]
+
+sanity_check_paths = {
+    'files': ['lib/libxml++-2.6.%s' % SHLIB_EXT],
+    'dirs': ['lib/pkgconfig', 'include/libxml++-2.6/libxml++'],
+}
+
+moduleclass = 'lib'
