@@ -12,39 +12,30 @@ description = """
 """
 
 toolchain = {'name': 'foss', 'version': '2022b'}
+
 source_urls = ['http://data.broadinstitute.org/alkesgroup/BOLT-LMM/downloads/']
 sources = ['%(name)s_v%(version)s.tar.gz']
-dependencies = [
-    ('Boost', '1.81.0'),
-    ('NLopt', '2.7.1'),
-    ('OpenBLAS', '0.3.21'),
-    ('imkl', '2022.2.1', '', SYSTEM),
-]
-start_dir = 'src'
 
 patches = [
     'BOLT-LMM-%(version)s_makefile.patch'
 ]
 
-#prebuildopts = "sed -i 's/CC = icpc/CC = g++/g' Makefile && "
+dependencies = [
+    ('Boost', '1.81.0'),
+    ('NLopt', '2.7.1'),
+]
 
-#cmds_map = [('%(name)s_v%(version)s.tar.gz', 'tar -xzvf %(source)s && cd BOLT-LMM_v2.3.4 ')]
-
-skipsteps = ['configure', 'install']
-
-#runtest = 'check'
+start_dir = 'src'
 
 files_to_copy = [
-    ('%(start_dir)s/bolt', '.'),
-    (['%(start_dir)s/lib/libiomp5.so'], 'lib/'),
+    (['%(start_dir)s/bolt'], 'bin'),
 ]
 
 sanity_check_paths = {
-    'files': ["bolt", "lib/libiomp5.so"],
-    'dirs': ["lib"],
+    'files': ["bin/bolt"], # "lib/libiomp5.so"],
+    'dirs': [], #["lib"],
 }
 
 sanity_check_commands = ["bolt --help | grep 'BOLT-LMM, v2.4.1'"]
 
 moduleclass = 'bio'
-
