@@ -1,0 +1,20 @@
+Bootstrap: docker
+From: rockylinux/rockylinux:8
+
+%arguments
+    FSL_VERSION=6.0.6.2
+    INSTALL_DIR=/usr/local/fsl
+
+%post
+    yum -y install python3 findutils wget
+    wget -q http://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py
+    chmod 775 fslinstaller.py
+    python3 /fslinstaller.py --fslversion {{ FSL_VERSION }} --dest={{ INSTALL_DIR }}
+
+%environment
+    export FSLDIR={{ INSTALL_DIR }}
+    export PATH=${FSLDIR}/share/fsl/bin:${PATH}
+    . $FSLDIR/etc/fslconf/fsl.sh
+
+%help
+    This is a containerized install of FSL version {{ FSL_VERSION }}.
