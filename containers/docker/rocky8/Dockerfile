@@ -53,3 +53,6 @@ COPY containers/docker/rocky8/z01_StdEnv.sh /etc/profile.d/
 
 # Fix for CUDA installation failures
 RUN mkdir /usr/local/cuda
+
+# Fix for Perl test failing due to not finding /etc/fstab
+RUN touch /etc/fstab
