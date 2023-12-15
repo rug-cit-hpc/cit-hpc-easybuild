@@ -32,8 +32,8 @@ files_to_copy = [
 ]
 
 sanity_check_paths = {
-    'files': ["bin/bolt"], # "lib/libiomp5.so"],
-    'dirs': [], #["lib"],
+    'files': ["bin/bolt"],
+    'dirs': [],
 }
 
 sanity_check_commands = ["bolt --help | grep 'BOLT-LMM, v2.4.1'"]
