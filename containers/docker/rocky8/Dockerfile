@@ -56,3 +56,7 @@ RUN mkdir /usr/local/cuda
 
 # Fix for Perl test failing due to not finding /etc/fstab
 RUN touch /etc/fstab
+
+# Fix for the following timezone issue when installing R:
+# "date-time conversions do not work in 2020 -- is tzdata installed"
+RUN ln -sf /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime 
