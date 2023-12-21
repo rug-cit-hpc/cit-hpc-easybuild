@@ -271,3 +271,6 @@ easyconfigs:
   - BOLT-LMM-2.4.1-foss-2022b.eb
   - R-4.3.2-gfbf-2023a.eb
   - RFdiffusion-1.1.0-foss-2022a-CUDA-11.7.0.eb
+  - Rust-1.70.0-GCCcore-12.3.0.eb:
+      options:
+        include-easyblocks-from-pr: 3038
