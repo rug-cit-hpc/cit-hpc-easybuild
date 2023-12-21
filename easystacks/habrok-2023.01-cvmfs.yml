@@ -270,3 +270,4 @@ easyconfigs:
   - QIIME2-2020.8.eb
   - BOLT-LMM-2.4.1-foss-2022b.eb
   - R-4.3.2-gfbf-2023a.eb
+  - RFdiffusion-1.1.0-foss-2022a-CUDA-11.7.0.eb
