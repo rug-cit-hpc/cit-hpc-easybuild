@@ -5,4 +5,7 @@ easyconfigs:
   - StataSE-17.eb:
       options:
         ignore-osdeps: True
+  - StataSE-18.eb:
+      options:
+        ignore-osdeps: True
 
