@@ -274,3 +274,4 @@ easyconfigs:
   - Rust-1.70.0-GCCcore-12.3.0.eb:
       options:
         include-easyblocks-from-pr: 3038
+  - R-bundle-CRAN-2023.12-foss-2023a.eb
