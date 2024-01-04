@@ -275,3 +275,4 @@ easyconfigs:
       options:
         include-easyblocks-from-pr: 3038
   - R-bundle-CRAN-2023.12-foss-2023a.eb
+  - PyTorch-2.1.2-foss-2022b.eb
