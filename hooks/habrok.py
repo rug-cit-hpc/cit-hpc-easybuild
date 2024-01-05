@@ -61,6 +61,15 @@ can be found in /scratch/public/genomes/kraken2db. You can use this database by 
 export KRAKEN2_DEFAULT_DB=/scratch/public/genomes/kraken2db
 '''
 
+AMS_MOD_LUA_FOOTER =  """
+if os.getenv("TMPDIR") then
+    setenv("SCM_TMPDIR", os.getenv("TMPDIR"))
+else
+    local user = capture("/usr/bin/whoami")
+    setenv("SCM_TMPDIR", pathJoin("/scratch", user))
+end
+"""
+
 
 def parse_hook(self):
     # Check if the software should only be available to a specific group
@@ -153,10 +162,12 @@ def pre_module_hook(self, *args, **kwargs):
             self.log.info('[pre-module hook] Setting TF_FORCE_UNIFIED_MEMORY to 0')
         self.cfg.update('modextravars', extramodvars)
 
-    # AMS: use srun as launcher
+    # AMS: set MPI launcher and inject module footer for $SCM_TMPDIR
     if self.name == 'AMS':
         self.log.info('[pre-module hook] Setting SCM_MPIRUN_EXE=mpirun')
         self.cfg.update('modextravars', {'SCM_MPIRUN_EXE': 'mpirun'})
+        self.log.info('[pre-module hook] Injecting module footer for setting $SCM_TMPDIR')
+        self.cfg.update('modluafooter', AMS_MOD_LUA_FOOTER)
 
     # Anaconda3: Execute intialization script
     if self.name == 'Anaconda3':
