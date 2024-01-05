@@ -169,7 +169,7 @@ def pre_module_hook(self, *args, **kwargs):
         self.log.info('[pre-module hook] Setting path to license file')
         self.cfg.update('modextravars', {'SCMLICENSE': '%(installdir)s/license.txt'})
         self.log.info('[pre-module hook] Disable default module load message')
-        self.cfg.update('modloadmsg', '')
+        self.cfg['modloadmsg'] = ''
         self.log.info('[pre-module hook] Injecting module footer for setting $SCM_TMPDIR')
         self.cfg.update('modluafooter', AMS_MOD_LUA_FOOTER)
 
