@@ -250,7 +250,6 @@ source "${EB_CONFIG_FILE}"
 for dir in ${EASYBUILD_SOURCEPATH//:/ }
 do
     SINGBIND="${SINGBIND} -B ${dir}"
-    mkdir -p ${EASYBUILD_SOURCEPATH}
 done
 
 # Generate the script that we need to actually build the software.
