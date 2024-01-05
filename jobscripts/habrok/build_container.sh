@@ -161,7 +161,7 @@ done
 # /apps (if available, for licensed apps)
 # /var/lib/sss (if available), and /etc/nsswitch.conf, for ldap functionality
 # all user-specified ones.
-SINGBIND="-B $PWD -B /var/log -B /home4/hb-software"
+SINGBIND="-B $PWD -B /var/log"
 if [ -d "/apps" ]
 then
     SINGBIND="${SINGBIND} -B /apps"
@@ -246,7 +246,12 @@ then
   exit 1
 fi
 source "${EB_CONFIG_FILE}"
-mkdir -p ${EASYBUILD_SOURCEPATH}
+# create and bind mount EasyBuild source paths
+for dir in ${EASYBUILD_SOURCEPATH//:/ }
+do
+    SINGBIND="${SINGBIND} -B ${dir}"
+    mkdir -p ${EASYBUILD_SOURCEPATH}
+done
 
 # Generate the script that we need to actually build the software.
 export COMMAND=$@
@@ -325,7 +330,7 @@ then
 fi
 
 # Launch the container. If a command was specified, we run the above script. Otherwise, we fire up an interactive shell.
-SINGBIND="${SINGBIND} -B ${EASYBUILD_SOURCEPATH} -B ${CVMFS_LOCAL_DEFAULTS}:/etc/cvmfs/default.local -B ${MYTMPDIR}/cvmfs/run:/var/run/cvmfs -B ${MYTMPDIR}/cvmfs/lib:/var/lib/cvmfs -B ${MYTMPDIR}"
+SINGBIND="${SINGBIND} -B ${CVMFS_LOCAL_DEFAULTS}:/etc/cvmfs/default.local -B ${MYTMPDIR}/cvmfs/run:/var/run/cvmfs -B ${MYTMPDIR}/cvmfs/lib:/var/lib/cvmfs -B ${MYTMPDIR}"
 if [ -z "${COMMAND}" ];
 then
   singularity exec ${SING_GPU_FLAGS} ${SINGBIND} --fusemount "container:cvmfs2 ${SW_STACK_REPO} /cvmfs_ro/${SW_STACK_REPO}" --fusemount "container:fuse-overlayfs -o lowerdir=/cvmfs_ro/${SW_STACK_REPO} -o upperdir=${MYTMPDIR}/overlay/upper -o workdir=${MYTMPDIR}/overlay/work /cvmfs/${SW_STACK_REPO}" ${BUILD_CONTAINER} /bin/bash
