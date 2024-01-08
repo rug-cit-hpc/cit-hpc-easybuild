@@ -277,3 +277,4 @@ easyconfigs:
   - R-bundle-CRAN-2023.12-foss-2023a.eb
   - PyTorch-2.1.2-foss-2022b.eb
   - GATE-9.2-foss-2022a.eb
+  - MRtrix-3.0.3-foss-2021a.eb
