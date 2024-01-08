@@ -278,3 +278,6 @@ easyconfigs:
   - PyTorch-2.1.2-foss-2022b.eb
   - GATE-9.2-foss-2022a.eb
   - MRtrix-3.0.3-foss-2021a.eb
+  - Valgrind-3.20.0-gompi-2022a.eb
+  - Valgrind-3.21.0-gompi-2022b.eb
+  - Valgrind-3.21.0-gompi-2023a.eb
