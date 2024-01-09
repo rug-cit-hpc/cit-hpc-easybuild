@@ -14,11 +14,10 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 source_urls = ['https://github.com/3dem/relion/archive/']
 sources = ['%(version)s.tar.gz']
 patches = ['RELION-3.0.7_cuda_capabilities.patch']
-#checksums = [
-#    'fadd9bff2f22bf7318fe13ff46a091d2d0c21a9586277c8a0cf1d0d5247b315c',  # 8d2476f2c8a2.zip
-#    'aedc0c7e1806094274d8442680aade810943648b08875148f5da226121753a0e',  # RELION-3.0_beta_cuda_capabilities.patch
-#]
-
+checksums = [
+    {'3.1.4.tar.gz': '3bf3449bd2d71dc85d2cdbd342e772f5faf793d8fb3cda6414547cf34c98f34c'},
+    {'RELION-3.0.7_cuda_capabilities.patch': '9d106d719079d710bff40e78f296e55b5f3600713c1cf917a89b26fd7f16af5d'},
+]
 
 builddependencies = [('CMake', '3.24.3')]
 
@@ -30,7 +29,7 @@ dependencies = [
 ]
 
 # lowest supported capability is 3.5
-cuda_compute_capabilities = ['3.5', '3.7', '5.0', '5.2', '5.3', '6.0', '6.1', '6.2', '7.0']
+cuda_compute_capabilities = ['3.5', '3.7', '5.0', '5.2', '5.3', '6.0', '6.1', '6.2', '7.0', '8.0']
 capabilities = [''.join(x.split('.')) for x in cuda_compute_capabilities]
 cuda_arch = ';'.join(['-gencode arch=compute_%s,code=\"sm_%s,compute_%s\"' % (x, x, x) for x in capabilities])
 print(cuda_arch)
