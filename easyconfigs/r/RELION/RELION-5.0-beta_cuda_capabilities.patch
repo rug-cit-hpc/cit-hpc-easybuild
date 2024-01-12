@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -88,7 +88,7 @@ if (CUDA_ARCH STREQUAL "")
+ 	set(CUDARCH "-arch=sm_50")
+ else ()
+ 	message(STATUS "Using provided CUDA_ARCH=${CUDA_ARCH}")
+-	set(CUDARCH "-arch=sm_${CUDA_ARCH}")
++	set(CUDARCH ${CUDA_ARCH})
+ endif ()
+ 
+ # -------------------------------------------------------------------FURTHER OPTIONS--

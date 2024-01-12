@@ -281,3 +281,6 @@ easyconfigs:
   - Valgrind-3.20.0-gompi-2022a.eb
   - Valgrind-3.21.0-gompi-2022b.eb
   - Valgrind-3.21.0-gompi-2023a.eb
+  - RELION-3.1.4-foss-2022a-CUDA-11.7.0.eb
+  - RELION-5.0-beta-foss-2022a-CUDA-11.7.0.eb
+
