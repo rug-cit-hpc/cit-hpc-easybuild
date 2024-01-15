@@ -283,4 +283,4 @@ easyconfigs:
   - Valgrind-3.21.0-gompi-2023a.eb
   - RELION-3.1.4-foss-2022a-CUDA-11.7.0.eb
   - RELION-5.0-beta-foss-2022a-CUDA-11.7.0.eb
-
+  - ctffind-4.1.14-foss-2022a.eb
