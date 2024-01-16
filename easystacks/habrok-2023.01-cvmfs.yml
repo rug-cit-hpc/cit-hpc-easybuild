@@ -4,6 +4,7 @@ easyconfigs:
   - EasyBuild-4.8.0.eb
   - EasyBuild-4.8.1.eb
   - EasyBuild-4.8.2.eb
+  - EasyBuild-4.9.0.eb
   - netCDF-4.9.0-gompi-2022a.eb:
       options:
         skip-test-step: True
@@ -22,6 +23,7 @@ easyconfigs:
   - AMBiT-3.1.1-foss-2022a.eb
   - Anaconda3-2022.05.eb
   - Anaconda3-2023.03-1.eb
+  - Anaconda3-2023.09-0.eb
   - angsd-0.940-GCC-11.2.0.eb
   - astropy-5.1.1-foss-2022a.eb
   - AutoDock-Vina-1.2.3-foss-2021b.eb
