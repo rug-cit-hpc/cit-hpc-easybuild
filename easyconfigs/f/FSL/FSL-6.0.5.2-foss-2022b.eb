@@ -54,6 +54,10 @@ dependencies = [
     ('h5py', '3.8.0'),
 ]
 
+postinstallcmds = [
+    'ln -sf $EBROOTPYTHON/bin/python %(installdir)s/fsl/bin/fslpython'
+    ]
+
 modextrapaths = {'PYTHONPATH': ['fsl/lib/python%(pyshortver)s/site-packages']}
 
 # The executable files 'imglob' and 'imcp' come from fslpy
