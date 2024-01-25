@@ -286,3 +286,4 @@ easyconfigs:
   - RELION-3.1.4-foss-2022a-CUDA-11.7.0.eb
   - RELION-5.0-beta-foss-2022a-CUDA-11.7.0.eb
   - ctffind-4.1.14-foss-2022a.eb
+  - FSL-6.0.5.2-foss-2022b.eb
