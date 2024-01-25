@@ -1,0 +1,39 @@
+easyblock = 'MesonNinja'
+
+name = 'GLibmm'
+version = '2.66.4'
+
+homepage = 'https://www.gtk.org/'
+description = """C++ bindings for Glib"""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://ftp.gnome.org/pub/gnome/sources/glibmm/%(version_major_minor)s/']
+sources = ['%(namelower)s-%(version)s.tar.xz']
+checksums = ['199ace5682d81b15a1d565480b4a950682f2db6402c8aa5dd7217d71edff81d5']
+
+builddependencies = [
+    ('binutils', '2.39'),
+    ('pkg-config', '0.29.2'),
+    ('Meson', '0.64.0'),
+    ('mm-common', '1.0.5'),
+    ('Ninja', '1.11.1'),
+    ('Doxygen', '1.9.5'),
+]
+
+dependencies = [
+    ('GLib', '2.75.0'),
+    ('libsigc++', '2.10.3'),
+]
+
+# ignore deprecation warnings that are treated like errors due changed defaults in recent GCC versions
+# buildopts = 'V=1 CXXFLAGS="$CXXFLAGS -Wno-deprecated -Wno-deprecated-declarations"'
+
+sanity_check_paths = {
+    'files': ['lib/libglibmm-2.4.%s' % SHLIB_EXT, 'lib/libgiomm-2.4.%s' % SHLIB_EXT,
+              'include/glibmm-2.4/glibmm.h', 'include/giomm-2.4/giomm.h'],
+    'dirs': ['lib/pkgconfig'],
+}
+
+moduleclass = 'vis'
