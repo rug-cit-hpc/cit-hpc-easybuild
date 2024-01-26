@@ -287,3 +287,6 @@ easyconfigs:
   - RELION-5.0-beta-foss-2022a-CUDA-11.7.0.eb
   - ctffind-4.1.14-foss-2022a.eb
   - FSL-6.0.5.2-foss-2022b.eb
+  - Regenie-3.1.2-GCC-11.2.0.eb:
+      options:
+        from-pr: 15752
