@@ -77,7 +77,7 @@ class EB_Gurobi(Tarball):
             copy_file(self.orig_license_file, self.license_file)
 
         if get_software_root('Python'):
-            # Python component installation method changed in from v11.0.0
+            # Python component installation method changed in v11.0.0 to use pip install
             if LooseVersion(self.version) < LooseVersion("11.0.0"):
                 run_cmd("python setup.py install --prefix=%s" % self.installdir)
             else:
