@@ -81,7 +81,7 @@ class EB_Gurobi(Tarball):
             if LooseVersion(self.version) < LooseVersion("11.0.0"):
                 run_cmd("python setup.py install --prefix=%s" % self.installdir)
             else:
-                run_cmd("python -m pip install --find-links=%s --no-index --target=%s gurobipy" % (self.builddir, self.installdir))
+                run_cmd("python -m pip install --find-links=%s --no-index --no-deps --ignore-installed --no-build-isolation --prefix=%s gurobipy" % (self.builddir, self.installdir))
 
     def sanity_check_step(self):
         """Custom sanity check for Gurobi."""
