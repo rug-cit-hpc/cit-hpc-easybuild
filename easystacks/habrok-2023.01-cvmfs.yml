@@ -290,4 +290,5 @@ easyconfigs:
   - Regenie-3.1.2-GCC-11.2.0.eb:
       options:
         from-pr: 15752
+  - Gurobi-11.0.0-GCCcore-12.3.0.eb
   - awscli-2.15.2-GCCcore-12.2.0.eb
