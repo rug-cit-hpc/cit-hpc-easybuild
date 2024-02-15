@@ -293,3 +293,4 @@ easyconfigs:
         from-pr: 15752
   - Gurobi-11.0.0-GCCcore-12.3.0.eb
   - awscli-2.15.2-GCCcore-12.2.0.eb
+  - Seurat-4.4.0-foss-2022b-R-4.2.2.eb
