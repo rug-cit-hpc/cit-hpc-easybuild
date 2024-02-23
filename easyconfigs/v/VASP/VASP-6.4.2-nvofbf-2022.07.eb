@@ -30,6 +30,7 @@ prebuildopts += 'unset LIBS && '
 local_targets = ['std', 'gam', 'ncl']
 
 buildopts = '%s ' % ' '.join(local_targets)
+buildopts += 'NVHPC="${EBROOTNVHPC}"
 buildopts += 'FFTW_ROOT="${EBROOTFFTW}" '
 buildopts += 'DEPS=1 '  # required for VASP parallel builds
 
