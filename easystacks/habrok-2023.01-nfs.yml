@@ -4,3 +4,4 @@ easyconfigs:
   - WIEN2k-21.1-intel-2021b.eb
   - VASP-6.4.1-nvofbf-2022.07.eb
   - VASP-5.4.4.pl2-intel-2022a.eb
+  - VASP-6.4.2-nvofbf-2022.07.eb
