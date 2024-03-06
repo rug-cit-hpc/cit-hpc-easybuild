@@ -5,6 +5,7 @@ ARG fuseoverlayfsversion=1.10
 # Set locale
 ENV LC_ALL C.UTF-8
 # Configure the repositories
+RUN dnf clean all
 RUN dnf install -y epel-release && \
     dnf install -y 'dnf-command(config-manager)' && \
     dnf config-manager --set-enabled powertools
@@ -25,6 +26,7 @@ RUN dnf install -y gcc gcc-c++ gcc-gfortran gdb patch git flex freetype fontconf
     dnf install -y glibc-static glibc-gconv-extra which make libtool automake autoconf file bzip2 gzip p7zip p7zip-plugins && \
     dnf install -y openssl openssl-devel openssh-clients strace wget curl sssd-client bc && \
     dnf install -y vim-common xz unzip zip cpio systemd-devel libidn rsync && \
+    dnf install -y libXrender libXi libxkbcommon libSM libICE && \
     pip3 install pycodestyle
 # Easybuild GitHub integration
 RUN pip3 install GitPython keyring keyrings.alt rich
