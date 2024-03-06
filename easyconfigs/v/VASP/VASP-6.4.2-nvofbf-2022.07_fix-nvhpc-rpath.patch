@@ -1,0 +1,19 @@
+--- arch/makefile.include.nvhpc_omp_acc	2024-02-23 16:25:59.364720368 +0100
++++ arch/makefile.include.nvhpc_omp_acc	2024-02-23 16:30:37.921687191 +0100
+@@ -61,12 +61,12 @@
+ 
+ # Specify your NV HPC-SDK installation (mandatory)
+ #... first try to set it automatically
+-NVROOT      =$(shell which nvfortran | awk -F /compilers/bin/nvfortran '{ print $$1 }')
++#NVROOT      =$(shell which nvfortran | awk -F /compilers/bin/nvfortran '{ print $$1 }')
+ 
+ # If the above fails, then NVROOT needs to be set manually
+-#NVHPC      ?= /opt/nvidia/hpc_sdk
+-#NVVERSION   = 21.11
+-#NVROOT      = $(NVHPC)/Linux_x86_64/$(NVVERSION)
++NVHPC      ?= /opt/nvidia/hpc_sdk
++NVVERSION   = 22.7
++NVROOT      = $(NVHPC)/Linux_x86_64/$(NVVERSION)
+ 
+ ## Improves performance when using NV HPC-SDK >=21.11 and CUDA >11.2
+ #OFLAG_IN   = -fast -Mwarperf
