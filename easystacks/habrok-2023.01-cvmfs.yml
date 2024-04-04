@@ -298,4 +298,5 @@ easyconfigs:
   - HDF5-1.14.0-iimpi-2023a.eb
   - HDF5-1.14.3-iimpi-2023b.eb
   - Blender-3.5.0-linux-x86_64-CUDA-11.7.0.eb
+  - Slicer-5.6.1-linux-x86_64.eb
   - NetLogo-6.4.0-64.eb
