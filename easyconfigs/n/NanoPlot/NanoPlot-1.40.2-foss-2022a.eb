@@ -1,0 +1,47 @@
+# Author: Pavel Grochal (INUITS)
+# License: GPLv2
+
+easyblock = 'PythonPackage'
+
+name = 'NanoPlot'
+version = '1.40.2'
+
+homepage = 'https://github.com/wdecoster/NanoPlot'
+description = "Plotting suite for long read sequencing data and alignments"
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+sources = [SOURCE_TAR_GZ]
+checksums = ['ef668e69b190519f205dcda937f7a6dbca1c2bf60fe5c95e9057f98cb8920c50']
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('Biopython', '1.79'),
+    ('Pysam', '0.19.1'),
+    ('nanomath', '1.3.0'),
+    ('nanoget', '1.18.1'),
+    ('Seaborn', '0.12.1'),
+    ('plotly.py', '5.12.0'),
+    ('pauvre', '0.2.3'),
+    ('statsmodels', '0.13.1'),
+    ('Arrow', '8.0.0'),  # for pyarrow
+    ('Kaleido', '0.2.1'),
+]
+
+download_dep_fail = True
+use_pip = True
+
+# replace strict Seaborn & pauvre version requirement with minimal version requirements
+preinstallopts = "sed -i 's/==0/>=0/g' setup.py && "
+
+sanity_check_paths = {
+    'files': ['bin/NanoPlot'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["NanoPlot --help"]
+
+sanity_pip_check = True
+
+moduleclass = 'bio'

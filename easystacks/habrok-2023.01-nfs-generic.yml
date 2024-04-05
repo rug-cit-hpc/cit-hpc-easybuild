@@ -10,3 +10,4 @@ easyconfigs:
   - Mplus-8.4.eb
   - ORCA-5.0.4-gompi-2022a.eb
   - AMS-2023.104-iimpi-2022b-intelmpi.eb
+  - SPM-12.5_r7771-MATLAB-2022b-r5.eb

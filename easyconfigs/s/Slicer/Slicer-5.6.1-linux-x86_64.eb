@@ -1,0 +1,25 @@
+easyblock = 'PackedBinary'
+
+name = 'Slicer'
+version = '5.6.1'
+versionsuffix = '-linux-x86_64'
+
+homepage = 'https://www.slicer.org/'
+description = """3D Slicer is a free, open source software for visualization, 
+processing, segmentation, registration, and analysis of medical, biomedical, and 
+other 3D images and meshes; and planning and navigating image-guided procedures."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://download.slicer.org/bitstream/']
+sources = [ { 'download_filename': '657813b183a3201b44d4e6f7', 'filename': SOURCE_TAR_GZ} ]
+checksums = ['ef863af4ed8df7716d2e2b433547fac4bd572696d10e9ba80c08ec3e51447cb9']
+
+postinstallcmds = ['rm %(installdir)s/lib/Slicer-%(version_major_minor)s/libcrypto.*']
+
+sanity_check_paths = {
+    'files': ['Slicer', 'bin/SlicerApp-real'],
+    'dirs': ['include','lib','libexec'],
+}
+
+moduleclass = 'vis'
