@@ -300,3 +300,24 @@ easyconfigs:
   - Blender-3.5.0-linux-x86_64-CUDA-11.7.0.eb
   - Slicer-5.6.1-linux-x86_64.eb
   - NetLogo-6.4.0-64.eb
+  - prodigal-2.6.3-GCCcore-12.2.0.eb
+  - prodigal-2.6.3-GCCcore-12.3.0.eb
+  - minimap2-2.24-GCCcore-11.3.0.eb
+  - minimap2-2.26-GCCcore-12.2.0.eb
+  - minimap2-2.26-GCCcore-12.3.0.eb
+  - BLAST+-2.14.0-gompi-2022b.eb
+  - BLAST+-2.14.1-gompi-2023a.eb
+  - Flye-2.9.2-GCC-11.3.0.eb
+  - Flye-2.9.3-GCC-12.2.0.eb
+  - Flye-2.9.3-GCC-12.3.0.eb
+  - Subread-2.0.6-GCC-12.2.0.eb
+  - Subread-2.0.6-GCC-12.3.0.eb
+  - SAMtools-1.18-GCC-12.3.0.eb
+  - Biopython-1.83-foss-2023a.eb
+  - NanoFilt-2.8.0-foss-2022a.eb
+  - NanoFilt-2.8.0-foss-2022b.eb
+  - NanoFilt-2.8.0-foss-2023a.eb
+  - NanoPlot-1.40.2-foss-2022a.eb
+  - NanoPlot-1.42.0-foss-2022b.eb
+  - NanoPlot-1.42.0-foss-2023a.eb
+  - cutadapt-4.7-GCCcore-12.3.0.eb
