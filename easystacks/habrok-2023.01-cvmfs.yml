@@ -297,3 +297,4 @@ easyconfigs:
   - HDF5-1.14.0-iimpi-2023a.eb
   - HDF5-1.14.3-iimpi-2023b.eb
   - Blender-3.5.0-linux-x86_64-CUDA-11.7.0.eb
+  - RStudio-Server-2023.12.1+402-gfbf-2023a-Java-11-R-4.3.2.eb
