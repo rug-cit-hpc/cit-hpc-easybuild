@@ -311,7 +311,6 @@ easyconfigs:
   - Flye-2.9.3-GCC-12.3.0.eb
   - Subread-2.0.6-GCC-12.2.0.eb
   - SAMtools-1.18-GCC-12.3.0.eb
-  - cutadapt-4.7-GCCcore-12.3.0.eb
   - Biopython-1.83-foss-2023a.eb
   - NanoFilt-2.8.0-foss-2022a.eb
   - NanoFilt-2.8.0-foss-2022b.eb
