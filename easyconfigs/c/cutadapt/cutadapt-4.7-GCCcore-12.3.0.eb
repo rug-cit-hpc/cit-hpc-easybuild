@@ -36,7 +36,7 @@ exts_list = [
         'checksums': ['6c34127651e538cfdd67ec8016a6505ba386158bbfe3f615e105d49027d5968e'],
     }),
     ('dnaio', '1.2.0', {
-        'checksums': ['de51a50948f00b864297d74eddb588fbee5ac229855754e77564d18b24619d18'],
+        'checksums': ['d0528c23516fe4e947970bdef33c423f0a30ab3b083bd4f6f049fd66d8cef803'],
     }),
     (name, version, {
         'checksums': ['8738a35b363eaf615665a4e7d1b4beb385cd93fb7ffdcf82cd4ab6457acc879b'],
