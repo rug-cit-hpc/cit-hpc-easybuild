@@ -32,8 +32,8 @@ use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('xopen', '2.0.1', {
-        'checksums': ['6c34127651e538cfdd67ec8016a6505ba386158bbfe3f615e105d49027d5968e'],
+    ('xopen', '1.7.0', {
+        'checksums': ['901f9c8298e95ed74767a4bd76d9f4cf71d8de27b8cf296ac3e7bc1c11520d9f'],
     }),
     ('dnaio', '1.2.0', {
         'checksums': ['d0528c23516fe4e947970bdef33c423f0a30ab3b083bd4f6f049fd66d8cef803'],
