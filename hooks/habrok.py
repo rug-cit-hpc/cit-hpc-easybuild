@@ -109,7 +109,7 @@ def post_extensions_hook(self, *args, **kwargs):
     # Replace the -march=native flags in the Makeconf file of R installations by -march=x86-64-v3.
     # This ensures that user-installed extensions are compatible with all nodes.
     if self.name == 'R':
-        self.log.info("[post-extensions hook] Replace -march=native by -march=x86-64-v3 in etc/Makeconf")
+        self.log.info("[post-extensions hook] Replace -march=native by -march=x86-64-v3 in lib64/R/etc/Makeconf")
         apply_regex_substitutions(os.path.join(self.installdir, 'lib64', 'R', 'etc', 'Makeconf'), [
             (r'(.*FLAGS = .*)(-march=native)(.*)', r'\1-march=x86-64-v3\3'),
         ])
