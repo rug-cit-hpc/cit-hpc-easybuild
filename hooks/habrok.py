@@ -2,7 +2,7 @@ import os
 
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.config import ConfigurationVariables
-
+from easybuild.tools.filetools import apply_regex_substitutions
 
 
 NOT_IN_GROUP_MSG = "This software can only be used by members of the {group} group, "
@@ -104,6 +104,15 @@ def parse_hook(self):
             raise EasyBuildError('Apptainer builds require $EB_HABROK_CONTAINER_PATH to be set!')
         ConfigurationVariables()._FrozenDict__dict['installpath'] = os.getenv('EB_HABROK_CONTAINER_PATH')
 
+
+def post_extensions_hook(self, *args, **kwargs):
+    # Replace the -march=native flags in the Makeconf file of R installations by -march=x86-64-v3.
+    # This ensures that user-installed extensions are compatible with all nodes.
+    if self.name == 'R':
+        self.log.info("[post-extensions hook] Replace -march=native by -march=x86-64-v3 in etc/Makeconf")
+        apply_regex_substitutions(os.path.join(self.installdir, 'lib64', 'R', 'etc', 'Makeconf'), [
+            (r'(.*FLAGS = .*)(-march=native)(.*)', r'\1-march=x86-64-v3\3'),
+        ])
 
 
 def pre_configure_hook(self, *args, **kwargs):
