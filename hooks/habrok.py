@@ -2,7 +2,7 @@ import os
 
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.config import ConfigurationVariables
-from easybuild.tools.filetools import apply_regex_substitutions
+from easybuild.tools.filetools import apply_regex_substitutions, remove_file, symlink
 
 
 NOT_IN_GROUP_MSG = "This software can only be used by members of the {group} group, "
@@ -109,7 +109,7 @@ def post_extensions_hook(self, *args, **kwargs):
     # Replace the -march=native flags in the Makeconf file of R installations by -march=x86-64-v3.
     # This ensures that user-installed extensions are compatible with all nodes.
     if self.name == 'R':
-        self.log.info("[post-extensions hook] Replace -march=native by -march=x86-64-v3 in lib64/R/etc/Makeconf")
+        self.log.info("[post-extensions hook] Replace -march=native by -march=x86-64-v3 in etc/Makeconf")
         apply_regex_substitutions(os.path.join(self.installdir, 'lib64', 'R', 'etc', 'Makeconf'), [
             (r'(.*FLAGS = .*)(-march=native)(.*)', r'\1-march=x86-64-v3\3'),
         ])
@@ -194,3 +194,35 @@ def pre_module_hook(self, *args, **kwargs):
     # OpenMPI: add Lua code that disables UCX and libfabric on nodes with an Omnipath device
     if self.name == 'OpenMPI':
         self.cfg.update('modluafooter', OPENMPI_OPA_FOOTER)
+
+
+def pre_install_hook(self, *args, **kwargs):
+    # R Packages: temporarily revert the -march=x86-64-v3 flags in the R installation back to -march=native
+    # by making a symlink $HOME/.R/Makevars -> $EBROOTR/lib64/R/etc/Makeconf.bak.
+    # (and undo this later on in a post-install hook)
+    if self.cfg['easyblock'] == 'RPackage':
+        r_user_dir = os.path.join(os.path.expanduser('~'), '.R')
+        r_user_makevars = os.path.join(r_user_dir, 'Makevars')
+        r_install_dir = os.path.expandvars('$EBROOTR')
+        r_orig_makeconf = os.path.join(r_install_dir, 'lib64', 'R', 'etc', 'Makeconf.bak')
+        if os.path.exists(os.path.join(r_user_dir, 'Makevars')):
+            raise EasyBuildError("Existing Makevars file found in %s, please remove it!" % r_user_dir)
+        if not os.path.exists(r_orig_makeconf):
+            self.log.warn("Cannot find the original Makeconf file at %s, proceeding with the default one..." % r_orig_makeconf)
+        if not os.path.exists(r_user_dir):
+            os.mkdir(r_user_dir)
+        self.log.info("[pre-install hook] Setting up a symbolic link to the original R Makeconf file...")
+        symlink(r_orig_makeconf, r_user_makevars)
+
+
+def post_install_hook(self, *args, **kwargs):
+    # R Packages: remove the symlink that was created in the pre install hook for overriding the -march flag.
+    if self.cfg['easyblock'] == 'RPackage':
+        r_user_makevars = os.path.join(os.path.expanduser('~'), '.R', 'Makevars')
+        if os.path.exists(r_user_makevars):
+            if os.path.islink(r_user_makevars):
+                remove_file(r_user_makevars)
+            else:
+                self.log.warn("Expected %s to be a symlink, but it's not?! Not removing it..." % r_user_makevars)
+        else:
+            self.log.warn("Couldn't find a file at %s, so not removing it..." % r_user_makevars)
