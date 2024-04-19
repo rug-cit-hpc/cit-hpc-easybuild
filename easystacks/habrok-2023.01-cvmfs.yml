@@ -323,4 +323,5 @@ easyconfigs:
   - NanoPlot-1.42.0-foss-2023a.eb
   - cutadapt-4.7-GCCcore-12.3.0.eb
   - MACS2-2.2.9.1-foss-2022b.eb
+  - JupyterLab-4.0.5-GCCcore-12.3.0.eb
   - EasyBuild-4.9.1.eb
