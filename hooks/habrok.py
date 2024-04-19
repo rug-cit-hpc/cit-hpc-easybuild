@@ -105,6 +105,12 @@ def parse_hook(self):
         ConfigurationVariables()._FrozenDict__dict['installpath'] = os.getenv('EB_HABROK_CONTAINER_PATH')
 
 
+def pre_extensions_hook(self, *args, **kwargs):
+    if self.cfg['easyblock'] == 'Bundle':
+        if self.cfg['exts_defaultclass'] == 'RPackage':
+            add_symlink_to_original_R_makevars(self.log)
+
+
 def post_extensions_hook(self, *args, **kwargs):
     # Replace the -march=native flags in the Makeconf file of R installations by -march=x86-64-v3.
     # This ensures that user-installed extensions are compatible with all nodes.
@@ -113,6 +119,9 @@ def post_extensions_hook(self, *args, **kwargs):
         apply_regex_substitutions(os.path.join(self.installdir, 'lib64', 'R', 'etc', 'Makeconf'), [
             (r'(.*FLAGS = .*)(-march=native)(.*)', r'\1-march=x86-64-v3\3'),
         ])
+    if self.cfg['easyblock'] == 'Bundle':
+        if self.cfg['exts_defaultclass'] == 'RPackage':
+            remove_symlink_to_original_R_makevars(self.log)
 
 
 def pre_configure_hook(self, *args, **kwargs):
@@ -201,6 +210,16 @@ def pre_install_hook(self, *args, **kwargs):
     # by making a symlink $HOME/.R/Makevars -> $EBROOTR/lib64/R/etc/Makeconf.bak.
     # (and undo this later on in a post-install hook)
     if self.cfg['easyblock'] == 'RPackage':
+        add_symlink_to_original_R_makevars(self.log)
+
+
+def post_install_hook(self, *args, **kwargs):
+    # R Packages: remove the symlink that was created in the pre install hook for overriding the -march flag.
+    if self.cfg['easyblock'] == 'RPackage':
+        remove_symlink_to_original_R_makevars(self.log)
+
+
+def add_symlink_to_original_R_makevars(log):
         r_user_dir = os.path.join(os.path.expanduser('~'), '.R')
         r_user_makevars = os.path.join(r_user_dir, 'Makevars')
         r_install_dir = os.path.expandvars('$EBROOTR')
@@ -208,21 +227,19 @@ def pre_install_hook(self, *args, **kwargs):
         if os.path.exists(os.path.join(r_user_dir, 'Makevars')):
             raise EasyBuildError("Existing Makevars file found in %s, please remove it!" % r_user_dir)
         if not os.path.exists(r_orig_makeconf):
-            self.log.warn("Cannot find the original Makeconf file at %s, proceeding with the default one..." % r_orig_makeconf)
+            log.warn("Cannot find the original Makeconf file at %s, proceeding with the default one..." % r_orig_makeconf)
         if not os.path.exists(r_user_dir):
-            os.mkdir(r_user_dir)
-        self.log.info("[pre-install hook] Setting up a symbolic link to the original R Makeconf file...")
+            mkdir(r_user_dir)
+        log.info("[pre-install hook] Setting up a symbolic link to the original R Makeconf file...")
         symlink(r_orig_makeconf, r_user_makevars)
 
 
-def post_install_hook(self, *args, **kwargs):
-    # R Packages: remove the symlink that was created in the pre install hook for overriding the -march flag.
-    if self.cfg['easyblock'] == 'RPackage':
+def remove_symlink_to_original_R_makevars(log):
         r_user_makevars = os.path.join(os.path.expanduser('~'), '.R', 'Makevars')
         if os.path.exists(r_user_makevars):
             if os.path.islink(r_user_makevars):
                 remove_file(r_user_makevars)
             else:
-                self.log.warn("Expected %s to be a symlink, but it's not?! Not removing it..." % r_user_makevars)
+                log.warn("Expected %s to be a symlink, but it's not?! Not removing it..." % r_user_makevars)
         else:
-            self.log.warn("Couldn't find a file at %s, so not removing it..." % r_user_makevars)
+            log.warn("Couldn't find a file at %s, so not removing it..." % r_user_makevars)
