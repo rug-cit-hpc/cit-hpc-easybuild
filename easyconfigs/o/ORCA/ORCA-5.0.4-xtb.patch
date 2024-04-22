@@ -1,0 +1,16 @@
+--- /dev/null	2024-03-21 02:25:47.747000000 +0100
++++ orca_5_0_4_linux_x86-64_shared_openmpi411/otool_xtb	2024-04-19 22:32:19.192442898 +0200
+@@ -0,0 +1,13 @@
++#!/usr/bin/env bash
++
++if [ -d "$EBROOTXTB" ]
++then
++   args=("$@")
++   namespace=$(printf '%s\n' "${args[@]}" | awk 'namespace {print $0; namespace=0}; /--namespace/ {namespace=1}') 
++   $EBROOTXTB/bin/xtb "$@"
++   if [ -f "$namespace.energy" ]
++   then
++      energy=$(cat "$namespace.energy")
++      echo "$energy" | awk 'BEGIN {print "$energy"}; END {print "$end"}; NF == 2 {print $1, $2, $2, $2}; NF == 4 {print $0}' > "$namespace.energy"
++   fi
++fi
