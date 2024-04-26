@@ -327,4 +327,5 @@ easyconfigs:
   - JupyterLab-4.0.5-GCCcore-12.3.0.eb
   - EasyBuild-4.9.1.eb
   - PortAudio-19.7.0-foss-2022a.eb
+  - MMseqs2-15-6f452-gompi-2023a.eb
 
