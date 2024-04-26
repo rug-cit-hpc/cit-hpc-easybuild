@@ -106,6 +106,9 @@ def parse_hook(self):
 
 
 def pre_extensions_hook(self, *args, **kwargs):
+    # Before installing R package bundles, create a symlink to the original Makevars file.
+    # This ensures that -march=native is used for these installations.
+    # The symlink will be removed again with a post_extensions hook.
     if self.cfg['easyblock'] == 'Bundle':
         if self.cfg['exts_defaultclass'] == 'RPackage':
             add_symlink_to_original_R_makevars(self.log)
@@ -119,6 +122,8 @@ def post_extensions_hook(self, *args, **kwargs):
         apply_regex_substitutions(os.path.join(self.installdir, 'lib64', 'R', 'etc', 'Makeconf'), [
             (r'(.*FLAGS = .*)(-march=native)(.*)', r'\1-march=x86-64-v3\3'),
         ])
+
+    # For R package bundles, remove the symlink again that was created by the pre_extensions hook.
     if self.cfg['easyblock'] == 'Bundle':
         if self.cfg['exts_defaultclass'] == 'RPackage':
             remove_symlink_to_original_R_makevars(self.log)
