@@ -328,4 +328,8 @@ easyconfigs:
   - EasyBuild-4.9.1.eb
   - PortAudio-19.7.0-foss-2022a.eb
   - MMseqs2-15-6f452-gompi-2023a.eb
-
+  - OpenAI-Gym-0.26.2-foss-2022a.eb
+  - Boost.Python-1.79.0-GCC-11.3.0.eb
+  - SDL2_gfx-1.0.4-GCCcore-11.3.0.eb:
+      options:
+        from-pr: 20466
