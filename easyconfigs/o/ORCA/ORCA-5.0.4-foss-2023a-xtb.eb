@@ -15,10 +15,10 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 # mostly dynamically linked (SCALAPACK, OpenBLAS are still embedded)
 sources = ['%(namelower)s_5_0_4_linux_%(orcaarch)s_shared_openmpi411.tar.xz']
-patches = [('%(name)s-%(version)s-%(versionsuffix)s.patch', 1)]
+patches = [('%(name)s-%(version)s%(versionsuffix)s.patch', 1)]
 checksums = [
     {'orca_5_0_4_linux_x86-64_shared_openmpi411.tar.xz': 'c4ea5aea60da7bcb18a6b7042609206fbeb2a765c6fa958c5689d450b588b036'},
-    {'%(name)s-%(version)s-%(versionsuffix)s.patch': '8899306d6441d288c98ff1822c7345aebab455065c8cce8feec52cbc22e2bc6d'},
+    {'%(name)s-%(version)s%(versionsuffix)s.patch': '8899306d6441d288c98ff1822c7345aebab455065c8cce8feec52cbc22e2bc6d'},
 ]
 
 dependencies = [
