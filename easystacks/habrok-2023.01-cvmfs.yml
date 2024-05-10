@@ -333,3 +333,4 @@ easyconfigs:
   - SDL2_gfx-1.0.4-GCCcore-11.3.0.eb:
       options:
         from-pr: 20466
+  - IMa3-1.13-foss-2023a.eb
