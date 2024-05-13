@@ -1,0 +1,25 @@
+easyblock = 'MakeCp'
+
+name ='IMa3'
+version = '1.13'
+github_account = 'jodyhey'
+
+homepage = 'https://github.com/jodyhey/IMa3'
+description = """Unlike previous IM programs, IMa3 allows an investigator to estimate the topology of the
+phylogenetic tree for the sampled populations or species.
+IMa3 is based on the older IMa2 and IMa2p programs and uses the same input file format."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['409ee7d023aaae4746f1ce26e1073004f57d8b843b0b9896a41ae1492160a5f1']
+
+files_to_copy = [(['%(name)s'], 'bin'), 'documentation']
+
+sanity_check_paths = {
+    'files': ['bin/IMa3'],
+    'dirs': ['documentation'],
+}
+
+moduleclass = 'bio'
