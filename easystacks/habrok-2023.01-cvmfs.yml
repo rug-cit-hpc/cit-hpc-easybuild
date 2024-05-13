@@ -333,4 +333,6 @@ easyconfigs:
   - SDL2_gfx-1.0.4-GCCcore-11.3.0.eb:
       options:
         from-pr: 20466
+  - CUDA-11.8.0.eb
+  - cuDNN-8.7.0.84-CUDA-11.8.0.eb
   - NWChem-7.2.2-intel-2023a.eb
