@@ -212,7 +212,7 @@ def pre_module_hook(self, *args, **kwargs):
 
 def pre_install_hook(self, *args, **kwargs):
     # R Packages: temporarily revert the -march=x86-64-v3 flags in the R installation back to -march=native
-    # by making a symlink $HOME/.R/Makevars -> $EBROOTR/lib64/R/etc/Makeconf.bak.
+    # by making a symlink $HOME/.R/Makevars -> $EBROOTR/lib64/R/etc/Makeconf.orig.eb.
     # (and undo this later on in a post-install hook)
     if self.cfg['easyblock'] == 'RPackage':
         add_symlink_to_original_R_makevars(self.log)
@@ -228,7 +228,7 @@ def add_symlink_to_original_R_makevars(log):
         r_user_dir = os.path.join(os.path.expanduser('~'), '.R')
         r_user_makevars = os.path.join(r_user_dir, 'Makevars')
         r_install_dir = os.path.expandvars('$EBROOTR')
-        r_orig_makeconf = os.path.join(r_install_dir, 'lib64', 'R', 'etc', 'Makeconf.bak')
+        r_orig_makeconf = os.path.join(r_install_dir, 'lib64', 'R', 'etc', 'Makeconf.orig.eb')
         if os.path.exists(os.path.join(r_user_dir, 'Makevars')):
             raise EasyBuildError("Existing Makevars file found in %s, please remove it!" % r_user_dir)
         if not os.path.exists(r_orig_makeconf):
