@@ -8,7 +8,7 @@ version = '4.0.0'
 homepage = 'http://www.itksnap.org/'
 description = """ITK-SNAP is a software application used to segment structures in 3D medical images. It is the product of a decade-long collaboration between Paul Yushkevich, Ph.D., of the Penn Image Computing and Science Laboratory (PICSL) at the University of Pennsylvania, and Guido Gerig, Ph.D., of the Scientific Computing and Imaging Institute (SCI) at the University of Utah, whose vision was to create a tool that would be dedicated to a specific function, segmentation, and would be easy to use and learn. ITK-SNAP is free, open-source, and multi-platform."""
 
-toolchain = {'name': 'foss', 'version': '2022b'}
+toolchain = {'name': 'foss', 'version': '2021b'}
 toolchainopts = {'pic': True, 'cstd': 'c++11'}
 
 #github_account = 'pyushkevich'
@@ -26,16 +26,16 @@ sources = [
 }]
 
 builddependencies = [
-    ('CMake', '3.24.3'),
+    ('CMake', '3.22.1', '', ('GCCcore', '11.2.0')),
 ]
 
 # start_dir = ''
 
 dependencies = [
     ('ITK', '5.2.1'),
-    ('VTK', '9.2.6'),
-    ('Qt5', '5.15.7'),
-    ('Eigen', '3.4.0'),
+    ('VTK', '9.1.0'),
+    ('Qt5', '5.15.2', '', ('GCCcore', '11.2.0')),
+    ('Eigen', '3.4.0', '', ('GCCcore', '11.2.0')),
 ]
 
 separate_build_dir = True
