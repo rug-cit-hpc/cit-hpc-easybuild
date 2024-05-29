@@ -343,3 +343,4 @@ easyconfigs:
       options:
         # ignore failing test_cuda_expandable_segments test on V100
         ignore-test-failure: True
+  - FreeImage-3.18.0-GCCcore-12.3.0.eb 
