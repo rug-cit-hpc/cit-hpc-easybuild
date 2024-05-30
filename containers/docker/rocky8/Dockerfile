@@ -9,6 +9,7 @@ RUN dnf clean all
 RUN dnf install -y epel-release && \
     dnf install -y 'dnf-command(config-manager)' && \
     dnf config-manager --set-enabled powertools
+COPY containers/docker/rocky8/habrok8.repo /etc/yum.repos.d/habrok8.repo
 # Lmod and CVMFS
 RUN dnf install -y https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest.noarch.rpm && \
     dnf install -y Lmod && \
@@ -19,7 +20,7 @@ RUN dnf install -y https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-
     dnf install -y cvmfs cvmfs-fuse3 && \
     dnf install -y pam-devel
 # Interconnect libraries
-RUN dnf install -y rdma-core rdma-core-devel libpsm2 libpsm2-devel
+RUN dnf install -y rdma-core rdma-core-devel libpsm2 libpsm2-devel pmix
 # Other tools
 RUN dnf install -y gcc gcc-c++ gcc-gfortran gdb patch git flex freetype fontconfig libglvnd-glx alsa-lib tcsh && \
     dnf install -y python3 python3-setuptools python3-pip python3-cryptography python3-pyyaml python3-wheel && \
