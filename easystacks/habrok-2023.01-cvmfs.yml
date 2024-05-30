@@ -343,3 +343,4 @@ easyconfigs:
       options:
         # ignore failing test_cuda_expandable_segments test on V100
         ignore-test-failure: True
+  - CellRanger-ARC-2.0.2.eb
