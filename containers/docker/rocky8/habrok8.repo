@@ -1,0 +1,4 @@
+[habrok8]
+baseurl = http://mirror.hb.hpc.rug.nl/local_rpms/habrok8
+gpgcheck = 0
+name = RUG CIT repository for Rocky Linux 8 with local packages.
