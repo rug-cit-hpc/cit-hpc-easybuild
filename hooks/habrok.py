@@ -40,6 +40,9 @@ LICENSES = {
     },
     'COMSOL': {
         'license_file': 'license.dat',
+    },
+    'Molpro': {
+        'license_file': '/home4/hb-software/proprietary/Molpro/token',
     }
 }
 
