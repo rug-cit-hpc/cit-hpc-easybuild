@@ -1,0 +1,545 @@
+index 1e0fd92..3e527d5 100644
+--- Submodules/c3d/CMakeLists.txt
++++ Submodules/c3d/CMakeLists.txt
+@@ -14,14 +14,14 @@ endif(COMMAND cmake_policy)
+ INCLUDE(CMake/PYVersion.cmake)
+ 
+ # Set the semantic version and version date
+-VERSION_VARS(1 4 0 "" "20220519" "May 19, 2022")
++VERSION_VARS(1 4 1 "" "20240318" "March 18, 2024")
+ 
+ # Enable languages
+ ENABLE_LANGUAGE(C)
+ ENABLE_LANGUAGE(CXX)
+ 
+ # Specify the C++ standard
+-SET(CMAKE_CXX_STANDARD 11)
++SET(CMAKE_CXX_STANDARD 17)
+ SET(CMAKE_CXX_STANDARD_REQUIRED True)
+ 
+ # Option allowing to build c3d as a subproject of another project
+@@ -72,6 +72,7 @@ IF(NOT CONVERT3D_BUILD_AS_SUBPROJECT)
+     ITKLabelVoting
+     ITKLevelSets
+     ITKMathematicalMorphology
++    ITKNIFTI
+     ITKRegistrationCommon
+     ITKSmoothing
+     ITKStatistics
+diff --git Submodules/c3d/ConvertImageND.cxx Submodules/c3d/ConvertImageND.cxx
+index 4b97537..9b9a56e 100644
+--- Submodules/c3d/ConvertImageND.cxx
++++ Submodules/c3d/ConvertImageND.cxx
+@@ -3021,7 +3021,7 @@ ::PrintMatrix(std::ostream &sout, vnl_matrix<double> mat, const char *fmt, const
+     sout << prefix;
+     for(size_t j = 0; j < mat.columns(); j++)
+       {
+-      sprintf(buffer, fmt, mat(i,j));
++      snprintf(buffer, sizeof(buffer), fmt, mat(i,j));
+       sout << buffer;
+       }
+     sout << endl;
+@@ -3418,14 +3418,14 @@ ::WriteMultiple(int argc, char *argv[], int n_comp, const char *command)
+ {
+   // Check if the argument is a printf pattern
+   char buffer[(FILENAME_MAX+1)*n_comp];
+-  sprintf(buffer, argv[1],0);
++  snprintf(buffer, sizeof(buffer), argv[1],0);
+   if (strcmp(buffer, argv[1]))
+     {
+     // A pattern is specified. For each image on the stack, use pattern
+     for(size_t i = 0; i < m_ImageStack.size(); i+= n_comp)
+       {
+       WriteImage<TPixel, VDim> adapter(this);
+-      sprintf(buffer, argv[1], i / n_comp);
++      snprintf(buffer, sizeof(buffer), argv[1], i / n_comp);
+       if(n_comp == 1)
+         adapter(buffer, true, i);
+       else 
+diff --git Submodules/c3d/adapters/ExportPatches.cxx Submodules/c3d/adapters/ExportPatches.cxx
+index ef9849a..6f20f96 100644
+--- Submodules/c3d/adapters/ExportPatches.cxx
++++ Submodules/c3d/adapters/ExportPatches.cxx
+@@ -158,7 +158,7 @@ ::operator() (const char *out_file, const SizeType &radius, double sample_freque
+   typedef vnl_matrix_fixed<double, VDim+1, VDim+1> Mat44;
+   Mat44 R;
+   Mat44 D = mask->GetVoxelSpaceToRASPhysicalSpaceMatrix().GetVnlMatrix();
+-  Mat44 Dinv = vnl_inverse<double>(D);
++  Mat44 Dinv = vnl_inverse<double>(D.as_matrix());
+ 
+   R.set_identity();
+ 
+diff --git Submodules/c3d/adapters/MatchBoundingBoxes.cxx Submodules/c3d/adapters/MatchBoundingBoxes.cxx
+index 17efdb2..787cd20 100644
+--- Submodules/c3d/adapters/MatchBoundingBoxes.cxx
++++ Submodules/c3d/adapters/MatchBoundingBoxes.cxx
+@@ -45,7 +45,7 @@ ::operator() ()
+   // bounding boxes of the two images are exactly the same
+   // O1 - S1 * D * [0.5] = O2 - S2 * D * [0.5]
+ 
+-  vnl_matrix<double> dir = t->GetDirection().GetVnlMatrix();
++  vnl_matrix<double> dir = t->GetDirection().GetVnlMatrix().as_matrix();
+   vnl_vector<double> v(VDim); v.fill(0.5);
+   vnl_vector<double> Dv = dir * v;
+   vnl_vector<double> orig(VDim), spc(VDim);
+diff --git Submodules/c3d/adapters/PrintImageInfo.cxx Submodules/c3d/adapters/PrintImageInfo.cxx
+index 845c17b..9659024 100644
+--- Submodules/c3d/adapters/PrintImageInfo.cxx
++++ Submodules/c3d/adapters/PrintImageInfo.cxx
+@@ -180,7 +180,7 @@ ::operator() (bool full)
+     c->sout() << " bb = {[" << bb0 << "], [" << bb1 << "]}; ";
+     c->sout() << " vox = " << image->GetSpacing() << "; ";
+     c->sout() << " range = [" << iMin << ", " << iMax << "]; ";
+-    c->sout() << " orient = " << GetRAICodeFromDirectionMatrix(image->GetDirection().GetVnlMatrix()) << endl;
++    c->sout() << " orient = " << GetRAICodeFromDirectionMatrix(image->GetDirection().GetVnlMatrix().as_ref()) << endl;
+     c->sout() << endl;
+     }
+   else
+@@ -191,14 +191,14 @@ ::operator() (bool full)
+     c->sout() << "  Voxel Spacing      : " << image->GetSpacing() << endl;
+     c->sout() << "  Intensity Range    : [" << iMin << ", " << iMax << "]" << endl;
+     c->sout() << "  Mean Intensity     : " << iMean << endl;
+-    c->sout() << "  Canon. Orientation : " << GetRAICodeFromDirectionMatrix(image->GetDirection().GetVnlMatrix()) << endl;
++    c->sout() << "  Canon. Orientation : " << GetRAICodeFromDirectionMatrix(image->GetDirection().GetVnlMatrix().as_ref()) << endl;
+     c->sout() << "  Direction Cos Mtx. : " << endl;
+-    c->PrintMatrix(c->sout(), image->GetDirection().GetVnlMatrix());
++    c->PrintMatrix(c->sout(), image->GetDirection().GetVnlMatrix().as_ref());
+ 
+     // Print NIFTI s-form matrix (check against freesurfer's MRIinfo)
+     c->sout() << "  Voxel->RAS x-form  : " << endl;
+     c->PrintMatrix(c->sout(), 
+-      image->GetVoxelSpaceToRASPhysicalSpaceMatrix().GetVnlMatrix(), "%12.5f ", "    ");
++      image->GetVoxelSpaceToRASPhysicalSpaceMatrix().GetVnlMatrix().as_ref(), "%12.5f ", "    ");
+ 
+     //
+     // Print metadata
+@@ -209,8 +209,7 @@ ::operator() (bool full)
+       {
+       // Get the metadata as a generic object
+       string key = itMeta->first, v_string;
+-      itk::SpatialOrientation::ValidCoordinateOrientationFlags v_oflags = 
+-        itk::SpatialOrientation::ITK_COORDINATE_ORIENTATION_INVALID;
++      auto v_oflags = itk::SpatialOrientationEnums::ValidCoordinateOrientations::ITK_COORDINATE_ORIENTATION_INVALID;
+ 
+       if(itk::ExposeMetaData<string>(mdd, key, v_string))
+         {
+diff --git Submodules/c3d/adapters/ResliceImage.cxx Submodules/c3d/adapters/ResliceImage.cxx
+index c6b04f9..79b59db 100644
+--- Submodules/c3d/adapters/ResliceImage.cxx
++++ Submodules/c3d/adapters/ResliceImage.cxx
+@@ -157,8 +157,8 @@ ::operator() (string format, string fn_tran)
+   *c->verbose << "  Affine Transform: " << endl;
+   vnl_matrix<double> amat(VDim+1, VDim+1, 0); 
+   vnl_vector<double> atmp(VDim+1, 0); 
+-  amat.update(atran->GetMatrix().GetVnlMatrix(), 0, 0);
+-  atmp.update(atran->GetOffset().GetVnlVector(), 0);
++  amat.update(atran->GetMatrix().GetVnlMatrix().as_ref(), 0, 0);
++  atmp.update(atran->GetOffset().GetVnlVector().as_ref(), 0);
+   amat.set_column(VDim, atmp);
+   c->PrintMatrix(*c->verbose, amat, "%12.5f ", "    ");
+ 
+diff --git Submodules/c3d/adapters/SetSform.cxx Submodules/c3d/adapters/SetSform.cxx
+index 3b49c77..a3f47c0 100644
+--- Submodules/c3d/adapters/SetSform.cxx
++++ Submodules/c3d/adapters/SetSform.cxx
+@@ -70,7 +70,7 @@ ::operator() (string fn_tran)
+   itk::Matrix<double,VDim+1,VDim+1> matrix;
+   MyReadMatrix<VDim>(fn_tran.c_str(), matrix);
+   vnl_matrix<double> mat(VDim+1,VDim+1,0.0);
+-  mat.update( matrix.GetVnlMatrix());
++  mat.update( matrix.GetVnlMatrix().as_matrix());
+ 
+   // Set the matrix
+   img->SetVoxelSpaceToRASPhysicalSpaceMatrix( mat );
+diff --git Submodules/c3d/adapters/SwapDimensions.cxx Submodules/c3d/adapters/SwapDimensions.cxx
+index 53bb3b7..9b558b4 100644
+--- Submodules/c3d/adapters/SwapDimensions.cxx
++++ Submodules/c3d/adapters/SwapDimensions.cxx
+@@ -91,7 +91,7 @@ ValidCoordinateOrientationFlags GetOrientationFlagFromString(const std::string &
+     return emap[code];
+ 
+   else
+-    return ITK_COORDINATE_ORIENTATION_INVALID;
++    return itk::SpatialOrientationEnums::ValidCoordinateOrientations::ITK_COORDINATE_ORIENTATION_INVALID;
+ }
+ 
+ template <class TPixel, unsigned int VDim>
+@@ -115,7 +115,7 @@ class SwapDimensions_OrientWorker<TPixel, 3>
+     {
+     // Convert the orientation code to an ITK 
+     ValidCoordinateOrientationFlags oflag = GetOrientationFlagFromString(code);
+-    if(oflag == itk::SpatialOrientation::ITK_COORDINATE_ORIENTATION_INVALID)
++    if(oflag == itk::SpatialOrientationEnums::ValidCoordinateOrientations::ITK_COORDINATE_ORIENTATION_INVALID)
+       throw ConvertException("Orientation flag %s is not valid", code.c_str());
+ 
+     // Create the filter
+diff --git Submodules/c3d/itkextras/itkGaussianInterpolateImageFunction.h Submodules/c3d/itkextras/itkGaussianInterpolateImageFunction.h
+index 4765dfc..7b1d468 100644
+--- Submodules/c3d/itkextras/itkGaussianInterpolateImageFunction.h
++++ Submodules/c3d/itkextras/itkGaussianInterpolateImageFunction.h
+@@ -90,7 +90,7 @@ class ITK_EXPORT GaussianInterpolateImageFunction :
+     }
+ 
+   /** Set input */
+-  virtual void SetInputImage(const TInputImage *img)
++  virtual void SetInputImage(const TInputImage *img) ITK_OVERRIDE
+     {
+     // Call parent method
+     Superclass::SetInputImage(img);
+@@ -117,7 +117,7 @@ class ITK_EXPORT GaussianInterpolateImageFunction :
+    * ImageFunction::IsInsideBuffer() can be used to check bounds before
+    * calling the method. */
+   virtual OutputType EvaluateAtContinuousIndex( 
+-    const ContinuousIndexType & index ) const
++    const ContinuousIndexType & index ) const ITK_OVERRIDE
+     {
+     return EvaluateAtContinuousIndex(index, NULL);
+     }
+@@ -199,10 +199,22 @@ class ITK_EXPORT GaussianInterpolateImageFunction :
+ 
+     }
+ 
++  /** This is definition from ITKv4 Compatible mode. Change this in the future when needed*/
++  virtual typename InputImageType::SizeType
++  GetRadius() const ITK_OVERRIDE
++  {
++    const InputImageType * input = this->GetInputImage();
++    if (!input)
++    {
++      itkExceptionMacro("Input image required!");
++    }
++    return input->GetLargestPossibleRegion().GetSize();
++  }
++
+ protected:
+   GaussianInterpolateImageFunction() {}
+   ~GaussianInterpolateImageFunction(){};
+-  void PrintSelf(std::ostream& os, Indent indent) const
++  void PrintSelf(std::ostream& os, Indent indent) const ITK_OVERRIDE
+     { this->Superclass::PrintSelf(os,indent); }
+ 
+ private:
+diff --git Submodules/c3d/itkextras/itkHessianToObjectnessMeasureImageFilter.h Submodules/c3d/itkextras/itkHessianToObjectnessMeasureImageFilter.h
+index 3e436f5..5ceafdc 100644
+--- Submodules/c3d/itkextras/itkHessianToObjectnessMeasureImageFilter.h
++++ Submodules/c3d/itkextras/itkHessianToObjectnessMeasureImageFilter.h
+@@ -132,9 +132,9 @@ class ITK_EXPORT HessianToObjectnessMeasureImageFilter:public
+ protected:
+   HessianToObjectnessMeasureImageFilter();
+   ~HessianToObjectnessMeasureImageFilter() {}
+-  void PrintSelf(std::ostream & os, Indent indent) const;
++  void PrintSelf(std::ostream & os, Indent indent) const ITK_OVERRIDE;
+ 
+-  void BeforeThreadedGenerateData(void);
++  void BeforeThreadedGenerateData(void) ITK_OVERRIDE;
+ 
+   void DynamicThreadedGenerateData(const OutputImageRegionType & outputRegionForThread) ITK_OVERRIDE;
+ 
+@@ -153,7 +153,7 @@ class ITK_EXPORT HessianToObjectnessMeasureImageFilter:public
+   struct AbsLessEqualCompare {
+     bool operator()(EigenValueType a, EigenValueType b)
+     {
+-      return vnl_math_abs(a) <= vnl_math_abs(b);
++      return abs(a) <= abs(b);
+     }
+   };
+ 
+diff --git Submodules/c3d/itkextras/itkHessianToObjectnessMeasureImageFilter.hxx Submodules/c3d/itkextras/itkHessianToObjectnessMeasureImageFilter.hxx
+index f6d8a52..bd7c92c 100644
+--- Submodules/c3d/itkextras/itkHessianToObjectnessMeasureImageFilter.hxx
++++ Submodules/c3d/itkextras/itkHessianToObjectnessMeasureImageFilter.hxx
+@@ -24,6 +24,7 @@
+ #include "itkProgressReporter.h"
+ 
+ #include "vnl/vnl_math.h"
++#include <cmath>
+ 
+ namespace itk
+ {
+@@ -109,7 +110,7 @@ HessianToObjectnessMeasureImageFilter< TInputImage, TOutputImage >
+     EigenValueArrayType sortedAbsEigenValues;
+     for ( unsigned int i = 0; i < ImageDimension; i++ )
+       {
+-      sortedAbsEigenValues[i] = vnl_math_abs(sortedEigenValues[i]);
++      sortedAbsEigenValues[i] = vnl_math::abs(sortedEigenValues[i]);
+       }
+ 
+     // initialize the objectness measure
+@@ -124,12 +125,12 @@ HessianToObjectnessMeasureImageFilter< TInputImage, TOutputImage >
+         {
+         rADenominatorBase *= sortedAbsEigenValues[j];
+         }
+-      if ( vcl_fabs(rADenominatorBase) > 0.0 )
++      if ( fabs(rADenominatorBase) > 0.0 )
+         {
+-        if ( vcl_fabs(m_Alpha) > 0.0 )
++        if ( fabs(m_Alpha) > 0.0 )
+           {
+-          rA /= vcl_pow( rADenominatorBase, 1.0 / ( ImageDimension - m_ObjectDimension - 1 ) );
+-          objectnessMeasure *= 1.0 - vcl_exp( -0.5 * vnl_math_sqr(rA) / vnl_math_sqr(m_Alpha) );
++          rA /= pow( rADenominatorBase, 1.0 / ( ImageDimension - m_ObjectDimension - 1 ) );
++          objectnessMeasure *= 1.0 - exp( -0.5 * vnl_math::sqr(rA) / vnl_math::sqr(m_Alpha) );
+           }
+         }
+       else
+@@ -146,11 +147,11 @@ HessianToObjectnessMeasureImageFilter< TInputImage, TOutputImage >
+         {
+         rBDenominatorBase *= sortedAbsEigenValues[j];
+         }
+-      if ( vcl_fabs(rBDenominatorBase) > 0.0 && vcl_fabs(m_Beta) > 0.0 )
++      if ( fabs(rBDenominatorBase) > 0.0 && fabs(m_Beta) > 0.0 )
+         {
+-        rB /= vcl_pow( rBDenominatorBase, 1.0 / ( ImageDimension - m_ObjectDimension ) );
++        rB /= pow( rBDenominatorBase, 1.0 / ( ImageDimension - m_ObjectDimension ) );
+ 
+-        objectnessMeasure *= vcl_exp( -0.5 * vnl_math_sqr(rB) / vnl_math_sqr(m_Beta) );
++        objectnessMeasure *= exp( -0.5 * vnl_math::sqr(rB) / vnl_math::sqr(m_Beta) );
+         }
+       else
+         {
+@@ -158,14 +159,14 @@ HessianToObjectnessMeasureImageFilter< TInputImage, TOutputImage >
+         }
+       }
+ 
+-    if ( vcl_fabs(m_Gamma) > 0.0 )
++    if ( fabs(m_Gamma) > 0.0 )
+       {
+       double frobeniusNormSquared = 0.0;
+       for ( unsigned int i = 0; i < ImageDimension; i++ )
+         {
+-        frobeniusNormSquared += vnl_math_sqr(sortedAbsEigenValues[i]);
++        frobeniusNormSquared += vnl_math::sqr(sortedAbsEigenValues[i]);
+         }
+-      objectnessMeasure *= 1.0 - vcl_exp( -0.5 * frobeniusNormSquared / vnl_math_sqr(m_Gamma) );
++      objectnessMeasure *= 1.0 - exp( -0.5 * frobeniusNormSquared / vnl_math::sqr(m_Gamma) );
+       }
+ 
+     // in case, scale by largest absolute eigenvalue
+diff --git Submodules/c3d/itkextras/itkLabelImageGaussianInterpolateImageFunction.h Submodules/c3d/itkextras/itkLabelImageGaussianInterpolateImageFunction.h
+index f26fc03..a910fe2 100644
+--- Submodules/c3d/itkextras/itkLabelImageGaussianInterpolateImageFunction.h
++++ Submodules/c3d/itkextras/itkLabelImageGaussianInterpolateImageFunction.h
+@@ -97,7 +97,7 @@ class ITK_EXPORT LabelImageGaussianInterpolateImageFunction :
+     }
+ 
+   /** Set input */
+-  virtual void SetInputImage(const TInputImage *img)
++  virtual void SetInputImage(const TInputImage *img) ITK_OVERRIDE
+     {
+     // Call parent method
+     Superclass::SetInputImage(img);
+@@ -124,7 +124,7 @@ class ITK_EXPORT LabelImageGaussianInterpolateImageFunction :
+    * ImageFunction::IsInsideBuffer() can be used to check bounds before
+    * calling the method. */
+   virtual OutputType EvaluateAtContinuousIndex( 
+-    const ContinuousIndexType & index ) const
++    const ContinuousIndexType & index ) const override
+     {
+       // The bound variables for x, y, z
+       int i0[VDim], i1[VDim];
+@@ -170,11 +170,11 @@ class ITK_EXPORT LabelImageGaussianInterpolateImageFunction :
+         
+         double wtest;
+         OutputType V = it.Get();
+-        WeightIter it = wm.find(V);
+-        if(it != wm.end())
++        WeightIter wit = wm.find(V);
++        if(wit != wm.end())
+           {
+-          it->second += w;
+-          wtest = it->second;
++          wit->second += w;
++          wtest = wit->second;
+           }
+         else
+           {
+@@ -194,10 +194,22 @@ class ITK_EXPORT LabelImageGaussianInterpolateImageFunction :
+       return vmax;
+     }
+ 
++  /** This is definition from ITKv4 Compatible mode. Change this in the future when needed*/
++  virtual typename InputImageType::SizeType
++  GetRadius() const ITK_OVERRIDE
++  {
++    const InputImageType * input = this->GetInputImage();
++    if (!input)
++    {
++      itkExceptionMacro("Input image required!");
++    }
++    return input->GetLargestPossibleRegion().GetSize();
++  }
++
+ protected:
+   LabelImageGaussianInterpolateImageFunction() {}
+   ~LabelImageGaussianInterpolateImageFunction(){};
+-  void PrintSelf(std::ostream& os, Indent indent) const
++  void PrintSelf(std::ostream& os, Indent indent) const ITK_OVERRIDE
+     { this->Superclass::PrintSelf(os,indent); }
+ 
+ private:
+diff --git Submodules/c3d/itkextras/itkLabelOverlapMeasuresImageFilter.h Submodules/c3d/itkextras/itkLabelOverlapMeasuresImageFilter.h
+index bb61805..ad59608 100644
+--- Submodules/c3d/itkextras/itkLabelOverlapMeasuresImageFilter.h
++++ Submodules/c3d/itkextras/itkLabelOverlapMeasuresImageFilter.h
+@@ -18,10 +18,10 @@
+ #define __itkLabelOverlapMeasuresImageFilter_h
+ 
+ #include "itkImageToImageFilter.h"
+-#include "itkFastMutexLock.h"
++#include <mutex>
+ #include "itkNumericTraits.h"
+ 
+-#include "itk_hash_map.h"
++#include <unordered_map>
+ 
+ namespace itk {
+ 
+@@ -100,7 +100,7 @@ class ITK_EXPORT LabelOverlapMeasuresImageFilter :
+     };
+ 
+   /** Type of the map used to store data per label */
+-  typedef hash_map<LabelType, LabelSetMeasures> MapType;
++  typedef std::unordered_map<LabelType, LabelSetMeasures> MapType;
+   typedef typename MapType::iterator MapIterator;
+   typedef typename MapType::const_iterator MapConstIterator;
+ 
+@@ -166,27 +166,27 @@ class ITK_EXPORT LabelOverlapMeasuresImageFilter :
+ protected:
+   LabelOverlapMeasuresImageFilter();
+   ~LabelOverlapMeasuresImageFilter(){};
+-  void PrintSelf( std::ostream& os, Indent indent ) const;
++  void PrintSelf( std::ostream& os, Indent indent ) const ITK_OVERRIDE;
+ 
+   /**
+    * Pass the input through unmodified. Do this by setting the output to the
+    * source this by setting the output to the source image in the
+    * AllocateOutputs() method.
+    */
+-  void AllocateOutputs();
++  void AllocateOutputs() ITK_OVERRIDE;
+ 
+-  void BeforeThreadedGenerateData();
++  void BeforeThreadedGenerateData() ITK_OVERRIDE;
+ 
+-  void AfterThreadedGenerateData();
++  void AfterThreadedGenerateData() ITK_OVERRIDE;
+ 
+   /** Multi-thread version GenerateData. */
+-  void ThreadedGenerateData( const RegionType&, int );
++  virtual void ThreadedGenerateData( const RegionType&, ThreadIdType ) ITK_OVERRIDE;
+ 
+   // Override since the filter needs all the data for the algorithm
+-  void GenerateInputRequestedRegion();
++  void GenerateInputRequestedRegion() ITK_OVERRIDE;
+ 
+   // Override since the filter produces all of its output
+-  void EnlargeOutputRequestedRegion( DataObject *data );
++  void EnlargeOutputRequestedRegion( DataObject *data ) ITK_OVERRIDE;
+ 
+ private:
+   LabelOverlapMeasuresImageFilter( const Self& ); //purposely not implemented
+@@ -195,7 +195,7 @@ class ITK_EXPORT LabelOverlapMeasuresImageFilter :
+   std::vector<MapType>                            m_LabelSetMeasuresPerThread;
+   MapType                                         m_LabelSetMeasures;
+ 
+-  SimpleFastMutexLock                             m_Mutex;
++  std::mutex                                      m_Mutex;
+ 
+ }; // end of class
+ 
+diff --git Submodules/c3d/itkextras/itkLabelOverlapMeasuresImageFilter.txx Submodules/c3d/itkextras/itkLabelOverlapMeasuresImageFilter.txx
+index c2af626..d64a0c8 100644
+--- Submodules/c3d/itkextras/itkLabelOverlapMeasuresImageFilter.txx
++++ Submodules/c3d/itkextras/itkLabelOverlapMeasuresImageFilter.txx
+@@ -26,8 +26,8 @@ namespace itk {
+ 
+ #if defined(__GNUC__) && (__GNUC__ <= 2) //NOTE: This class needs a mutex for gnu 2.95
+ /** Used for mutex locking */
+-#define LOCK_HASHMAP this->m_Mutex.Lock()
+-#define UNLOCK_HASHMAP this->m_Mutex.Unlock()
++#define LOCK_HASHMAP this->m_Mutex.lock()
++#define UNLOCK_HASHMAP this->m_Mutex.unlock()
+ #else
+ #define LOCK_HASHMAP
+ #define UNLOCK_HASHMAP
+@@ -90,7 +90,7 @@ void
+ LabelOverlapMeasuresImageFilter<TLabelImage>
+ ::BeforeThreadedGenerateData()
+ {
+-  int numberOfThreads = this->GetNumberOfThreads();
++  int numberOfThreads = this->GetNumberOfWorkUnits();
+ 
+   // Resize the thread temporaries
+   this->m_LabelSetMeasuresPerThread.resize( numberOfThreads );
+@@ -111,7 +111,7 @@ LabelOverlapMeasuresImageFilter<TLabelImage>
+ ::AfterThreadedGenerateData()
+ {
+   // Run through the map for each thread and accumulate the set measures.
+-  for( int n = 0; n < this->GetNumberOfThreads(); n++ )
++  for( int n = 0; n < this->GetNumberOfWorkUnits(); n++ )
+     {
+     // iterate over the map for this thread
+     for( MapConstIterator threadIt = this->m_LabelSetMeasuresPerThread[n].begin();
+@@ -146,7 +146,7 @@ template<class TLabelImage>
+ void
+ LabelOverlapMeasuresImageFilter<TLabelImage>
+ ::ThreadedGenerateData( const RegionType& outputRegionForThread,
+-  int threadId )
++  ThreadIdType threadId )
+ {
+   ImageRegionConstIterator<LabelImageType> ItS( this->GetSourceImage(),
+     outputRegionForThread );
+diff --git Submodules/c3d/itkextras/itkMultiScaleHessianBasedMeasureImageFilter.hxx Submodules/c3d/itkextras/itkMultiScaleHessianBasedMeasureImageFilter.hxx
+index 1af5faf..39dee46 100644
+--- Submodules/c3d/itkextras/itkMultiScaleHessianBasedMeasureImageFilter.hxx
++++ Submodules/c3d/itkextras/itkMultiScaleHessianBasedMeasureImageFilter.hxx
+@@ -21,6 +21,7 @@
+ #include "itkMultiScaleHessianBasedMeasureImageFilter.h"
+ #include "itkImageRegionIterator.h"
+ #include "vnl/vnl_math.h"
++#include <cmath>
+ 
+ /*
+  *
+@@ -342,15 +343,15 @@ MultiScaleHessianBasedMeasureImageFilter
+     {
+     case Self::EquispacedSigmaSteps:
+       {
+-      const double stepSize = vnl_math_max( 1e-10, ( m_SigmaMaximum - m_SigmaMinimum ) / ( m_NumberOfSigmaSteps - 1 ) );
++      const double stepSize = vnl_math::max( 1e-10, ( m_SigmaMaximum - m_SigmaMinimum ) / ( m_NumberOfSigmaSteps - 1 ) );
+       sigmaValue = m_SigmaMinimum + stepSize * scaleLevel;
+       break;
+       }
+     case Self::LogarithmicSigmaSteps:
+       {
+       const double stepSize =
+-        vnl_math_max( 1e-10, ( vcl_log(m_SigmaMaximum) - vcl_log(m_SigmaMinimum) ) / ( m_NumberOfSigmaSteps - 1 ) );
+-      sigmaValue = vcl_exp(vcl_log (m_SigmaMinimum) + stepSize * scaleLevel);
++        vnl_math::max( 1e-10, ( log(m_SigmaMaximum) - log(m_SigmaMinimum) ) / ( m_NumberOfSigmaSteps - 1 ) );
++      sigmaValue = exp(log (m_SigmaMinimum) + stepSize * scaleLevel);
+       break;
+       }
+     default:
+diff --git Submodules/c3d/utilities/AffineTransformTool.cxx Submodules/c3d/utilities/AffineTransformTool.cxx
+index 4c3d0a8..0558b60 100644
+--- Submodules/c3d/utilities/AffineTransformTool.cxx
++++ Submodules/c3d/utilities/AffineTransformTool.cxx
+@@ -221,7 +221,7 @@ void quart_print(MatrixType &mat )
+ 
+ 
+   // QR decomposition
+-  vnl_qr<double> qr(A);
++  vnl_qr<double> qr(A.as_matrix());
+   vnl_matrix_fixed<double, 3, 3> m = qr.Q(), R = qr.R(), F;
+ 
+   F.set_identity();
+@@ -350,7 +350,7 @@ void irtk_write(MatrixStack &vmat, const char *fname)
+   Mat33 A = M.extract(3,3);
+   
+   // QR decomposition
+-  vnl_qr<double> qr(A);
++  vnl_qr<double> qr(A.as_matrix());
+   Mat33 Q = qr.Q(), R = qr.R();
+ 
+   // Compute the flip matrix so that the scales are positive
+
