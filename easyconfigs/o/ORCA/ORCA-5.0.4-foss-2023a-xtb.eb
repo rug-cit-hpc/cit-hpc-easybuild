@@ -1,0 +1,34 @@
+name = 'ORCA'
+version = '5.0.4'
+versionsuffix = '-xtb'
+
+homepage = 'https://orcaforum.kofo.mpg.de'
+description = """
+ORCA is a flexible, efficient and easy-to-use general purpose tool for quantum
+chemistry with specific emphasis on spectroscopic properties of open-shell
+molecules. It features a wide variety of standard quantum chemical methods
+ranging from semiempirical methods to DFT to single- and multireference
+correlated ab initio methods. It can also treat environmental and relativistic
+effects."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# mostly dynamically linked (SCALAPACK, OpenBLAS are still embedded)
+sources = ['%(namelower)s_5_0_4_linux_%(orcaarch)s_shared_openmpi411.tar.xz']
+patches = [('%(name)s-%(version)s%(versionsuffix)s.patch', 1)]
+checksums = [
+    {'orca_5_0_4_linux_x86-64_shared_openmpi411.tar.xz': 'c4ea5aea60da7bcb18a6b7042609206fbeb2a765c6fa958c5689d450b588b036'},
+    {'%(name)s-%(version)s%(versionsuffix)s.patch': '8899306d6441d288c98ff1822c7345aebab455065c8cce8feec52cbc22e2bc6d'},
+]
+
+dependencies = [
+    ('xtb', '6.7.0'),
+]
+
+download_instructions = "Shared build of %(name)s: download from https://orcaforum.kofo.mpg.de"
+# This only works for old versions of XTB
+# postinstallcmds = ['ln -s ${EBROOTXTB}/bin/xtb %(installdir)s/bin/otool_xtb']
+# So we patch in a wrapper instead
+postinstallcmds = ['cp %(start_dir)s/otool_xtb %(installdir)s/bin && chmod +x %(installdir)s/bin/otool_xtb']
+
+moduleclass = 'chem'
