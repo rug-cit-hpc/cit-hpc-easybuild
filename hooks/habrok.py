@@ -212,6 +212,9 @@ def pre_module_hook(self, *args, **kwargs):
     if self.name == 'OpenMPI':
         self.cfg.update('modluafooter', OPENMPI_OPA_FOOTER)
 
+    # OpenBLAS: set OPENBLAS_NUM_THREADS to 1 to prevent multiple levels of parallelization
+    if self.name == 'OpenBLAS':
+        self.cfg.update('modextravars', {'OPENBLAS_NUM_THREADS': '1'})
 
 def pre_install_hook(self, *args, **kwargs):
     # R Packages: temporarily revert the -march=x86-64-v3 flags in the R installation back to -march=native
