@@ -345,3 +345,4 @@ easyconfigs:
         ignore-test-failure: True
   - FreeImage-3.18.0-GCCcore-12.3.0.eb 
   - CellRanger-ARC-2.0.2.eb
+  - Java-21.eb
