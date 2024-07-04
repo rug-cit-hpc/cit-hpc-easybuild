@@ -347,3 +347,6 @@ easyconfigs:
   - CellRanger-ARC-2.0.2.eb
   - Java-21.eb
   - FastQC-0.12.1-Java-11.eb
+  - MultiQC-1.22.3-foss-2023b.eb:
+      options:
+        from-pr: 20954
