@@ -240,7 +240,7 @@ def add_symlink_to_original_R_makevars(log):
         if not os.path.exists(r_orig_makeconf):
             log.warn("Cannot find the original Makeconf file at %s, proceeding with the default one..." % r_orig_makeconf)
         if not os.path.exists(r_user_dir):
-            mkdir(r_user_dir)
+            os.mkdir(r_user_dir)
         log.info("[pre-install hook] Setting up a symbolic link to the original R Makeconf file...")
         symlink(r_orig_makeconf, r_user_makevars)
 
