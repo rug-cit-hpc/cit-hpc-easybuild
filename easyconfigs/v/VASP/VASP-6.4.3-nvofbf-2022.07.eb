@@ -18,7 +18,7 @@ dependencies = [
 download_instructions = """Vasp is proprietary software, see http://www.vasp.at/index.php/faqs
  on how to get access to the code."""
 
-sources = ['%(namelower)s.%(version)s.tgz']
+sources = ['%(namelower)s.%(version)s.tar']
 patches = [
     'VASP-6.4.2-nvofbf-2022.07_fix-nvhpc-rpath.patch',
     'VASP-6.4.3-nvofbf-2022.07_add_wannier.patch'
