@@ -24,7 +24,7 @@ patches = [
     'VASP-6.4.3-nvofbf-2022.07_add_wannier.patch'
 ]
 checksums = [
-    {'vasp.6.4.3.tgz': '52fa98b8c276cb32161b0889c1bc7c3e43ceb543eac59bf88e8b9a8a4d8bc4c1'},
+    {'vasp.6.4.3.tar': '52fa98b8c276cb32161b0889c1bc7c3e43ceb543eac59bf88e8b9a8a4d8bc4c1'},
     {'VASP-6.4.2-nvofbf-2022.07_fix-nvhpc-rpath.patch':
      '5a885b48ebd625aced779ea9f9b37a22f7382342dbab35726229d77c60b5f4dd'},
     {'VASP-6.4.3-nvofbf-2022.07_add_wannier.patch': 'c7dcbb58251f22e22bc7ad567d1b130e86c0dddca0836978643aadeea9952778'},
