@@ -1,0 +1,20 @@
+easyblock = "Tarball"
+
+name = 'ITK-SNAP'
+version = '4.0.2'
+
+homepage = 'http://www.itksnap.org/'
+description = """ ITK-SNAP is a software application used to segment structures in 3D medical images. """
+
+toolchain = SYSTEM
+
+source_urls = [('https://sourceforge.net/projects/itk-snap/files/itk-snap/%(version)s/')]
+sources = ['itksnap-%(version)s-Linux-gcc64.tar.gz']
+checksums = ['e7e6d411d8130d3dcde72698feec45b8']
+
+sanity_check_paths = {
+    'files': ["bin/itksnap", "bin/itksnap-wt"],
+    'dirs': ["bin", "lib"]
+}
+
+moduleclass = 'bio'
