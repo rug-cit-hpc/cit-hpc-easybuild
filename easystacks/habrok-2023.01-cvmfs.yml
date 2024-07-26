@@ -350,3 +350,9 @@ easyconfigs:
   - MultiQC-1.22.3-foss-2023b.eb:
       options:
         from-pr: 20954
+  - FastTree-2.1.11-GCCcore-12.2.0.eb:
+      options:
+        from-pr: 20413
+  - chewBBACA-3.3.9-foss-2022b.eb:
+      options:
+        from-pr: 21070
