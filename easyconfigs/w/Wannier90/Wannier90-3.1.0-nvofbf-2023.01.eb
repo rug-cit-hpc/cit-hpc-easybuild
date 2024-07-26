@@ -6,7 +6,7 @@ version = '3.1.0'
 homepage = 'http://www.wannier.org'
 description = """A tool for obtaining maximally-localised Wannier functions"""
 
-toolchain = {'name': 'nvofbf', 'version': '2022.07'}
+toolchain = {'name': 'nvofbf', 'version': '2023.01'}
 toolchainopts = {'usempi': True}
 
 github_account = 'wannier-developers'
@@ -33,4 +33,3 @@ sanity_check_paths = {
 }
 
 moduleclass = 'chem'
-
