@@ -356,3 +356,5 @@ easyconfigs:
   - chewBBACA-3.3.9-foss-2022b.eb:
       options:
         from-pr: 21070
+  - R-4.4.1-gfbf-2023b.eb
+  - R-bundle-CRAN-2024.06-foss-2023b.eb
