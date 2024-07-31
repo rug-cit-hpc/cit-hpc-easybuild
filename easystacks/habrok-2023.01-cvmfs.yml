@@ -393,3 +393,11 @@ easyconfigs:
   - libidn-1.41-GCCcore-11.3.0.eb
   - Qt6-6.5.2-GCCcore-12.3.0.eb
   - snakemake-7.22.0-foss-2022a.eb
+  - FastTree-2.1.11-GCCcore-12.2.0.eb:
+      options:
+        from-pr: 20413
+  - chewBBACA-3.3.9-foss-2022b.eb:
+      options:
+        from-pr: 21070
+  - R-4.4.1-gfbf-2023b.eb
+  - R-bundle-CRAN-2024.06-foss-2023b.eb
