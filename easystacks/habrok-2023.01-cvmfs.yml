@@ -350,6 +350,49 @@ easyconfigs:
   - MultiQC-1.22.3-foss-2023b.eb:
       options:
         from-pr: 20954
+  - graph-tool-2.59-foss-2023a.eb
+  - GROMACS-2023.1-foss-2022a.eb
+  - GROMACS-2023.1-foss-2022a-CUDA-11.7.0.eb
+  - ITK-5.3.0-foss-2023a.eb
+  - Jupyter-bundle-20230823-GCCcore-12.3.0.eb
+  - Seurat-5.1.0-foss-2023a-R-4.3.2.eb
+  - SuiteSparse-7.1.0-foss-2023a.eb
+  - SUNDIALS-6.6.0-foss-2023a-CUDA-12.1.1.eb
+  - texlive-20230313-GCC-11.3.0.eb
+  - VTK-9.3.0-foss-2023a.eb
+  - xtb-6.7.0-foss-2023a.eb
+  - VSCode-1.88.1.eb
+  - R-bundle-Bioconductor-3.18-foss-2023a-R-4.3.2.eb
+  - assimp-5.2.5-GCCcore-12.3.0.eb
+  - code-server-4.22.1.eb
+  - code-server-4.89.1.eb
+  - CUDA-12.0.0.eb
+  - DB-18.1.40-GCCcore-12.3.0.eb
+  - EasyBuild-4.9.2.eb
+  - graphite2-1.3.14-GCCcore-12.3.0.eb
+  - ITK-5.2.1-foss-2022b.eb
+  - ITK-SNAP-3.8.0-20190612.eb
+  - ITK-SNAP-4.0.2.eb
+  - NAMD-2.14-foss-2022a-mpi.eb
+  - NSPR-4.35-GCCcore-12.3.0.eb
+  - NSS-3.89.1-GCCcore-12.3.0.eb
+  - NVHPC-23.1-CUDA-12.0.0.eb:
+      options:
+        accept-eula-for: NVHPC
+  - Pillow-SIMD-9.2.0-GCCcore-11.3.0.eb
+  - PyTorch-1.12.0-foss-2022a.eb
+  - RStudio-Server-2022.07.2+576-foss-2022a-Java-11-R-4.2.1.eb
+  - SOCI-4.0.3-GCC-11.3.0.eb
+  - torchvision-0.13.1-foss-2022a.eb
+  - Clang-11.0.1-GCCcore-10.2.0.eb
+  - beagle-lib-3.1.2-GCC-10.2.0.eb
+  - Beast-1.10.4-GCC-10.2.0.eb
+  - NAMD-2.14-foss-2022a-CUDA-11.7.0.eb
+  - Seurat-5.0.1-foss-2023a-R-4.3.2.eb
+  - libidn-1.38-GCCcore-11.2.0.eb
+  - libidn-1.41-GCCcore-11.3.0.eb
+  - Qt6-6.5.2-GCCcore-12.3.0.eb
+  - snakemake-7.22.0-foss-2022a.eb
   - FastTree-2.1.11-GCCcore-12.2.0.eb:
       options:
         from-pr: 20413
