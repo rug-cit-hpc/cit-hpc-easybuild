@@ -2,7 +2,7 @@ import os
 
 from easybuild.tools.build_log import EasyBuildError
 from easybuild.tools.config import ConfigurationVariables
-from easybuild.tools.filetools import apply_regex_substitutions, remove_file, symlink
+from easybuild.tools.filetools import apply_regex_substitutions, remove_file, symlink, write_file
 
 
 NOT_IN_GROUP_MSG = "This software can only be used by members of the {group} group, "
@@ -228,6 +228,11 @@ def post_install_hook(self, *args, **kwargs):
     # R Packages: remove the symlink that was created in the pre install hook for overriding the -march flag.
     if self.cfg['easyblock'] == 'RPackage':
         remove_symlink_to_original_R_makevars(self.log)
+    # Add a site configuration file to the R installation
+    if self.name == 'R':
+        R_site_profile = bytes("options(bitmapType = 'cairo')\n",'ASCII')
+        R_profile_path = os.path.join(self.installdir, 'lib64', 'R', 'etc', 'Rprofile.site')
+        write_file(R_profile_path, R_site_profile)
 
 
 def add_symlink_to_original_R_makevars(log):
