@@ -402,3 +402,4 @@ easyconfigs:
   - R-4.4.1-gfbf-2023b.eb
   - R-bundle-CRAN-2024.06-foss-2023b.eb
   - CellRanger-7.1.0.eb
+  - GetOrganelle-1.7.7.1-foss-2023a.eb
