@@ -2,16 +2,29 @@ easyblock = 'MesonNinja'
 
 name = 'xtb'
 version = '6.7.1'
+local_commit = '42d6c80f1e6c17e9488752fd1da8bc22ac395024'
 
 homepage = 'https://xtb-docs.readthedocs.io'
 description = """ xtb - An extended tight-binding semi-empirical program package. """
 
-toolchain = {'name': 'foss', 'version': '2023b'}
+toolchain = {'name': 'gfbf', 'version': '2023b'}
 
-github_account = 'grimme-lab'
-source_urls = [GITHUB_LOWER_SOURCE]
-sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
-checksums = ['52506a689147cdb4695bf1c666158b6d6d6b31726fecaa5bf53af7f4e3f3d20d']
+
+# We download from a commit because the FORTRAN compilation
+# fails in the tagged version with the 2023b toolchain
+local_commit = '42d6c80f1e6c17e9488752fd1da8bc22ac395024'
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'download_filename': '%(namelower)s-local_commit.tar.gz', 
+    'git_config': {
+        'url': 'https://github.com/grimme-lab',
+        'repo_name': '%(namelower)s',
+        'commit': local_commit,
+        'keep_git_dir': True,
+    }
+}]
+patches = ['%(name)s-%(version)s_dftd4.patch']
+
 
 builddependencies = [
     ('Meson', '1.2.3'),
