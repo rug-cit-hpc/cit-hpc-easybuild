@@ -1,0 +1,9 @@
+Tagged xtb 6.7.1 requires dftd4 v3.6.0
+--- subprojects/dftd4.wrap	2024-08-12 16:08:06.000000000 +0200
++++ subprojects/dftd4.wrap	2024-08-12 16:16:20.459992640 +0200
+@@ -1,4 +1,4 @@
+ [wrap-git]
+ directory = dftd4
+ url = https://github.com/dftd4/dftd4
+-revision = v3.5.0
++revision = v3.6.0
