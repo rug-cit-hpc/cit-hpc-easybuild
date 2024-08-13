@@ -93,10 +93,12 @@ class EB_ORCA(PackedBinary, MakeCp):
                 files_to_copy.append(compoundmethods)
             if version >= LooseVersion('6.0.0'):
                 compoundscripts = (['CompoundScripts'], 'bin')
-                datasets = (['datasets'], 'datasets')
-                lib = (['lib'], 'lib')
-                files_to_copy.extend(compoundscripts, datasets, lib)
-            
+                datasets = ('datasets')
+                lib = ('lib')
+                files_to_copy.append(compoundscripts)
+                files_to_copy.append(datasets)
+                files_to_copy.append(lib)
+
             # Shared builds have additional libraries
             libs_to_copy = (['liborca*'], 'lib')
             if all([glob.glob(p) for p in libs_to_copy[0]]):
