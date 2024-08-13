@@ -21,6 +21,9 @@ checksums = [
     {'orca_6_0_0_linux_x86-64_avx2_shared_openmpi416.tar.xz': '02c21294efe7b1b721e26cb90f98ee15ad682d02807201b7d217dfe67905a2fd'},
     {'ORCA-5.0.4-xtb.patch': '8899306d6441d288c98ff1822c7345aebab455065c8cce8feec52cbc22e2bc6d'},
 ]
+dependencies = [
+    ('xtb', '6.7.1'),
+]
 
 
 
