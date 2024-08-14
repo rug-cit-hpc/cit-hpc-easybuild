@@ -18,3 +18,4 @@ easyconfigs:
   - Molpro-mpp-2024.1.0.linux_x86_64_sockets.eb
       options:
         from-pr: 20491
+  - ORCA-6.0.0-foss-2023b-avx2-xtb.eb
