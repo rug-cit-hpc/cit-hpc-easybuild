@@ -1,0 +1,76 @@
+easyblock = 'Bundle'
+
+name = 'Seurat'
+version = '5.0.1'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://satijalab.org/seurat'
+description = "Seurat is an R package designed for QC, analysis, and exploration of single cell RNA-seq data."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('R', '4.3.2'),
+    ('R-bundle-Bioconductor', '3.18', versionsuffix),
+]
+
+exts_defaultclass = 'RPackage'
+exts_default_options = {
+    'sources': ['%(name)s_%(version)s.tar.gz'],
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+}
+
+exts_list = [
+    ('Matrix', '1.6-5', {
+        'checksums': ['726c8d46626e73d1d6e76a74679813c6df96ffdee1aee45d94e7014cb4ceb97d'],
+    }),
+    ('sp', '2.1-3', {
+        'checksums': ['fa939272e534811b34cfca7d1c619448b1e4f90240c092e25bb8764445c68454'],
+    }),
+    ('SeuratObject', '5.0.1', {
+        'checksums': ['5ace1720fef373d44da36d28cab8947cd3c342e76f889c2f204a62d668f5f941'],
+    }),
+    ('sctransform', '0.4.1', {
+        'checksums': ['5f6be7f8be543e4c32c8007207b603a750881459370b7bb5afd63e8c8fabf171'],
+    }),
+    ('uwot', '0.1.16', {
+        'checksums': ['5f63a0d9edddb08435477af52724cb588c787c8d543c68c9358ed7b1ec3e8e48'],
+    }),
+    ('spatstat.utils', '3.0-4', {
+        'checksums': ['5d418e39e0e20a14d44779fcde17caea9bf8075f1647baa59342e824b40f3cc4'],
+    }),
+    ('spatstat.data', '3.0-4', {
+        'checksums': ['d103343f4eb5b5cee184371ab1c3e141725b3d71c3b79cdab0eec5076dd116e8'],
+    }),
+    ('spatstat.geom', '3.2-8', {
+        'checksums': ['4bd6f401fbb3a7d9a0cdccb6cdeb9b0d8a2d114e4c75a224aff2be62c0990923'],
+    }),
+    ('spatstat.random', '3.2-2', {
+        'checksums': ['48c6ee4c51ac50e4bf939118f9e5f94470529c0ee608b628ce4de79bfe813a07'],
+    }),
+    ('spatstat.sparse', '3.0-3', {
+        'checksums': ['6bbc4e42ae71eece63e8c3e390068a84eeeb6cd4f6bdb555d8815aa2ed988d69'],
+    }),
+    ('spatstat.explore', '3.2-6', {
+        'checksums': ['5fcf3e1ee9ea3b4d1587cc687ca4030912756c8e6fbd104b568e48e9108e405a'],
+    }),
+    ('scattermore', '1.2', {
+        'checksums': ['5534a87b0bdd1375f0fbffc1a5c980ad64e33a108435a67469b8324b580602d1'],
+    }),
+    (name, version, {
+        'checksums': ['0713b434be5bf14fcea068fbfc632ba15bebdec1007f1f48effd0dbb95c5150d'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+moduleclass = 'bio'
