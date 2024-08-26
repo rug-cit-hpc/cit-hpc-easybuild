@@ -407,3 +407,4 @@ easyconfigs:
   - GROMACS-2023.3-foss-2023a-PLUMED-2.9.0.eb
   - xtb-6.7.1-foss-2023b.eb
   - QuantumESPRESSO-7.3.1-foss-2023a.eb
+  - MUSCLE-3.8.31-GCCcore-11.2.0.eb
