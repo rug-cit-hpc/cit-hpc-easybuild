@@ -15,7 +15,7 @@ toolchain = SYSTEM
 # cd /mnt
 # tar zcf <path-to-sources>/COMSOL-6.2.tar.gz .
 # umount /mnt
-sources = [SOURCE_TAR_GZ]
+sources = [SOURCE_ZIP]
 checksums = [None]
 
 import os
