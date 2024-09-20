@@ -16,7 +16,7 @@ toolchain = SYSTEM
 # tar zcf <path-to-sources>/COMSOL-6.2.tar.gz .
 # umount /mnt
 sources = [SOURCE_ZIP]
-checksums = [None]
+checksums = ['677f97e14fd159da3e73614963678bb9629e1b15165144a4a2062c1e529ef71a']
 
 import os
 license_file=os.getenv('LMCOMSOL_LICENSE_FILE', 'license.dat')
