@@ -1,0 +1,17 @@
+name = 'FLUENT'
+version = '2024R2'
+
+homepage = 'https://www.ansys.com/products/fluids/ansys-fluent'
+description = """ANSYS FLUENT software contains the broad physical modeling capabilities needed
+to model flow, turbulence, heat transfer, and reactions for industrial applications ranging from
+air flow over an aircraft wing to combustion in a furnace, from bubble columns to oil platforms,
+from blood flow to semiconductor manufacturing, and from clean room design to wastewater treatment plants."""
+
+toolchain = SYSTEM
+
+sources = ['FLUIDSTRUCTURES_%(version)s_LINX64.tgz']
+checksums = ['7497e5cccc60af8c3637aba5d85efa53d37b4360ce1de82787c83eaa40d4b83d']
+
+subdir_version = '242'
+
+moduleclass = 'cae'
