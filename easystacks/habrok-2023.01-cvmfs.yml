@@ -412,3 +412,4 @@ easyconfigs:
   - MUSCLE-3.8.31-GCCcore-11.2.0.eb
   - SAMtools-0.1.19-GCC-10.3.0.eb
   - rclone-1.66.0.eb
+  - OpenBabel-3.1.1-gompi-2023b.eb
