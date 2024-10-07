@@ -204,6 +204,12 @@ def pre_module_hook(self, *args, **kwargs):
         luafooter =  'execute{cmd="source \'"..pathJoin(root, "/etc/profile.d/conda."..myShellType()).."\'", modeA={"load"}}'
         self.cfg.update('modluafooter', luafooter)
 
+    # Gaussian: make newer CPUs compatible with older Gaussian version to prevent errors like
+    # Error during math dispatch processing...
+    # Error: Fastmath dispatch table is corrupt
+    if self.name == 'Gaussian':
+        self.cfg.update('modextravars', {'PGI_FASTMATH_CPU': 'sandybridge', 'OMP_THREAD_LIMIT': '128'})
+
     # Kraken2: add module load message about datasets
     if self.name == 'Kraken2':
         self.cfg['modloadmsg'] = KRAKEN2_LOAD_MSG
