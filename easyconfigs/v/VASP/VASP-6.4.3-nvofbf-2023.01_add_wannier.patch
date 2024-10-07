@@ -1,0 +1,16 @@
+--- arch/makefile.include.nvhpc_omp_acc	2024-02-23 16:25:59.364720368 +0100
++++ arch/makefile.include.nvhpc_omp_acc	2024-02-23 16:30:37.921687191 +0100
+@@ -100,9 +100,9 @@
+ #INCS       += -I$(HDF5_ROOT)/include
+
+ # For the VASP-2-Wannier90 interface (optional)
+-#CPP_OPTIONS    += -DVASP2WANNIER90
+-#WANNIER90_ROOT ?= /path/to/your/wannier90/installation
+-#LLIBS          += -L$(WANNIER90_ROOT)/lib -lwannier
++CPP_OPTIONS    += -DVASP2WANNIER90
++WANNIER90_ROOT ?= /path/to/your/wannier90/installation
++LLIBS          += -L$(WANNIER90_ROOT)/lib -lwannier
+
+ # For the fftlib library (hardly any benefit for the OpenACC GPU port)
+ #CPP_OPTIONS+= -Dsysv
+
