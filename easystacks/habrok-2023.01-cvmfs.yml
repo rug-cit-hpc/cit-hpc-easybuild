@@ -416,3 +416,5 @@ easyconfigs:
   - CREST-3.0.2-gfbf-2023b.eb:
       options:
         from-pr: 21548
+  - Racon-1.5.0-GCCcore-13.2.0.eb
+  - Flye-2.9.4-GCC-13.2.0.eb
