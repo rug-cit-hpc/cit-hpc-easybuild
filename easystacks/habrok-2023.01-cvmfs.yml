@@ -418,5 +418,6 @@ easyconfigs:
         from-pr: 21548
   - Racon-1.5.0-GCCcore-13.2.0.eb
   - Flye-2.9.4-GCC-13.2.0.eb
+  - GetOrganelle-1.7.6.1-foss-2021b.eb
   - PyTorch-bundle-2.1.2-foss-2023a.eb
   - PyTorch-bundle-2.1.2-foss-2023a-CUDA-12.1.1.eb
