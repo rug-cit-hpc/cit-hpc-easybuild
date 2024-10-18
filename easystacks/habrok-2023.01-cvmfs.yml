@@ -401,6 +401,9 @@ easyconfigs:
   - chewBBACA-3.3.9-foss-2022b.eb:
       options:
         from-pr: 21070
+  - Wannier90-3.1.0-nvofbf-2023.01.eb:
+      options:
+        from-pr: 20265,20269,20716
   - R-4.4.1-gfbf-2023b.eb
   - R-bundle-CRAN-2024.06-foss-2023b.eb
   - CellRanger-7.1.0.eb
