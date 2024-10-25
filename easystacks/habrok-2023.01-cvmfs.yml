@@ -421,3 +421,4 @@ easyconfigs:
   - GetOrganelle-1.7.6.1-foss-2021b.eb
   - PyTorch-bundle-2.1.2-foss-2023a.eb
   - PyTorch-bundle-2.1.2-foss-2023a-CUDA-12.1.1.eb
+  - cuDNN-8.9.2.26-CUDA-12.2.0.eb
