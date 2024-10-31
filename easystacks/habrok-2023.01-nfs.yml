@@ -5,3 +5,6 @@ easyconfigs:
   - VASP-6.4.1-nvofbf-2022.07.eb
   - VASP-5.4.4.pl2-intel-2022a.eb
   - VASP-6.4.2-nvofbf-2022.07.eb
+  - VASP-6.4.3-nvofbf-2023.01.eb:
+      options:
+        from-pr: 20265,20269,20716
